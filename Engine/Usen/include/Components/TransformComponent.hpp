@@ -17,14 +17,29 @@
 class UTransformComponent : public IComponent
 {
 public:
-	UTransformComponent() = default;
+	UTransformComponent();
 
-	uint32 X{ 0 };
-	uint32 Y{ 0 };
-	uint32 Z{ 0 };
+	FVector GetLocation();
+	FVector GetRotation();
+	FVector GetScale();
+	FVector GetUpVector();
+	FVector GetForwardVector();
 
-	// Inherited via IComponent
-	virtual void Initialize() override;
+	FVector GetRightVector();
+	FVector GetDirection();
+
+	void SetLocation(const FVector& vector);
+	void SetRotation(const FVector& vector);
+	void SetScale(const FVector& vector);
+	void SetUpVector(const FVector& vector);
+	void SetForwardVector(const FVector& vector);
+
+private:
+	FVector Location{ 0.f, 0.f, 0.f };
+	FVector Rotation{ 0.f, 0.f, 0.f };
+	FVector Scale{ 1.f, 1.f, 1.f };
+	FVector UpVector{ 0.f, 1.f, 0.f };
+	FVector ForwardVector{ 0.f, 0.f, -1.f };
 };
 
 #endif // !US_TRANSFORM_COMPONENT_HPP

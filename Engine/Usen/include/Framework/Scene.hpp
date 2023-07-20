@@ -14,7 +14,8 @@
 
 #include "Core/Class.hpp"
 
-class Entity;
+class UEntity;
+class UCamera;
 class URenderer;
 class UApplication;
 
@@ -30,8 +31,16 @@ public:
 	void Update(float deltaTime) override;
 	void OnDestroy() override;
 
+	template<typename T>
+	T* CreateEntity();
+	UCamera* GetCamera();
+
 protected:
-	TMap<uint32, Entity*> entities;
+	UCamera* activeCamera;
+	TMap<FString, UEntity*> entities;
+
+private:
+	uint64 lastEntityId = 0;
 };
 
 #endif // !US_SCENE_HPP

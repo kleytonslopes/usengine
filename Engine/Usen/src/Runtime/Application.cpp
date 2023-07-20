@@ -47,6 +47,7 @@ void UApplication::Update(float deltaTime)
 {
 	GetWindow()->Update(deltaTime);
 	GetGameInstance()->Update(deltaTime);
+	GetScene()->Update(deltaTime);
 }
 
 void UApplication::Run()

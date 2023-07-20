@@ -16,24 +16,35 @@
 #include "Components/TransformComponent.hpp"
 
 class IComponent;
-#define QUOTE(x) #x
-class Entity : public UWeakClass
+class UScene;
+
+class UEntity : public UWeakClass
 {
 	using Super = UWeakClass;
 public:
-	Entity() = default;
+	UEntity(UScene* scene);
 
 	void Initialize() override;
 	void Update(float deltaTime) override;
 	void OnDestroy() override;
+	virtual void OnConstruct();
 
 	template<typename T>
 	bool HasComponent()
 	{
-		if (components.Size() <= 0)
+		/*if (components.Size() <= 0)
 			return false;
 
 		auto& comp = components.Get(typeid(T).name());
+		if (!comp)
+			return false;
+
+		return true;*/
+
+		if (components.size() <= 0)
+			return false;
+
+		auto& comp = components[typeid(T).name()];//components.Get(typeid(T).name());
 		if (!comp)
 			return false;
 
@@ -44,13 +55,19 @@ public:
 	IComponent& AddComponent()
 	{
 		T component{};
-		components.Add(typeid(T).name(), &component);
+		components[typeid(T).name()] = &component;
+		//components.Add(typeid(T).name(), &component);
 
 		return component;
 	}
 
 protected:
-	Map<FString, IComponent*> components;
+	UScene* scene;
+	TMap<FString, IComponent*> components;
+	FString id;
+	bool bTick = true;
+
+	friend class UScene;
 };
 
 #endif // !US_ENTITY_HPP

@@ -1,9 +1,8 @@
 include_dir = {}
 include_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
+include_dir["GLM"]  = "F:/Dependencies/glm"
 include_dir["GLAD"] = "%{wks.location}/ThirdParty/GLAD/include"
-
-extern_include_dir = {}
-extern_include_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
+include_dir["UUID"] = "%{wks.location}/ThirdParty/UUID_V4"
 
 extern_lib_dir = {}
 extern_lib_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"

@@ -11,19 +11,36 @@
 #include "Framework/Entity.hpp"
 
 #include "Components/Interface/IComponent.hpp"
+#include "Framework/Scene.hpp"
+#include "Core/Guid.hpp"
 
-void Entity::Initialize()
+#include "Components/TransformComponent.hpp"
+
+UEntity::UEntity(UScene* scene) : scene{ scene }
 {
+	id = FGuid::NewGuid();
 }
 
-void Entity::Update(float deltaTime)
+void UEntity::Initialize()
 {
+
 }
 
-void Entity::OnDestroy()
+void UEntity::Update(float deltaTime)
 {
-	//for (const auto& comp : components.Data())
-	//{
+	for (auto& comp : components)
+	{
+		if (comp.second->CanTick())
+			comp.second->Update(deltaTime);
+	}
+}
 
-	//}
+void UEntity::OnDestroy()
+{
+
+}
+
+void UEntity::OnConstruct()
+{
+	AddComponent<UTransformComponent>();
 }

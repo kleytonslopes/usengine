@@ -21,6 +21,7 @@
 #include "Core/Logger.hpp"
 #include "Core/Formatter.hpp"
 #include "Core/Map.hpp"
+#include "Core/Vector.hpp"
 
 inline void ULOG(ELogLevel level, const FString& message)
 {

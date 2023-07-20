@@ -19,7 +19,6 @@ URenderer::~URenderer()
 
 void URenderer::Initialize()
 {
-	
 	glViewport(0, 0, GetWindow()->GetWidth(), GetWindow()->GetHeight());
 
 	glEnable(GL_MULTISAMPLE);

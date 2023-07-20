@@ -21,6 +21,8 @@ project "Usen"
         "include",
         "%{include_dir.SDL2}",
         "%{include_dir.GLAD}",
+        "%{include_dir.UUID}",
+        "%{include_dir.GLM}",
     }
 
     links
