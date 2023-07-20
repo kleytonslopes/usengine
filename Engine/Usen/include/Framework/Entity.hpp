@@ -12,18 +12,20 @@
 #ifndef US_ENTITY_HPP
 #define	US_ENTITY_HPP
 
-#include "Core/Core.hpp"
+#include "Core/WeakClass.hpp"
 #include "Components/TransformComponent.hpp"
-#include "Core/Map.hpp"
 
 class IComponent;
 #define QUOTE(x) #x
-class Entity
+class Entity : public UWeakClass
 {
+	using Super = UWeakClass;
 public:
 	Entity() = default;
 
-	void Initialize();
+	void Initialize() override;
+	void Update(float deltaTime) override;
+	void OnDestroy() override;
 
 	template<typename T>
 	bool HasComponent()

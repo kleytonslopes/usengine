@@ -9,12 +9,15 @@
  *********************************************************************/
 #pragma once
 
+#ifndef US_TRANSFORM_COMPONENT_HPP
+#define	US_TRANSFORM_COMPONENT_HPP
+
 #include "Components/Interface/IComponent.hpp"
 
-class TransformComponent : public IComponent
+class UTransformComponent : public IComponent
 {
 public:
-	TransformComponent() = default;
+	UTransformComponent() = default;
 
 	uint32 X{ 0 };
 	uint32 Y{ 0 };
@@ -23,3 +26,5 @@ public:
 	// Inherited via IComponent
 	virtual void Initialize() override;
 };
+
+#endif // !US_TRANSFORM_COMPONENT_HPP

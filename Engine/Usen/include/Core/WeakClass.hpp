@@ -20,6 +20,12 @@ public:
 	virtual void Initialize() { /* override */ }
 	virtual void OnInitialized() { /* override */ }
 	virtual void Update(float deltaTime) { /* override */ }
+	virtual void OnDestroy();
+
+	void Destroy();
+protected:
+	bool bWantDestroy = false;
+	bool bIsDestroyed = false;
 };
 
 #endif // !US_WEAK_CLASS_HPP

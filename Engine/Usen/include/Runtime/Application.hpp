@@ -15,6 +15,7 @@
 #include "Core/WeakClass.hpp"
 
 class UWindow;
+class UGameInstance;
 
 class UApplication : public UWeakClass
 {
@@ -28,6 +29,7 @@ public:
 	void Run();
 
 	UWindow* GetWindow();
+	UGameInstance* GetGameInstance();
 
 	void Initialize() override;
 	void OnInitialized() override;
@@ -35,6 +37,7 @@ public:
 
 protected:
 	USharedPtr<UWindow> window;
+	USharedPtr<UGameInstance> gameInstance;
 
 private:
 	void Loop();

@@ -20,13 +20,15 @@ class UApplication;
 
 class UWindow : public UWeakClass
 {
+	using Super = UWeakClass;
 public:
 	UWindow(UApplication* application);
 	virtual ~UWindow();
 
+	// Inherited via UWeakClass
 	void Initialize() override;
-
 	void Update(float deltaTime) override;
+	void OnDestroy() override;
 
 	void PollEvents();
 	void StartLoop();
@@ -57,6 +59,8 @@ private:
 	void CreateWindowRendererInstance();
 	void CreateWindowSurfaceInstance();
 	void CreateWindowContextOpenGL();
+
+
 };
 
 #endif // !US_WINDOW_HPP

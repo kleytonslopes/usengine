@@ -52,6 +52,18 @@ public:
 		return collection[key];
 	}
 
+	//TVector<TValue&> Data()
+	//{
+	//	TVector<TValue*> ref;
+	//	ref.resize(collection.Size());
+
+	//	for (auto& it : collection)
+	//	{
+	//		ref.emplace(it);
+	//	}
+	//	return ref;
+	//}
+
 private:
 	std::map<TKey, TValue> collection;
 };

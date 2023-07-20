@@ -9,3 +9,13 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Core/WeakClass.hpp"
+
+void UWeakClass::Destroy()
+{
+	bWantDestroy = true;
+}
+
+void UWeakClass::OnDestroy()
+{
+	bIsDestroyed = true;
+}

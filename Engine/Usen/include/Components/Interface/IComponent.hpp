@@ -9,11 +9,18 @@
  *********************************************************************/
 #pragma once
 
+#ifndef US_COMPONENT_HPP
+#define	US_COMPONENT_HPP
+
 #include "Core/Core.hpp"
 
 class IComponent
 {
 public:
 	IComponent() = default;
-	virtual void Initialize() = 0;
+	virtual void Initialize() { /* override */ }
+	virtual void Update(float deltaTime) { /* override */ }
+	virtual void Destroy() { /* override */ }
 };
+
+#endif // !US_COMPONENT_HPP

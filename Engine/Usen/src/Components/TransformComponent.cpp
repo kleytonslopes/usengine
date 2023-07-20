@@ -10,6 +10,6 @@
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
 
-void TransformComponent::Initialize()
+void UTransformComponent::Initialize()
 {
 }

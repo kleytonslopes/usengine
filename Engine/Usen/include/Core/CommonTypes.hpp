@@ -60,6 +60,9 @@ using int64 = us::types::FCommonTypes::StInt64;
 template<class T>
 using TVector = std::vector<T>;
 
+template<class T, uint64 s>
+using TArray = std::array<T, s>;
+
 template<typename T>
 using TList = std::list<T>;
 

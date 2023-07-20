@@ -15,3 +15,15 @@
 void Entity::Initialize()
 {
 }
+
+void Entity::Update(float deltaTime)
+{
+}
+
+void Entity::OnDestroy()
+{
+	/*for (const auto& comp : components.Data())
+	{
+
+	}*/
+}

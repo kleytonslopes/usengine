@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Runtime/Application.hpp"
 #include "Presentation/Window.hpp"
+#include "Framework/GameInstance.hpp"
 
 UApplication::UApplication()
 {
@@ -18,12 +19,14 @@ UApplication::UApplication()
 
 UApplication::~UApplication()
 {
-
+	ULOG(ELogLevel::ELL_WARNING, "UApplication Destroyed!");
 }
 
 void UApplication::Initialize()
 {
+	ULOG(ELogLevel::ELL_TRACE, "Initializing Application...");
 	if (!window) window = USharedPtr<UWindow>::Make(this);
+	if (!gameInstance) gameInstance = USharedPtr<UGameInstance>::Make();
 
 	OnInitialized();
 }
@@ -31,11 +34,13 @@ void UApplication::Initialize()
 void UApplication::OnInitialized()
 {
 	GetWindow()->Initialize();
+	GetGameInstance()->Initialize();
 }
 
 void UApplication::Update(float deltaTime)
 {
 	GetWindow()->Update(deltaTime);
+	GetGameInstance()->Update(deltaTime);
 }
 
 void UApplication::Run()
@@ -48,6 +53,11 @@ void UApplication::Run()
 UWindow* UApplication::GetWindow()
 {
 	return window.Get();
+}
+
+UGameInstance* UApplication::GetGameInstance()
+{
+	return gameInstance.Get();
 }
 
 void UApplication::Loop()
@@ -65,6 +75,9 @@ void UApplication::Loop()
 
 		GetWindow()->StopLoop();
 	}
+
+	GetGameInstance()->OnDestroy();
+	GetWindow()->OnDestroy();
 }
 
 void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)

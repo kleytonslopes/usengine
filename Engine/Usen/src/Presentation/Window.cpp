@@ -18,14 +18,8 @@ UWindow::UWindow(UApplication* application)
 
 UWindow::~UWindow()
 {
-	if (sdlGLContext)
-		SDL_GL_DeleteContext(sdlGLContext);
-
-	SDL_FreeSurface(sdlSurface);
-	SDL_DestroyRenderer(sdlRenderer);
-	SDL_DestroyWindow(sdlWindow);
-	SDL_Quit();
-	ULOG(ELogLevel::ELL_WARNING, "Window Destroyed!");
+	if (!bIsDestroyed)
+		OnDestroy();
 }
 
 void UWindow::Initialize()
@@ -150,4 +144,18 @@ void UWindow::CreateWindowSurfaceInstance()
 void UWindow::CreateWindowContextOpenGL()
 {
 	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
+}
+
+void UWindow::OnDestroy()
+{
+	Super::OnDestroy();
+
+	if (sdlGLContext)
+		SDL_GL_DeleteContext(sdlGLContext);
+
+	SDL_FreeSurface(sdlSurface);
+	SDL_DestroyRenderer(sdlRenderer);
+	SDL_DestroyWindow(sdlWindow);
+	SDL_Quit();
+	ULOG(ELogLevel::ELL_WARNING, "UWindow Destroyed!");
 }

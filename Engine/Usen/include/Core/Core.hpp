@@ -20,6 +20,7 @@
 #include "Core/Clock.hpp"
 #include "Core/Logger.hpp"
 #include "Core/Formatter.hpp"
+#include "Core/Map.hpp"
 
 inline void ULOG(ELogLevel level, const FString& message)
 {

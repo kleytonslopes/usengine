@@ -9,6 +9,9 @@
  *********************************************************************/
 #pragma once
 
+#ifndef US_CLOCK_HPP
+#define	US_CLOCK_HPP
+
 #include "Core/CommonTypes.hpp"
 
 struct FTime
@@ -27,3 +30,5 @@ struct FClock
 	static FTime Now();
 	static float Duration(const FTime& newTime, const FTime& currentTime);
 };
+
+#endif // !US_CLOCK_HPP
