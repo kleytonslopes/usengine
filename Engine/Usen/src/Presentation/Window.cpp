@@ -9,12 +9,10 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Presentation/Window.hpp"
-#include "Runtime/Application.hpp"
 
-UWindow::UWindow(UApplication* application)
-	: application{ application }
-{
-}
+#include "glad/glad.h"
+
+#include "Runtime/Application.hpp"
 
 UWindow::~UWindow()
 {
@@ -109,7 +107,7 @@ void UWindow::InitializeForOpenGL()
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-	CreateWindowInstance("USen", 1780, 1000, context_flags);
+	CreateWindowInstance("USen", width, height, context_flags);
 	CreateWindowRendererInstance();
 	CreateWindowSurfaceInstance();
 	CreateWindowContextOpenGL();
@@ -144,6 +142,12 @@ void UWindow::CreateWindowSurfaceInstance()
 void UWindow::CreateWindowContextOpenGL()
 {
 	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
+
+	if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+	{
+		ULOG(ELogLevel::ELL_FATAL, "Failed to initialize GLAD");
+		UASSERT(false, "Failed to initialize GLAD");
+	}
 }
 
 void UWindow::OnDestroy()

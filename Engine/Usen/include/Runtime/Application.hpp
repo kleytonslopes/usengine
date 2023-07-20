@@ -16,6 +16,8 @@
 
 class UWindow;
 class UGameInstance;
+class UScene;
+class URenderer;
 
 class UApplication : public UWeakClass
 {
@@ -30,6 +32,8 @@ public:
 
 	UWindow* GetWindow();
 	UGameInstance* GetGameInstance();
+	URenderer* GetRenderer();
+	UScene* GetScene();
 
 	void Initialize() override;
 	void OnInitialized() override;
@@ -38,6 +42,8 @@ public:
 protected:
 	USharedPtr<UWindow> window;
 	USharedPtr<UGameInstance> gameInstance;
+	USharedPtr<URenderer> renderer;
+	USharedPtr<UScene> currentScene;
 
 private:
 	void Loop();

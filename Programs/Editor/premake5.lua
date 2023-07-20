@@ -17,7 +17,8 @@ project "Editor"
     {
         "include",
         "%{wks.location}/Engine/Usen/include",
-        "%{include_dir.SDL2}"
+        "%{include_dir.SDL2}",
+        "%{include_dir.GLAD}",
     }
 
     libdirs
@@ -27,7 +28,9 @@ project "Editor"
 
     links
     {
+        "opengl32.lib",
         "Usen",
+        "GLAD",
         "SDL2.lib",
         "SDL2main.lib"
     }

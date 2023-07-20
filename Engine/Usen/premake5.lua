@@ -19,7 +19,8 @@ project "Usen"
     includedirs
     {
         "include",
-        "%{include_dir.SDL2}"
+        "%{include_dir.SDL2}",
+        "%{include_dir.GLAD}",
     }
 
     links

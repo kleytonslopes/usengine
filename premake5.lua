@@ -1,5 +1,6 @@
 include_dir = {}
 include_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
+include_dir["GLAD"] = "%{wks.location}/ThirdParty/GLAD/include"
 
 extern_include_dir = {}
 extern_include_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
@@ -22,7 +23,7 @@ workspace "UsEngine"
     }
 
 group "ThirdParty"
-
+   include "ThirdParty/GLAD"
 group ""
 
 group "Engine"

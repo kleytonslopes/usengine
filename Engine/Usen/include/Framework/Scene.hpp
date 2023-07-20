@@ -12,15 +12,17 @@
 #ifndef US_SCENE_HPP
 #define	US_SCENE_HPP
 
-#include "Core/WeakClass.hpp"
+#include "Core/Class.hpp"
 
 class Entity;
+class URenderer;
+class UApplication;
 
-class UScene : public UWeakClass
+class UScene : public UClass
 {
-	using Super = UWeakClass;
+	using Super = UClass;
 public:
-	UScene();
+	using UClass::UClass;
 	virtual ~UScene();
 
 	// Inherited via UWeakClass

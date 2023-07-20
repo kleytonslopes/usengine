@@ -1,11 +1,8 @@
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
 #include "Framework/Entity.hpp"
-
-UScene::UScene()
-{
-
-}
+#include "Renderer/Renderer.hpp"
+#include "Runtime/Application.hpp"
 
 UScene::~UScene()
 {
@@ -20,7 +17,7 @@ void UScene::Initialize()
 
 void UScene::Update(float deltaTime)
 {
-
+	GetRenderer()->Draw();
 }
 
 void UScene::OnDestroy()

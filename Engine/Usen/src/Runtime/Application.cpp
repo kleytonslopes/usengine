@@ -11,6 +11,8 @@
 #include "Runtime/Application.hpp"
 #include "Presentation/Window.hpp"
 #include "Framework/GameInstance.hpp"
+#include "Framework/Scene.hpp"
+#include "Renderer/Renderer.hpp"
 
 UApplication::UApplication()
 {
@@ -26,7 +28,9 @@ void UApplication::Initialize()
 {
 	ULOG(ELogLevel::ELL_TRACE, "Initializing Application...");
 	if (!window) window = USharedPtr<UWindow>::Make(this);
-	if (!gameInstance) gameInstance = USharedPtr<UGameInstance>::Make();
+	if (!gameInstance) gameInstance = USharedPtr<UGameInstance>::Make(this);
+	if (!currentScene) currentScene = USharedPtr<UScene>::Make(this);
+	if (!renderer) renderer = USharedPtr<URenderer>::Make(this);
 
 	OnInitialized();
 }
@@ -35,6 +39,8 @@ void UApplication::OnInitialized()
 {
 	GetWindow()->Initialize();
 	GetGameInstance()->Initialize();
+	GetRenderer()->Initialize();
+	GetScene()->Initialize();
 }
 
 void UApplication::Update(float deltaTime)
@@ -58,6 +64,16 @@ UWindow* UApplication::GetWindow()
 UGameInstance* UApplication::GetGameInstance()
 {
 	return gameInstance.Get();
+}
+
+URenderer* UApplication::GetRenderer()
+{
+	return renderer.Get();
+}
+
+UScene* UApplication::GetScene()
+{
+	return currentScene.Get();
 }
 
 void UApplication::Loop()

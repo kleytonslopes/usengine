@@ -12,18 +12,19 @@
 #ifndef US_WINDOW_HPP
 #define	US_WINDOW_HPP
 
-#include "Core/WeakClass.hpp"
+#include "Core/Class.hpp"
 #include <SDL.h>
 #undef main
 
 class UApplication;
 
-class UWindow : public UWeakClass
+class UWindow : public UClass
 {
-	using Super = UWeakClass;
+	using Super = UClass;
 public:
-	UWindow(UApplication* application);
-	virtual ~UWindow();
+	using UClass::UClass;
+	
+	virtual ~UWindow() final;
 
 	// Inherited via UWeakClass
 	void Initialize() override;
@@ -38,12 +39,16 @@ public:
 	bool ShouldClose() const;
 	uint32 GetTicks() const;
 
+	uint32& GetWidth() { return width; }
+	uint32& GetHeight() { return height; }
+
 protected:
 	void InitializeForOpenGL();
 
 private:
-	UApplication* application;
 	uint32 startLoop = 0;
+	uint32 width = 1780;
+	uint32 height = 1000;
 
 	uint32 fpsLimit = 60;
 	uint32 desiredFps = 0;

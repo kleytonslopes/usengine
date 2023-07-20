@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: GameInstance.hpp
+ *   File: Renderer.hpp
  *  Brief: 
  * 
  * Author: Kleyton
@@ -9,26 +9,25 @@
  *********************************************************************/
 #pragma once
 
-#ifndef US_GAMEINSTANCE_HPP
-#define	US_GAMEINSTANCE_HPP
+
+#ifndef US_RENDERER_HPP
+#define	US_RENDERER_HPP
 
 #include "Core/Class.hpp"
 
-class UScene;
-class UApplication;
-
-class UGameInstance : public UClass
+class URenderer : public UClass
 {
 	using Super = UClass;
 public:
 	using UClass::UClass;
-
-	virtual ~UGameInstance();
+	virtual ~URenderer();
 
 	void Initialize() override;
-	void OnInitialized() override;
+	void OnInitialized()  override;
 	void Update(float deltaTime) override;
-	void OnDestroy() override;
+	void OnDestroy();
+
+	void Draw();
 };
 
-#endif // !US_GAMEINSTANCE_HPP
+#endif // !US_RENDERER_HPP
