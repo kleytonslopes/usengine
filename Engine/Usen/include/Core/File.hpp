@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: Vector.hpp
+ *   File: File.hpp
  *  Brief: 
  * 
  * Author: Kleyton
@@ -9,7 +9,14 @@
  *********************************************************************/
 #pragma once
 
-#include "glm/glm.hpp"
-#include "glm/ext.hpp"
+#ifndef US_FILE_HPP
+#define	US_FILE_HPP
 
-using FVector = glm::vec3;
+#include "Core/String.hpp"
+
+struct FFile
+{
+	static FString Read(UCharPtr filePath);
+};
+
+#endif // !US_FILE_HPP

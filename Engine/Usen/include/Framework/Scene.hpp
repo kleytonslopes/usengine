@@ -38,7 +38,7 @@ public:
 	UCamera* GetCamera();
 
 protected:
-	UCamera* activeCamera;
+	UCamera* activeCamera = nullptr;
 
 	TMap<FString, UEntity*> entities;
 

@@ -15,6 +15,7 @@
 #include <string>
 
 using FString = std::string;
+using UCharPtr = const char*;
 
 //struct FString
 //{

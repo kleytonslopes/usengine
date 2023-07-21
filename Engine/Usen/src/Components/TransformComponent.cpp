@@ -11,8 +11,8 @@
 #include "Components/TransformComponent.hpp"
 #include "Framework/Entity.hpp"
 
-UTransformComponent::UTransformComponent(UEntity* Owner)
-	: Super(Owner)
+UTransformComponent::UTransformComponent(UEntity* Parent)
+	: Super(Parent)
 {
 	bComponentTick = false;
 }

@@ -19,7 +19,7 @@ class UTransformComponent : public IComponent
 	DEFAULT_BODY(IComponent);
 
 public:
-	UTransformComponent(UEntity* Owner);
+	UTransformComponent(UEntity* Parent);
 
 	FVector GetLocation();
 	FVector GetRotation();

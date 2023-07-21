@@ -31,10 +31,6 @@ public:
 
 	operator T* () { return ptr.get(); }
 
-	USharedPtr<T>& operator =(const USharedPtr<T>& other)
-	{
-		return other.Move();
-	}
 private:
 	USharedPtr(std::shared_ptr<T>& nptr);
 	std::shared_ptr<T> ptr;

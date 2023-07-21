@@ -19,7 +19,7 @@ class UEntity;
 class IComponent
 {
 public:
-	IComponent(UEntity* Owner);
+	IComponent(UEntity* Parent);
 	virtual ~IComponent();
 
 	virtual void Initialize();
@@ -27,11 +27,12 @@ public:
 	virtual void Destroy() { /* override */ }
 
 	bool CanTick() const { return bComponentTick; }
+	UEntity* GetParent();
 protected:
 	FString Id;
 	bool bComponentTick = false;
 
-	UEntity* Owner;
+	UEntity* Parent = nullptr;
 };
 
 #endif // !US_COMPONENT_HPP

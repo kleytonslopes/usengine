@@ -13,6 +13,7 @@
 #include "Framework/GameInstance.hpp"
 #include "Framework/Scene.hpp"
 #include "Renderer/Renderer.hpp"
+#include "Renderer/OpenGL/RendererOpenGL.hpp"
 
 UApplication::UApplication()
 {
@@ -30,7 +31,7 @@ void UApplication::Initialize()
 	if (!window) window = UUniquePtr<UWindow>::Make(this);
 	if (!gameInstance) gameInstance = UUniquePtr<UGameInstance>::Make(this);
 	if (!currentScene) currentScene = UUniquePtr<UScene>::Make(this);
-	if (!renderer) renderer = UUniquePtr<URenderer>::Make(this);
+	if (!renderer) renderer = UUniquePtr<URendererOpenGL>::Make(this);
 
 	OnInitialized();
 }

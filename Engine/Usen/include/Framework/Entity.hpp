@@ -70,7 +70,8 @@ public:
 	}
 
 protected:
-	UScene* scene;
+	UScene* scene = nullptr;
+
 	TMap<FString, IComponent*> components;
 	FString Id;
 	bool bTick = true;

@@ -21,8 +21,6 @@ class UShader : public UClass
 public:
 	explicit UShader(const FShaderParameters& parameters);
 
-	virtual void OnInitialize() = 0;
-
 protected:
 	FString Name;
 	FString VertexFilePath;

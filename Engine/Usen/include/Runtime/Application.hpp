@@ -18,6 +18,7 @@ class UWindow;
 class UGameInstance;
 class UScene;
 class URenderer;
+class URendererOpenGL;
 
 class UApplication : public UWeakClass
 {
@@ -41,7 +42,7 @@ public:
 protected:
 	UUniquePtr<UWindow> window;
 	UUniquePtr<UGameInstance> gameInstance;
-	UUniquePtr<URenderer> renderer;
+	UUniquePtr<URendererOpenGL> renderer;
 	UUniquePtr<UScene> currentScene;
 
 private:

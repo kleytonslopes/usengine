@@ -31,7 +31,7 @@ public:
 	UScene* GetScene();
 
 protected:
-	UApplication* application;
+	UApplication* application = nullptr;
 };
 
 #endif // !US_CLASS_HPP
