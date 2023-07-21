@@ -23,8 +23,8 @@ public:
 	virtual void OnInitialized() override;
 	virtual void OnDestroy() override;
 
-	void Bind();
-	void UnBind();
+	void Active();
+	void Deactivate();
 
 protected:
 	GLuint vertId;

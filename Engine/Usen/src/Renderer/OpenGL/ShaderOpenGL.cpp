@@ -26,12 +26,12 @@ void UShaderOpenGL::OnDestroy()
 	glDeleteProgram(programId);
 }
 
-void UShaderOpenGL::Bind()
+void UShaderOpenGL::Active()
 {
 	glUseProgram(programId);
 }
 
-void UShaderOpenGL::UnBind()
+void UShaderOpenGL::Deactivate()
 {
 	glUseProgram(0);
 }

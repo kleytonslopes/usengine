@@ -19,7 +19,7 @@ class UShader : public UClass
 {
 	DEFAULT_BODY(UClass);
 public:
-	explicit UShader(const FShaderParameters& parameters);
+	explicit UShader(FShaderParameters& parameters);
 
 protected:
 	FString Name;

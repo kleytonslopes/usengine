@@ -17,8 +17,15 @@
 struct FShaderParameters
 {
 	FString Name{"default"};
-	FString VertexFilePath;
-	FString FragmentFilePath;
+
+	FString GetVertexFilePath()
+	{
+		return FText::Format("../../Content/Shaders/%s/vert.glsl", Name.c_str());
+	}
+	FString GetFragmentFilePath()
+	{
+		return FText::Format("../../Content/Shaders/%s/frag.glsl", Name.c_str());
+	}
 };
 
 #endif // !US_SHADER_PARAMETERS_HPP

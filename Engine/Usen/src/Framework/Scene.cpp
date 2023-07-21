@@ -28,6 +28,13 @@ void UScene::Initialize()
 {
 	ULOG(ELogLevel::ELL_TRACE, "Initializing Scene...");
 
+	FShaderParameters shaderParametersDefault{};
+	shaderParametersDefault.Name = "default";
+
+	sceneSettings.ShadersParameters.push_back(shaderParametersDefault);
+
+	SceneSerializer = UUniquePtr<USceneSerializer>::Make(this);
+
 	activeCamera = CreateEntity<UCamera>();
 
 	UStaticMesh* meshTemp = CreateEntity<UStaticMesh>();
@@ -35,6 +42,8 @@ void UScene::Initialize()
 	FMeshParameters meshParam{};
 	meshParam.MeshPath = "../../Content/Models/cube.obj";
 	meshTemp->SetMeshParameters(meshParam);
+	
+	SaveScene();
 
 	OnInitialized();
 }
@@ -79,6 +88,16 @@ void UScene::OnDestroy()
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, "UScene Destroyed!");
+}
+
+void UScene::SaveScene()
+{
+	SceneSerializer.Get()->Serialize();
+}
+
+void UScene::LoadScene(const FString& scenePath)
+{
+	SceneSerializer.Get()->Deserialize(scenePath);
 }
 
 UCamera* UScene::GetCamera()

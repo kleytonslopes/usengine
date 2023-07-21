@@ -10,11 +10,11 @@
 #include "upch.hpp"
 #include "Renderer/Shader.hpp"
 
-UShader::UShader(const FShaderParameters& parameters)
+UShader::UShader(FShaderParameters& parameters)
 	: Super(nullptr)
 	, Name{ parameters.Name }
-	, VertexFilePath{ parameters.VertexFilePath }
-	, FragmentFilePath{ parameters.FragmentFilePath }
+	, VertexFilePath{ parameters.GetVertexFilePath() }
+	, FragmentFilePath{ parameters.GetFragmentFilePath() }
 {
 
 }
