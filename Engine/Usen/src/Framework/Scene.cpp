@@ -7,6 +7,7 @@
 #include "Mesh/StaticMesh.hpp"
 
 #include "Components/MeshComponent.hpp"
+#include "Components/RendererComponent.hpp"
 
 UScene::~UScene()
 {
@@ -42,14 +43,14 @@ void UScene::OnInitialized()
 
 void UScene::Update(float deltaTime)
 {
-	GetRenderer()->Draw();
-
 	if (entities.size() > 0)
 	{
 		for (auto& entity : entities)
 		{
 			if(entity.second->bTick)
 				entity.second->Update(deltaTime);
+			if (entity.second->HasComponent<URendererComponent>())
+				GetRenderer()->Draw(entity.second, deltaTime);
 		}
 	}
 }
@@ -69,6 +70,11 @@ void UScene::OnDestroy()
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, "UScene Destroyed!");
+}
+
+UCamera* UScene::GetCamera()
+{
+	return activeCamera;
 }
 
 template<typename T>

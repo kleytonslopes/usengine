@@ -12,6 +12,8 @@
 #include "Renderer/Renderer.hpp"
 #include <glad/glad.h>
 #include "Presentation/Window.hpp"
+#include "Framework/Entity.hpp"
+#include "Components/RendererComponent.hpp"
 
 URenderer::~URenderer()
 {
@@ -36,6 +38,8 @@ void URenderer::Initialize()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+
+	OnInitialized();
 }
 
 void URenderer::OnInitialized()
@@ -50,8 +54,12 @@ void URenderer::OnDestroy()
 {
 }
 
-void URenderer::Draw()
+void URenderer::Draw(UEntity* entity, float deltaTime)
 {
+	if (!entity)
+		return;
+
+	URendererComponent* renderComp = entity->GetComponent<URendererComponent>();
 }
 
 template<typename T>

@@ -26,14 +26,31 @@ public:
 
 	T* Get() { return ptr.get(); }
 
+	USharedPtr<T> Move();
+	void Destroy();
+
 	operator T* () { return ptr.get(); }
-	
 
-
+	USharedPtr<T>& operator =(const USharedPtr<T>& other)
+	{
+		return other.Move();
+	}
 private:
 	USharedPtr(std::shared_ptr<T>& nptr);
 	std::shared_ptr<T> ptr;
 };
+
+template<typename T>
+inline USharedPtr<T> USharedPtr<T>::Move()
+{
+	return USharedPtr<T>(std::move(ptr));
+}
+
+template<typename T>
+inline void USharedPtr<T>::Destroy()
+{
+	ptr.reset();
+}
 
 template<typename T>
 inline USharedPtr<T>::USharedPtr(std::shared_ptr<T>& nptr)

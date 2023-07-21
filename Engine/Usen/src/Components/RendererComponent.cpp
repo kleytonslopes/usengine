@@ -9,3 +9,8 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/RendererComponent.hpp"
+
+void URendererComponent::Initialize()
+{
+	Super::Initialize();
+}

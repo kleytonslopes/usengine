@@ -29,6 +29,7 @@ public:
 	void Initialize() override;
 	void Update(float deltaTime) override;
 	void OnDestroy() override;
+
 	virtual void OnConstruct();
 
 	template<typename T>

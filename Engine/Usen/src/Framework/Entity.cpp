@@ -29,9 +29,18 @@ UEntity::~UEntity()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("Entity '%s' Destroyed!", Id.c_str()));
 }
 
+void UEntity::OnConstruct()
+{
+	AddComponent<UTransformComponent>();
+	bWasConstructed = true;
+}
+
 void UEntity::Initialize()
 {
-
+	for (auto& comp : components)
+	{
+		comp.second->Initialize();
+	}
 }
 
 void UEntity::Update(float deltaTime)
@@ -53,8 +62,3 @@ void UEntity::OnDestroy()
 	}
 }
 
-void UEntity::OnConstruct()
-{
-	AddComponent<UTransformComponent>();
-	bWasConstructed = true;
-}

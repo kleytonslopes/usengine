@@ -16,8 +16,8 @@
 
 void UStaticMesh::OnConstruct()
 {
-	AddComponent<UMeshComponent>(this);
-	AddComponent<URendererComponent>(this);
+	AddComponent<UMeshComponent>();
+	AddComponent<URendererComponent>();
 
 	Super::OnConstruct();
 }

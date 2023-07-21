@@ -21,6 +21,7 @@ class URendererComponent : public IComponent
 public:
 	URendererComponent() = default;
 
+	void Initialize() override;
 	
 };
 

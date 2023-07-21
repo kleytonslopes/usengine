@@ -22,7 +22,7 @@ public:
 	IComponent(UEntity* Owner);
 	virtual ~IComponent();
 
-	virtual void Initialize() { /* override */ }
+	virtual void Initialize();
 	virtual void Update(float deltaTime) { /* override */ }
 	virtual void Destroy() { /* override */ }
 

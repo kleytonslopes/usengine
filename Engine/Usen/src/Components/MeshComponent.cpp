@@ -4,6 +4,7 @@
 
 void UMeshComponent::Initialize()
 {
+	Super::Initialize();
 	/* Load Model */
 }
 

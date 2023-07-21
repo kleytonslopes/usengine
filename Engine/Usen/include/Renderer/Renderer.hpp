@@ -17,6 +17,7 @@
 #include "Renderer/ShaderParameters.hpp"
 
 class UShader;
+class UEntity;
 
 class URenderer : public UClass
 {
@@ -29,7 +30,7 @@ public:
 	void Update(float deltaTime) override;
 	void OnDestroy();
 
-	void Draw();
+	void Draw(UEntity* entity, float deltaTime);
 
 	template<typename T>
 	T* CreateShader(const FShaderParameters& parameters);

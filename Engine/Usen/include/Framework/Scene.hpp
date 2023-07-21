@@ -39,6 +39,7 @@ public:
 
 protected:
 	UCamera* activeCamera;
+
 	TMap<FString, UEntity*> entities;
 
 private:

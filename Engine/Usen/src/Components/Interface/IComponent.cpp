@@ -13,3 +13,9 @@ IComponent::~IComponent()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("Component '%s' Destroyed!", Id.c_str()));
 }
+
+void IComponent::Initialize()
+{
+	if (!Owner)
+		UASSERT(false, "Component does not have Owner!");
+}
