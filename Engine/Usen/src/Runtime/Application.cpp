@@ -27,10 +27,10 @@ UApplication::~UApplication()
 void UApplication::Initialize()
 {
 	ULOG(ELogLevel::ELL_TRACE, "Initializing Application...");
-	if (!window) window = USharedPtr<UWindow>::Make(this);
-	if (!gameInstance) gameInstance = USharedPtr<UGameInstance>::Make(this);
-	if (!currentScene) currentScene = USharedPtr<UScene>::Make(this);
-	if (!renderer) renderer = USharedPtr<URenderer>::Make(this);
+	if (!window) window = UUniquePtr<UWindow>::Make(this);
+	if (!gameInstance) gameInstance = UUniquePtr<UGameInstance>::Make(this);
+	if (!currentScene) currentScene = UUniquePtr<UScene>::Make(this);
+	if (!renderer) renderer = UUniquePtr<URenderer>::Make(this);
 
 	OnInitialized();
 }

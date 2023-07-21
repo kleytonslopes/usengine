@@ -16,6 +16,7 @@
 
 class UCameraComponent : public IComponent
 {
+	DEFAULT_BODY(IComponent);
 public:
 	UCameraComponent() = default;
 

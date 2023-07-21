@@ -4,6 +4,9 @@
 #include "Renderer/Renderer.hpp"
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
+#include "Mesh/StaticMesh.hpp"
+
+#include "Components/MeshComponent.hpp"
 
 UScene::~UScene()
 {
@@ -15,8 +18,26 @@ void UScene::Initialize()
 {
 	ULOG(ELogLevel::ELL_TRACE, "Initializing Scene...");
 
-	UEntity* ni = CreateEntity<UEntity>();
 	activeCamera = CreateEntity<UCamera>();
+
+	UStaticMesh* meshTemp = CreateEntity<UStaticMesh>();
+
+	FMeshParameters meshParam{};
+	meshParam.MeshPath = "../../Content/Models/cube.obj";
+	meshTemp->SetMeshParameters(meshParam);
+
+	OnInitialized();
+}
+
+void UScene::OnInitialized()
+{
+	if (entities.size() > 0)
+	{
+		for (auto& entity : entities)
+		{
+			entity.second->Initialize();
+		}
+	}
 }
 
 void UScene::Update(float deltaTime)
@@ -42,6 +63,8 @@ void UScene::OnDestroy()
 		for (auto& entity : entities)
 		{
 			entity.second->OnDestroy();
+
+			delete entity.second;
 		}
 	}
 
@@ -54,7 +77,7 @@ T* UScene::CreateEntity()
 	T* newEntity = new T(this);
 	newEntity->OnConstruct();
 
-	entities[newEntity->id] = newEntity;
+	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
 }

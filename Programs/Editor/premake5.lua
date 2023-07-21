@@ -49,6 +49,8 @@ project "Editor"
             defines 
             {
                 "DEBUG",
+                "WIN32_LEAN_AND_MEAN",
+                "PLATFORM_WINDOWS",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -59,6 +61,11 @@ project "Editor"
             symbols "on"
         
         filter "configurations:Release"
-            defines {"RELEASE"}
+            defines 
+            {
+                "RELEASE",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+            }
             buildoptions "/MD"
             optimize "on"

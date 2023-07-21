@@ -12,10 +12,18 @@
 #ifndef US_CORE_HPP
 #define	US_CORE_HPP
 
-#define UASSERT(COND, MSG) assert(COND && MSG)
+#define UASSERT(COND, MSG) \
+ULOG(ELogLevel::ELL_FATAL, MSG); \
+assert(COND && MSG)
+
+#define DEFAULT_BODY(ClassBase) \
+	using Super = ClassBase;    \
+public:                         \
+	using ClassBase::ClassBase 
 
 #include "Core/CommonTypes.hpp"
 #include "Core/SharedPtr.hpp"
+#include "Core/UniquePtr.hpp"
 #include "Core/String.hpp"
 #include "Core/Clock.hpp"
 #include "Core/Logger.hpp"

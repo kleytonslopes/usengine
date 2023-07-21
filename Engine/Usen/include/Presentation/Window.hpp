@@ -15,15 +15,14 @@
 #include "Core/Class.hpp"
 #include <SDL.h>
 #undef main
+#include "glad/glad.h"
 
 class UApplication;
 
 class UWindow : public UClass
 {
-	using Super = UClass;
+	DEFAULT_BODY(UClass);
 public:
-	using UClass::UClass;
-	
 	virtual ~UWindow() final;
 
 	// Inherited via UWeakClass
@@ -47,7 +46,7 @@ protected:
 
 private:
 	uint32 startLoop = 0;
-	uint32 width = 1780;
+	uint32 width = 1750;
 	uint32 height = 1000;
 
 	uint32 fpsLimit = 60;

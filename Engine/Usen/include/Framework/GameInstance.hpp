@@ -19,10 +19,8 @@ class UApplication;
 
 class UGameInstance : public UClass
 {
-	using Super = UClass;
+	DEFAULT_BODY(UClass);
 public:
-	using UClass::UClass;
-
 	virtual ~UGameInstance();
 
 	void Initialize() override;

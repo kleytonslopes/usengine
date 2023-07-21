@@ -9,10 +9,12 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Framework/Entity.hpp"
 
-UTransformComponent::UTransformComponent()
+UTransformComponent::UTransformComponent(UEntity* Owner)
+	: Super(Owner)
 {
-	//bComponentTick = false;
+	bComponentTick = false;
 }
 
 FVector UTransformComponent::GetLocation()

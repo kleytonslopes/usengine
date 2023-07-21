@@ -14,12 +14,14 @@
 #define	US_RENDERER_HPP
 
 #include "Core/Class.hpp"
+#include "Renderer/ShaderParameters.hpp"
+
+class UShader;
 
 class URenderer : public UClass
 {
-	using Super = UClass;
+	DEFAULT_BODY(UClass);
 public:
-	using UClass::UClass;
 	virtual ~URenderer();
 
 	void Initialize() override;
@@ -28,6 +30,12 @@ public:
 	void OnDestroy();
 
 	void Draw();
+
+	template<typename T>
+	T* CreateShader(const FShaderParameters& parameters);
+
+private:
+	TMap<FString, UShader*> shaders;
 };
 
 #endif // !US_RENDERER_HPP

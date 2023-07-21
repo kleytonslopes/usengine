@@ -21,8 +21,7 @@ class URenderer;
 
 class UApplication : public UWeakClass
 {
-	using Super = UWeakClass;
-
+	DEFAULT_BODY(UWeakClass);
 public:
 	UApplication();
 
@@ -40,10 +39,10 @@ public:
 	void Update(float deltaTime) override;
 
 protected:
-	USharedPtr<UWindow> window;
-	USharedPtr<UGameInstance> gameInstance;
-	USharedPtr<URenderer> renderer;
-	USharedPtr<UScene> currentScene;
+	UUniquePtr<UWindow> window;
+	UUniquePtr<UGameInstance> gameInstance;
+	UUniquePtr<URenderer> renderer;
+	UUniquePtr<UScene> currentScene;
 
 private:
 	void Loop();

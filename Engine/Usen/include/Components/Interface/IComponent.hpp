@@ -14,17 +14,24 @@
 
 #include "Core/Core.hpp"
 
+class UEntity;
+
 class IComponent
 {
 public:
-	IComponent() = default;
+	IComponent(UEntity* Owner);
+	virtual ~IComponent();
+
 	virtual void Initialize() { /* override */ }
 	virtual void Update(float deltaTime) { /* override */ }
 	virtual void Destroy() { /* override */ }
 
 	bool CanTick() const { return bComponentTick; }
 protected:
+	FString Id;
 	bool bComponentTick = false;
+
+	UEntity* Owner;
 };
 
 #endif // !US_COMPONENT_HPP

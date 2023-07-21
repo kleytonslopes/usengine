@@ -53,3 +53,12 @@ void URenderer::OnDestroy()
 void URenderer::Draw()
 {
 }
+
+template<typename T>
+T* URenderer::CreateShader(const FShaderParameters& parameters)
+{
+	T* shader = new T(parameters);
+	shader->OnInitialize();
+
+	shaders[parameters.Name] = shader;
+}

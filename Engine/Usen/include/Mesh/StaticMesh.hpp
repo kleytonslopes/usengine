@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: Camera.hpp
+ *   File: StaticMesh.hpp
  *  Brief: 
  * 
  * Author: Kleyton
@@ -9,19 +9,25 @@
  *********************************************************************/
 #pragma once
 
-#ifndef US_CAMERA_HPP
-#define	US_CAMERA_HPP
+#ifndef US_STATIC_MESH_HPP
+#define	US_STATIC_MESH_HPP
 
 #include "Framework/Entity.hpp"
 
-class UCamera : public UEntity
+class UStaticMesh : public UEntity
 {
 	DEFAULT_BODY(UEntity);
-public:
 
+public:
 	// Inherited via UEntity
-	virtual void OnConstruct() override;
+	void OnConstruct() override;
+	void Initialize() override;
+
+	void SetMeshParameters(const FMeshParameters& parameters);
+
+private:
+	bool bWasMeshParameters = false;
 
 };
 
-#endif // !US_CAMERA_HPP
+#endif // !US_STATIC_MESH_HPP

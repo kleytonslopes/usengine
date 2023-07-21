@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: Camera.hpp
+ *   File: ShaderParameters.hpp
  *  Brief: 
  * 
  * Author: Kleyton
@@ -9,19 +9,16 @@
  *********************************************************************/
 #pragma once
 
-#ifndef US_CAMERA_HPP
-#define	US_CAMERA_HPP
+#ifndef US_SHADER_PARAMETERS_HPP
+#define	US_SHADER_PARAMETERS_HPP
 
-#include "Framework/Entity.hpp"
+#include "Core/String.hpp"
 
-class UCamera : public UEntity
+struct FShaderParameters
 {
-	DEFAULT_BODY(UEntity);
-public:
-
-	// Inherited via UEntity
-	virtual void OnConstruct() override;
-
+	FString Name{"default"};
+	FString VertexFilePath;
+	FString FragmentFilePath;
 };
 
-#endif // !US_CAMERA_HPP
+#endif // !US_SHADER_PARAMETERS_HPP

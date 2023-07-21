@@ -21,18 +21,20 @@ class UApplication;
 
 class UScene : public UClass
 {
-	using Super = UClass;
+	DEFAULT_BODY(UClass);
 public:
-	using UClass::UClass;
 	virtual ~UScene();
 
 	// Inherited via UWeakClass
 	void Initialize() override;
+	void OnInitialized() override;
+
 	void Update(float deltaTime) override;
 	void OnDestroy() override;
 
 	template<typename T>
 	T* CreateEntity();
+
 	UCamera* GetCamera();
 
 protected:

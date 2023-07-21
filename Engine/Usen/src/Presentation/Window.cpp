@@ -9,9 +9,6 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Presentation/Window.hpp"
-
-#include "glad/glad.h"
-
 #include "Runtime/Application.hpp"
 
 UWindow::~UWindow()
@@ -28,8 +25,7 @@ void UWindow::Initialize()
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		ULOG(ELogLevel::ELL_FATAL, "SDL not Initialized");
-		UASSERT(false, "SDL not Initialized");
+		UASSERT(false, "Failed to Initialize window!");
 	}
 
 	InitializeForOpenGL();
@@ -107,7 +103,7 @@ void UWindow::InitializeForOpenGL()
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-	CreateWindowInstance("USen", width, height, context_flags);
+	CreateWindowInstance("USen", width, height, windowFlags);
 	CreateWindowRendererInstance();
 	CreateWindowSurfaceInstance();
 	CreateWindowContextOpenGL();
@@ -145,7 +141,6 @@ void UWindow::CreateWindowContextOpenGL()
 
 	if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 	{
-		ULOG(ELogLevel::ELL_FATAL, "Failed to initialize GLAD");
 		UASSERT(false, "Failed to initialize GLAD");
 	}
 }

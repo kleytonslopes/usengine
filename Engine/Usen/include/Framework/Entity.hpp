@@ -14,15 +14,17 @@
 
 #include "Core/WeakClass.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/MeshComponent.hpp"
 
 class IComponent;
 class UScene;
 
 class UEntity : public UWeakClass
 {
-	using Super = UWeakClass;
+	DEFAULT_BODY(UWeakClass);
 public:
 	UEntity(UScene* scene);
+	virtual ~UEntity();
 
 	void Initialize() override;
 	void Update(float deltaTime) override;
@@ -32,19 +34,10 @@ public:
 	template<typename T>
 	bool HasComponent()
 	{
-		/*if (components.Size() <= 0)
-			return false;
-
-		auto& comp = components.Get(typeid(T).name());
-		if (!comp)
-			return false;
-
-		return true;*/
-
 		if (components.size() <= 0)
 			return false;
 
-		auto& comp = components[typeid(T).name()];//components.Get(typeid(T).name());
+		auto& comp = components[typeid(T).name()];
 		if (!comp)
 			return false;
 
@@ -52,20 +45,36 @@ public:
 	}
 
 	template<typename T>
-	IComponent& AddComponent()
+	IComponent* AddComponent()
 	{
-		T component{};
-		components[typeid(T).name()] = &component;
-		//components.Add(typeid(T).name(), &component);
+		T* component = new T(this);
+		components[typeid(T).name()] = component;
 
-		return component;
+		return static_cast<IComponent*>(component);
+	}
+
+	template<typename T, typename... Args>
+	IComponent* AddComponent(Args&& ... args)
+	{
+		T* component = new T(std::forward<Args>(args)...);
+		components[typeid(T).name()] = component;
+
+		return static_cast<IComponent*>(component);
+	}
+
+	template<typename T>
+	T* GetComponent()
+	{
+		return static_cast<T*>(components[typeid(T).name()]);
 	}
 
 protected:
 	UScene* scene;
 	TMap<FString, IComponent*> components;
-	FString id;
+	FString Id;
 	bool bTick = true;
+
+	bool bWasConstructed = false;
 
 	friend class UScene;
 };

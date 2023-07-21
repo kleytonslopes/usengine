@@ -37,6 +37,8 @@ project "Usen"
             defines 
             {
                 "DEBUG",
+                "WIN32_LEAN_AND_MEAN",
+                "PLATFORM_WINDOWS",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -47,6 +49,11 @@ project "Usen"
             symbols "on"
         
         filter "configurations:Release"
-            defines {"RELEASE"}
+            defines 
+            {
+                "RELEASE",
+                "WIN32_LEAN_AND_MEAN",
+                "PLATFORM_WINDOWS",
+            }
             buildoptions "/MD"
             optimize "on"

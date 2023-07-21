@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Entity.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *
+ * Copyright (c) 2023 Sunydark. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Entity.hpp"
@@ -18,7 +18,15 @@
 
 UEntity::UEntity(UScene* scene) : scene{ scene }
 {
-	id = FGuid::NewGuid();
+	Id = FGuid::NewGuid();
+}
+
+UEntity::~UEntity()
+{
+	if (!bIsDestroyed)
+		OnDestroy();
+
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("Entity '%s' Destroyed!", Id.c_str()));
 }
 
 void UEntity::Initialize()
@@ -37,10 +45,16 @@ void UEntity::Update(float deltaTime)
 
 void UEntity::OnDestroy()
 {
+	Super::OnDestroy();
 
+	for (auto& comp : components)
+	{
+		delete comp.second;
+	}
 }
 
 void UEntity::OnConstruct()
 {
 	AddComponent<UTransformComponent>();
+	bWasConstructed = true;
 }

@@ -16,8 +16,10 @@
 
 class UTransformComponent : public IComponent
 {
+	DEFAULT_BODY(IComponent);
+
 public:
-	UTransformComponent();
+	UTransformComponent(UEntity* Owner);
 
 	FVector GetLocation();
 	FVector GetRotation();
