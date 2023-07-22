@@ -36,6 +36,10 @@ public:
 	void SetUpVector(const FVector& vector);
 	void SetForwardVector(const FVector& vector);
 
+protected:
+	void Serialize(YAML::Emitter& otherOut) override;
+	bool Deserialize(const FString& scenePath) override;
+
 private:
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };

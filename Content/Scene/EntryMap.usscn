@@ -1,0 +1,38 @@
+Scene: EntryMap
+Shaders:
+  name: [skybox, default]
+Entities:
+  - Entity: 31507370-074e-4a5b-a798-2c580ec920a0
+    Components:
+      UCameraComponent:
+        id: 677fad39-78ee-4e12-8878-c2955f48771e
+        near: 0.00100000005
+        far: 100000
+        fov: 45
+        yaw: 0
+        pitch: 0
+        roll: 0
+        yawaxis: [0, 1, 0]
+        pitchaxis: [1, 0, 0]
+        rollaxis: [0, 0, 1]
+      UTransformComponent:
+        id: 4fe6967b-b162-447f-b3c0-a75908932ed9
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upvector: [0, 1, 0]
+        forwardvector: [0, 0, -1]
+  - Entity: 521fba94-8026-4ddd-b6af-624d047c4541
+    Components:
+      UMeshComponent:
+        id: 890acad2-3fa5-41d5-bd45-0c0d42c8dfe1
+        mepa_file: ../../Content/Models/cube.obj
+      URendererComponent:
+        id: 46379b1e-c4e5-4c36-a983-8e858ec337ec
+      UTransformComponent:
+        id: 05aa11c3-e89b-4ad3-bd77-c7573caffad2
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upvector: [0, 1, 0]
+        forwardvector: [0, 0, -1]

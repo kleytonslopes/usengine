@@ -13,7 +13,6 @@
 #define	US_SCENE_HPP
 
 #include "Core/Class.hpp"
-#include "Serializer/SceneSerializer.hpp"
 
 class UEntity;
 class UCamera;
@@ -21,6 +20,7 @@ class URenderer;
 class UApplication;
 
 struct FShaderParameters;
+class USceneSerializer;
 
 struct FSceneSettings
 {
@@ -30,6 +30,8 @@ struct FSceneSettings
 
 class UScene : public UClass
 {
+	friend class USceneSerializer;
+
 	DEFAULT_BODY(UClass);
 public:
 	virtual ~UScene();
@@ -57,7 +59,7 @@ protected:
 
 private:
 	uint64 lastEntityId = 0;
-	UUniquePtr<USceneSerializer> SceneSerializer;
+	USceneSerializer* SceneSerializer = nullptr;
 };
 
 #endif // !US_SCENE_HPP

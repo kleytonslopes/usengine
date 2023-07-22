@@ -35,3 +35,10 @@ UEntity* IComponent::GetParent()
 {
 	return Parent;
 }
+
+void IComponent::BeginComponentMap(YAML::Emitter& otherOut, const FString& componentName)
+{
+	Key(otherOut, componentName);
+	BeginMap(otherOut);
+	Key(otherOut, "id", Id);
+}

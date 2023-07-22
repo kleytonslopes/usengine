@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Framework/Entity.hpp"
+#include "Serializer/ComponentSerializer.hpp"
 
 UTransformComponent::UTransformComponent(UEntity* Parent)
 	: Super(Parent)
@@ -85,4 +86,22 @@ void UTransformComponent::SetForwardVector(const FVector& vector)
 	ForwardVector.x = vector.x;
 	ForwardVector.y = vector.y;
 	ForwardVector.z = vector.z;
+}
+
+void UTransformComponent::Serialize(YAML::Emitter& otherOut)
+{
+	BeginComponentMap(otherOut, "UTransformComponent");
+
+	Key(otherOut, "location", Location);
+	Key(otherOut, "rotation", Rotation);
+	Key(otherOut, "scale", Scale);
+	Key(otherOut, "upvector", UpVector);
+	Key(otherOut, "forwardvector", ForwardVector);
+
+	EndMap(otherOut);
+}
+
+bool UTransformComponent::Deserialize(const FString& scenePath)
+{
+	return false;
 }

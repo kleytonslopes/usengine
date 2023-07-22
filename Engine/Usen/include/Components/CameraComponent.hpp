@@ -20,6 +20,10 @@ class UCameraComponent : public IComponent
 public:
 	UCameraComponent() = default;
 
+protected:
+	void Serialize(YAML::Emitter& otherOut) override;
+	bool Deserialize(const FString& scenePath) override;
+
 private:
 	float Near{ 0.001f };
 	float Far{ 100000.f };

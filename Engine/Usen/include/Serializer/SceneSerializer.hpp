@@ -12,20 +12,30 @@
 #ifndef US_SCENE_SERIALIZER_HPP
 #define	US_SCENE_SERIALIZER_HPP
 
-#include "Core/Core.hpp"
+#include "Serializer/Serializer.hpp"
+
 
 class UScene;
 
-class USceneSerializer
+class USceneSerializer : public USerializer
 {
+	DEFAULT_BODY(USerializer);
 public:
 	explicit USceneSerializer(UScene* scene);
+	~USceneSerializer() final;
 
-	void Serialize();
-	void Deserialize(const FString& scenePath);
+	void Serialize() override;
+	void Serialize(YAML::Emitter& otherOut) override { /* DoNothing */ }
+	bool Deserialize(const FString& scenePath) override;
 
 private:
 	UScene* Scene = nullptr;
+
+	void SerializeShaders();
+	void SetializeEntities();
+
+	void DeserializeShaders(YAML::Node& data);
+	void DeserializeEntities(YAML::Node& data);
 };
 
 #endif // !US_SCENE_SERIALIZER_HPP

@@ -18,6 +18,7 @@
 
 class IComponent;
 class UScene;
+class UEntitySerializer;
 
 class UEntity : public UWeakClass
 {
@@ -71,14 +72,17 @@ public:
 
 protected:
 	UScene* scene = nullptr;
+	UEntitySerializer* EntitySerializer = nullptr;
 
 	TMap<FString, IComponent*> components;
 	FString Id;
-	bool bTick = true;
 
+	bool bTick = true;
 	bool bWasConstructed = false;
 
 	friend class UScene;
+	friend class USceneSerializer;
+	friend class UEntitySerializer;
 };
 
 #endif // !US_ENTITY_HPP

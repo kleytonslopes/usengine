@@ -22,6 +22,10 @@ public:
 	URendererComponent() = default;
 
 	void Initialize() override;
+
+protected:
+	void Serialize(YAML::Emitter& otherOut) override;
+	bool Deserialize(const FString& scenePath) override;
 	
 };
 

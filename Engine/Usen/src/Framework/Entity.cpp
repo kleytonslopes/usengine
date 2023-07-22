@@ -11,14 +11,18 @@
 #include "Framework/Entity.hpp"
 
 #include "Components/Interface/IComponent.hpp"
+#include "Components/TransformComponent.hpp"
+
+#include "Serializer/EntitySerializer.hpp"
 #include "Framework/Scene.hpp"
 #include "Core/Guid.hpp"
 
-#include "Components/TransformComponent.hpp"
+
 
 UEntity::UEntity(UScene* scene) : scene{ scene }
 {
 	Id = FGuid::NewGuid();
+	EntitySerializer = new UEntitySerializer(this);
 }
 
 UEntity::~UEntity()
@@ -26,6 +30,7 @@ UEntity::~UEntity()
 	if (!bIsDestroyed)
 		OnDestroy();
 
+	delete EntitySerializer;
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("Entity '%s' Destroyed!", Id.c_str()));
 }
 

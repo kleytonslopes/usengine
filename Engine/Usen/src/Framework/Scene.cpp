@@ -17,30 +17,28 @@
 
 #include "Components/MeshComponent.hpp"
 #include "Components/RendererComponent.hpp"
+#include "Serializer/SceneSerializer.hpp"
 
 UScene::~UScene()
 {
 	if (!bIsDestroyed)
 		OnDestroy();
+
+	delete SceneSerializer;
 }
 
 void UScene::Initialize()
 {
 	ULOG(ELogLevel::ELL_TRACE, "Initializing Scene...");
-
-	FShaderParameters shaderParametersDefault{};
-	shaderParametersDefault.Name = "default";
-
-	sceneSettings.ShadersParameters.push_back(shaderParametersDefault);
-
-	SceneSerializer = UUniquePtr<USceneSerializer>::Make(this);
+	SceneSerializer = new USceneSerializer(this);
+	LoadScene("EntryMap");
 
 	activeCamera = CreateEntity<UCamera>();
 
 	UStaticMesh* meshTemp = CreateEntity<UStaticMesh>();
 
 	FMeshParameters meshParam{};
-	meshParam.MeshPath = "../../Content/Models/cube.obj";
+	meshParam.MeshPath = FText::Format(Content::ModelFilePath ,"cube.obj");
 	meshTemp->SetMeshParameters(meshParam);
 	
 	SaveScene();
@@ -92,12 +90,12 @@ void UScene::OnDestroy()
 
 void UScene::SaveScene()
 {
-	SceneSerializer.Get()->Serialize();
+	SceneSerializer->Serialize();
 }
 
 void UScene::LoadScene(const FString& scenePath)
 {
-	SceneSerializer.Get()->Deserialize(scenePath);
+	SceneSerializer->Deserialize(scenePath);
 }
 
 UCamera* UScene::GetCamera()

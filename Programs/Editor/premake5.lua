@@ -21,6 +21,7 @@ project "Editor"
         "%{include_dir.GLAD}",
         "%{include_dir.UUID}",
         "%{include_dir.GLM}",
+        "%{include_dir.YAML}",
     }
 
     libdirs
@@ -33,6 +34,7 @@ project "Editor"
         "opengl32.lib",
         "Usen",
         "GLAD",
+        "YAML",
         "SDL2.lib",
         "SDL2main.lib"
     }
@@ -45,12 +47,18 @@ project "Editor"
     filter "system:windows"
         systemversion "latest"
 
+        defines
+        {
+            "PLATFORM_WINDOWS",
+            "WIN32_LEAN_AND_MEAN",
+            "_CRT_SECURE_NO_WARNINGS",
+            "YAML_CPP_STATIC_DEFINE"
+        }
+
         filter "configurations:Debug"
             defines 
             {
                 "DEBUG",
-                "WIN32_LEAN_AND_MEAN",
-                "PLATFORM_WINDOWS",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -64,8 +72,6 @@ project "Editor"
             defines 
             {
                 "RELEASE",
-                "PLATFORM_WINDOWS",
-                "WIN32_LEAN_AND_MEAN",
             }
             buildoptions "/MD"
             optimize "on"

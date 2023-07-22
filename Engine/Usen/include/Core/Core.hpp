@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Core.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *
+ * Copyright (c) 2023 Sunydark. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -30,6 +30,7 @@ public:                         \
 #include "Core/Formatter.hpp"
 #include "Core/Map.hpp"
 #include "Core/Vector.hpp"
+#include <yaml-cpp/yaml.h>
 
 inline void ULOG(ELogLevel level, const FString& message)
 {
@@ -57,6 +58,18 @@ inline void ULOG(ELogLevel level, const FString& message)
 		FLogger::Log(message);
 		break;
 	}
+}
+
+namespace ShaderDefault
+{
+	const FString DEFAULT{ "default" };
+	const FString SKYBOX{ "skybox" };
+}
+
+namespace Content
+{
+	const FString ModelFilePath{"../../Content/Models/%s"};
+	const FString SceneFilePath{"../../Content/Scene/%s.usscn"};
 }
 
 #endif // !US_CORE_HPP

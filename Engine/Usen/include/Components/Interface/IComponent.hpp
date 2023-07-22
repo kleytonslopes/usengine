@@ -13,10 +13,11 @@
 #define	US_COMPONENT_HPP
 
 #include "Core/Core.hpp"
+#include "Serializer/Serializer.hpp"
 
 class UEntity;
 
-class IComponent
+class IComponent : public USerializer
 {
 public:
 	IComponent(UEntity* Parent);
@@ -33,6 +34,15 @@ protected:
 	bool bComponentTick = false;
 
 	UEntity* Parent = nullptr;
+
+
+	virtual void Serialize() override {/* override */ }
+	virtual void Serialize(YAML::Emitter& otherOut) override {/* override */ }
+	virtual bool Deserialize(const FString& scenePath) override { return false; }
+
+	void BeginComponentMap(YAML::Emitter& otherOut, const FString& componentName);
+
+	friend class UEntitySerializer;
 };
 
 #endif // !US_COMPONENT_HPP

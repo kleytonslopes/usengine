@@ -16,7 +16,7 @@
 
 struct FShaderParameters
 {
-	FString Name{"default"};
+	FString Name{ ShaderDefault::DEFAULT };
 
 	FString GetVertexFilePath()
 	{

@@ -27,6 +27,10 @@ public:
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 
+protected:
+	void Serialize(YAML::Emitter& otherOut) override;
+	bool Deserialize(const FString& scenePath) override;
+
 private:
 	FMeshParameters parameters;
 };
