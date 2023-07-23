@@ -62,8 +62,9 @@ namespace ClassCreator.Templates
             fileBody = fileBody.Replace("{classNameHpp}", classData.HppFileName)
                     .Replace("{creationDate}", classData.DateCreation)
                     .Replace("{classDefinition}", classData.ClassDefinition)
-                    .Replace("{genInclude}", classData.GenFileName)
+                    .Replace("{genIncludeDefine}", classData.GetGenInclude())
                     .Replace("{className}", classData.ClassName)
+                    .Replace("{genBody}", classData.GetGenBobdy())
                     .Replace("{baseClassInclude}", classData.BaseClassInclude)
                     .Replace("{baseClassDefinition}", classData.BaseClassTemplate);
 

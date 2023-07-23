@@ -2,6 +2,8 @@
   {
     "ClassName": "UWeakClass",
     "Data": {
+      "HasGen": true,
+      "HasCpp": true,
       "ClassName": "UWeakClass",
       "ClassDefinition": "US_WEAK_CLASS_HPP",
       "HppFileName": "WeakClass.hpp",
@@ -17,6 +19,28 @@
       "BaseClassInclude": "",
       "ClassGenDefinition": "hpp_UWeakClass",
       "ClassGenDefinitionVersion": "hpp_UWeakClass_def"
+    }
+  },
+  {
+    "ClassName": "UClass",
+    "Data": {
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UClass",
+      "ClassDefinition": "US_CLASS_HPP",
+      "HppFileName": "Class.hpp",
+      "CppFileName": "Class.cpp",
+      "GenFileName": "Class-generated.hpp",
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "UWeakClass",
+      "BaseClassPathHpp": "Core/WeakClass.hpp",
+      "BaseClassTemplate": " : public UWeakClass",
+      "BaseClassInclude": "\n#include \"Core/WeakClass.hpp\"",
+      "ClassGenDefinition": "hpp_UClass_UWeakClass",
+      "ClassGenDefinitionVersion": "hpp_UClass_UWeakClass_def"
     }
   }
 ]

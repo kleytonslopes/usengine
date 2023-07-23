@@ -27,9 +27,16 @@ namespace ClassCreator
     /// </summary>
     public partial class MainWindow : Window
     {
+#if DEBUG
+        private static string EngineFolder = "F:\\Development\\usengine\\Engine\\Usen";
+        private static string RegClassData = "F:\\Development\\usengine\\Config\\class_register.usregcls";
+        private static string GenerateBat = "F:\\Development\\usengine\\GenerateProjectFile.bat";
+#else
+
         private static string EngineFolder = "Engine\\Usen";
         private static string RegClassData = "Config\\class_register.usregcls";
-        private static string GenerateBat = "GenerateProjectFile.bat";///"F:\\Development\\usengine\\GenerateProjectFile.bat";
+        private static string GenerateBat = "GenerateProjectFile.bat";
+#endif
 
         List<Dir> directoriesHierarchy = new List<Dir>();
         List<Dir> directories = new List<Dir>();
@@ -84,9 +91,7 @@ namespace ClassCreator
         {
             try
             {
-
-            
-            Reload();
+                Reload();
             }
             catch (Exception)
             {
@@ -239,17 +244,24 @@ namespace ClassCreator
 
             ClassData classData = MakeClassData();
             BuildTemplate buildTemplate = new BuildTemplate();
-            string cpp = buildTemplate.GenerateClassCpp(classData);
+
             string hpp = buildTemplate.GenerateClassHpp(classData);
-            string gen = buildTemplate.GenerateClassGen(classData);
-
-            string fileCpp = $"{EngineFolder}\\{classData.FolderCpp.Replace("/", "\\")}\\{classData.CppFileName}";
             string fileHpp = $"{EngineFolder}\\{classData.FolderHpp.Replace("/", "\\")}\\{classData.HppFileName}";
-            string fileGen = $"{EngineFolder}\\{classData.FolderGen.Replace("/", "\\")}\\{classData.GenFileName}";
-
-            File.WriteAllText($"{fileCpp}", cpp);
             File.WriteAllText($"{fileHpp}", hpp);
-            File.WriteAllText($"{fileGen}", gen);
+
+            if (chkHasCpp.IsChecked.Value == true)
+            {
+                string fileCpp = $"{EngineFolder}\\{classData.FolderCpp.Replace("/", "\\")}\\{classData.CppFileName}";
+                string cpp = buildTemplate.GenerateClassCpp(classData);
+                File.WriteAllText($"{fileCpp}", cpp);
+            }
+
+            if (chkHasGen.IsChecked.Value == true)
+            {
+                string fileGen = $"{EngineFolder}\\{classData.FolderGen.Replace("/", "\\")}\\{classData.GenFileName}";
+                string gen = buildTemplate.GenerateClassGen(classData);
+                File.WriteAllText($"{fileGen}", gen);
+            }
 
             SaveRegisterClass(classData);
         }
@@ -257,14 +269,16 @@ namespace ClassCreator
         private ClassData MakeClassData()
         {
             ClassData classData = new ClassData();
+            classData.HasCpp = chkHasCpp.IsChecked.Value;
+            classData.HasGen = chkHasGen.IsChecked.Value;
             classData.ClassName = GetClassName();
             classData.ClassDefinition = GetClassDefinition();
             classData.HppFileName = txtClassHeader.Text.Trim();
-            classData.CppFileName = txtClassSource.Text.Trim();
-            classData.GenFileName = GetGenFileName();
+            if (classData.HasCpp) classData.CppFileName = txtClassSource.Text.Trim();
+            if (classData.HasGen) classData.GenFileName = GetGenFileName();
             classData.FolderHpp = GetClassHppFolder();
-            classData.FolderCpp = GetClassCppFolder();
-            classData.FolderGen = GetClassGenFolder();
+            if (classData.HasCpp) classData.FolderCpp = GetClassCppFolder();
+            if (classData.HasGen) classData.FolderGen = GetClassGenFolder();
             classData.DateCreation = DateTime.Now.ToString("MMMM yyyy", new CultureInfo("en-US"));
 
             classData.BaseClassName = GetBaseClassName();
@@ -272,8 +286,8 @@ namespace ClassCreator
             classData.BaseClassTemplate = GetBaseClassTemplate();
             classData.BaseClassInclude = GetBaseClassInclude();
 
-            classData.ClassGenDefinition = GetClassGenDefinition();
-            classData.ClassGenDefinitionVersion = GetClassGenDefinitionVersion();
+            if (classData.HasGen) classData.ClassGenDefinition = GetClassGenDefinition();
+            if (classData.HasGen) classData.ClassGenDefinitionVersion = GetClassGenDefinitionVersion();
 
             return classData;
         }
@@ -335,10 +349,10 @@ namespace ClassCreator
 
             ListBoxItem lib = cboClassBase.SelectedItem as ListBoxItem;
 
-            if(lib == null) return string.Empty;
+            if (lib == null) return string.Empty;
 
             ClassRegister classRegister = lib.Tag as ClassRegister;
-            if(classRegister == null) return string.Empty;
+            if (classRegister == null) return string.Empty;
 
             return $"{classRegister.Data.FolderHpp.Replace("include/", "")}/{classRegister.Data.HppFileName}";
         }
@@ -435,6 +449,31 @@ namespace ClassCreator
                 return;
 
             classRegisters = JsonConvert.DeserializeObject<List<ClassRegister>>(fileBoy);
+        }
+
+        private void tvHierarchy_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            tvHierarchy.ContextMenu = tvHierarchy.Resources["SolutionContext"] as System.Windows.Controls.ContextMenu;
+        }
+
+        private void mnuAddFolder_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = tvHierarchy.SelectedItem as TreeViewItem;
+
+            Dir dir = item.Tag as Dir;
+
+            if (dir != null)
+            {
+                winNewFolder winNewFolder = new winNewFolder();
+                winNewFolder.dir = dir;
+
+                winNewFolder.ShowDialog();
+
+                if (winNewFolder.wasCreated)
+                {
+                    Reload();
+                }
+            }
         }
     }
 }

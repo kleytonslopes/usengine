@@ -41,10 +41,10 @@
             <TextBox x:Name="txtClassName" Grid.Column="0" Grid.Row="2" Text="" TextChanged="txtClassName_TextChanged"/>
 
             <Label Grid.Column="1" Grid.Row="1" Content=".hpp file"/>
-            <TextBox x:Name="txtClassHeader" Grid.Column="1" Grid.Row="2" Text=""/>
+            <TextBox x:Name="txtClassHeader" Grid.Column="1" Grid.Row="2" Text="" IsEnabled="False"/>
 
             <Label Grid.Column="2" Grid.Row="1" Content=".cpp file"/>
-            <TextBox x:Name="txtClassSource" Grid.Column="3" Grid.Row="2" Text=""/>
+            <TextBox x:Name="txtClassSource" Grid.Column="3" Grid.Row="2" Text="" IsEnabled="False"/>
 
             <Label Grid.Column="0" Grid.Row="3" Content="Base class"/>
             <ComboBox x:Name="cboClassBase" Grid.Column="0" Grid.Row="4"/>
@@ -74,6 +74,11 @@
                     <RadioButton x:Name="rbClassPrefixA" Content="AClass" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixB"  Content="BClass" Checked="rbClassPrefix_Checked"/>
                 </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <CheckBox x:Name="chkHasCpp" Content="Has cpp" IsChecked="True"/>
+                    <CheckBox x:Name="chkHasGen" Content="Has gen" IsChecked="True"/>
+                </StackPanel>
             </Grid>
         </Grid>
         
@@ -84,7 +89,7 @@
                 <RowDefinition Height="100*"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Hierarchy"/>
-            <TreeView x:Name="tvHierarchy" Grid.Column="0" Grid.Row="1">
+            <TreeView x:Name="tvHierarchy" Grid.Column="0" Grid.Row="1" SelectedItemChanged="tvHierarchy_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -93,6 +98,11 @@
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
+                <TreeView.Resources>
+                    <ContextMenu x:Key="SolutionContext" StaysOpen="True">
+                        <MenuItem x:Name="mnuAddFolder" Header="Add Folder" Click="mnuAddFolder_Click"/>
+                    </ContextMenu>
+                </TreeView.Resources>
             </TreeView>
         </Grid>
         

@@ -8,6 +8,8 @@ namespace ClassCreator.Data
 {
     public class ClassData
     {
+        public bool HasGen { get; set; }
+        public bool HasCpp { get; set; }
         /// <summary>
         /// UClassName
         /// </summary>
@@ -103,6 +105,19 @@ namespace ClassCreator.Data
             return $"using Super = {BaseClassName}; ";
         }
 
+        public string GetGenBobdy()
+        {
+            if (HasGen)
+                return "DEFAULT_BODY_GENERATED()";
 
+            return string.Empty;
+        }
+
+        public string GetGenInclude()
+        {
+            if (!HasGen) return string.Empty;
+
+            return $"\n#include \"{GenFileName}\"";
+        }
     }
 }
