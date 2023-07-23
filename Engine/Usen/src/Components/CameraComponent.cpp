@@ -13,7 +13,7 @@
 
 void UCameraComponent::Serialize(YAML::Emitter& otherOut)
 {
-	BeginComponentMap(otherOut, "UCameraComponent");
+	BeginComponentMap(otherOut);
 
 	Key(otherOut, "near", Near);
 	Key(otherOut, "far", Far);

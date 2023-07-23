@@ -13,6 +13,7 @@
 #define	US_STRING_HPP
 
 #include <string>
+#include <regex>
 
 using FString = std::string;
 using UCharPtr = const char*;

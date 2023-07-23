@@ -13,13 +13,16 @@
 #define	US_TRANSFORM_COMPONENT_HPP
 
 #include "Components/Interface/IComponent.hpp"
+//#include "TransformComponent-generated.hpp"
 
 class UTransformComponent : public IComponent
 {
-	DEFAULT_BODY(IComponent);
-
+	//DEFAULT_BODY_GENERATED()
+	using Super = IComponent;
 public:
 	UTransformComponent(UEntity* Parent);
+
+	
 
 	FVector GetLocation();
 	FVector GetRotation();

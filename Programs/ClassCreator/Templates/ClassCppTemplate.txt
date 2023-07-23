@@ -1,0 +1,11 @@
+﻿/*********************************************************************
+ *   File: {classNameCpp}
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
+ *   Date: {creationDate}
+ * 
+ * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *********************************************************************/
+#include "upch.hpp"
+#include "{classHeadPath}"

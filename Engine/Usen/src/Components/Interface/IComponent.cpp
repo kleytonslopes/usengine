@@ -16,6 +16,7 @@ IComponent::IComponent(UEntity* Parent)
 	: Parent{ Parent }
 {
 	Id = FGuid::NewGuid();
+	bComponentTick = false;
 }
 
 IComponent::~IComponent()
@@ -36,9 +37,9 @@ UEntity* IComponent::GetParent()
 	return Parent;
 }
 
-void IComponent::BeginComponentMap(YAML::Emitter& otherOut, const FString& componentName)
+void IComponent::BeginComponentMap(YAML::Emitter& otherOut)
 {
-	Key(otherOut, componentName);
+	Key(otherOut, Identity);
 	BeginMap(otherOut);
 	Key(otherOut, "id", Id);
 }

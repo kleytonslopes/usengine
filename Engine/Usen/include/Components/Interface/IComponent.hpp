@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: IComponent.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *
+ * Copyright (c) 2023 Sunydark. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -31,6 +31,7 @@ public:
 	UEntity* GetParent();
 protected:
 	FString Id;
+	FString Identity{ "IComponent" };
 	bool bComponentTick = false;
 
 	UEntity* Parent = nullptr;
@@ -40,7 +41,7 @@ protected:
 	virtual void Serialize(YAML::Emitter& otherOut) override {/* override */ }
 	virtual bool Deserialize(const FString& scenePath) override { return false; }
 
-	void BeginComponentMap(YAML::Emitter& otherOut, const FString& componentName);
+	void BeginComponentMap(YAML::Emitter& otherOut);
 
 	friend class UEntitySerializer;
 };

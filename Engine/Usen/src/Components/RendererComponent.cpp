@@ -17,7 +17,7 @@ void URendererComponent::Initialize()
 
 void URendererComponent::Serialize(YAML::Emitter& otherOut)
 {
-	BeginComponentMap(otherOut, "URendererComponent");
+	BeginComponentMap(otherOut);
 
 	EndMap(otherOut);
 }

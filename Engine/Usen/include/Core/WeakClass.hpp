@@ -2,7 +2,7 @@
  *   File: WeakClass.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -13,9 +13,11 @@
 #define	US_WEAK_CLASS_HPP
 
 #include "Core/Core.hpp"
+#include "WeakClass-generated.hpp"
 
 class UWeakClass
 {
+	DEFAULT_BODY_GENERATED()
 public:
 	virtual void Initialize() { /* override */ }
 	virtual void OnInitialized() { /* override */ }

@@ -1,0 +1,22 @@
+[
+  {
+    "ClassName": "UWeakClass",
+    "Data": {
+      "ClassName": "UWeakClass",
+      "ClassDefinition": "US_WEAK_CLASS_HPP",
+      "HppFileName": "WeakClass.hpp",
+      "CppFileName": "WeakClass.cpp",
+      "GenFileName": "WeakClass-generated.hpp",
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "",
+      "ClassGenDefinition": "hpp_UWeakClass",
+      "ClassGenDefinitionVersion": "hpp_UWeakClass_def"
+    }
+  }
+]

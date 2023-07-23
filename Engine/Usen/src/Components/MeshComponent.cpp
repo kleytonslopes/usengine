@@ -24,7 +24,7 @@ void UMeshComponent::SetMeshParameters(const FMeshParameters& parameters)
 
 void UMeshComponent::Serialize(YAML::Emitter& otherOut)
 {
-	BeginComponentMap(otherOut, "UMeshComponent");
+	BeginComponentMap(otherOut);
 
 	Key(otherOut, "mepa_file", parameters.MeshPath);
 

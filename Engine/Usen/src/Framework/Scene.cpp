@@ -41,7 +41,7 @@ void UScene::Initialize()
 	meshParam.MeshPath = FText::Format(Content::ModelFilePath ,"cube.obj");
 	meshTemp->SetMeshParameters(meshParam);
 	
-	SaveScene();
+	//SaveScene();
 
 	OnInitialized();
 }

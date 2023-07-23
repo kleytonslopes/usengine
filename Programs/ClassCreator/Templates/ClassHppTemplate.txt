@@ -1,0 +1,23 @@
+﻿/*********************************************************************
+ *   File: {classNameHpp}
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
+ *   Date: {creationDate}
+ * 
+ * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *********************************************************************/
+#pragma once
+
+#ifndef {classDefinition}
+#define	{classDefinition}
+
+#include "Core/Core.hpp"{baseClassInclude}
+#include "{genInclude}"
+
+class {className}{baseClassDefinition}
+{
+	DEFAULT_BODY_GENERATED()
+};
+
+#endif // !{classDefinition}

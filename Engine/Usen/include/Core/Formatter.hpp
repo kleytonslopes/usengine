@@ -40,6 +40,11 @@ struct FText
 	{
 		return TEXT(format, args ...);
 	}
+
+	static FString Replace(const FString& text, const FString& repl, const FString& remov)
+	{
+		return std::regex_replace(text, std::regex(repl), remov);
+	}
 };
 
 #endif // !US_FORMATTER_HPP

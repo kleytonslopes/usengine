@@ -15,7 +15,7 @@
 UTransformComponent::UTransformComponent(UEntity* Parent)
 	: Super(Parent)
 {
-	bComponentTick = false;
+	Identity = FText::Replace(typeid(UTransformComponent).name(), "class ", "");
 }
 
 FVector UTransformComponent::GetLocation()
@@ -90,7 +90,7 @@ void UTransformComponent::SetForwardVector(const FVector& vector)
 
 void UTransformComponent::Serialize(YAML::Emitter& otherOut)
 {
-	BeginComponentMap(otherOut, "UTransformComponent");
+	BeginComponentMap(otherOut);
 
 	Key(otherOut, "location", Location);
 	Key(otherOut, "rotation", Rotation);
