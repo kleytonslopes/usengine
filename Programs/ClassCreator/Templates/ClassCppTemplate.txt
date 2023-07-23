@@ -9,3 +9,13 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "{classHeadPath}"
+
+{className}::{className}()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, "{className} Created!");
+}
+
+{className}::~{className}()
+{
+	ULOG(ELogLevel::ELL_WARNING, "{className} Destroyed!");
+}

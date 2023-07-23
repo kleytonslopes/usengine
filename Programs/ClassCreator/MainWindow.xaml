@@ -69,7 +69,8 @@
                 </Grid.ColumnDefinitions>
                 <!-- Flags Class Prefix -->
                 <StackPanel Grid.Column="0">
-                    <RadioButton x:Name="rbClassPrefixU" Content="UClass" IsChecked="True" Checked="rbClassPrefix_Checked" />
+                    <RadioButton x:Name="rbClassPrefixU" Content="UClass"  Checked="rbClassPrefix_Checked" IsChecked="True" />
+                    <RadioButton x:Name="rbClassPrefixF" Content="FClass" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixI" Content="IClass" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixA" Content="AClass" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixB"  Content="BClass" Checked="rbClassPrefix_Checked"/>

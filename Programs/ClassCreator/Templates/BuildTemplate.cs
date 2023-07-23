@@ -41,6 +41,7 @@ namespace ClassCreator.Templates
 
             fileBody = fileBody.Replace("{classNameCpp}", classData.CppFileName)
                     .Replace("{creationDate}", classData.DateCreation)
+                    .Replace("{className}", classData.ClassName)
                     .Replace("{classHeadPath}", classData.GetClassHeadPath());
 
             return fileBody;

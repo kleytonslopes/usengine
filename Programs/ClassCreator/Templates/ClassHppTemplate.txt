@@ -12,11 +12,14 @@
 #ifndef {classDefinition}
 #define	{classDefinition}
 
-#include "Core/Core.hpp"{baseClassInclude}{genIncludeDefine}
+{baseClassInclude}{genIncludeDefine}
 
 class {className}{baseClassDefinition}
 {
 	{genBody}
+public:
+	explicit {className}();
+	virtual ~{className}();
 };
 
 #endif // !{classDefinition}

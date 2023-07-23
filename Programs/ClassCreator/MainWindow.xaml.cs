@@ -77,6 +77,8 @@ namespace ClassCreator
         {
             if (rbClassPrefixU.IsChecked == true)
                 return "U";
+            if (rbClassPrefixF.IsChecked == true)
+                return "F";
             if (rbClassPrefixI.IsChecked == true)
                 return "I";
             if (rbClassPrefixA.IsChecked == true)
@@ -295,7 +297,7 @@ namespace ClassCreator
         private string GetBaseClassInclude()
         {
             if (cboClassBase.SelectedIndex < 0)
-                return string.Empty;
+                return "#include \"Core/MinimalCore.hpp\"";
 
             return $"\n#include \"{GetBaseClassPathHpp()}\"";
         }
@@ -426,7 +428,16 @@ namespace ClassCreator
             classRegister.ClassName = classData.ClassName;
             classRegister.Data = classData;
 
-            classRegisters.Add(classRegister);
+            ClassRegister classRegisterExistent = classRegisters.FirstOrDefault(x => x.ClassName == classData.ClassName);
+            if(classRegisterExistent == null)
+            {
+                classRegisters.Add(classRegister);
+            }
+            else
+            {
+                classRegisterExistent.ClassName = classData.ClassName;
+                classRegisterExistent.Data = classData;
+            }
 
             string json = JsonConvert.SerializeObject(classRegisters, Formatting.Indented);
 
