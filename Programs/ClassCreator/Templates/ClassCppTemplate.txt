@@ -12,10 +12,10 @@
 
 {className}::{className}()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, "{className} Created!");
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
 {className}::~{className}()
 {
-	ULOG(ELogLevel::ELL_WARNING, "{className} Destroyed!");
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }

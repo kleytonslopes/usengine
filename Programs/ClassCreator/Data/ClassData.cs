@@ -8,6 +8,7 @@ namespace ClassCreator.Data
 {
     public class ClassData
     {
+        public bool CanInherit { get; set; } = true;
         public bool HasGen { get; set; }
         public bool HasCpp { get; set; }
         /// <summary>

@@ -12,26 +12,26 @@
 #include "Core/Macros.hpp"
 
 //--0
-// !UWeakClass: ## Class Name
+// !IWeakClass: ## Class Name
 // !WeakClass.cpp: ## File Class CPP
 // !WeakClass.hpp: ## File Class HPP
 // !US_WEAK_CLASS_HPP: ## Class Definition
-// !Core/WeakClass.hpp: ## Class Head Path
+// !Weaks/WeakClass.hpp: ## Class Head Path
 // !July 2023: ## Date Creation
 // !WeakClass-generated.hpp: ## This file
-// !hpp_UWeakClass: ## Class Id
-// !hpp_UWeakClass_def: ## Class Version
+// !hpp_IWeakClass: ## Class Id
+// !hpp_IWeakClass_def: ## Class Version
 // !: ## Base class name
 // !: ## Base class path with file
 //--x
 
 #undef CURRENT_CLASS_IDENTITY_FILE
-#define CURRENT_CLASS_IDENTITY_FILE hpp_UWeakClass
+#define CURRENT_CLASS_IDENTITY_FILE hpp_IWeakClass
 
-#define hpp_UWeakClass_def \
-using This = UWeakClass; \
-protected: \
-	FString Identity{ "UWeakClass" }; \
+#define hpp_IWeakClass_def \
+private: \
+	using This = IWeakClass; \
+	FString Identity{ "IWeakClass" }; \
 private: 
 	
 

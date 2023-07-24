@@ -69,16 +69,17 @@
                 </Grid.ColumnDefinitions>
                 <!-- Flags Class Prefix -->
                 <StackPanel Grid.Column="0">
-                    <RadioButton x:Name="rbClassPrefixU" Content="UClass"  Checked="rbClassPrefix_Checked" IsChecked="True" />
-                    <RadioButton x:Name="rbClassPrefixF" Content="FClass" Checked="rbClassPrefix_Checked"/>
-                    <RadioButton x:Name="rbClassPrefixI" Content="IClass" Checked="rbClassPrefix_Checked"/>
-                    <RadioButton x:Name="rbClassPrefixA" Content="AClass" Checked="rbClassPrefix_Checked"/>
-                    <RadioButton x:Name="rbClassPrefixB"  Content="BClass" Checked="rbClassPrefix_Checked"/>
+                    <RadioButton x:Name="rbClassPrefixU" Content="Unsigned"  Checked="rbClassPrefix_Checked" IsChecked="True" />
+                    <RadioButton x:Name="rbClassPrefixA" Content="Actor" Checked="rbClassPrefix_Checked"/>
+                    <RadioButton x:Name="rbClassPrefixF" Content="Function" Checked="rbClassPrefix_Checked"/>
+                    <RadioButton x:Name="rbClassPrefixI" Content="Interface" Checked="rbClassPrefix_Checked"/>
+                    <RadioButton x:Name="rbClassPrefixB"  Content="Base" Checked="rbClassPrefix_Checked"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <CheckBox x:Name="chkHasCpp" Content="Has cpp" IsChecked="True"/>
-                    <CheckBox x:Name="chkHasGen" Content="Has gen" IsChecked="True"/>
+                    <CheckBox x:Name="chkHasCpp" Content="Create CPP" IsChecked="True"/>
+                    <CheckBox x:Name="chkHasGen" Content="Create Generated" IsChecked="True"/>
+                    <CheckBox x:Name="chkInherit" Content="Can Inherit" IsChecked="True"/>
                 </StackPanel>
             </Grid>
         </Grid>

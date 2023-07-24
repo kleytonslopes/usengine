@@ -2,7 +2,7 @@
  *   File: Logger.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 

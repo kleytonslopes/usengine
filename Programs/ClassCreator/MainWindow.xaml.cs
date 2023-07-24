@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Ini.Net;
 
 namespace ClassCreator
 {
@@ -30,11 +31,13 @@ namespace ClassCreator
 #if DEBUG
         private static string EngineFolder = "F:\\Development\\usengine\\Engine\\Usen";
         private static string RegClassData = "F:\\Development\\usengine\\Config\\class_register.usregcls";
+        private static string CfgClassData = "F:\\Development\\usengine\\Config\\{class_cfg}.ini";
         private static string GenerateBat = "F:\\Development\\usengine\\GenerateProjectFile.bat";
 #else
 
         private static string EngineFolder = "Engine\\Usen";
         private static string RegClassData = "Config\\class_register.usregcls";
+        private static string CfgClassData = "Config\\Classes\\{class_cfg}.ini";
         private static string GenerateBat = "GenerateProjectFile.bat";
 #endif
 
@@ -124,6 +127,9 @@ namespace ClassCreator
 
             foreach (ClassRegister item in classRegisters)
             {
+                if (!item.Data.CanInherit)
+                    continue;
+
                 ListBoxItem lbi = new ListBoxItem();
                 lbi.Content = item.ClassName;
                 lbi.Tag = item;
@@ -271,6 +277,7 @@ namespace ClassCreator
         private ClassData MakeClassData()
         {
             ClassData classData = new ClassData();
+            classData.CanInherit = chkInherit.IsChecked.Value;
             classData.HasCpp = chkHasCpp.IsChecked.Value;
             classData.HasGen = chkHasGen.IsChecked.Value;
             classData.ClassName = GetClassName();
@@ -307,18 +314,9 @@ namespace ClassCreator
             if (cboClassBase.SelectedIndex < 0)
                 return string.Empty;
 
-            string caps = string.Empty;
-
-            if (cboClassBase.SelectedIndex == 1)
-                caps = "protected";
-            else if (cboClassBase.SelectedIndex == 2)
-                caps = "private";
-            else
-                caps = "public";
-
             string classBaseName = GetBaseClassName();
 
-            return $" : {caps} {classBaseName}";
+            return $" : {cboClassAccess.Text} {classBaseName}";
         }
 
         private string GetClassDefinition()
@@ -443,8 +441,41 @@ namespace ClassCreator
 
             File.WriteAllText(RegClassData, json);
 
+            SaveClassDataConfig(classData);
             Reload();
             GenerateProjectFiles();
+
+            MessageBox.Show("Class generated!", "Usen", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SaveClassDataConfig(ClassData classData)
+        {
+            string className = classData.ClassName.Substring(1);
+            var iniClass = new IniFile(CfgClassData.Replace("{class_cfg}", className));
+
+
+            iniClass.WriteDateTime("CLASS", "DateCreation", DateTime.Now);
+            iniClass.WriteString("CLASS", "Type", classData.ClassName.Substring(0, 1));
+            iniClass.WriteString("CLASS", "Name", className);
+            iniClass.WriteString("CLASS", "Identity", classData.ClassName);
+            iniClass.WriteString("CLASS", "Hpp", classData.HppFileName);
+            iniClass.WriteString("CLASS", "Cpp", classData.CppFileName);
+            
+            iniClass.WriteString("CLASS", "Definition", classData.ClassDefinition);
+            iniClass.WriteString("CLASS", "FolderHpp", classData.FolderHpp);
+            iniClass.WriteString("CLASS", "FolderCpp", classData.FolderCpp);
+            
+
+            iniClass.WriteString("CLASS_BASE", "Name", classData.BaseClassName);
+            iniClass.WriteString("CLASS_BASE", "Hpp", classData.BaseClassPathHpp);
+            iniClass.WriteString("CLASS_BASE", "Access", cboClassAccess.Text);
+
+            iniClass.WriteString("CLASS_GENERATED", "Hpp", classData.GenFileName);
+            iniClass.WriteString("CLASS_GENERATED", "FolderGen", classData.FolderGen);
+            iniClass.WriteString("CLASS_GENERATED", "Name", classData.BaseClassName);
+            iniClass.WriteString("CLASS_GENERATED", "Definition", classData.ClassGenDefinition);
+            iniClass.WriteString("CLASS_GENERATED", "DefinitionVersion", classData.ClassGenDefinitionVersion);
+            iniClass.WriteString("CLASS_GENERATED", "Access", cboClassAccess.Text);
         }
 
         private void GenerateProjectFiles()

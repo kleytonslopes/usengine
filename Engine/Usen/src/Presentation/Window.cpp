@@ -1,26 +1,36 @@
 /*********************************************************************
  *   File: Window.cpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Presentation/Window.hpp"
 #include "Runtime/Application.hpp"
 
+UWindow::UWindow()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
+
 UWindow::~UWindow()
 {
-	if (!bIsDestroyed)
-		OnDestroy();
+	if (sdlGLContext)
+		SDL_GL_DeleteContext(sdlGLContext);
+
+	SDL_FreeSurface(sdlSurface);
+	SDL_DestroyRenderer(sdlRenderer);
+	SDL_DestroyWindow(sdlWindow);
+	SDL_Quit();
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void UWindow::Initialize()
 {
-	ULOG(ELogLevel::ELL_TRACE, "Initializing Window...");
-
+	ULOG(ELogLevel::ELL_INFORMATION, "Initializing UWindow...");
 	desiredFps = 1000 / fpsLimit;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -29,11 +39,8 @@ void UWindow::Initialize()
 	}
 
 	InitializeForOpenGL();
-}
 
-void UWindow::Update(float deltaTime)
-{
-
+	Super::Initialize();
 }
 
 void UWindow::PollEvents()
@@ -132,7 +139,6 @@ void UWindow::CreateWindowSurfaceInstance()
 	sdlSurface = SDL_GetWindowSurface(sdlWindow);
 	SDL_FillRect(sdlSurface, NULL, SDL_MapRGB(sdlSurface->format, 0x00, 0x00, 0x00));
 	SDL_UpdateWindowSurface(sdlWindow);
-
 }
 
 void UWindow::CreateWindowContextOpenGL()
@@ -143,18 +149,4 @@ void UWindow::CreateWindowContextOpenGL()
 	{
 		UASSERT(false, "Failed to initialize GLAD");
 	}
-}
-
-void UWindow::OnDestroy()
-{
-	Super::OnDestroy();
-
-	if (sdlGLContext)
-		SDL_GL_DeleteContext(sdlGLContext);
-
-	SDL_FreeSurface(sdlSurface);
-	SDL_DestroyRenderer(sdlRenderer);
-	SDL_DestroyWindow(sdlWindow);
-	SDL_Quit();
-	ULOG(ELogLevel::ELL_WARNING, "UWindow Destroyed!");
 }

@@ -1,28 +1,27 @@
 /*********************************************************************
  *   File: CameraComponent.hpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_CAMERA_COMPONENT_HPP
 #define	US_CAMERA_COMPONENT_HPP
 
-#include "Components/Interface/IComponent.hpp"
 
-class UCameraComponent : public IComponent
+#include "Components/Component.hpp"
+#include "CameraComponent-generated.hpp"
+
+class UCameraComponent : public AComponent
 {
-	DEFAULT_BODY(IComponent);
+	DEFAULT_BODY_GENERATED()
 public:
-	UCameraComponent() = default;
-
-protected:
-	void Serialize(YAML::Emitter& otherOut) override;
-	bool Deserialize(const FString& scenePath) override;
+	explicit UCameraComponent();
+	~UCameraComponent() final;
 
 private:
 	float Near{ 0.001f };

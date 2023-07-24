@@ -2,50 +2,44 @@
  *   File: Renderer.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/Renderer.hpp"
-#include "Framework/Entity.hpp"
-#include "Components/RendererComponent.hpp"
+#include "Actors/Entity.hpp"
 
-URenderer::~URenderer()
+BRenderer::BRenderer()
 {
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
-void URenderer::Initialize()
+BRenderer::~BRenderer()
 {
-	OnInitialized();
+	TMap<FString, BShader*>::iterator it;
+	for (it = Shaders.begin(); it != Shaders.end(); it++)
+	{
+		ULOG(ELogLevel::ELL_TRACE, FText::Format("Deleting Shader %s...", it->first.c_str()));
+		delete it->second;
+	}
+
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void URenderer::OnInitialized()
+void BRenderer::Draw(AEntity* entity, float deltaTime)
 {
+	if(entity != nullptr)
+		entity->Draw(deltaTime);
 }
 
-void URenderer::Update(float deltaTime)
-{
-}
-
-void URenderer::OnDestroy()
-{
-}
-
-void URenderer::Draw(UEntity* entity, float deltaTime)
-{
-	if (!entity)
-		return;
-
-	URendererComponent* renderComp = entity->GetComponent<URendererComponent>();
-}
 
 template<typename T>
-T* URenderer::CreateShader(const FShaderParameters& parameters)
+inline T* BRenderer::CreateShader(const FShaderParameters& parameters)
 {
 	T* shader = new T(parameters);
-	shader->OnInitialize();
+	shader->Initialize();
 
 	shaders[parameters.Name] = shader;
 }

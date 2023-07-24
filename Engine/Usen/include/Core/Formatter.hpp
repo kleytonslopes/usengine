@@ -1,16 +1,16 @@
 /*********************************************************************
  *   File: Formatter.hpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_FORMATTER_HPP
-#define US_FORMATTER_HPP
+#define	US_FORMATTER_HPP
 
 #include "Core/String.hpp"
 

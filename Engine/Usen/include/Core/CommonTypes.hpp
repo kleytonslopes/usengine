@@ -2,7 +2,7 @@
  *   File: CommonTypes.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -21,7 +21,7 @@
 
 namespace us::types
 {
-	struct FCommonTypes 
+	struct FCommonTypes
 	{
 		using UUtint8 = unsigned char;
 		using UUtint16 = unsigned short int;

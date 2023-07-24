@@ -2,7 +2,7 @@
  *   File: UniquePtr.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -12,6 +12,7 @@
 #ifndef US_UNIQUE_PTR_HPP
 #define	US_UNIQUE_PTR_HPP
 
+#include "Core/Core.hpp"
 #include <memory>
 
 template<typename T>
@@ -38,7 +39,7 @@ private:
 
 template<typename T>
 inline UUniquePtr<T>::UUniquePtr(std::unique_ptr<T> nptr)
-	: ptr{ std::move(nptr)}
+	: ptr{ std::move(nptr) }
 {
 
 }

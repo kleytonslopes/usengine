@@ -2,7 +2,7 @@
  *   File: Scene.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -12,54 +12,30 @@
 #ifndef US_SCENE_HPP
 #define	US_SCENE_HPP
 
-#include "Core/Class.hpp"
 
-class UEntity;
-class UCamera;
-class URenderer;
-class UApplication;
+#include "Base/Class.hpp"
+#include "Scene-generated.hpp"
 
-struct FShaderParameters;
-class USceneSerializer;
+class AEntity;
+class ACamera;
+class APawn;
 
-struct FSceneSettings
+class UScene : public BClass
 {
-	FString Name = "Unnamed";
-	TVector<FShaderParameters> ShadersParameters;
-};
-
-class UScene : public UClass
-{
-	friend class USceneSerializer;
-
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	virtual ~UScene();
+	explicit UScene();
+	~UScene() final;
+	void Destroy() final;
 
-	// Inherited via UWeakClass
 	void Initialize() override;
-	void OnInitialized() override;
-
 	void Update(float deltaTime) override;
-	void OnDestroy() override;
-
-	void SaveScene();
-	void LoadScene(const FString& scenePath);
-
-	template<typename T>
-	T* CreateEntity();
-
-	UCamera* GetCamera();
-
-protected:
-	FSceneSettings sceneSettings{};
-	UCamera* activeCamera = nullptr;
-
-	TMap<FString, UEntity*> entities;
 
 private:
-	uint64 lastEntityId = 0;
-	USceneSerializer* SceneSerializer = nullptr;
+	UUniquePtr<ACamera> Camera;
+	UUniquePtr<APawn> DefaultPawn;
+
+	TMap<FString, AEntity*> entities;
 };
 
 #endif // !US_SCENE_HPP

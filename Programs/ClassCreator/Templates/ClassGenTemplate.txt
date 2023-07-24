@@ -29,7 +29,7 @@
 #define CURRENT_CLASS_IDENTITY_FILE {classGenDefineIdentity}
 
 #define {classGenVersion} \
-private: 
+private: \
 	{superClassTemplate}using This = {className}; \
 	FString Identity{ "{className}" }; \
 private: 

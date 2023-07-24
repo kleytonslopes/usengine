@@ -24,7 +24,3 @@
 #include <functional>
 #include <fstream>
 #include <regex>
-
-#include "Core/CommonTypes.hpp"
-#include "Core/String.hpp"
-

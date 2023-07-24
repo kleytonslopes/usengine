@@ -2,7 +2,7 @@
  *   File: ShaderParameters.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -12,17 +12,19 @@
 #ifndef US_SHADER_PARAMETERS_HPP
 #define	US_SHADER_PARAMETERS_HPP
 
-#include "Core/String.hpp"
+#include "Core/MinimalCore.hpp"
 
-struct FShaderParameters
+class FShaderParameters
 {
+	
+public:
 	FString Name{ ShaderDefault::DEFAULT };
 
-	FString GetVertexFilePath()
+	FString GetVertexFilePath() const
 	{
 		return FText::Format("../../Content/Shaders/%s/vert.glsl", Name.c_str());
 	}
-	FString GetFragmentFilePath()
+	FString GetFragmentFilePath() const
 	{
 		return FText::Format("../../Content/Shaders/%s/frag.glsl", Name.c_str());
 	}

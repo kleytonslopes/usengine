@@ -2,31 +2,28 @@
  *   File: GameInstance.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #pragma once
 
-#ifndef US_GAMEINSTANCE_HPP
-#define	US_GAMEINSTANCE_HPP
+#ifndef US_GAME_INSTANCE_HPP
+#define	US_GAME_INSTANCE_HPP
 
-#include "Core/Class.hpp"
 
-class UScene;
-class UApplication;
+#include "Base/Class.hpp"
+#include "GameInstance-generated.hpp"
 
-class UGameInstance : public UClass
+class UGameInstance : public BClass
 {
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
+	explicit UGameInstance();
 	virtual ~UGameInstance();
 
 	void Initialize() override;
-	void OnInitialized() override;
-	void Update(float deltaTime) override;
-	void OnDestroy() override;
 };
 
-#endif // !US_GAMEINSTANCE_HPP
+#endif // !US_GAME_INSTANCE_HPP

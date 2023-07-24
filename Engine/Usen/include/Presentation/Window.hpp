@@ -2,7 +2,7 @@
  *   File: Window.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
@@ -12,23 +12,21 @@
 #ifndef US_WINDOW_HPP
 #define	US_WINDOW_HPP
 
-#include "Core/Class.hpp"
+
+#include "Base/Class.hpp"
 #include <SDL.h>
 #undef main
 #include "glad/glad.h"
+#include "Window-generated.hpp"
 
-class UApplication;
-
-class UWindow : public UClass
+class UWindow : public BClass
 {
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	virtual ~UWindow() final;
+	explicit UWindow();
+	~UWindow() final;
 
-	// Inherited via UWeakClass
 	void Initialize() override;
-	void Update(float deltaTime) override;
-	void OnDestroy() override;
 
 	void PollEvents();
 	void StartLoop();
@@ -63,8 +61,6 @@ private:
 	void CreateWindowRendererInstance();
 	void CreateWindowSurfaceInstance();
 	void CreateWindowContextOpenGL();
-
-
 };
 
 #endif // !US_WINDOW_HPP

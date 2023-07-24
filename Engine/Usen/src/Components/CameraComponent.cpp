@@ -2,33 +2,20 @@
  *   File: CameraComponent.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
  * Copyright (c) 2023 Sunydark. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/CameraComponent.hpp"
-#include "Serializer/ComponentSerializer.hpp"
 
-void UCameraComponent::Serialize(YAML::Emitter& otherOut)
+UCameraComponent::UCameraComponent()
 {
-	BeginComponentMap(otherOut);
-
-	Key(otherOut, "near", Near);
-	Key(otherOut, "far", Far);
-	Key(otherOut, "fov", Fov);
-	Key(otherOut, "yaw", Yaw);
-	Key(otherOut, "pitch", Pitch);
-	Key(otherOut, "roll", Roll);
-	Key(otherOut, "yawaxis", YawAxis);
-	Key(otherOut, "pitchaxis", PitchAxis);
-	Key(otherOut, "rollaxis", RollAxis);
-
-	EndMap(otherOut);
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
-bool UCameraComponent::Deserialize(const FString& scenePath)
+UCameraComponent::~UCameraComponent()
 {
-	return false;
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
