@@ -481,5 +481,120 @@
       "ClassGenDefinition": "hpp_UInputComponent_AComponent",
       "ClassGenDefinitionVersion": "hpp_UInputComponent_AComponent_def"
     }
+  },
+  {
+    "ClassName": "BSerializer",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "BSerializer",
+      "ClassDefinition": "US_SERIALIZER_HPP",
+      "HppFileName": "Serializer.hpp",
+      "CppFileName": "Serializer.cpp",
+      "GenFileName": "Serializer-generated.hpp",
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": "src/Serializers",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_BSerializer",
+      "ClassGenDefinitionVersion": "hpp_BSerializer_def"
+    }
+  },
+  {
+    "ClassName": "FSerializeConverters",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FSerializeConverters",
+      "ClassDefinition": "US_SERIALIZE_CONVERTERS_HPP",
+      "HppFileName": "SerializeConverters.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FSerializerOperators",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FSerializerOperators",
+      "ClassDefinition": "US_SERIALIZER_OPERATORS_HPP",
+      "HppFileName": "SerializerOperators.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FSceneSerializer",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FSceneSerializer",
+      "ClassDefinition": "US_SCENE_SERIALIZER_HPP",
+      "HppFileName": "SceneSerializer.hpp",
+      "CppFileName": "SceneSerializer.cpp",
+      "GenFileName": "SceneSerializer-generated.hpp",
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": "src/Serializers",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "BSerializer",
+      "BaseClassPathHpp": "Serializers/Serializer.hpp",
+      "BaseClassTemplate": " : public BSerializer",
+      "BaseClassInclude": "\n#include \"Serializers/Serializer.hpp\"",
+      "ClassGenDefinition": "hpp_FSceneSerializer_BSerializer",
+      "ClassGenDefinitionVersion": "hpp_FSceneSerializer_BSerializer_def"
+    }
+  },
+  {
+    "ClassName": "FSerializerTypes",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FSerializerTypes",
+      "ClassDefinition": "US_SERIALIZER_TYPES_HPP",
+      "HppFileName": "SerializerTypes.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]
