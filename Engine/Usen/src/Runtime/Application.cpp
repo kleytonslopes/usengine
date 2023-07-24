@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Runtime/Application.hpp"
@@ -47,19 +47,17 @@ void UApplication::Initialize()
 	Controller = UUniquePtr<UController>::Make();
 	Controller.Get()->Initialize();
 
-
-
 	bIsInitialized = true;
 }
 
 void UApplication::Destroy()
 {
-	Controller.Get()->Destroy();
-	Scene.Get()->Destroy();
-	InputManagement.Get()->Destroy();
-	GameInstance.Get()->Destroy();
-	Renderer.Get()->Destroy();
-	Window.Get()->Destroy();
+	Controller.Destroy();//.Get()->Destroy();
+	Scene.Destroy();//.Get()->Destroy();
+	InputManagement.Destroy();//.Get()->Destroy();
+	GameInstance.Destroy();//.Get()->Destroy();
+	Renderer.Destroy();//.Get()->Destroy();
+	Window.Destroy();//.Get()->Destroy();
 }
 
 void UApplication::Loop()

@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -16,6 +16,8 @@
 #include "Base/Class.hpp"
 #include "Entity-generated.hpp"
 
+class FEntitySerializer;
+
 class AEntity : public BClass
 {
 	DEFAULT_BODY_GENERATED()
@@ -24,6 +26,8 @@ public:
 	virtual ~AEntity();
 
 	virtual void Create() { /* override */ };
+
+	void Initialize() override;
 
 	void SetOwner(AEntity* owner);
 
@@ -34,7 +38,10 @@ private:
 	FString Id;
 	void Draw(float deltaTime);
 
+	UUniquePtr<FEntitySerializer> Serializer;
+
 	friend class BRenderer;
+	friend class UScene;
 };
 
 #endif // !US_ENTITY_HPP

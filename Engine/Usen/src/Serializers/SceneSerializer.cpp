@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Serializers/SceneSerializer.hpp"
@@ -17,15 +17,15 @@
 
 YAML::Emitter& operator<<(YAML::Emitter& out, const TVector<FShaderParameters>& vector)
 {
-	out << SERI_LINE;
-	out << SERI_ARRAY_BEGIN;
+	out << YAML::Flow;
+	out << YAML::BeginSeq;
 
 	for (const FShaderParameters& val : vector)
 	{
 		out << val.Name;
 	}
 
-	out << SERI_ARRAY_END;
+	out << YAML::EndSeq;
 
 	return out;
 }
@@ -68,15 +68,21 @@ bool FSceneSerializer::Deserialize(const FString& scenePath)
 	return true;
 }
 
+void FSceneSerializer::SetScene(UScene* scene)
+{
+	this->Scene = scene;
+}
+
 void FSceneSerializer::SerializeShaders()
 {
 	Key("Shaders");
-	BeginArray();
+	BeginSection();
 
 	Key<TVector<FShaderParameters>>("name", Scene->Settings.ShadersParameters);
 
-	EndArray();
+	EndSection();
 }
+
 void FSceneSerializer::SetializeEntities()
 {
 	BeginArray("Entities");

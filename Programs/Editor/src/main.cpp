@@ -5,18 +5,17 @@
  * Author: Kleyton
  *   Date: July 2023
  *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
- //#include "Runtime/Application.hpp"
+
 #include "Environment.hpp"
 
 int main()
 {
 	try
 	{
-		us::env::Environment::Applicaiton = new UApplication();
-		us::env::Environment::Applicaiton->Run();
-		delete us::env::Environment::Applicaiton;
+		us::env::Environment::Applicaiton.Get()->Run();
+		us::env::Environment::Applicaiton.Destroy();
 	}
 	catch (const std::exception&)
 	{

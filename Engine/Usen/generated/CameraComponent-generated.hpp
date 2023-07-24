@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -32,6 +32,7 @@
 private: \
 	using Super = AComponent; using This = UCameraComponent; \
 	FString Identity{ "UCameraComponent" }; \
+    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
 private: 
 	
 

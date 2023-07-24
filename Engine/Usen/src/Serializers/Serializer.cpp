@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Serializers/Serializer.hpp"
@@ -42,73 +42,73 @@ void BSerializer::SetFilePath(const FString& fineName)
 
 void BSerializer::BeginSection()
 {
-	out << SERI_SECTION_BEGIN;
+	out << YAML::BeginMap;
 }
 void BSerializer::BeginSection(const FString& key)
 {
-	out << SERI_SECTION_BEGIN;
-	out << SERI_KEY << key;
+	out << YAML::BeginMap;
+	out << YAML::Key << key;
 }
 void BSerializer::BeginSection(const FString& key, const FString& value)
 {
-	out << SERI_SECTION_BEGIN;
-	out << SERI_KEY << key << YAML::Value << value;
+	out << YAML::BeginMap;
+	out << YAML::Key << key << YAML::Value << value;
 }
 
 void BSerializer::BeginSection(SeriFile& otherOut)
 {
-	otherOut << SERI_SECTION_BEGIN;
+	otherOut << YAML::BeginMap;
 }
 void BSerializer::BeginSection(SeriFile& otherOut, const FString& key)
 {
-	otherOut << SERI_SECTION_BEGIN;
-	otherOut << SERI_KEY << key;
+	otherOut << YAML::BeginMap;
+	otherOut << YAML::Key << key;
 }
 void BSerializer::BeginSection(SeriFile& otherOut, const FString& key, const FString& value)
 {
-	otherOut << SERI_SECTION_BEGIN;
-	otherOut << SERI_KEY << key << YAML::Value << value;
+	otherOut << YAML::BeginMap;
+	otherOut << YAML::Key << key << YAML::Value << value;
 }
 
 void BSerializer::EndSection()
 {
-	out << SERI_SECTION_END;
+	out << YAML::EndMap;
 }
 
 void BSerializer::EndSection(SeriFile& otherOut)
 {
-	otherOut << SERI_SECTION_END;
+	otherOut << YAML::EndMap;
 }
 
 void BSerializer::BeginArray()
 {
-	out << SERI_ARRAY_BEGIN;
+	out << YAML::BeginSeq;
 }
 void BSerializer::BeginArray(const FString& key)
 {
-	out << SERI_KEY << key;
-	out << SERI_ARRAY_BEGIN;
+	out << YAML::Key << key;
+	out << YAML::BeginSeq;
 }
 void BSerializer::EndArray()
 {
-	out << SERI_ARRAY_END;
+	out << YAML::EndSeq;
 }
 
 void BSerializer::BeginArray(SeriFile& otherOut)
 {
-	otherOut << SERI_ARRAY_BEGIN;
+	otherOut << YAML::BeginSeq;
 }
 void BSerializer::BeginArray(SeriFile& otherOut, const FString& key)
 {
-	otherOut << SERI_KEY << key;
-	otherOut << SERI_ARRAY_BEGIN;
+	otherOut << YAML::Key << key;
+	otherOut << YAML::BeginSeq;
 }
 void BSerializer::EndSequence(SeriFile& otherOut)
 {
-	otherOut << SERI_ARRAY_END;
+	otherOut << YAML::EndSeq;
 }
 
 void BSerializer::Key(const FString& key)
 {
-	out << SERI_KEY << key;
+	out << YAML::Key << key;
 }

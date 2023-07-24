@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: {creationDate}
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 

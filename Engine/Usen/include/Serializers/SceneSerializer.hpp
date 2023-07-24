@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -28,6 +28,8 @@ public:
 	void Serialize() override;
 	void Serialize(SeriFile& otherOut) override { /* DoNothing */ }
 	bool Deserialize(const FString& scenePath) override;
+
+	void SetScene(UScene* scene);
 
 private:
 	UScene* Scene = nullptr;

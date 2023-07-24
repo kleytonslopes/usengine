@@ -596,5 +596,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "FEntitySerializer",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FEntitySerializer",
+      "ClassDefinition": "US_ENTITY_SERIALIZER_HPP",
+      "HppFileName": "EntitySerializer.hpp",
+      "CppFileName": "EntitySerializer.cpp",
+      "GenFileName": "EntitySerializer-generated.hpp",
+      "FolderHpp": "include/Serializers",
+      "FolderCpp": "src/Serializers",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "BSerializer",
+      "BaseClassPathHpp": "Serializers/Serializer.hpp",
+      "BaseClassTemplate": " : public BSerializer",
+      "BaseClassInclude": "\n#include \"Serializers/Serializer.hpp\"",
+      "ClassGenDefinition": "hpp_FEntitySerializer_BSerializer",
+      "ClassGenDefinitionVersion": "hpp_FEntitySerializer_BSerializer_def"
+    }
   }
 ]

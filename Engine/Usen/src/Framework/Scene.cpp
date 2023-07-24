@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
@@ -13,11 +13,14 @@
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
 #include "Actors/Actor.hpp"
+#include "Actors/Entity.hpp"
 #include "Pawns/Pawn.hpp"
 #include "Input/InputManagement.hpp"
+#include "Serializers/SceneSerializer.hpp"
 
 UScene::UScene()
 {
+	//Serializer = new FSceneSerializer();
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -41,13 +44,33 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
+	Serializer = UUniquePtr<FSceneSerializer>::Make();
+	Serializer.Get()->SetScene(this);
+
 	Camera = UUniquePtr<ACamera>::Make();
 	Camera.Get()->Create();
+	entities[Camera.Get()->Id] = Camera.Get();
 
 	DefaultPawn = UUniquePtr<APawn>::Make();
 	DefaultPawn.Get()->Initialize();
 
+	{
+		FShaderParameters shaderDefault{};
+		shaderDefault.Name = "default";
+
+		FShaderParameters shaderSkybox{};
+		shaderDefault.Name = "skybox";
+
+		Settings.ShadersParameters.push_back(shaderDefault);
+		Settings.ShadersParameters.push_back(shaderSkybox);
+
+		AEntity* entity1 = CreateEntity<AEntity>();
+		AActor* actor1 = CreateEntity<AActor>();
+	}
+
 	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
+
+	//SaveScene();
 
 	Super::Initialize();
 }
@@ -60,4 +83,24 @@ void UScene::Update(float deltaTime)
 	{
 		Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
+}
+
+template<class T>
+T* UScene::CreateEntity()
+{
+	T* newEntity = new T();
+
+	entities[newEntity->Id] = newEntity;
+
+	return newEntity;
+}
+
+void UScene::SaveScene()
+{
+	Serializer.Get()->Serialize();
+}
+
+bool UScene::LoadScene(const FString& sceneName)
+{
+	return Serializer.Get()->Deserialize(sceneName);
 }

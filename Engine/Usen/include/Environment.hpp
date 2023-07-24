@@ -7,7 +7,7 @@
 
 namespace us::env::Environment
 {
-	inline UApplication* Applicaiton = nullptr;
+	inline UUniquePtr<UApplication> Applicaiton = UUniquePtr<UApplication>::Make();
 }
 
 #endif // !US_ENVIRONMENT_HPP

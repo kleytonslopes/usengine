@@ -5,11 +5,12 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Actors/Entity.hpp"
 #include "Core/Guid.hpp"
+#include "Serializers/EntitySerializer.hpp"
 
 AEntity::AEntity()
 {
@@ -20,6 +21,12 @@ AEntity::AEntity()
 AEntity::~AEntity()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Created!", Identity.c_str()));
+}
+
+void AEntity::Initialize()
+{
+	Serializer = UUniquePtr<FEntitySerializer>::Make();
+	Serializer.Get()->SetEntity(this);
 }
 
 void AEntity::SetOwner(AEntity* owner)

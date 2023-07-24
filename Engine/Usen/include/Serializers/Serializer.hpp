@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -54,19 +54,19 @@ public:
 	template<typename T>
 	inline void Key(const FString& key, T& value)
 	{
-		out << SERI_KEY << key << SERI_VALUE << value;
+		out << YAML::Key << key << YAML::Value << value;
 	}
 
 	template<typename T>
 	inline void Key(SeriFile& otherOut, const T& key)
 	{
-		otherOut << SERI_KEY << key;
+		otherOut << YAML::Key << key;
 	}
 
 	template<typename T>
 	inline void Key(SeriFile& otherOut, const FString& key, T& value)
 	{
-		otherOut << SERI_KEY << key << SERI_VALUE << value;
+		otherOut << YAML::Key << key << YAML::Value << value;
 	}
 
 	template<typename T>

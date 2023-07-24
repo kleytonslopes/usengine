@@ -5,7 +5,7 @@
  * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -21,6 +21,8 @@ class ACamera;
 class APawn;
 
 struct FShaderParameters;
+
+class FSceneSerializer;
 
 struct FSceneSettings
 {
@@ -39,13 +41,19 @@ public:
 	void Initialize() override;
 	void Update(float deltaTime) override;
 
+	template<class T>
+	T* CreateEntity();
 private:
 	FSceneSettings Settings{};
 
 	UUniquePtr<ACamera> Camera;
 	UUniquePtr<APawn> DefaultPawn;
+	UUniquePtr<FSceneSerializer> Serializer;
 
 	TMap<FString, AEntity*> entities;
+
+	void SaveScene();
+	bool LoadScene(const FString& sceneName);
 
 	friend class FSceneSerializer;
 };
