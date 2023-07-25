@@ -642,5 +642,51 @@
       "ClassGenDefinition": "hpp_UMeshComponent_AComponent",
       "ClassGenDefinitionVersion": "hpp_UMeshComponent_AComponent_def"
     }
+  },
+  {
+    "ClassName": "UShaderOpenGL",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UShaderOpenGL",
+      "ClassDefinition": "US_SHADER_OPEN_GL_HPP",
+      "HppFileName": "ShaderOpenGL.hpp",
+      "CppFileName": "ShaderOpenGL.cpp",
+      "GenFileName": "ShaderOpenGL-generated.hpp",
+      "FolderHpp": "include/Renderer/OpenGL",
+      "FolderCpp": "src/Renderer/OpenGL",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "BShader",
+      "BaseClassPathHpp": "Renderer/Shader.hpp",
+      "BaseClassTemplate": " : public BShader",
+      "BaseClassInclude": "\n#include \"Renderer/Shader.hpp\"",
+      "ClassGenDefinition": "hpp_UShaderOpenGL_BShader",
+      "ClassGenDefinitionVersion": "hpp_UShaderOpenGL_BShader_def"
+    }
+  },
+  {
+    "ClassName": "FFile",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "FFile",
+      "ClassDefinition": "US_FILE_HPP",
+      "HppFileName": "File.hpp",
+      "CppFileName": "File.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "July 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]

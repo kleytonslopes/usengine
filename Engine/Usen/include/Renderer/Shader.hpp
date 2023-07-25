@@ -23,6 +23,8 @@ public:
 	explicit BShader();
 	virtual ~BShader();
 
+	virtual void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) = 0;
+
 protected:
 	FString Name;
 	FString VertexFilePath;

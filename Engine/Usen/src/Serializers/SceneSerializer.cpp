@@ -65,6 +65,7 @@ bool FSceneSerializer::Deserialize(const FString& scenePath)
 
 	Scene->Settings.Name = Read<FString>(data, "Scene");
 	DeserializeShaders(data);
+	DeserializeEntities(data);
 
 	return true;
 }

@@ -23,7 +23,7 @@
 
 UScene::UScene()
 {
-	//Serializer = new FSceneSerializer();
+	Create();
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -47,9 +47,6 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	Serializer = UUniquePtr<FSceneSerializer>::Make();
-	Serializer.Get()->SetScene(this);
-
 	Camera = UUniquePtr<ACamera>::Make();
 	Camera.Get()->Create();
 	entities[Camera.Get()->Id] = Camera.Get();
@@ -58,15 +55,6 @@ void UScene::Initialize()
 	DefaultPawn.Get()->Initialize();
 
 	{
-		FShaderParameters shaderDefault{};
-		shaderDefault.Name = "default";
-
-		FShaderParameters shaderSkybox{};
-		shaderDefault.Name = "skybox";
-
-		Settings.ShadersParameters.push_back(shaderDefault);
-		Settings.ShadersParameters.push_back(shaderSkybox);
-
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
@@ -77,7 +65,6 @@ void UScene::Initialize()
 		FMeshParameters peshParameters{};
 		peshParameters.MeshPath = "mesh123.obj";
 		meshComp->SetMeshParameters(peshParameters);
-		
 
 		actor1->Initialize();
 	}
@@ -108,6 +95,12 @@ T* UScene::CreateEntity()
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
+}
+
+void UScene::Create()
+{
+	Serializer = UUniquePtr<FSceneSerializer>::Make();
+	Serializer.Get()->SetScene(this);
 }
 
 void UScene::SaveScene()

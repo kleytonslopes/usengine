@@ -21,5 +21,6 @@
 #include "Core/Formatter.hpp"
 #include "Core/Vector.hpp"
 #include "Core/Macros.hpp"
+#include "Core/File.hpp"
 
 #endif // !US_MINIMAL_CORE_HPP

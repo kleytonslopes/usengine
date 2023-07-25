@@ -42,6 +42,8 @@ void UApplication::Initialize()
 	InputManagement.Get()->Initialize();
 
 	Scene = UUniquePtr<UScene>::Make();
+	Scene.Get()->Create();
+	Scene.Get()->LoadScene("Unnamed");
 	Scene.Get()->Initialize();
 
 	Controller = UUniquePtr<UController>::Make();

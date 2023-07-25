@@ -52,10 +52,12 @@ private:
 
 	TMap<FString, AEntity*> entities;
 
+	void Create();
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
 
 	friend class FSceneSerializer;
+	friend class UApplication;
 };
 
 #endif // !US_SCENE_HPP
