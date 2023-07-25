@@ -619,5 +619,28 @@
       "ClassGenDefinition": "hpp_FEntitySerializer_BSerializer",
       "ClassGenDefinitionVersion": "hpp_FEntitySerializer_BSerializer_def"
     }
+  },
+  {
+    "ClassName": "UMeshComponent",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UMeshComponent",
+      "ClassDefinition": "US_MESH_COMPONENT_HPP",
+      "HppFileName": "MeshComponent.hpp",
+      "CppFileName": "MeshComponent.cpp",
+      "GenFileName": "MeshComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "AComponent",
+      "BaseClassPathHpp": "Components/Component.hpp",
+      "BaseClassTemplate": " : public AComponent",
+      "BaseClassInclude": "\n#include \"Components/Component.hpp\"",
+      "ClassGenDefinition": "hpp_UMeshComponent_AComponent",
+      "ClassGenDefinitionVersion": "hpp_UMeshComponent_AComponent_def"
+    }
   }
 ]

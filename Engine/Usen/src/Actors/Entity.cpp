@@ -25,8 +25,13 @@ AEntity::~AEntity()
 
 void AEntity::Initialize()
 {
-	Serializer = UUniquePtr<FEntitySerializer>::Make();
-	Serializer.Get()->SetEntity(this);
+	//Serializer = UUniquePtr<FEntitySerializer>::Make();
+	//Serializer.Get()->SetEntity(this);
+}
+
+void AEntity::Serialize(SeriFile& otherOut)
+{
+	/* override */
 }
 
 void AEntity::SetOwner(AEntity* owner)

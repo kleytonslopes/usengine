@@ -33,7 +33,7 @@ public:
 private:
 	AEntity* Entity;
 
-	void SerializeComponents();
+	void SerializeComponents(SeriFile& otherOut);
 };
 
 #endif // !US_ENTITY_SERIALIZER_HPP

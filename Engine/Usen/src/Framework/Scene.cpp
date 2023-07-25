@@ -18,6 +18,9 @@
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 
+#include "Components/CameraComponent.hpp"
+#include "Components/MeshComponent.hpp"
+
 UScene::UScene()
 {
 	//Serializer = new FSceneSerializer();
@@ -65,12 +68,23 @@ void UScene::Initialize()
 		Settings.ShadersParameters.push_back(shaderSkybox);
 
 		AEntity* entity1 = CreateEntity<AEntity>();
+		entity1->Initialize();
+
 		AActor* actor1 = CreateEntity<AActor>();
+		actor1->AddComponent<UCameraComponent>();
+		UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+
+		FMeshParameters peshParameters{};
+		peshParameters.MeshPath = "mesh123.obj";
+		meshComp->SetMeshParameters(peshParameters);
+		
+
+		actor1->Initialize();
 	}
 
 	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
 
-	//SaveScene();
+	SaveScene();
 
 	Super::Initialize();
 }
@@ -89,6 +103,7 @@ template<class T>
 T* UScene::CreateEntity()
 {
 	T* newEntity = new T();
+	newEntity->Create();
 
 	entities[newEntity->Id] = newEntity;
 

@@ -29,3 +29,10 @@ void AComponent::SetParent(AEntity* parent)
 {
 	this->Parent = parent;
 }
+
+void AComponent::BeginComponentSection(SeriFile& otherOut, const FString& identity)
+{
+	Key(otherOut, identity);
+	BeginSection(otherOut);
+	Key(otherOut, "id", GetId());
+}

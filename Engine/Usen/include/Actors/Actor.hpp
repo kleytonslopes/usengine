@@ -31,6 +31,8 @@ public:
 protected:
 	TMap<FString, AComponent*> components;
 
+	void Serialize(SeriFile& otherOut) override;
+
 	template<typename T>
 	bool HasComponent()
 	{
@@ -67,6 +69,9 @@ protected:
 	{
 		return static_cast<T*>(components[typeid(T).name()]);
 	}
+
+	friend class FEntitySerializer;
+	friend class UScene;
 };
 
 #endif // !US_ACTOR_HPP

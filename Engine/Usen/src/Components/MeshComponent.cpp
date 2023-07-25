@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: CameraComponent.cpp
+ *   File: MeshComponent.cpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -8,31 +8,28 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
-#include "Components/CameraComponent.hpp"
+#include "Components/MeshComponent.hpp"
 
-UCameraComponent::UCameraComponent()
+UMeshComponent::UMeshComponent()
 {
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
-UCameraComponent::~UCameraComponent()
+UMeshComponent::~UMeshComponent()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void UCameraComponent::Serialize(SeriFile& otherOut)
+void UMeshComponent::SetMeshParameters(const FMeshParameters& parameters)
+{
+	Parameters.MeshPath = parameters.MeshPath;
+}
+
+void UMeshComponent::Serialize(SeriFile& otherOut)
 {
 	BeginComponentSection(otherOut, Identity);
 
-	Key(otherOut, "near", Near);
-	Key(otherOut, "far", Far);
-	Key(otherOut, "fov", Fov);
-	Key(otherOut, "yaw", Yaw);
-	Key(otherOut, "pitch", Pitch);
-	Key(otherOut, "roll", Roll);
-	Key(otherOut, "yawAxis", YawAxis);
-	Key(otherOut, "pitchAxis", PitchAxis);
-	Key(otherOut, "rollAxis", RollAxis);
+	Key(otherOut, "mesh_path", Parameters.MeshPath);
 
 	EndSection(otherOut);
 }

@@ -11,6 +11,7 @@
 #include "Serializers/EntitySerializer.hpp"
 #include "Actors/Entity.hpp"
 #include "Actors/Actor.hpp"
+#include "Components/Component.hpp"
 
 FEntitySerializer::FEntitySerializer()
 {
@@ -28,6 +29,11 @@ void FEntitySerializer::Serialize()
 
 void FEntitySerializer::Serialize(SeriFile& otherOut)
 {
+	BeginSection(otherOut, "Entity", Entity->GetId());
+
+	SerializeComponents(otherOut);
+
+	EndSection();
 }
 
 bool FEntitySerializer::Deserialize(const FString& scenePath)
@@ -40,7 +46,23 @@ void FEntitySerializer::SetEntity(AEntity* entity)
 	this->Entity = entity;
 }
 
-void FEntitySerializer::SerializeComponents()
+void FEntitySerializer::SerializeComponents(SeriFile& otherOut)
 {
 	AActor* actor = Cast<AActor*>(Entity);
+
+	if (!actor)
+		return;
+
+	TMap<FString, AComponent*>::iterator it;
+
+	Key(otherOut, "Components");
+	BeginSection(otherOut);
+
+	for (it = actor->components.begin(); it != actor->components.end(); it++)
+	{
+		it->second->Serialize(otherOut);
+	}
+
+	EndSection(otherOut);
+
 }

@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Actors/Actor.hpp"
+#include "Components/Component.hpp"
 
 AActor::AActor()
 {
@@ -40,4 +41,20 @@ void AActor::Create()
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
 	TransformComponent->SetParent(this);
+}
+
+void AActor::Serialize(SeriFile& otherOut)
+{
+	Super::Serialize(otherOut);
+
+	Key(otherOut, "Components");
+	BeginSection(otherOut);
+
+	TMap<FString, AComponent*>::iterator it;
+	for (it = components.begin(); it != components.end(); it++)
+	{
+		it->second->Serialize(otherOut);
+	}
+
+	EndSection(otherOut);
 }

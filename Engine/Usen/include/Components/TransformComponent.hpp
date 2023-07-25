@@ -38,6 +38,9 @@ public:
 	void SetUpVector(const FVector& vector);
 	void SetForwardVector(const FVector& vector);
 
+protected:
+	void Serialize(SeriFile& otherOut) override;
+
 private:
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };

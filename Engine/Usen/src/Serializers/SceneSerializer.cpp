@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Serializers/SceneSerializer.hpp"
+#include "Serializers/EntitySerializer.hpp"
 
 #include "Framework/Scene.hpp"
 #include "Actors/Actor.hpp"
@@ -92,10 +93,14 @@ void FSceneSerializer::SetializeEntities()
 
 	for (it = Scene->entities.begin(); it != Scene->entities.end(); it++)
 	{
-		//it->second->EntitySerializer->Serialize(out);
+		BeginSection("Entity", it->second->GetId());
+
+		it->second->Serialize(out);
 
 		ULOG(ELogLevel::ELL_TRACE, FText::Format("Iterating with %s", it->first.c_str()));
+		EndSection();
 	}
+
 	EndArray();
 }
 

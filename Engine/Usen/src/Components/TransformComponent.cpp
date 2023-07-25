@@ -88,19 +88,19 @@ void UTransformComponent::SetForwardVector(const FVector& vector)
 	ForwardVector.z = vector.z;
 }
 
-//void UTransformComponent::Serialize(YAML::Emitter& otherOut)
-//{
-//	BeginComponentMap(otherOut);
-//
-//	Key(otherOut, "location", Location);
-//	Key(otherOut, "rotation", Rotation);
-//	Key(otherOut, "scale", Scale);
-//	Key(otherOut, "upvector", UpVector);
-//	Key(otherOut, "forwardvector", ForwardVector);
-//
-//	EndMap(otherOut);
-//}
-//
+void UTransformComponent::Serialize(SeriFile& otherOut)
+{
+	BeginComponentSection(otherOut, Identity);
+
+	Key(otherOut, "location", Location);
+	Key(otherOut, "rotation", Rotation);
+	Key(otherOut, "scale", Scale);
+	Key(otherOut, "upVector", UpVector);
+	Key(otherOut, "forwardVector", ForwardVector);
+
+	EndSection(otherOut);
+}
+
 //bool UTransformComponent::Deserialize(const FString& scenePath)
 //{
 //	return false;

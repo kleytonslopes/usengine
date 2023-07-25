@@ -25,10 +25,6 @@ public:
 	explicit BSerializer();
 	virtual ~BSerializer();
 
-	virtual void Serialize() = 0;
-	virtual void Serialize(SeriFile& otherOut) = 0;
-	virtual bool Deserialize(const FString& scenePath) = 0;
-
 	void SetFilePath(const FString& fineName);
 
 	void BeginSection();
@@ -81,6 +77,10 @@ protected:
 
 	virtual void Save();
 	SeriNode Load(const FString& filePath);
+
+	virtual void Serialize() = 0;
+	virtual void Serialize(SeriFile& otherOut) = 0;
+	virtual bool Deserialize(const FString& scenePath) = 0;
 };
 
 #endif // !US_SERIALIZER_HPP

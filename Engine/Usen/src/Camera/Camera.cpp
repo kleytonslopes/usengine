@@ -22,4 +22,5 @@ ACamera::~ACamera()
 
 void ACamera::Create()
 {
+	
 }

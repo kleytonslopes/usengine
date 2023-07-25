@@ -23,6 +23,9 @@ public:
 	explicit UCameraComponent();
 	~UCameraComponent() final;
 
+protected:
+	void Serialize(SeriFile& otherOut) override;
+
 private:
 	float Near{ 0.001f };
 	float Far{ 100000.f };

@@ -29,6 +29,10 @@ public:
 protected:
 	AEntity* Parent = nullptr;
 
+	void BeginComponentSection(SeriFile& otherOut, const FString& identity);
+
+	friend class AActor;
+
 };
 
 #endif // !US_COMPONENT_HPP
