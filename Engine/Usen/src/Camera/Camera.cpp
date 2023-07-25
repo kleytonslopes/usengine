@@ -2,21 +2,25 @@
  *   File: Camera.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Camera/Camera.hpp"
 
-#include "Components/CameraComponent.hpp"
-
-void UCamera::OnConstruct()
+ACamera::ACamera()
 {
-	Super::OnConstruct();
-	
-	bTick = false;
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
 
-	AddComponent<UCameraComponent>();
+ACamera::~ACamera()
+{
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void ACamera::Create()
+{
+	
 }

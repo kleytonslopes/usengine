@@ -2,24 +2,26 @@
  *   File: Shader.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_SHADER_HPP
 #define	US_SHADER_HPP
 
-#include "Core/Class.hpp"
-#include "Renderer/ShaderParameters.hpp"
 
-class UShader : public UClass
+#include "Base/Class.hpp"
+#include "Shader-generated.hpp"
+
+class BShader : public BClass
 {
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	explicit UShader(FShaderParameters& parameters);
+	explicit BShader();
+	virtual ~BShader();
 
 protected:
 	FString Name;

@@ -1,18 +1,25 @@
 /*********************************************************************
  *   File: main.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
-#include "Runtime/Application.hpp"
+
+#include "Environment.hpp"
 
 int main()
 {
-    UApplication app{};
-    app.Run();
-
-    return 0;
+	try
+	{
+		us::env::Environment::Applicaiton.Get()->Run();
+		us::env::Environment::Applicaiton.Destroy();
+	}
+	catch (const std::exception&)
+	{
+		return EXIT_FAILURE;
+	}
+	return EXIT_SUCCESS;
 }

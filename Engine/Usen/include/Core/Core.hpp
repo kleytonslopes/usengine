@@ -1,36 +1,21 @@
 /*********************************************************************
  *   File: Core.hpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_CORE_HPP
 #define	US_CORE_HPP
 
-#define UASSERT(COND, MSG) \
-ULOG(ELogLevel::ELL_FATAL, MSG); \
-assert(COND && MSG)
-
-#define DEFAULT_BODY(ClassBase) \
-	using Super = ClassBase;    \
-public:                         \
-	using ClassBase::ClassBase 
-
-#include "Core/CommonTypes.hpp"
-#include "Core/SharedPtr.hpp"
-#include "Core/UniquePtr.hpp"
-#include "Core/String.hpp"
-#include "Core/Clock.hpp"
-#include "Core/Logger.hpp"
-#include "Core/Formatter.hpp"
-#include "Core/Map.hpp"
-#include "Core/Vector.hpp"
 #include <yaml-cpp/yaml.h>
+
+#include "Core/String.hpp"
+#include "Core/Logger.hpp"
 
 inline void ULOG(ELogLevel level, const FString& message)
 {
@@ -60,6 +45,15 @@ inline void ULOG(ELogLevel level, const FString& message)
 	}
 }
 
+inline void ULOG_Trace(const FString& message)
+{
+	ULOG(ELogLevel::ELL_TRACE, message);
+}
+inline void ULOG_Warning(const FString& message)
+{
+	ULOG(ELogLevel::ELL_WARNING, message);
+}
+
 namespace ShaderDefault
 {
 	const FString DEFAULT{ "default" };
@@ -68,8 +62,8 @@ namespace ShaderDefault
 
 namespace Content
 {
-	const FString ModelFilePath{"../../Content/Models/%s"};
-	const FString SceneFilePath{"../../Content/Scene/%s.usscn"};
+	const FString ModelFilePath{ "../../Content/Models/%s" };
+	const FString SceneFilePath{ "../../Content/Scene/%s.usscn" };
 }
 
 #endif // !US_CORE_HPP

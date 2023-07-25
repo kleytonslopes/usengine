@@ -2,36 +2,34 @@
  *   File: MeshComponent.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/MeshComponent.hpp"
-#include "Framework/Entity.hpp"
 
-void UMeshComponent::Initialize()
+UMeshComponent::UMeshComponent()
 {
-	Super::Initialize();
-	/* Load Model */
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
+
+UMeshComponent::~UMeshComponent()
+{
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void UMeshComponent::SetMeshParameters(const FMeshParameters& parameters)
 {
-	this->parameters = parameters;
+	Parameters.MeshPath = parameters.MeshPath;
 }
 
-void UMeshComponent::Serialize(YAML::Emitter& otherOut)
+void UMeshComponent::Serialize(SeriFile& otherOut)
 {
-	BeginComponentMap(otherOut, "UMeshComponent");
+	BeginComponentSection(otherOut, Identity);
 
-	Key(otherOut, "mepa_file", parameters.MeshPath);
+	Key(otherOut, "mesh_path", Parameters.MeshPath);
 
-	EndMap(otherOut);
-}
-
-bool UMeshComponent::Deserialize(const FString& scenePath)
-{
-	return false;
+	EndSection(otherOut);
 }

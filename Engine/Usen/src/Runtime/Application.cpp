@@ -1,81 +1,63 @@
 /*********************************************************************
  *   File: Application.cpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Runtime/Application.hpp"
+
 #include "Presentation/Window.hpp"
 #include "Framework/GameInstance.hpp"
-#include "Framework/Scene.hpp"
-#include "Renderer/Renderer.hpp"
-#include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Environment.hpp"
+#include "Controllers/Controller.hpp"
+#include "Input/InputManagement.hpp"
+
 
 UApplication::UApplication()
 {
-
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
 UApplication::~UApplication()
 {
-	ULOG(ELogLevel::ELL_WARNING, "UApplication Destroyed!");
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void UApplication::Initialize()
 {
-	ULOG(ELogLevel::ELL_TRACE, "Initializing Application...");
-	if (!window) window = UUniquePtr<UWindow>::Make(this);
-	if (!gameInstance) gameInstance = UUniquePtr<UGameInstance>::Make(this);
-	if (!currentScene) currentScene = UUniquePtr<UScene>::Make(this);
-	if (!renderer) renderer = UUniquePtr<URendererOpenGL>::Make(this);
+	Window = UUniquePtr<UWindow>::Make();
+	Window.Get()->Initialize();
 
-	OnInitialized();
+	GameInstance = UUniquePtr<UGameInstance>::Make();
+	GameInstance.Get()->Initialize();
+
+	Renderer = UUniquePtr<URendererOpenGL>::Make();
+	Renderer.Get()->Initialize();
+
+	InputManagement = UUniquePtr<UInputManagement>::Make();
+	InputManagement.Get()->Initialize();
+
+	Scene = UUniquePtr<UScene>::Make();
+	Scene.Get()->Initialize();
+
+	Controller = UUniquePtr<UController>::Make();
+	Controller.Get()->Initialize();
+
+	bIsInitialized = true;
 }
 
-void UApplication::OnInitialized()
+void UApplication::Destroy()
 {
-	GetWindow()->Initialize();
-	GetGameInstance()->Initialize();
-	GetRenderer()->Initialize();
-	GetScene()->Initialize();
-}
-
-void UApplication::Update(float deltaTime)
-{
-	GetWindow()->Update(deltaTime);
-	GetGameInstance()->Update(deltaTime);
-	GetScene()->Update(deltaTime);
-}
-
-void UApplication::Run()
-{
-	Initialize();
-
-	Loop();
-}
-
-UWindow* UApplication::GetWindow()
-{
-	return window.Get();
-}
-
-UGameInstance* UApplication::GetGameInstance()
-{
-	return gameInstance.Get();
-}
-
-URenderer* UApplication::GetRenderer()
-{
-	return renderer.Get();
-}
-
-UScene* UApplication::GetScene()
-{
-	return currentScene.Get();
+	Controller.Destroy();//.Get()->Destroy();
+	Scene.Destroy();//.Get()->Destroy();
+	InputManagement.Destroy();//.Get()->Destroy();
+	GameInstance.Destroy();//.Get()->Destroy();
+	Renderer.Destroy();//.Get()->Destroy();
+	Window.Destroy();//.Get()->Destroy();
 }
 
 void UApplication::Loop()
@@ -83,19 +65,21 @@ void UApplication::Loop()
 	float deltaTime = 0.f;
 	FTime currentTime = FTime::Now();
 
-	while (!GetWindow()->ShouldClose())
+	while (!Window.Get()->ShouldClose())
 	{
-		GetWindow()->StartLoop();
+		Window.Get()->StartLoop();
 
-			GetWindow()->PollEvents();
-			CalculeDeltaTime(currentTime, deltaTime);
-			Update(deltaTime);
+		Window.Get()->PollEvents();
+		CalculeDeltaTime(currentTime, deltaTime);
 
-		GetWindow()->StopLoop();
+		Window.Get()->Update(deltaTime);
+		GameInstance.Get()->Update(deltaTime);
+		Scene.Get()->Update(deltaTime);
+
+		Window.Get()->StopLoop();
 	}
 
-	GetGameInstance()->OnDestroy();
-	GetWindow()->OnDestroy();
+	Destroy();
 }
 
 void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
@@ -103,4 +87,10 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 	FTime newTime = FClock::Now();
 	deltaTime = FClock::Duration(newTime, currentTime);
 	currentTime = newTime;
+}
+
+void UApplication::Run()
+{
+	Initialize();
+	Loop();
 }

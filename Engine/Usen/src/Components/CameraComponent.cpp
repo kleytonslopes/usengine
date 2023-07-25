@@ -2,18 +2,27 @@
  *   File: CameraComponent.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/CameraComponent.hpp"
-#include "Serializer/ComponentSerializer.hpp"
 
-void UCameraComponent::Serialize(YAML::Emitter& otherOut)
+UCameraComponent::UCameraComponent()
 {
-	BeginComponentMap(otherOut, "UCameraComponent");
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
+
+UCameraComponent::~UCameraComponent()
+{
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void UCameraComponent::Serialize(SeriFile& otherOut)
+{
+	BeginComponentSection(otherOut, Identity);
 
 	Key(otherOut, "near", Near);
 	Key(otherOut, "far", Far);
@@ -21,14 +30,9 @@ void UCameraComponent::Serialize(YAML::Emitter& otherOut)
 	Key(otherOut, "yaw", Yaw);
 	Key(otherOut, "pitch", Pitch);
 	Key(otherOut, "roll", Roll);
-	Key(otherOut, "yawaxis", YawAxis);
-	Key(otherOut, "pitchaxis", PitchAxis);
-	Key(otherOut, "rollaxis", RollAxis);
+	Key(otherOut, "yawAxis", YawAxis);
+	Key(otherOut, "pitchAxis", PitchAxis);
+	Key(otherOut, "rollAxis", RollAxis);
 
-	EndMap(otherOut);
-}
-
-bool UCameraComponent::Deserialize(const FString& scenePath)
-{
-	return false;
+	EndSection(otherOut);
 }

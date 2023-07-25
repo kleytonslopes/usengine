@@ -2,10 +2,10 @@
  *   File: Clock.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -14,8 +14,9 @@
 
 #include "Core/CommonTypes.hpp"
 
-struct FTime
+class FTime
 {
+public:
 	us::types::FCommonTypes::Time Time;
 
 	FTime() = default;
@@ -23,10 +24,12 @@ struct FTime
 
 private:
 	FTime(us::types::FCommonTypes::Time newTime);
+
 };
 
-struct FClock
+class FClock
 {
+public:
 	static FTime Now();
 	static float Duration(const FTime& newTime, const FTime& currentTime);
 };

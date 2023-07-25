@@ -2,26 +2,28 @@
  *   File: Camera.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_CAMERA_HPP
 #define	US_CAMERA_HPP
 
-#include "Framework/Entity.hpp"
 
-class UCamera : public UEntity
+#include "Actors/Entity.hpp"
+#include "Camera-generated.hpp"
+
+class ACamera : public AEntity
 {
-	DEFAULT_BODY(UEntity);
+	DEFAULT_BODY_GENERATED()
 public:
+	explicit ACamera();
+	virtual ~ACamera();
 
-	// Inherited via UEntity
-	virtual void OnConstruct() override;
-
+	void Create() override;
 };
 
 #endif // !US_CAMERA_HPP

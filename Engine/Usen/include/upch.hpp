@@ -5,7 +5,7 @@
  * Author: Kleyton
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
@@ -23,6 +23,4 @@
 #include <cassert>
 #include <functional>
 #include <fstream>
-
-#include "Core/CommonTypes.hpp"
-#include "Core/String.hpp"
+#include <regex>

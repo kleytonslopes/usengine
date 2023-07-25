@@ -1,53 +1,61 @@
 /*********************************************************************
  *   File: Application.hpp
- *  Brief:
+ *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_APPLICATION_HPP
 #define	US_APPLICATION_HPP
 
-#include "Core/WeakClass.hpp"
+
+#include "Weaks/WeakClass.hpp"
+#include "Framework/Scene.hpp"
+#include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Application-generated.hpp"
 
 class UWindow;
 class UGameInstance;
 class UScene;
-class URenderer;
-class URendererOpenGL;
+class UController;
+class UInputManagement;
 
-class UApplication : public UWeakClass
+class UApplication : public IWeakClass
 {
-	DEFAULT_BODY(UWeakClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	UApplication();
-
-	virtual ~UApplication();
+	explicit UApplication();
+	~UApplication() final;
 
 	void Run();
 
-	UWindow* GetWindow();
-	UGameInstance* GetGameInstance();
-	URenderer* GetRenderer();
-	UScene* GetScene();
-
+	// Inherited via IWeakClass
 	void Initialize() override;
-	void OnInitialized() override;
-	void Update(float deltaTime) override;
+	void Destroy() override;
 
-protected:
-	UUniquePtr<UWindow> window;
-	UUniquePtr<UGameInstance> gameInstance;
-	UUniquePtr<URendererOpenGL> renderer;
-	UUniquePtr<UScene> currentScene;
+	template<typename T>
+	T* GetRenderer()
+	{
+		return static_cast<T*>(Renderer.Get());
+	}
+	URendererOpenGL* GetRenderer() { return Renderer.Get(); };
 
 private:
+	UUniquePtr<UWindow> Window;
+	UUniquePtr<UGameInstance> GameInstance;
+	UUniquePtr<URendererOpenGL> Renderer;
+	UUniquePtr<UScene> Scene;
+	UUniquePtr<UController> Controller;
+	UUniquePtr<UInputManagement> InputManagement;
+
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
+
+	friend class BClass;
 };
 
 #endif // !US_APPLICATION_HPP

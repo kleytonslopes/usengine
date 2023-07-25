@@ -2,6 +2,8 @@
 .vs
 bin/
 obj/
+packages/
+x64/
 
 *.vcxproj
 *.filters

@@ -1,17 +1,18 @@
 /*********************************************************************
  *   File: SharedPtr.hpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_SHARED_PTR_HPP
 #define	US_SHARED_PTR_HPP
 
+#include "Core/MinimalCore.hpp"
 #include <memory>
 
 template<typename T>

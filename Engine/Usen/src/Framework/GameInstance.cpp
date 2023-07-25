@@ -2,42 +2,26 @@
  *   File: GameInstance.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
-#include "FrameWork/GameInstance.hpp"
-#include "Runtime/Application.hpp"
-#include "Framework/Scene.hpp"
+#include "Framework/GameInstance.hpp"
+
+UGameInstance::UGameInstance()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
 
 UGameInstance::~UGameInstance()
 {
-	if (!bIsDestroyed)
-		OnDestroy();
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void UGameInstance::Initialize()
 {
-	ULOG(ELogLevel::ELL_TRACE, "Initializing GameInstance...");
 
-	OnInitialized();
-}
-
-void UGameInstance::OnInitialized()
-{
-
-}
-
-void UGameInstance::Update(float deltaTime)
-{
-
-}
-
-void UGameInstance::OnDestroy()
-{
-	Super::OnDestroy();
-
-	ULOG(ELogLevel::ELL_WARNING, "UGameInstance Destroyed!");
+	Super::Initialize();
 }

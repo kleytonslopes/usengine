@@ -1,16 +1,16 @@
 /*********************************************************************
  *   File: Formatter.hpp
- *  Brief:
- *
- * Author: Kleyton
+ *  Brief: 
+ * 
+ * Author: Kleyton Lopes
  *   Date: July 2023
- *
- * Copyright (c) 2023 Sunydark. All rights reserved.
+ * 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_FORMATTER_HPP
-#define US_FORMATTER_HPP
+#define	US_FORMATTER_HPP
 
 #include "Core/String.hpp"
 
@@ -39,6 +39,11 @@ struct FText
 	static FString Format(const FString& format, Args ... args)
 	{
 		return TEXT(format, args ...);
+	}
+
+	static FString Replace(const FString& text, const FString& repl, const FString& remov)
+	{
+		return std::regex_replace(text, std::regex(repl), remov);
 	}
 };
 

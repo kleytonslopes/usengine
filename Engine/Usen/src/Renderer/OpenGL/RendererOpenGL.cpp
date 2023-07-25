@@ -2,10 +2,10 @@
  *   File: RendererOpenGL.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
@@ -14,9 +14,14 @@
 
 #include "Presentation/Window.hpp"
 
+URendererOpenGL::URendererOpenGL()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
+
 URendererOpenGL::~URendererOpenGL()
 {
-
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void URendererOpenGL::Initialize()

@@ -2,41 +2,38 @@
  *   File: Renderer.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
-
 
 #ifndef US_RENDERER_HPP
 #define	US_RENDERER_HPP
 
-#include "Core/Class.hpp"
+
+#include "Base/Class.hpp"
 #include "Renderer/ShaderParameters.hpp"
+#include "Renderer-generated.hpp"
 
-class UShader;
-class UEntity;
+class BShader;
+class AEntity;
 
-class URenderer : public UClass
+class BRenderer : public BClass
 {
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	virtual ~URenderer();
+	explicit BRenderer();
+	virtual ~BRenderer();
 
-	void Initialize() override;
-	void OnInitialized()  override;
-	void Update(float deltaTime) override;
-	void OnDestroy();
-
-	void Draw(UEntity* entity, float deltaTime);
+	void Draw(AEntity* entity, float deltaTime);
 
 	template<typename T>
 	T* CreateShader(const FShaderParameters& parameters);
 
-private:
-	TMap<FString, UShader*> shaders;
+protected:
+	TMap<FString, BShader*> Shaders;
 };
 
 #endif // !US_RENDERER_HPP

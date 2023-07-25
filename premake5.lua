@@ -34,3 +34,7 @@ group ""
 group "Programs"
    include "Programs/Editor"
 group ""
+
+group "Generated"
+
+group ""

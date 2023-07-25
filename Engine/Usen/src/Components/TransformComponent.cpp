@@ -2,20 +2,20 @@
  *   File: TransformComponent.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
-#include "Framework/Entity.hpp"
-#include "Serializer/ComponentSerializer.hpp"
 
-UTransformComponent::UTransformComponent(UEntity* Parent)
-	: Super(Parent)
+UTransformComponent::UTransformComponent()
 {
-	bComponentTick = false;
+}
+
+UTransformComponent::~UTransformComponent()
+{
 }
 
 FVector UTransformComponent::GetLocation()
@@ -88,20 +88,20 @@ void UTransformComponent::SetForwardVector(const FVector& vector)
 	ForwardVector.z = vector.z;
 }
 
-void UTransformComponent::Serialize(YAML::Emitter& otherOut)
+void UTransformComponent::Serialize(SeriFile& otherOut)
 {
-	BeginComponentMap(otherOut, "UTransformComponent");
+	BeginComponentSection(otherOut, Identity);
 
 	Key(otherOut, "location", Location);
 	Key(otherOut, "rotation", Rotation);
 	Key(otherOut, "scale", Scale);
-	Key(otherOut, "upvector", UpVector);
-	Key(otherOut, "forwardvector", ForwardVector);
+	Key(otherOut, "upVector", UpVector);
+	Key(otherOut, "forwardVector", ForwardVector);
 
-	EndMap(otherOut);
+	EndSection(otherOut);
 }
 
-bool UTransformComponent::Deserialize(const FString& scenePath)
-{
-	return false;
-}
+//bool UTransformComponent::Deserialize(const FString& scenePath)
+//{
+//	return false;
+//}

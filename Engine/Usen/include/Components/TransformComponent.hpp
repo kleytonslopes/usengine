@@ -2,24 +2,26 @@
  *   File: TransformComponent.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_TRANSFORM_COMPONENT_HPP
 #define	US_TRANSFORM_COMPONENT_HPP
 
-#include "Components/Interface/IComponent.hpp"
 
-class UTransformComponent : public IComponent
+#include "Components/Component.hpp"
+#include "TransformComponent-generated.hpp"
+
+class UTransformComponent : public AComponent
 {
-	DEFAULT_BODY(IComponent);
-
+	DEFAULT_BODY_GENERATED()
 public:
-	UTransformComponent(UEntity* Parent);
+	UTransformComponent();
+	~UTransformComponent() final;
 
 	FVector GetLocation();
 	FVector GetRotation();
@@ -37,8 +39,7 @@ public:
 	void SetForwardVector(const FVector& vector);
 
 protected:
-	void Serialize(YAML::Emitter& otherOut) override;
-	bool Deserialize(const FString& scenePath) override;
+	void Serialize(SeriFile& otherOut) override;
 
 private:
 	FVector Location{ 0.f, 0.f, 0.f };

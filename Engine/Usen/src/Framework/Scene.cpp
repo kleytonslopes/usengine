@@ -2,114 +2,120 @@
  *   File: Scene.cpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
-#include "Framework/Entity.hpp"
-#include "Renderer/Renderer.hpp"
+#include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
-#include "Mesh/StaticMesh.hpp"
+#include "Actors/Actor.hpp"
+#include "Actors/Entity.hpp"
+#include "Pawns/Pawn.hpp"
+#include "Input/InputManagement.hpp"
+#include "Serializers/SceneSerializer.hpp"
 
+#include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
-#include "Components/RendererComponent.hpp"
-#include "Serializer/SceneSerializer.hpp"
+
+UScene::UScene()
+{
+	//Serializer = new FSceneSerializer();
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+}
 
 UScene::~UScene()
 {
-	if (!bIsDestroyed)
-		OnDestroy();
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
 
-	delete SceneSerializer;
+void UScene::Destroy()
+{
+	TMap<FString, AEntity*>::iterator it;
+
+	for (it = entities.begin(); it != entities.end(); it++)
+	{
+		it->second->Destroy();
+		delete it->second;
+	}
+
+	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
 }
 
 void UScene::Initialize()
 {
-	ULOG(ELogLevel::ELL_TRACE, "Initializing Scene...");
-	SceneSerializer = new USceneSerializer(this);
-	LoadScene("EntryMap");
+	Serializer = UUniquePtr<FSceneSerializer>::Make();
+	Serializer.Get()->SetScene(this);
 
-	activeCamera = CreateEntity<UCamera>();
+	Camera = UUniquePtr<ACamera>::Make();
+	Camera.Get()->Create();
+	entities[Camera.Get()->Id] = Camera.Get();
 
-	UStaticMesh* meshTemp = CreateEntity<UStaticMesh>();
+	DefaultPawn = UUniquePtr<APawn>::Make();
+	DefaultPawn.Get()->Initialize();
 
-	FMeshParameters meshParam{};
-	meshParam.MeshPath = FText::Format(Content::ModelFilePath ,"cube.obj");
-	meshTemp->SetMeshParameters(meshParam);
-	
+	{
+		FShaderParameters shaderDefault{};
+		shaderDefault.Name = "default";
+
+		FShaderParameters shaderSkybox{};
+		shaderDefault.Name = "skybox";
+
+		Settings.ShadersParameters.push_back(shaderDefault);
+		Settings.ShadersParameters.push_back(shaderSkybox);
+
+		AEntity* entity1 = CreateEntity<AEntity>();
+		entity1->Initialize();
+
+		AActor* actor1 = CreateEntity<AActor>();
+		actor1->AddComponent<UCameraComponent>();
+		UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+
+		FMeshParameters peshParameters{};
+		peshParameters.MeshPath = "mesh123.obj";
+		meshComp->SetMeshParameters(peshParameters);
+		
+
+		actor1->Initialize();
+	}
+
+	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
+
 	SaveScene();
 
-	OnInitialized();
-}
-
-void UScene::OnInitialized()
-{
-	if (entities.size() > 0)
-	{
-		for (auto& entity : entities)
-		{
-			entity.second->Initialize();
-		}
-	}
+	Super::Initialize();
 }
 
 void UScene::Update(float deltaTime)
 {
-	if (entities.size() > 0)
+	TMap<FString, AEntity*>::iterator it;
+
+	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		for (auto& entity : entities)
-		{
-			if(entity.second->bTick)
-				entity.second->Update(deltaTime);
-			if (entity.second->HasComponent<URendererComponent>())
-				GetRenderer()->Draw(entity.second, deltaTime);
-		}
+		Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
 }
 
-void UScene::OnDestroy()
-{
-	Super::OnDestroy();
-
-	if (entities.size() > 0)
-	{
-		for (auto& entity : entities)
-		{
-			entity.second->OnDestroy();
-
-			delete entity.second;
-		}
-	}
-
-	ULOG(ELogLevel::ELL_WARNING, "UScene Destroyed!");
-}
-
-void UScene::SaveScene()
-{
-	SceneSerializer->Serialize();
-}
-
-void UScene::LoadScene(const FString& scenePath)
-{
-	SceneSerializer->Deserialize(scenePath);
-}
-
-UCamera* UScene::GetCamera()
-{
-	return activeCamera;
-}
-
-template<typename T>
+template<class T>
 T* UScene::CreateEntity()
 {
-	T* newEntity = new T(this);
-	newEntity->OnConstruct();
+	T* newEntity = new T();
+	newEntity->Create();
 
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
+}
+
+void UScene::SaveScene()
+{
+	Serializer.Get()->Serialize();
+}
+
+bool UScene::LoadScene(const FString& sceneName)
+{
+	return Serializer.Get()->Deserialize(sceneName);
 }

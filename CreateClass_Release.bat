@@ -1,0 +1,1 @@
+Programs\ClassCreator\bin\Release\ClassCreator.exe

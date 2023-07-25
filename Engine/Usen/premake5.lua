@@ -13,12 +13,14 @@ project "Usen"
     files
     {
         "include/**.hpp",
+        "generated/**.hpp",
         "src/**.cpp"
     }
 
     includedirs
     {
         "include",
+        "generated",
         "%{include_dir.SDL2}",
         "%{include_dir.GLAD}",
         "%{include_dir.UUID}",

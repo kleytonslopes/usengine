@@ -2,37 +2,39 @@
  *   File: MeshComponent.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_MESH_COMPONENT_HPP
 #define	US_MESH_COMPONENT_HPP
 
-#include "Components/Interface/IComponent.hpp"
+
+#include "Components/Component.hpp"
+#include "MeshComponent-generated.hpp"
 
 struct FMeshParameters
 {
 	FString MeshPath;
 };
 
-class UMeshComponent : public IComponent
+class UMeshComponent : public AComponent
 {
-	DEFAULT_BODY(IComponent);
+	DEFAULT_BODY_GENERATED()
 public:
-	void Initialize() override;
+	explicit UMeshComponent();
+	virtual ~UMeshComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 
 protected:
-	void Serialize(YAML::Emitter& otherOut) override;
-	bool Deserialize(const FString& scenePath) override;
+	void Serialize(SeriFile& otherOut) override;
 
 private:
-	FMeshParameters parameters;
+	FMeshParameters Parameters;
 };
 
 #endif // !US_MESH_COMPONENT_HPP

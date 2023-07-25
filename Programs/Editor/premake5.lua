@@ -17,6 +17,7 @@ project "Editor"
     {
         "include",
         "%{wks.location}/Engine/Usen/include",
+        "%{wks.location}/Engine/Usen/generated",
         "%{include_dir.SDL2}",
         "%{include_dir.GLAD}",
         "%{include_dir.UUID}",

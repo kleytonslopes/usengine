@@ -2,25 +2,27 @@
  *   File: Scene.hpp
  *  Brief: 
  * 
- * Author: Kleyton
+ * Author: Kleyton Lopes
  *   Date: July 2023
  * 
- * Copyright (c) 2023 Sunydark. All rights reserved. 
+ * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #pragma once
 
 #ifndef US_SCENE_HPP
 #define	US_SCENE_HPP
 
-#include "Core/Class.hpp"
 
-class UEntity;
-class UCamera;
-class URenderer;
-class UApplication;
+#include "Base/Class.hpp"
+#include "Scene-generated.hpp"
+
+class AEntity;
+class ACamera;
+class APawn;
 
 struct FShaderParameters;
-class USceneSerializer;
+
+class FSceneSerializer;
 
 struct FSceneSettings
 {
@@ -28,38 +30,32 @@ struct FSceneSettings
 	TVector<FShaderParameters> ShadersParameters;
 };
 
-class UScene : public UClass
+class UScene : public BClass
 {
-	friend class USceneSerializer;
-
-	DEFAULT_BODY(UClass);
+	DEFAULT_BODY_GENERATED()
 public:
-	virtual ~UScene();
+	explicit UScene();
+	~UScene() final;
+	void Destroy() final;
 
-	// Inherited via UWeakClass
 	void Initialize() override;
-	void OnInitialized() override;
-
 	void Update(float deltaTime) override;
-	void OnDestroy() override;
+
+	template<class T>
+	T* CreateEntity();
+private:
+	FSceneSettings Settings{};
+
+	UUniquePtr<ACamera> Camera;
+	UUniquePtr<APawn> DefaultPawn;
+	UUniquePtr<FSceneSerializer> Serializer;
+
+	TMap<FString, AEntity*> entities;
 
 	void SaveScene();
-	void LoadScene(const FString& scenePath);
+	bool LoadScene(const FString& sceneName);
 
-	template<typename T>
-	T* CreateEntity();
-
-	UCamera* GetCamera();
-
-protected:
-	FSceneSettings sceneSettings{};
-	UCamera* activeCamera = nullptr;
-
-	TMap<FString, UEntity*> entities;
-
-private:
-	uint64 lastEntityId = 0;
-	USceneSerializer* SceneSerializer = nullptr;
+	friend class FSceneSerializer;
 };
 
 #endif // !US_SCENE_HPP
