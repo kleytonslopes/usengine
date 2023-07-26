@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B7220F81-93CC-424E-BEC9-18917C85A5C4}</ProjectGuid>
+    <ProjectGuid>{CA00B7C9-3DB7-419F-A80D-352A979BCC99}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ClassCreator</RootNamespace>
-    <AssemblyName>ClassCreator</AssemblyName>
+    <RootNamespace>Kyrnness</RootNamespace>
+    <AssemblyName>Kyrnness</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,12 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ini.Net, Version=1.0.5531.18665, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ini.net.1.1.0\lib\net20\Ini.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -61,12 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\ClassData.cs" />
-    <Compile Include="Data\ClassRegister.cs" />
-    <Compile Include="Templates\BuildTemplate.cs" />
-    <Compile Include="winNewFolder.xaml.cs">
-      <DependentUpon>winNewFolder.xaml</DependentUpon>
-    </Compile>
+    <Page Include="Components\ucHierarchyFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ucTitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,18 +71,38 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\FileDescriptor.cs" />
-    <Compile Include="Data\Dir.cs" />
+    <Compile Include="Components\ucHierarchyFolder.xaml.cs">
+      <DependentUpon>ucHierarchyFolder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ucTitleBar.xaml.cs">
+      <DependentUpon>ucTitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\FileObject.cs" />
+    <Compile Include="Data\FolderObject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="winNewFolder.xaml">
+    <Page Include="Pages\winNewClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\winNewFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\winNewClass.xaml.cs">
+      <DependentUpon>winNewClass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\winNewFolder.xaml.cs">
+      <DependentUpon>winNewFolder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,7 +120,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,15 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\ClassGenTemplate.txt" />
-    <EmbeddedResource Include="Templates\ClassHppTemplate.txt" />
-    <EmbeddedResource Include="Templates\ClassCppTemplate.txt" />
-    <Resource Include="Icons\32_cpp.png" />
-    <Resource Include="Icons\32_folder.png" />
-    <Resource Include="Icons\32_h.png" />
-    <Content Include="Icons\icos.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

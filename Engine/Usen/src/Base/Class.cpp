@@ -62,3 +62,8 @@ UInputManagement* BClass::GetInputManagement()
 {
 	return Application->InputManagement.Get();
 }
+
+UApplication* BClass::GetApplication()
+{
+	return Application;
+}

@@ -17,6 +17,7 @@
 #include "Pawns/Pawn.hpp"
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
+#include "Runtime/Application.hpp"
 
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
@@ -47,6 +48,7 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
+	//* act = GetApplication()->RegistryClass<AActor>();
 	Camera = UUniquePtr<ACamera>::Make();
 	Camera.Get()->Create();
 	entities[Camera.Get()->Id] = Camera.Get();

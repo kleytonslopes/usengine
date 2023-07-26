@@ -27,6 +27,7 @@ class UInputManagement;
 class UApplication : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
 	explicit UApplication();
 	~UApplication() final;
@@ -42,7 +43,11 @@ public:
 	{
 		return static_cast<T*>(Renderer.Get());
 	}
+
 	URendererOpenGL* GetRenderer() { return Renderer.Get(); };
+
+	template<typename T>
+	void RegistryClass();
 
 private:
 	UUniquePtr<UWindow> Window;

@@ -1,0 +1,29 @@
+Scene: Unnamed
+Shaders:
+  name: [skybox, default]
+Entities:
+  - Entity: 0d69c657-4d14-4ca6-b9e3-105c6c10856d
+  - Entity: 61cf1e07-23f8-4684-a941-cfe5c1711f6d
+  - Entity: b12f2213-3449-4220-a8dd-7d0456af98a4
+    Components:
+      UCameraComponent:
+        id: 4e7f6cca-0bb5-494d-b95d-d7629cb9e6c2
+        near: 0.00100000005
+        far: 100000
+        fov: 45
+        yaw: 0
+        pitch: 0
+        roll: 0
+        yawAxis: [0, 1, 0]
+        pitchAxis: [1, 0, 0]
+        rollAxis: [0, 0, 1]
+      UMeshComponent:
+        id: 71094c7c-e4bd-4fc1-baf4-eb4a7a5ca2b0
+        mesh_path: mesh123.obj
+      UTransformComponent:
+        id: c4870ab1-0f93-4897-8eef-84cb5231f6d2
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 1, 0]
+        forwardVector: [0, 0, -1]

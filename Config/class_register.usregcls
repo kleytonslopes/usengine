@@ -688,5 +688,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "UTesteAlexadro",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UTesteAlexadro",
+      "ClassDefinition": "US_TESTE_ALEXADRO_HPP",
+      "HppFileName": "TesteAlexadro.hpp",
+      "CppFileName": "TesteAlexadro.cpp",
+      "GenFileName": "TesteAlexadro-generated.hpp",
+      "FolderHpp": "include/Actors/SoPraTeste",
+      "FolderCpp": "src/Actors/SoPraTeste",
+      "FolderGen": "generated",
+      "DateCreation": "July 2023",
+      "BaseClassName": "AActor",
+      "BaseClassPathHpp": "Actors/Actor.hpp",
+      "BaseClassTemplate": " : public AActor",
+      "BaseClassInclude": "\n#include \"Actors/Actor.hpp\"",
+      "ClassGenDefinition": "hpp_UTesteAlexadro_AActor",
+      "ClassGenDefinitionVersion": "hpp_UTesteAlexadro_AActor_def"
+    }
   }
 ]

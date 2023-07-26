@@ -1,3 +1,6 @@
 [submodule "ThirdParty/YAML"]
 	path = ThirdParty/YAML
 	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "ThirdParty/IMGUI"]
+	path = ThirdParty/IMGUI
+	url = https://github.com/ocornut/imgui.git

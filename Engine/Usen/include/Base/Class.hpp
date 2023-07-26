@@ -45,6 +45,7 @@ protected:
 	UScene* GetScene();
 	UController* GetController();
 	UInputManagement* GetInputManagement();
+	UApplication* GetApplication();
 
 private:
 	UApplication* Application = nullptr;
