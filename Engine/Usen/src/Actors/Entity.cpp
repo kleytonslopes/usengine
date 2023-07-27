@@ -39,6 +39,12 @@ void AEntity::SetOwner(AEntity* owner)
 	this->Owner = owner;
 }
 
+void AEntity::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
+{
+	this->Parent = parent;
+	bIsAttached = true;
+}
+
 void AEntity::Draw(float deltaTime)
 {
 }

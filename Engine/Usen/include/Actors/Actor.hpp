@@ -24,9 +24,15 @@ class AActor : public AEntity
 public:
 	explicit AActor();
 	virtual ~AActor();
+
 	void Destroy() override;
 
 	void Create() override;
+	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
+	void SetTransform(const FTransform& transform);
+	FVector GetLocation();
+	FVector GetSceneLocation();
+	FTransform& GetTransform();
 
 protected:
 	TMap<FString, AComponent*> components;
@@ -69,6 +75,8 @@ protected:
 	{
 		return static_cast<T*>(components[typeid(T).name()]);
 	}
+
+	void Draw(float deltaTime) override;
 
 	friend class FEntitySerializer;
 	friend class UScene;

@@ -59,6 +59,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ucHppViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\ucTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,11 +78,16 @@
     <Compile Include="Components\ucHierarchyFolder.xaml.cs">
       <DependentUpon>ucHierarchyFolder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ucHppViewer.xaml.cs">
+      <DependentUpon>ucHppViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ucTitleBar.xaml.cs">
       <DependentUpon>ucTitleBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\ClassObject.cs" />
     <Compile Include="Data\FileObject.cs" />
     <Compile Include="Data\FolderObject.cs" />
+    <Compile Include="Data\HeaderObject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -91,7 +100,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Components\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Defaults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

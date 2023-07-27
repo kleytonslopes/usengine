@@ -14,23 +14,29 @@
         <TextBlock Grid.Row="0" Height="25" TextAlignment="Center" Text="Folder Hierarchy" />
 
         <TreeView x:Name="tvHierarchy" Grid.Column="0" Grid.Row="1" SelectedItemChanged="tvHierarchy_SelectedItemChanged" >
-            <TreeView.ItemTemplate>
+            <!--<TreeView.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Text}"/>
                         <Image Source="{Binding ImageSource}" Stretch="Uniform" Height="20"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+            </TreeView.ItemTemplate>-->
+            
             <TreeView.Resources>
                 <ContextMenu x:Key="SolutionContext" StaysOpen="True">
-                    <MenuItem x:Name="mnuAddClass" Header="Add Class"/>
+                    <MenuItem x:Name="mnuAddClass" Header="Add Class" Click="mnuAddClass_Click"/>
                     <Separator/>
                     <MenuItem x:Name="mnuAddFolder" Header="Add Folder" Click="mnuAddFolder_Click"/>
-                    <MenuItem x:Name="mnuRenameFolder" Header="Rename Folder" Click="mnuAddFolder_Click"/>
+                    <!--<MenuItem x:Name="mnuRenameFolder" Header="Rename Folder" Click="mnuAddFolder_Click"/>-->
                     <MenuItem x:Name="mnuRemoveFolder" Header="Delete Folder" Click="mnuRemoveFolder_Click"/>
                 </ContextMenu>
             </TreeView.Resources>
+           
+            <TreeViewItem Header="ASD">
+                <TreeViewItem Header="ASDF"/>
+            </TreeViewItem>
+            <TreeViewItem Header="ASDF"/>
         </TreeView>
 
         <!--<TreeView x:Name="tvHierarchy" Grid.Row="1">

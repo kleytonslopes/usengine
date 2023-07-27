@@ -19,6 +19,8 @@
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
 
+#include "Mesh/Mesh.hpp"
+
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
 
@@ -60,13 +62,22 @@ void UScene::Initialize()
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
+		FTransform trasform;
+		trasform.Location = { 10,2,3 };
 		AActor* actor1 = CreateEntity<AActor>();
 		actor1->AddComponent<UCameraComponent>();
-		UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+		actor1->SetTransform(trasform);
+		//UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+		FAttachmentSettings att{};
+		AMesh* mesh = CreateEntity<AMesh>();
+		mesh->AttatchTo(actor1, att);
+
+		FVector loc = mesh->GetLocation();
+		FVector wloc = mesh->GetSceneLocation();
 
 		FMeshParameters peshParameters{};
 		peshParameters.MeshPath = "mesh123.obj";
-		meshComp->SetMeshParameters(peshParameters);
+		//meshComp->SetMeshParameters(peshParameters);
 
 		actor1->Initialize();
 	}

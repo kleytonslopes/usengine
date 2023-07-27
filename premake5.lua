@@ -35,7 +35,6 @@ group ""
 
 group "Programs"
    include "Programs/Editor"
-   include "Programs/Kyrnness"
 group ""
 
 group "Generated"

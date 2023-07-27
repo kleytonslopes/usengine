@@ -8,7 +8,7 @@ namespace Kyrnness.Data
 {
     public class FolderObject
     {
-        public FolderObject(string name, string fullPath, FolderObject parent) 
+        public FolderObject(string name, string fullPath, FolderObject parent)
         {
             this.ParentFolder = parent;
             this.FullPath = fullPath;
@@ -17,7 +17,22 @@ namespace Kyrnness.Data
 
         public string Name { get; private set; }
         public string FullPath { get; private set; }
-        public string Path => $"{ParentFolder.Path}/{Name}";
+        public string Path
+        {
+            get
+            {
+                string path = string.Empty;
+                if(this.ParentFolder != null)
+                {
+                    path = $"{ParentFolder.Path}/{Name}";
+
+                    if (path[0] == '/')
+                        path = path.Substring(1);
+                }
+
+                return path;
+            }
+        }
         public FolderObject ParentFolder { get; private set; }
         public List<FolderObject> SubFolders { get; set; }
         public List<FileObject> Files { get; set; }

@@ -5,13 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kyrnness.Pages"
         mc:Ignorable="d"
-        Background="{StaticResource WindowBackground}"
-        Style="{StaticResource DefaultStyle}"
-        Title="winNewClass" Height="450" Width="800">
+        Height="450" Width="800" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
@@ -40,7 +37,7 @@
             <Label Name="lblClassName" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Content="" FontSize="18" Margin="10" VerticalAlignment="Bottom" Foreground="#FF4C4C4C"/>
 
             <Label Grid.Column="0" Grid.Row="1" Content="Class name"/>
-            <TextBox x:Name="txtClassName" Grid.Column="0" Grid.Row="2" Text="" />
+            <TextBox x:Name="txtClassName" Grid.Column="0" Grid.Row="2" TextChanged="txtClassName_TextChanged" />
 
             <Label Grid.Column="1" Grid.Row="1" Content=".hpp file"/>
             <TextBox x:Name="txtClassHeader" Grid.Column="1" Grid.Row="2" Text="" IsEnabled="False"/>
@@ -52,7 +49,7 @@
             <ComboBox x:Name="cboClassBase" Grid.Column="0" Grid.Row="4"/>
 
             <Label Grid.Column="1" Grid.Row="3" Content="Access"/>
-            <ComboBox x:Name="cboClassAccess" Grid.Column="1" Grid.Row="4">
+            <ComboBox x:Name="cboClassAccess" Grid.Column="1" Grid.Row="4" BorderBrush="#FF2F2F2F">
                 <ComboBoxItem Content="public" IsSelected="True"/>
                 <ComboBoxItem Content="protected"/>
                 <ComboBoxItem Content="private"/>
@@ -71,54 +68,35 @@
                 </Grid.ColumnDefinitions>
                 <!-- Flags Class Prefix -->
                 <StackPanel Grid.Column="0">
-                    <RadioButton x:Name="rbClassPrefixU" Content="Unsigned"  IsChecked="True" />
-                    <RadioButton x:Name="rbClassPrefixA" Content="Actor" />
-                    <RadioButton x:Name="rbClassPrefixF" Content="Function" />
-                    <RadioButton x:Name="rbClassPrefixI" Content="Interface" />
-                    <RadioButton x:Name="rbClassPrefixB"  Content="Base" />
+                    <RadioButton x:Name="rbClassPrefixU" Content="UUnsigned"  IsChecked="True" />
+                    <RadioButton x:Name="rbClassPrefixA" Content="AActor"/>
+                    <RadioButton x:Name="rbClassPrefixF" Content="FFunction" />
+                    <RadioButton x:Name="rbClassPrefixI" Content="IInterface" />
+                    <RadioButton x:Name="rbClassPrefixB" Content="BBase" />
+                    <RadioButton x:Name="rbClassPrefix"  Content="None" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <CheckBox x:Name="chkHasCpp" Content="Create CPP" IsChecked="True"/>
-                    <CheckBox x:Name="chkHasGen" Content="Create Generated" IsChecked="True"/>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="chkHasCpp" Content="Create CPP" IsChecked="True"/>
+                        <RadioButton x:Name="chkInline" Content="Inline" IsChecked="False"/>
+                        <RadioButton x:Name="chkNone" Content="None" IsChecked="False"/>
+                    </StackPanel>
+                    <CheckBox x:Name="chkHasGen" Content="Create Defaults" IsChecked="True"/>
                     <CheckBox x:Name="chkInherit" Content="Can Inherit" IsChecked="True"/>
                 </StackPanel>
             </Grid>
         </Grid>
 
-        <!-- Hierarchy -->
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="100*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="Hierarchy"/>
-            <TreeView x:Name="tvHierarchy" Grid.Column="0" Grid.Row="1">
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Text}"/>
-                            <Image Source="{Binding ImageSource}" Stretch="Uniform" Height="20"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-                <TreeView.Resources>
-                    <ContextMenu x:Key="SolutionContext" StaysOpen="True">
-                        <MenuItem x:Name="mnuAddFolder" Header="Add Folder"/>
-                    </ContextMenu>
-                </TreeView.Resources>
-            </TreeView>
-        </Grid>
-
         <!-- Buttons -->
-        <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnGenerate" Grid.Column="1" Content="OK"/>
-            <Button x:Name="btnCancel" Grid.Column="2" Content="Cancel"/>
+            <Button x:Name="btnGenerate" Grid.Column="1" Content="OK" Click="btnGenerate_Click"/>
+            <Button x:Name="btnCancel" Grid.Column="2" Content="Cancel" Click="btnCancel_Click"/>
         </Grid>
     </Grid>
 </Window>

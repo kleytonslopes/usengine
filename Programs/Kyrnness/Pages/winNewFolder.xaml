@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kyrnness.Pages"
         mc:Ignorable="d"
-        Background="{StaticResource WindowBackground}"
-        Style="{StaticResource DefaultStyle}"
-        Title="winNewFolder" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Height="450" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

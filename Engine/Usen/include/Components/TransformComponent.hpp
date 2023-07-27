@@ -16,6 +16,15 @@
 #include "Components/Component.hpp"
 #include "TransformComponent-generated.hpp"
 
+struct FTransform
+{
+	FVector Location{ 0.f, 0.f, 0.f };
+	FVector Rotation{ 0.f, 0.f, 0.f };
+	FVector Scale{ 1.f, 1.f, 1.f };
+	FVector UpVector{ 0.f, 1.f, 0.f };
+	FVector ForwardVector{ 0.f, 0.f, -1.f };
+};
+
 class UTransformComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
@@ -28,10 +37,12 @@ public:
 	FVector GetScale();
 	FVector GetUpVector();
 	FVector GetForwardVector();
+	FTransform GetTransform();
 
 	FVector GetRightVector();
 	FVector GetDirection();
 
+	void SetTransform(const FTransform transform);
 	void SetLocation(const FVector& vector);
 	void SetRotation(const FVector& vector);
 	void SetScale(const FVector& vector);
@@ -42,11 +53,12 @@ protected:
 	void Serialize(SeriFile& otherOut) override;
 
 private:
-	FVector Location{ 0.f, 0.f, 0.f };
-	FVector Rotation{ 0.f, 0.f, 0.f };
-	FVector Scale{ 1.f, 1.f, 1.f };
-	FVector UpVector{ 0.f, 1.f, 0.f };
-	FVector ForwardVector{ 0.f, 0.f, -1.f };
+	FTransform Transform{};
+	//FVector Location{ 0.f, 0.f, 0.f };
+	//FVector Rotation{ 0.f, 0.f, 0.f };
+	//FVector Scale{ 1.f, 1.f, 1.f };
+	//FVector UpVector{ 0.f, 1.f, 0.f };
+	//FVector ForwardVector{ 0.f, 0.f, -1.f };
 };
 
 #endif // !US_TRANSFORM_COMPONENT_HPP

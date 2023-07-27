@@ -20,83 +20,97 @@ UTransformComponent::~UTransformComponent()
 
 FVector UTransformComponent::GetLocation()
 {
-	return Location;
+	return Transform.Location;
 }
 
 FVector UTransformComponent::GetRotation()
 {
-	return Rotation;
+	return Transform.Rotation;
 }
 
 FVector UTransformComponent::GetScale()
 {
-	return Scale;
+	return Transform.Scale;
 }
 
 FVector UTransformComponent::GetUpVector()
 {
-	return UpVector;
+	return Transform.UpVector;
 }
 
 FVector UTransformComponent::GetForwardVector()
 {
-	return ForwardVector;
+	return Transform.ForwardVector;
+}
+
+FTransform UTransformComponent::GetTransform()
+{
+	return Transform;
 }
 
 FVector UTransformComponent::GetRightVector()
 {
-	return glm::normalize(glm::cross(UpVector, GetDirection()));
+	return glm::normalize(glm::cross(Transform.UpVector, GetDirection()));
 }
 
 FVector UTransformComponent::GetDirection()
 {
-	return glm::normalize(Location - ForwardVector);
+	return glm::normalize(Transform.Location - Transform.ForwardVector);
+}
+
+void UTransformComponent::SetTransform(const FTransform transform)
+{
+	SetLocation(transform.Location);
+	SetRotation(transform.Rotation);
+	SetScale(transform.Scale);
+	SetUpVector(transform.UpVector);
+	SetForwardVector(transform.ForwardVector);
 }
 
 void UTransformComponent::SetLocation(const FVector& vector)
 {
-	Location.x = vector.x;
-	Location.y = vector.y;
-	Location.z = vector.z;
+	Transform.Location.x = vector.x;
+	Transform.Location.y = vector.y;
+	Transform.Location.z = vector.z;
 }
 
 void UTransformComponent::SetRotation(const FVector& vector)
 {
-	Rotation.x = vector.x;
-	Rotation.y = vector.y;
-	Rotation.z = vector.z;
+	Transform.Rotation.x = vector.x;
+	Transform.Rotation.y = vector.y;
+	Transform.Rotation.z = vector.z;
 }
 
 void UTransformComponent::SetScale(const FVector& vector)
 {
-	Scale.x = vector.x;
-	Scale.y = vector.y;
-	Scale.z = vector.z;
+	Transform.Scale.x = vector.x;
+	Transform.Scale.y = vector.y;
+	Transform.Scale.z = vector.z;
 }
 
 void UTransformComponent::SetUpVector(const FVector& vector)
 {
-	UpVector.x = vector.x;
-	UpVector.y = vector.y;
-	UpVector.z = vector.z;
+	Transform.UpVector.x = vector.x;
+	Transform.UpVector.y = vector.y;
+	Transform.UpVector.z = vector.z;
 }
 
 void UTransformComponent::SetForwardVector(const FVector& vector)
 {
-	ForwardVector.x = vector.x;
-	ForwardVector.y = vector.y;
-	ForwardVector.z = vector.z;
+	Transform.ForwardVector.x = vector.x;
+	Transform.ForwardVector.y = vector.y;
+	Transform.ForwardVector.z = vector.z;
 }
 
 void UTransformComponent::Serialize(SeriFile& otherOut)
 {
 	BeginComponentSection(otherOut, Identity);
 
-	Key(otherOut, "location", Location);
-	Key(otherOut, "rotation", Rotation);
-	Key(otherOut, "scale", Scale);
-	Key(otherOut, "upVector", UpVector);
-	Key(otherOut, "forwardVector", ForwardVector);
+	Key(otherOut, "location", Transform.Location);
+	Key(otherOut, "rotation", Transform.Rotation);
+	Key(otherOut, "scale", Transform.Scale);
+	Key(otherOut, "upVector", Transform.UpVector);
+	Key(otherOut, "forwardVector", Transform.ForwardVector);
 
 	EndSection(otherOut);
 }

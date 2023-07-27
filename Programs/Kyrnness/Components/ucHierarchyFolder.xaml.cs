@@ -27,6 +27,9 @@ namespace Kyrnness.Components
         public delegate void FolderStructureChangedEventHandler();
         public event FolderStructureChangedEventHandler FolderStructureChanged;
 
+        public delegate void ClassSelectedChangedEvent(ClassObject SeleactedClass);
+        public event ClassSelectedChangedEvent ClassSelected;
+
         public ucHierarchyFolder()
         {
             InitializeComponent();
@@ -41,10 +44,10 @@ namespace Kyrnness.Components
                 TreeViewItem node = new TreeViewItem();
                 node.Tag = folder;
                 node.Header = folder.Name;
-                
+
                 HierarchyAddChilds(folder, ref node);
                 //HierarchyAddFileChilds(folder, ref node);
-               
+
                 tvHierarchy.Items.Add(node);
             }
         }
@@ -55,7 +58,7 @@ namespace Kyrnness.Components
                 TreeViewItem subNode = new TreeViewItem();
                 subNode.Tag = sub;
                 subNode.Header = sub.Name;
-                
+
                 HierarchyAddChilds(sub, ref subNode);
                 //HierarchyAddFileChilds(sub, ref subNode);
 
@@ -86,7 +89,7 @@ namespace Kyrnness.Components
             TreeViewItem item = tvHierarchy.SelectedItem as TreeViewItem;
             FolderObject folderObject = item.Tag as FolderObject;
 
-            if(folderObject != null)
+            if (folderObject != null)
             {
                 winNewFolder wind = new winNewFolder();
                 wind.folderObject = folderObject;
@@ -109,18 +112,39 @@ namespace Kyrnness.Components
 
             if (folderObject != null)
             {
-                MessageBoxResult result = MessageBox.Show($"Want delete this Folder \"{folderObject.Name}\"?");
-                if(result == MessageBoxResult.Yes ) 
+                MessageBoxResult result = MessageBox.Show($"Want delete this Folder \"{folderObject.Name}\"?", "Folder - Exclusion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
-                    result = MessageBox.Show($"Sure?");
-                    if(result == MessageBoxResult.Yes)
+                    result = MessageBox.Show($"Sure?", "Folder - Exclusion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
                     {
                         string folderInclude = folderObject.FullPath.Replace("src", "include");
                         string folderSrc = folderObject.FullPath.Replace("include", "src");
 
                         Directory.Delete(folderInclude, true);
                         Directory.Delete(folderSrc, true);
+
+                        if (FolderStructureChanged != null)
+                            FolderStructureChanged();
                     }
+                }
+            }
+        }
+
+        private void mnuAddClass_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = tvHierarchy.SelectedItem as TreeViewItem;
+            FolderObject folderObject = item.Tag as FolderObject;
+            if (folderObject != null)
+            {
+
+                winNewClass wind = new winNewClass();
+                wind.folder = folderObject;
+                wind.ShowDialog();
+
+                if(wind.wasCreated && ClassSelected != null)
+                {
+                    ClassSelected(wind.classObject);
                 }
             }
         }

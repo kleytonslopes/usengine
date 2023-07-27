@@ -14,7 +14,7 @@ namespace Kyrnness.Data
             Folder = folderObject;
         }
         public string Name { get; private set; }
+        public string FullPath => $"{Folder.FullPath}\\{Name}";
         public FolderObject Folder { get; private set; }
-        public string FullPath => $"{Name}\\{Folder.FullPath}";
     }
 }
