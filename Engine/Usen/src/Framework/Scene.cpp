@@ -67,16 +67,18 @@ void UScene::Initialize()
 		AActor* actor1 = CreateEntity<AActor>();
 		actor1->AddComponent<UCameraComponent>();
 		actor1->SetTransform(trasform);
-		//UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+
+		FMeshParameters peshParameters{};
+		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
 		FAttachmentSettings att{};
 		AMesh* mesh = CreateEntity<AMesh>();
 		mesh->AttatchTo(actor1, att);
+		mesh->SetMeshParameters(peshParameters);
 
 		FVector loc = mesh->GetLocation();
 		FVector wloc = mesh->GetSceneLocation();
 
-		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = "mesh123.obj";
+
 		//meshComp->SetMeshParameters(peshParameters);
 
 		actor1->Initialize();

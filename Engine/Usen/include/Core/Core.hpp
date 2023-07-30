@@ -53,6 +53,10 @@ inline void ULOG_Warning(const FString& message)
 {
 	ULOG(ELogLevel::ELL_WARNING, message);
 }
+inline void ULOG_Error(const FString& message)
+{
+	ULOG(ELogLevel::ELL_ERROR, message);
+}
 
 namespace ShaderDefault
 {
@@ -62,8 +66,9 @@ namespace ShaderDefault
 
 namespace Content
 {
-	const FString ModelFilePath{ "../../Content/Models/%s" };
-	const FString SceneFilePath{ "../../Content/Scene/%s.usscn" };
+	const UCharPtr ModelFilePath{ "../../Content/Models/%s" };
+	const UCharPtr ModelPath{ "../../Content/Models/%s" };
+	const UCharPtr SceneFilePath{ "../../Content/Scene/%s.usscn" };
 }
 
 #endif // !US_CORE_HPP

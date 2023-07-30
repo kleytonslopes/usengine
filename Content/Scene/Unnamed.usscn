@@ -2,10 +2,23 @@ Scene: Unnamed
 Shaders:
   name: [skybox, default]
 Entities:
-  - Entity: 0490af0d-2c17-4cfa-82e9-4b81a8c92f23
+  - Entity: 380f4fff-f110-4d50-983a-075c6cdddd4e
+  - Entity: 7abee5f0-c3f2-49c3-bbb2-d14e7ace0c37
+    Components:
+      UMeshComponent:
+        id: 9bf64238-0f1e-4112-ad97-7b39784bfb83
+        mesh_path: ../../Content/Models/cube.obj
+      UTransformComponent:
+        id: 27665873-10a7-4cdf-861a-b087c91bf8da
+        location: [10, 2, 3]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 1, 0]
+        forwardVector: [0, 0, -1]
+  - Entity: a90610ca-4224-461d-88cb-8c81cc5c7239
     Components:
       UCameraComponent:
-        id: c8b3b77a-fc7a-46e0-9eb0-98f4ee0b0135
+        id: eeae2e49-6e50-4363-816a-6faf53bf1cae
         near: 0.00100000005
         far: 100000
         fov: 45
@@ -16,23 +29,10 @@ Entities:
         pitchAxis: [1, 0, 0]
         rollAxis: [0, 0, 1]
       UTransformComponent:
-        id: eacdd2e3-9ba5-42b5-9cb1-42070e88e677
+        id: 40634b00-1e2e-4687-b7e1-bd8a528abacc
         location: [10, 2, 3]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 1, 0]
         forwardVector: [0, 0, -1]
-  - Entity: 34d2668b-25f9-41d3-8c11-fd59b5b0600d
-    Components:
-      UMeshComponent:
-        id: ba1636cd-5fb4-44bc-89ae-2e5a7ede7225
-        mesh_path: ""
-      UTransformComponent:
-        id: af8b2d9e-8ef8-463f-9d67-e862234defaf
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 1, 0]
-        forwardVector: [0, 0, -1]
-  - Entity: d41af0e9-675a-4390-89b8-ddf06e0427fd
-  - Entity: fcc57a3b-1dad-4dc5-8ed2-2b1573f11d83
+  - Entity: f65797dd-aa1b-4b49-9784-fd56c9ac9ae7

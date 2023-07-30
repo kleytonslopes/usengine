@@ -11,6 +11,8 @@
 #include "Mesh/Mesh.hpp"
 #include "Components/RenderComponent.hpp"
 #include "Components/MeshComponent.hpp"
+#include "Renderer/Model.hpp"
+#include "Renderer/OpenGL/ModelOpenGL.hpp"
 
 AMesh::AMesh()
 {
@@ -26,6 +28,9 @@ void AMesh::Create()
 {
 	Super::Create();
 
+	Model = UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	Model.Get()->SetTarget(this);
+
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
 	RenderComponent->SetOwner(Owner);
 	RenderComponent->SetParent(this);
@@ -33,6 +38,18 @@ void AMesh::Create()
 	UMeshComponent* MeshComponent = AddComponent<UMeshComponent>();
 	MeshComponent->SetOwner(Owner);
 	MeshComponent->SetParent(this);
+
+	PostCreate();
+}
+
+void AMesh::PostCreate()
+{
+
+}
+
+void AMesh::Initialize()
+{
+	Model.Get()->Initialize();
 }
 
 UMeshComponent* AMesh::GetMeshComponent()

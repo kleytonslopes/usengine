@@ -39,9 +39,13 @@ void AActor::Destroy()
 
 void AActor::Create()
 {
+	Super::Create();
+
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
 	TransformComponent->SetParent(this);
+
+	PostCreate();
 }
 
 void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)

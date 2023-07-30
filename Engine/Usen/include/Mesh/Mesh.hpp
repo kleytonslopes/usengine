@@ -17,6 +17,8 @@
 #include "Mesh-generated.hpp"
 
 class UMeshComponent;
+class UModel;
+
 struct FMeshParameters;
 
 class AMesh : public AActor
@@ -27,6 +29,8 @@ public:
 	virtual ~AMesh();
 
 	void Create() override;
+	void PostCreate() override;
+	void Initialize() override;
 
 	UMeshComponent* GetMeshComponent();
 
@@ -35,6 +39,9 @@ public:
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
+
+private:
+	UUniquePtr<UModel> Model;
 };
 
 #endif // !US_MESH_HPP

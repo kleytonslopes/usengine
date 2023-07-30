@@ -30,12 +30,26 @@ BClass::~BClass()
 
 void BClass::Initialize()
 {
+	if (bIsInitialized)
+	{
+		UASSERT(false, "Already Initialized!");
+	}
+
+	bIsInitialized = true;
+
+	PostInitialize();
+}
+
+void BClass::PostInitialize()
+{
 	bIsInitialized = true;
 }
 
 void BClass::Destroy()
 {
 	ULOG(ELogLevel::ELL_INFORMATION, "BClass Destroy!");
+
+	PostDestroy();
 }
 
 UWindow* BClass::GetWindow()

@@ -24,6 +24,13 @@ public:
 	template<typename ... Args>
 	static UUniquePtr<T> Make(Args... args);
 	static UUniquePtr<T> Make();
+	//static UUniquePtr<T> MakeCast();
+	template<typename U>
+	static inline UUniquePtr<T> MakeCast()
+	{
+		std::unique_ptr<T> ptrm = std::make_unique<U>();
+		return UUniquePtr<T>(std::move(ptrm));
+	}
 
 	UUniquePtr<T> Move();
 	void Destroy();
@@ -50,6 +57,13 @@ inline UUniquePtr<T> UUniquePtr<T>::Make()
 	std::unique_ptr<T> ptrm = std::make_unique<T>();
 	return UUniquePtr<T>(std::move(ptrm));
 }
+
+//template<typename T>
+//inline UUniquePtr<T> UUniquePtr<T>::MakeCast()
+//{
+//	std::unique_ptr<T> ptrm = std::make_unique<T>();
+//	return UUniquePtr<T>(std::move(ptrm));
+//}
 
 template<typename T>
 inline UUniquePtr<T> UUniquePtr<T>::Move()

@@ -18,6 +18,7 @@
 #include "Entity-generated.hpp"
 
 class FEntitySerializer;
+class UAttachment;
 
 enum class EAttachMode
 {
@@ -37,12 +38,15 @@ public:
 	explicit AEntity();
 	virtual ~AEntity();
 
-	virtual void Create() { /* override */ };
+	virtual void Create();
+	virtual void PostCreate() { /* override*/ };
+	void Destroy() override;
 
 	void Initialize() override;
 
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
+	void Detach(AEntity* entity);
 
 	FString GetId() const { return Id; }
 
@@ -56,7 +60,10 @@ protected:
 	AEntity* Owner = nullptr;
 	AEntity* Parent = nullptr;
 
+	UUniquePtr<UAttachment> Attachments;
+
 	bool bIsAttached = false;
+	bool bIsCreated = false;
 
 	void Serialize() override { /* override */ }
 	void Serialize(SeriFile& otherOut) override;

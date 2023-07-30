@@ -39,6 +39,7 @@ void UApplication::Initialize()
 	Renderer.Get()->Initialize();
 
 	InputManagement = UUniquePtr<UInputManagement>::Make();
+	InputManagement.Get()->Create();
 	InputManagement.Get()->Initialize();
 
 	Scene = UUniquePtr<UScene>::Make();
@@ -47,9 +48,15 @@ void UApplication::Initialize()
 	Scene.Get()->Initialize();
 
 	Controller = UUniquePtr<UController>::Make();
+	Controller.Get()->Create();
 	Controller.Get()->Initialize();
 
 	bIsInitialized = true;
+}
+
+void UApplication::PostInitialize()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostInitialize!", Identity.c_str()));
 }
 
 void UApplication::Destroy()
@@ -60,6 +67,13 @@ void UApplication::Destroy()
 	GameInstance.Destroy();//.Get()->Destroy();
 	Renderer.Destroy();//.Get()->Destroy();
 	Window.Destroy();//.Get()->Destroy();
+
+	PostDestroy();
+}
+
+void UApplication::PostDestroy()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostDestroy!", Identity.c_str()));
 }
 
 void UApplication::Loop()

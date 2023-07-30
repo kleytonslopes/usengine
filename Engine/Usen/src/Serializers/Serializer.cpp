@@ -22,7 +22,7 @@ BSerializer::~BSerializer()
 
 void BSerializer::Save()
 {
-	std::ofstream fout(filePath);
+	std::ofstream fout(seriFilePath);
 	fout << out.c_str();
 }
 
@@ -37,7 +37,7 @@ SeriNode BSerializer::Load(const FString& filePath)
 
 void BSerializer::SetFilePath(const FString& fineName)
 {
-	filePath = fineName;
+	seriFilePath = fineName;
 }
 
 void BSerializer::BeginSection()

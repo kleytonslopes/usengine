@@ -35,7 +35,9 @@ public:
 	/// Call at Last Initialize overridden function
 	/// </summary>
 	void Initialize() override;
+	void PostInitialize() override;
 	void Destroy() override;
+	void PostDestroy() override { /* override */ };
 
 	virtual void Update(float deltaTime) { /* override */ };
 

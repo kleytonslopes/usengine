@@ -23,11 +23,16 @@ project "Editor"
         "%{include_dir.UUID}",
         "%{include_dir.GLM}",
         "%{include_dir.YAML}",
+        "%{include_dir.ASSIMP}",
+        "%{include_dir.ASSIMP_BUILD}",
+        "%{include_dir.STB}",
     }
 
     libdirs
     {
-        "%{extern_lib_dir.SDL2}"
+        "%{extern_lib_dir.SDL2}",
+        "%{extern_lib_dir.ASSIMP}",
+        
     }
 
     links
@@ -37,12 +42,14 @@ project "Editor"
         "GLAD",
         "YAML",
         "SDL2.lib",
-        "SDL2main.lib"
+        "SDL2main.lib",
+        "assimp-vc143-mtd.lib",
     }
 
     postbuildcommands
     {
         "copy F:\\Dependencies\\SDL2\\SDL2-2.26.5\\lib\\x64\\SDL2.dll $(SolutionDir)Programs\\Editor\\SDL2.dll",
+        "copy %{wks.location}\\ThirdParty\\ASSIMP\\build\\bin\\Debug\\assimp-vc143-mtd.dll $(SolutionDir)Programs\\Editor\\assimp-vc143-mtd.dll",
     }
 
     filter "system:windows"

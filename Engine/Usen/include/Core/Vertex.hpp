@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: String.hpp
+ *   File: Vertex.hpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -9,14 +9,20 @@
  *********************************************************************/
 #pragma once
 
-#ifndef US_STRING_HPP
-#define	US_STRING_HPP
+#ifndef US_VERTEX_HPP
+#define	US_VERTEX_HPP
 
-#include <string>
-#include <regex>
+#include "Core/MinimalCore.hpp"
 
-using FString = std::string;
-using UCharPtr = const char*;
-using UUCharPtr = unsigned char*;
+class FVertex
+{
+public:
+	FVector Position{};
+	FVector Color{};
+	FVector2 UV{};
+	FVector Normals{};
+	FVector Tangent{};
+	FVector Bitangent{};
+};
 
-#endif // !US_STRING_HPP
+#endif // !US_VERTEX_HPP

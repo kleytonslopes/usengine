@@ -17,7 +17,6 @@
 #include "Components/TransformComponent.hpp"
 #include "Actor-generated.hpp"
 
-
 class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()

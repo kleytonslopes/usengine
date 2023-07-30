@@ -26,6 +26,9 @@ project "Usen"
         "%{include_dir.UUID}",
         "%{include_dir.GLM}",
         "%{include_dir.YAML}",
+        "%{include_dir.ASSIMP}",
+        "%{include_dir.ASSIMP_BUILD}",
+        "%{include_dir.STB}",
     }
 
     links

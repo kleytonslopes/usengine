@@ -23,7 +23,10 @@ public:
 	virtual ~IWeakClass();
 
 	virtual void Initialize() = 0;
+	virtual void PostInitialize() = 0;
+
 	virtual void Destroy() = 0;
+	virtual void PostDestroy() = 0;
 protected:
 	bool bIsInitialized = false;
 	FString Identity;

@@ -36,7 +36,9 @@ public:
 
 	// Inherited via IWeakClass
 	void Initialize() override;
+	void PostInitialize() override;
 	void Destroy() override;
+	void PostDestroy() override;
 
 	template<typename T>
 	T* GetRenderer()

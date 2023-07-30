@@ -11,6 +11,7 @@
 #include "Actors/Entity.hpp"
 #include "Core/Guid.hpp"
 #include "Serializers/EntitySerializer.hpp"
+#include "Core/Attachment.hpp"
 
 AEntity::AEntity()
 {
@@ -23,10 +24,32 @@ AEntity::~AEntity()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Created!", Identity.c_str()));
 }
 
+void AEntity::Create()
+{
+	Attachments = UUniquePtr<UAttachment>::Make();
+
+	bIsCreated = true;
+}
+
+void AEntity::Destroy()
+{
+	if (Parent)
+	{
+		Parent->Detach(this);
+	}
+}
+
 void AEntity::Initialize()
 {
-	//Serializer = UUniquePtr<FEntitySerializer>::Make();
-	//Serializer.Get()->SetEntity(this);
+	Super::Initialize();
+
+	if (!bIsCreated)
+		return;
+
+	if (Attachments.Get()->HasAttachments())
+	{
+		Attachments.Get()->Initialize();
+	}
 }
 
 void AEntity::Serialize(SeriFile& otherOut)
@@ -41,8 +64,14 @@ void AEntity::SetOwner(AEntity* owner)
 
 void AEntity::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 {
+	parent->Attachments.Get()->Attatch(this);
 	this->Parent = parent;
 	bIsAttached = true;
+}
+
+void AEntity::Detach(AEntity* entity)
+{
+	Attachments.Get()->Detach(entity);
 }
 
 void AEntity::Draw(float deltaTime)

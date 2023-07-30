@@ -35,6 +35,10 @@ protected:
 
 private:
 	FMeshParameters Parameters;
+
+	FString GetModelPath() const;
+
+	friend class UModel;
 };
 
 #endif // !US_MESH_COMPONENT_HPP
