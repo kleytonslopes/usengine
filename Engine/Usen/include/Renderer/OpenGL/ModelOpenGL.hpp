@@ -16,6 +16,9 @@
 #include "Renderer/Model.hpp"
 #include "ModelOpenGL-generated.hpp"
 
+class UMeshRendererOpenGL;
+class UTextureOpenGL;
+
 class UModelOpenGL : public UModel
 {
 	DEFAULT_BODY_GENERATED()
@@ -24,12 +27,17 @@ public:
 	~UModelOpenGL() final;
 
 	void Initialize() override;
+	void LoadModel() override;
+	
 
-protected:
-	UTexture CreateTexture(const aiString& aiString, const FString& typeName) override;
+private:
+	TVector<UMeshRendererOpenGL> Meshes;
+	TVector<UTextureOpenGL> texturesLoaded;
 
-	uint32 TextureFromFile(UCharPtr filePath, const FString& directory, bool gamma = false);
-	UMeshRenderer* CreateMeshRenderer(aiMesh* mesh, const aiScene* scene) override;
+	void ProcessNode(aiNode* node, const aiScene* scene);
+	UMeshRendererOpenGL ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	TVector<UTextureOpenGL> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, FString typeName);
+	uint32 TextureFromFile(UCharPtr path, const FString& directory, bool gamma = false);
 };
 
 #endif // !US_MODEL_OPEN_GL_HPP

@@ -20,14 +20,16 @@ class UTexture : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
+	FString Path;
+	FString Type;
+
 	explicit UTexture();
 	virtual ~UTexture();
 
 	UCharPtr GetPath() const { return Path.c_str(); };
 
 protected:
-	FString Path;
-	FString Type;
+	
 };
 
 #endif // !US_TEXTURE_HPP

@@ -28,22 +28,6 @@ class UMeshRenderer : public BClass
 public:
 	explicit UMeshRenderer();
 	virtual ~UMeshRenderer();
-
-	void Initialize() override;
-	virtual void CreateMeshRenderer(aiMesh* mesh, const aiScene* scene);
-
-protected:
-	TVector<FVertex> vertices;
-	TVector<uint32> indices;
-	TVector<UTexture> textures;
-
-	virtual void CreateVAO() { /* override */}
-	virtual void CreateVBO() { /* override */}
-	virtual void CreateEBO() { /* override */}
-	virtual void CreateFBO() { /* override */}
-
-	friend class UModelOpenGL;
-
 };
 
 #endif // !US_MESH_RENDERER_HPP

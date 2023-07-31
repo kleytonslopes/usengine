@@ -16,6 +16,8 @@
 #include "Renderer/MeshRenderer.hpp"
 #include "MeshRendererOpenGL-generated.hpp"
 
+class UTextureOpenGL;
+
 class UMeshRendererOpenGL : public UMeshRenderer
 {
 	DEFAULT_BODY_GENERATED()
@@ -23,25 +25,24 @@ public:
 	explicit UMeshRendererOpenGL();
 	virtual ~UMeshRendererOpenGL();
 
-	void Destroy() final;
+	void Setup(TVector<FVertex> vertices, TVector<uint32> indices, TVector<UTextureOpenGL> textures);
 
-	void Initialize() override;
-	void CreateMeshRenderer(aiMesh* mesh, const aiScene* scene) override;
+	void CreateVAO();
+	void CreateVBO();
+	void CreateEBO();
+	void CreateFBO();
 
-protected:
+private:
+	TVector<FVertex> vertices;
+	TVector<uint32> indices;
+	TVector<UTextureOpenGL> textures;
+
+	uint32 fboTexture;
+
 	uint32 VAO;
 	uint32 VBO;
 	uint32 EBO;
 	uint32 FBO;
-	uint32 fboTexture;
-
-	void CreateVAO() override;
-	void CreateVBO() override;
-	void CreateEBO() override;
-	void CreateFBO() override;
-
-	friend class UModelOpenGL;
-
 };
 
 #endif // !US_MESH_RENDERER_OPEN_GL_HPP

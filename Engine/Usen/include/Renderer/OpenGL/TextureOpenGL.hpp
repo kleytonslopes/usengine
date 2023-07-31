@@ -20,14 +20,10 @@ class UTextureOpenGL : public UTexture
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UTextureOpenGL();
-	~UTextureOpenGL() final;
-
-private:
 	uint32 Id;
 
-	friend class UModel;
-	friend class UModelOpenGL;
+	explicit UTextureOpenGL();
+	~UTextureOpenGL() final;
 };
 
 #endif // !US_TEXTURE_OPEN_GL_HPP

@@ -1,16 +1,17 @@
 /*********************************************************************
  *   File: MeshRendererOpenGL.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/OpenGL/MeshRendererOpenGL.hpp"
 #include "Core/Vertex.hpp"
 #include "Renderer/Texture.hpp"
+#include "Renderer/OpenGL/TextureOpenGL.hpp"
 #include <glad/glad.h>
 
 UMeshRendererOpenGL::UMeshRendererOpenGL()
@@ -23,17 +24,15 @@ UMeshRendererOpenGL::~UMeshRendererOpenGL()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void UMeshRendererOpenGL::Destroy()
+void UMeshRendererOpenGL::Setup(TVector<FVertex> vertices, TVector<uint32> indices, TVector<UTextureOpenGL> textures)
 {
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteVertexArrays(1, &EBO);
-	glDeleteBuffers(1, &FBO);
-}
+	this->vertices = vertices;
+	this->indices = indices;
+	this->textures = textures;
 
-void UMeshRendererOpenGL::Initialize()
-{
-	Super::Initialize();
+	CreateVAO();
+	CreateVBO();
+	CreateEBO();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(FVertex), reinterpret_cast<void*>(offsetof(FVertex, Position)));
 	glEnableVertexAttribArray(0);
@@ -44,12 +43,8 @@ void UMeshRendererOpenGL::Initialize()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(FVertex), reinterpret_cast<void*>(offsetof(FVertex, Normals)));
 	glEnableVertexAttribArray(2);
 
-	glBindVertexArray(0);
-}
 
-void UMeshRendererOpenGL::CreateMeshRenderer(aiMesh* mesh, const aiScene* scene)
-{
-	Super::CreateMeshRenderer(mesh, scene);
+	glBindVertexArray(0);
 }
 
 void UMeshRendererOpenGL::CreateVAO()
@@ -74,18 +69,18 @@ void UMeshRendererOpenGL::CreateEBO()
 
 void UMeshRendererOpenGL::CreateFBO()
 {
-	//glGenFramebuffers(1, &FBO);
-	//glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	glGenFramebuffers(1, &FBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-	//if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
-	//{
-	//	glGenTextures(1, &fboTexture);
-	//	glBindTexture(GL_TEXTURE_2D, fboTexture);
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
+	{
+		glGenTextures(1, &fboTexture);
+		glBindTexture(GL_TEXTURE_2D, fboTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTexture, 0);
-	//}
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTexture, 0);
+	}
 }

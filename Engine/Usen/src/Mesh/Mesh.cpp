@@ -29,7 +29,7 @@ void AMesh::Create()
 	Super::Create();
 
 	Model = UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
-	Model.Get()->SetTarget(this);
+	Model.Get()->SetMeshActor(this);
 
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
 	RenderComponent->SetOwner(Owner);

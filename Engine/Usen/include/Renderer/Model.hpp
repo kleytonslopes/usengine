@@ -21,7 +21,6 @@
 #include "Model-generated.hpp"
 
 class AMesh;
-class UTexture;
 
 class UModel : public BClass
 {
@@ -30,30 +29,13 @@ public:
 	explicit UModel();
 	virtual ~UModel();
 
-	void Initialize() override;
-	void Destroy() override;
+	virtual void LoadModel() = 0;
+	void SetMeshActor(AMesh* actor);
 
 protected:
-	AMesh* Target = nullptr;
-	TVector<UMeshRenderer*> Meshes;
+	AMesh* MeshActor = nullptr;
 	FString DirectoryPath;
 
-	virtual UTexture CreateTexture(const aiString& aiString, const FString& name) = 0;
-	virtual UMeshRenderer* CreateMeshRenderer(aiMesh* mesh, const aiScene* scene) = 0;
-private:
-	TVector<UTexture> texturesLoaded;
-
-	void SetTarget(AMesh* actor);
-	void LoadModel();
-
-	void ProcessNode(aiNode* node, const aiScene* scene);
-	UMeshRenderer* ProcessMesh(aiMesh* mesh, const aiScene* scene);
-	
-	TVector<UTexture> LoadMaterialTexture(aiMaterial* material, aiTextureType type, FString name);
-	
-
-	friend class AActor;
-	friend class AMesh;
 };
 
 #endif // !US_MODEL_HPP

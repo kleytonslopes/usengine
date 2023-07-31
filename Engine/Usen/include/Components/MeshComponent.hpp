@@ -29,6 +29,7 @@ public:
 	virtual ~UMeshComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
+	FString GetModelPath() const;
 
 protected:
 	void Serialize(SeriFile& otherOut) override;
@@ -36,7 +37,7 @@ protected:
 private:
 	FMeshParameters Parameters;
 
-	FString GetModelPath() const;
+	
 
 	friend class UModel;
 };
