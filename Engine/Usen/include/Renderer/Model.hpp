@@ -30,6 +30,7 @@ public:
 	virtual ~UModel();
 
 	virtual void LoadModel() = 0;
+	virtual void Draw(float deltaTime) = 0;
 	void SetMeshActor(AMesh* actor);
 
 protected:

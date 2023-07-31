@@ -9,7 +9,13 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
+
+#include "Renderer/Renderer.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
+#include "Renderer/ShaderParameters.hpp"
+#include "Renderer/Shader.hpp"
+
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
 #include "Actors/Actor.hpp"
@@ -18,6 +24,7 @@
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
+
 
 #include "Mesh/Mesh.hpp"
 
@@ -50,6 +57,11 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
+	//initialize shaders
+	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
+	FShaderParameters shaderParameters{};
+	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
+
 	//* act = GetApplication()->RegistryClass<AActor>();
 	Camera = UUniquePtr<ACamera>::Make();
 	Camera.Get()->Create();
@@ -77,9 +89,6 @@ void UScene::Initialize()
 
 		FVector loc = mesh->GetLocation();
 		FVector wloc = mesh->GetSceneLocation();
-
-
-		//meshComp->SetMeshParameters(peshParameters);
 
 		actor1->Initialize();
 	}

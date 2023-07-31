@@ -35,7 +35,7 @@ void UApplication::Initialize()
 	GameInstance = UUniquePtr<UGameInstance>::Make();
 	GameInstance.Get()->Initialize();
 
-	Renderer = UUniquePtr<URendererOpenGL>::Make();
+	Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
 	Renderer.Get()->Initialize();
 
 	InputManagement = UUniquePtr<UInputManagement>::Make();

@@ -13,6 +13,7 @@
 #include "Components/MeshComponent.hpp"
 #include "Renderer/Model.hpp"
 #include "Renderer/OpenGL/ModelOpenGL.hpp"
+#include "Renderer/Renderer.hpp"
 
 AMesh::AMesh()
 {
@@ -57,8 +58,19 @@ UMeshComponent* AMesh::GetMeshComponent()
 	return GetComponent<UMeshComponent>();
 }
 
+URenderComponent* AMesh::GetRenderComponent()
+{
+	return GetComponent<URenderComponent>();
+}
+
 void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 {
 	UMeshComponent* MeshComponent = GetMeshComponent();
 	MeshComponent->SetMeshParameters(parameters);
+
+	BRenderer* renderer = GetRenderer();
+	BShader* shader = renderer->GetShader(parameters.ShaderName);
+
+	URenderComponent* RenderComponent = GetRenderComponent();
+	RenderComponent->SetShader(shader);
 }

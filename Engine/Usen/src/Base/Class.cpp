@@ -81,3 +81,8 @@ UApplication* BClass::GetApplication()
 {
 	return Application;
 }
+
+BRenderer* BClass::GetRenderer()
+{
+	return Application->Renderer.Get();
+}

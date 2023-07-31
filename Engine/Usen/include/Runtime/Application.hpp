@@ -16,6 +16,7 @@
 #include "Weaks/WeakClass.hpp"
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Renderer/Renderer.hpp"
 #include "Application-generated.hpp"
 
 class UWindow;
@@ -46,7 +47,7 @@ public:
 		return static_cast<T*>(Renderer.Get());
 	}
 
-	URendererOpenGL* GetRenderer() { return Renderer.Get(); };
+	BRenderer* GetRenderer() { return Renderer.Get(); };
 
 	template<typename T>
 	void RegistryClass();
@@ -54,7 +55,7 @@ public:
 private:
 	UUniquePtr<UWindow> Window;
 	UUniquePtr<UGameInstance> GameInstance;
-	UUniquePtr<URendererOpenGL> Renderer;
+	UUniquePtr<BRenderer> Renderer;
 	UUniquePtr<UScene> Scene;
 	UUniquePtr<UController> Controller;
 	UUniquePtr<UInputManagement> InputManagement;

@@ -28,7 +28,8 @@ public:
 
 	void Initialize() override;
 	void LoadModel() override;
-	
+	void Draw(float deltaTime) override;
+	void SetShaders();
 
 private:
 	TVector<UMeshRendererOpenGL> Meshes;

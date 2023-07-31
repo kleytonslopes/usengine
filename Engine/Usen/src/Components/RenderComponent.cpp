@@ -10,6 +10,8 @@
 #include "upch.hpp"
 #include "Components/RenderComponent.hpp"
 
+#include "Renderer/Shader.hpp"
+
 URenderComponent::URenderComponent()
 {
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
@@ -18,4 +20,9 @@ URenderComponent::URenderComponent()
 URenderComponent::~URenderComponent()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void URenderComponent::SetShader(BShader* shader)
+{
+	this->Shader = shader;
 }

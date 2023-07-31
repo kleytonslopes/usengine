@@ -57,6 +57,10 @@ void UModelOpenGL::LoadModel()
 	ProcessNode(scene->mRootNode, scene);
 }
 
+void UModelOpenGL::Draw(float deltaTime)
+{
+}
+
 void UModelOpenGL::ProcessNode(aiNode* node, const aiScene* scene)
 {
 	// process all the node's meshes (if any)

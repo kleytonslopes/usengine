@@ -17,6 +17,7 @@
 #include "Mesh-generated.hpp"
 
 class UMeshComponent;
+class URenderComponent;
 class UModel;
 
 struct FMeshParameters;
@@ -33,6 +34,7 @@ public:
 	void Initialize() override;
 
 	UMeshComponent* GetMeshComponent();
+	URenderComponent* GetRenderComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 

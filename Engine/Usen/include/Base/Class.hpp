@@ -23,6 +23,7 @@ class UScene;
 class BRenderer;
 class UController;
 class UInputManagement;
+class URendererOpenGL;
 
 class BClass : public IWeakClass
 {
@@ -48,6 +49,12 @@ protected:
 	UController* GetController();
 	UInputManagement* GetInputManagement();
 	UApplication* GetApplication();
+	BRenderer* GetRenderer();
+	template<typename R>
+	R* GetRenderer()
+	{
+		return static_cast<R*>(GetRenderer());
+	}
 
 private:
 	UApplication* Application = nullptr;

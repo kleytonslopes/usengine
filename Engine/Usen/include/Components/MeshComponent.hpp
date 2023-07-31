@@ -19,6 +19,7 @@
 struct FMeshParameters
 {
 	FString MeshPath;
+	FString ShaderName{ ShaderDefault::DEFAULT };
 };
 
 class UMeshComponent : public AComponent
