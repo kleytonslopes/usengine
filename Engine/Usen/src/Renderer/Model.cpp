@@ -13,6 +13,7 @@
 #include "Core/Vertex.hpp"
 
 #include "Components/MeshComponent.hpp"
+#include "Components/RenderComponent.hpp"
 
 UModel::UModel()
 {
@@ -22,6 +23,18 @@ UModel::UModel()
 UModel::~UModel()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void UModel::Initialize()
+{
+	if (MeshActor == nullptr)
+	{
+		UASSERT(false, "MeshActor not found!");
+	}
+
+	RenderComponent = MeshActor->GetRenderComponent();
+
+	Super::Initialize();
 }
 
 void UModel::SetMeshActor(AMesh* actor)

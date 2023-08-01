@@ -26,3 +26,8 @@ void URenderComponent::SetShader(BShader* shader)
 {
 	this->Shader = shader;
 }
+
+BShader* URenderComponent::GetShader()
+{
+	return Shader;
+}

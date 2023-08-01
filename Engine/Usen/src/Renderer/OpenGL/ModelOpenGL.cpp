@@ -11,6 +11,9 @@
 #include "Renderer/OpenGL/ModelOpenGL.hpp"
 #include "Renderer/OpenGL/TextureOpenGL.hpp"
 #include "Renderer/OpenGL/MeshRendererOpenGL.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
+#include "Renderer/Shader.hpp"
+#include "Components/RenderComponent.hpp"
 #include "Components/MeshComponent.hpp"
 #include "Core/Vertex.hpp"
 #include "Mesh/Mesh.hpp"
@@ -33,6 +36,8 @@ UModelOpenGL::~UModelOpenGL()
 void UModelOpenGL::Initialize()
 {
 	Super::Initialize();
+
+	Shader = RenderComponent->GetShader<UShaderOpenGL>();
 
 	LoadModel();
 }
@@ -59,6 +64,13 @@ void UModelOpenGL::LoadModel()
 
 void UModelOpenGL::Draw(float deltaTime)
 {
+	const FTransform TransformComponent = MeshActor->GetTransform();
+
+	//render meshs
+	for (uint32 i = 0; i < Meshes.size(); i++)
+	{
+		Meshes[i].Draw(TransformComponent.Location, TransformComponent.Rotation, TransformComponent.Scale);
+	}
 }
 
 void UModelOpenGL::ProcessNode(aiNode* node, const aiScene* scene)
@@ -135,23 +147,25 @@ UMeshRendererOpenGL UModelOpenGL::ProcessMesh(aiMesh* mesh, const aiScene* scene
 
 	// process materials
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
+	
 	// 1. diffuse maps
-	TVector<UTextureOpenGL> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	TVector<UTextureOpenGL> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, TextureSlot::DIFFUSE);
 	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 	// 2. specular maps
-	TVector<UTextureOpenGL> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+	TVector<UTextureOpenGL> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureSlot::SPECULAR);
 	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	// 3. normal maps
-	TVector<UTextureOpenGL> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+	TVector<UTextureOpenGL> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, TextureSlot::NORMAL);
 	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 	// 4. height maps
-	TVector<UTextureOpenGL> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+	TVector<UTextureOpenGL> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, TextureSlot::HEIGHT);
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	UMeshRendererOpenGL meshRenderer;
 
 	meshRenderer.Setup(vertices, indices, textures);
+	meshRenderer.SetModel(this);
+	meshRenderer.Shader = Shader;
 
 	return meshRenderer;
 }

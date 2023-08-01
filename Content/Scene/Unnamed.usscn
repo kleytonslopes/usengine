@@ -1,0 +1,38 @@
+Scene: Unnamed
+Shaders:
+  name: []
+Entities:
+  - Entity: 1f224679-39c5-471f-8b5d-7849ea325cff
+    Components:
+      UMeshComponent:
+        id: 53fb7e4d-e69a-4cd4-8860-e1283db28306
+        mesh_path: ../../Content/Models/cube.obj
+      UTransformComponent:
+        id: b006ea5a-9317-4ef4-8b16-3e20ab63cf5e
+        location: [10, 2, 3]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 1, 0]
+        forwardVector: [0, 0, -1]
+  - Entity: 4851d0df-d8d1-4fd5-a2ac-e8b901adf104
+    Components:
+      UCameraComponent:
+        id: 6772b842-e0b3-4088-bcf0-671e7e56de67
+        near: 0.00100000005
+        far: 100000
+        fov: 45
+        yaw: 0
+        pitch: 0
+        roll: 0
+        yawAxis: [0, 1, 0]
+        pitchAxis: [1, 0, 0]
+        rollAxis: [0, 0, 1]
+      UTransformComponent:
+        id: b844e26f-2d13-40ee-b629-bd13ce9da271
+        location: [10, 2, 3]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 1, 0]
+        forwardVector: [0, 0, -1]
+  - Entity: c70ac231-21ca-47d5-9010-0e09a89a582e
+  - Entity: f618574f-5dbc-49a6-a250-48a40c4ee2e2

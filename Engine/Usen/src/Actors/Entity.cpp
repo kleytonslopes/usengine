@@ -76,4 +76,5 @@ void AEntity::Detach(AEntity* entity)
 
 void AEntity::Draw(float deltaTime)
 {
+
 }

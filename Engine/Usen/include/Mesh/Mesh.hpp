@@ -42,6 +42,8 @@ protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
 
+	void Draw(float deltaTime) override;
+
 private:
 	UUniquePtr<UModel> Model;
 };

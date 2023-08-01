@@ -63,21 +63,24 @@ void UScene::Initialize()
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
 	//* act = GetApplication()->RegistryClass<AActor>();
-	Camera = UUniquePtr<ACamera>::Make();
-	Camera.Get()->Create();
-	entities[Camera.Get()->Id] = Camera.Get();
+	//Camera = UUniquePtr<ACamera>::Make();
+	//Camera.Get()->Create();
+	//entities[Camera.Get()->Id] = Camera.Get();
 
 	DefaultPawn = UUniquePtr<APawn>::Make();
 	DefaultPawn.Get()->Initialize();
 
 	{
+		Camera = CreateEntity<ACamera>();
+		Camera->Initialize();
+
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
 		FTransform trasform;
 		trasform.Location = { 10,2,3 };
 		AActor* actor1 = CreateEntity<AActor>();
-		actor1->AddComponent<UCameraComponent>();
+		//actor1->AddComponent<UCameraComponent>();
 		actor1->SetTransform(trasform);
 
 		FMeshParameters peshParameters{};
@@ -103,11 +106,20 @@ void UScene::Initialize()
 void UScene::Update(float deltaTime)
 {
 	TMap<FString, AEntity*>::iterator it;
+	
+	Super::Application->GetRenderer()->StartFrame();
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
 		Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
+
+	Super::Application->GetRenderer()->EndFrame();
+}
+
+ACamera* UScene::GetCamera()
+{
+	return Camera;
 }
 
 template<class T>

@@ -31,6 +31,9 @@ public:
 	virtual ~BRenderer();
 
 	void Draw(AEntity* entity, float deltaTime);
+	virtual void StartFrame() = 0;
+	virtual void EndFrame() = 0;
+
 
 	template<typename T>
 	inline T* CreateShader(const FShaderParameters& parameters)

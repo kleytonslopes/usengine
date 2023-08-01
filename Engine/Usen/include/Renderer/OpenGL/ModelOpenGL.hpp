@@ -18,6 +18,7 @@
 
 class UMeshRendererOpenGL;
 class UTextureOpenGL;
+class UShaderOpenGL;
 
 class UModelOpenGL : public UModel
 {
@@ -29,16 +30,18 @@ public:
 	void Initialize() override;
 	void LoadModel() override;
 	void Draw(float deltaTime) override;
-	void SetShaders();
 
 private:
 	TVector<UMeshRendererOpenGL> Meshes;
 	TVector<UTextureOpenGL> texturesLoaded;
+	UShaderOpenGL* Shader = nullptr;
 
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	UMeshRendererOpenGL ProcessMesh(aiMesh* mesh, const aiScene* scene);
 	TVector<UTextureOpenGL> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, FString typeName);
 	uint32 TextureFromFile(UCharPtr path, const FString& directory, bool gamma = false);
+
+	friend class UMeshRendererOpenGL;
 };
 
 #endif // !US_MODEL_OPEN_GL_HPP

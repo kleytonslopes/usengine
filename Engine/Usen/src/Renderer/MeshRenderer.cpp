@@ -11,6 +11,7 @@
 #include "Renderer/MeshRenderer.hpp"
 #include "Renderer/Texture.hpp"
 #include "Core/Vertex.hpp"
+#include "Renderer/Model.hpp"
 
 UMeshRenderer::UMeshRenderer()
 {
@@ -20,4 +21,9 @@ UMeshRenderer::UMeshRenderer()
 UMeshRenderer::~UMeshRenderer()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void UMeshRenderer::SetModel(UModel* model)
+{
+	this->Model = model;
 }

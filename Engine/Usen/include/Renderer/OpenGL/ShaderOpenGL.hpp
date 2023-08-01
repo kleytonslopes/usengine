@@ -26,8 +26,8 @@ public:
 
 	void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) override;
 
-	void Active();
-	void Deactive();
+	void Active() override;
+	void Deactive() override;
 
 	void SetBool(const FString& name, bool value);
 	void SetInt(const FString& name, int value);
@@ -43,6 +43,7 @@ public:
 	void SetMatrix3(const FString& name, FMatrix3 value);
 	void SetMatrix4(const FString& name, FMatrix4 value);
 
+	GLuint GetProgramId() const { return programId; }
 private:
 	GLuint vertId;
 	GLuint fragId;

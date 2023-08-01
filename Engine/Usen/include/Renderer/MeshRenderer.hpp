@@ -21,6 +21,7 @@
 
 class FVertex;
 class UTexture;
+class UModel;
 
 class UMeshRenderer : public BClass
 {
@@ -28,6 +29,13 @@ class UMeshRenderer : public BClass
 public:
 	explicit UMeshRenderer();
 	virtual ~UMeshRenderer();
+
+	virtual void Draw(FVector location, FVector rotation, FVector scale) = 0;
+
+	void SetModel(UModel* model);
+
+protected:
+	UModel* Model = nullptr;
 };
 
 #endif // !US_MESH_RENDERER_HPP

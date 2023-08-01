@@ -9,9 +9,15 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/OpenGL/MeshRendererOpenGL.hpp"
-#include "Core/Vertex.hpp"
-#include "Renderer/Texture.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
 #include "Renderer/OpenGL/TextureOpenGL.hpp"
+
+#include "Renderer/Texture.hpp"
+#include "Renderer/Shader.hpp"
+#include "Renderer/Model.hpp"
+
+#include "Core/Vertex.hpp"
+
 #include <glad/glad.h>
 
 UMeshRendererOpenGL::UMeshRendererOpenGL()
@@ -45,6 +51,48 @@ void UMeshRendererOpenGL::Setup(TVector<FVertex> vertices, TVector<uint32> indic
 
 
 	glBindVertexArray(0);
+}
+
+void UMeshRendererOpenGL::Draw(FVector location, FVector rotation, FVector scale)
+{
+	uint32 diffuseNr = 1;
+	uint32 specularNr = 1;
+	uint32 normalNr = 1;
+	uint32 heightNr = 1;
+
+	FMatrix4 matrix = FMatrix4{ 1.f };
+
+	matrix = glm::translate(matrix, location);
+	matrix = glm::rotate(matrix, 0.f, rotation);
+	matrix = glm::scale(matrix, scale);
+
+	Shader->Active();
+	Shader->SetMatrix4("model", matrix);
+
+	for (uint32 i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		FString number;
+		FString name = textures[i].Type;
+
+		if (name == TextureSlot::DIFFUSE)
+			number = std::to_string(diffuseNr++);
+		else if(name == TextureSlot::SPECULAR)
+			number = std::to_string(specularNr++);
+		else if (name == TextureSlot::NORMAL)
+			number = std::to_string(normalNr++);
+		else if (name == TextureSlot::HEIGHT)
+			number = std::to_string(heightNr++);
+
+		glUniform1i(glGetUniformLocation(Shader->GetProgramId(), (name + number).c_str()), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].Id);
+	}
+
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
 }
 
 void UMeshRendererOpenGL::CreateVAO()

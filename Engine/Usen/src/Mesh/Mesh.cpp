@@ -74,3 +74,8 @@ void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 	URenderComponent* RenderComponent = GetRenderComponent();
 	RenderComponent->SetShader(shader);
 }
+
+void AMesh::Draw(float deltaTime)
+{
+	Model.Get()->Draw(deltaTime);
+}

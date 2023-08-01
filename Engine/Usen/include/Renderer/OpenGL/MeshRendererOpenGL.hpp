@@ -17,6 +17,7 @@
 #include "MeshRendererOpenGL-generated.hpp"
 
 class UTextureOpenGL;
+class UShaderOpenGL;
 
 class UMeshRendererOpenGL : public UMeshRenderer
 {
@@ -26,6 +27,7 @@ public:
 	virtual ~UMeshRendererOpenGL();
 
 	void Setup(TVector<FVertex> vertices, TVector<uint32> indices, TVector<UTextureOpenGL> textures);
+	void Draw(FVector location, FVector rotation, FVector scale) override;
 
 	void CreateVAO();
 	void CreateVBO();
@@ -36,6 +38,7 @@ private:
 	TVector<FVertex> vertices;
 	TVector<uint32> indices;
 	TVector<UTextureOpenGL> textures;
+	UShaderOpenGL* Shader = nullptr;
 
 	uint32 fboTexture;
 
@@ -43,6 +46,8 @@ private:
 	uint32 VBO;
 	uint32 EBO;
 	uint32 FBO;
+
+	friend class UModelOpenGL;
 };
 
 #endif // !US_MESH_RENDERER_OPEN_GL_HPP

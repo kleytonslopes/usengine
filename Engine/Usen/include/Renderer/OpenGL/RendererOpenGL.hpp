@@ -24,6 +24,8 @@ public:
 	virtual ~URendererOpenGL();
 
 	void Initialize() override;
+	void StartFrame() override;
+	void EndFrame() override;
 };
 
 #endif // !US_RENDERER_OPEN_GL_HPP

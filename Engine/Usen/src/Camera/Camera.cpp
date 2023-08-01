@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Camera/Camera.hpp"
+#include "Components/CameraComponent.hpp"
 
 ACamera::ACamera()
 {
@@ -22,5 +23,14 @@ ACamera::~ACamera()
 
 void ACamera::Create()
 {
-	
+	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
+	cameraComponent->SetOwner(Owner);
+	cameraComponent->SetParent(this);
+}
+
+FMatrix4 ACamera::GetView()
+{
+	const FTransform& transform = GetTransform();
+
+	return glm::lookAt(transform.Location, transform.Location + transform.ForwardVector, transform.UpVector);
 }

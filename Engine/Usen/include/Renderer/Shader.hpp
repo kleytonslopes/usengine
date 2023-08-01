@@ -25,6 +25,8 @@ public:
 
 	virtual void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) = 0;
 
+	virtual void Active() = 0;
+	virtual void Deactive() = 0;
 protected:
 	FString Name;
 	FString VertexFilePath;

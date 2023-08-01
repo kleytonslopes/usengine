@@ -43,10 +43,12 @@ public:
 
 	template<class T>
 	T* CreateEntity();
+
+	ACamera* GetCamera();
 private:
 	FSceneSettings Settings{};
 
-	UUniquePtr<ACamera> Camera;
+	ACamera* Camera = nullptr;
 	UUniquePtr<APawn> DefaultPawn;
 	UUniquePtr<FSceneSerializer> Serializer;
 

@@ -14,6 +14,8 @@
 
 
 #include "Components/Component.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
+#include "Renderer/Shader.hpp"
 #include "RenderComponent-generated.hpp"
 
 class BShader;
@@ -26,6 +28,14 @@ public:
 	virtual ~URenderComponent();
 
 	void SetShader(BShader* shader);
+	BShader* GetShader();
+
+	template<typename S>
+	S* GetShader()
+	{
+		return static_cast<S*>(GetShader());
+	}
+
 protected:
 	BShader* Shader = nullptr;
 };

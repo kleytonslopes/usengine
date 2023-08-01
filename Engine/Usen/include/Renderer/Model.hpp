@@ -21,6 +21,7 @@
 #include "Model-generated.hpp"
 
 class AMesh;
+class URenderComponent;
 
 class UModel : public BClass
 {
@@ -29,12 +30,14 @@ public:
 	explicit UModel();
 	virtual ~UModel();
 
+	void Initialize() override;
 	virtual void LoadModel() = 0;
 	virtual void Draw(float deltaTime) = 0;
 	void SetMeshActor(AMesh* actor);
 
 protected:
 	AMesh* MeshActor = nullptr;
+	URenderComponent* RenderComponent = nullptr;
 	FString DirectoryPath;
 
 };
