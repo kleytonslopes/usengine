@@ -32,6 +32,8 @@ public:
 	void StartLoop();
 	void StopLoop();
 	void SetShouldClose(bool wantClose);
+	void SwapWindow();
+	void MakeCurrent();
 
 	bool ShouldClose() const;
 	uint32 GetTicks() const;

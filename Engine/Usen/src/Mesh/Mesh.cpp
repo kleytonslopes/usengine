@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Mesh.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Mesh/Mesh.hpp"
@@ -53,6 +53,18 @@ void AMesh::Initialize()
 	Model.Get()->Initialize();
 }
 
+void AMesh::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+	FTransform rotation = GetTransform();
+	rotation.Rotation.z += 20.0f * deltaTime;
+	rotation.Rotation.x += 10.0f * deltaTime;
+	rotation.Rotation.y += 5.0f * deltaTime;
+	SetTransform(rotation);
+
+}
+
 UMeshComponent* AMesh::GetMeshComponent()
 {
 	return GetComponent<UMeshComponent>();
@@ -77,5 +89,6 @@ void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 
 void AMesh::Draw(float deltaTime)
 {
+
 	Model.Get()->Draw(deltaTime);
 }

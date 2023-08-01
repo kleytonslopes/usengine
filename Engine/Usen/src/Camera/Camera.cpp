@@ -23,6 +23,8 @@ ACamera::~ACamera()
 
 void ACamera::Create()
 {
+	Super::Create();
+
 	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
 	cameraComponent->SetOwner(Owner);
 	cameraComponent->SetParent(this);

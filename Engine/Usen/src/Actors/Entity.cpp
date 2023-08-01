@@ -12,6 +12,7 @@
 #include "Core/Guid.hpp"
 #include "Serializers/EntitySerializer.hpp"
 #include "Core/Attachment.hpp"
+#include "Runtime/Application.hpp"
 
 AEntity::AEntity()
 {
@@ -50,6 +51,11 @@ void AEntity::Initialize()
 	{
 		Attachments.Get()->Initialize();
 	}
+}
+
+void AEntity::Update(float deltaTime)
+{
+	GetApplication()->GetRenderer()->Draw(this, deltaTime);
 }
 
 void AEntity::Serialize(SeriFile& otherOut)

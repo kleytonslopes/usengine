@@ -68,6 +68,12 @@ void AActor::SetTransform(const FTransform& transform)
 	TransformComponent->SetTransform(transform);
 }
 
+void AActor::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+}
+
 FVector AActor::GetLocation()
 {
 	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();

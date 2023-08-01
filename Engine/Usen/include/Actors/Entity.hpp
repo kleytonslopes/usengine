@@ -43,6 +43,7 @@ public:
 	void Destroy() override;
 
 	void Initialize() override;
+	void Update(float deltaTime) override;
 
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);

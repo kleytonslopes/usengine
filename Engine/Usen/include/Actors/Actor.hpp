@@ -29,6 +29,8 @@ public:
 	void Create() override;
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
 	void SetTransform(const FTransform& transform);
+	void Update(float deltaTime) override;
+
 	FVector GetLocation();
 	FVector GetSceneLocation();
 	FTransform& GetTransform();

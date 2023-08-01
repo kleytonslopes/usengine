@@ -62,12 +62,21 @@ void UMeshRendererOpenGL::Draw(FVector location, FVector rotation, FVector scale
 
 	FMatrix4 matrix = FMatrix4{ 1.f };
 
+	//matrix = glm::translate(FMatrix4{ 1.f }, location);
+	//matrix = glm::rotate(FMatrix4{ 1.f }, glm::radians(rotation.x), FVector{1.f, 0.f, 0.f});
+	//matrix = glm::rotate(FMatrix4{ 1.f }, glm::radians(rotation.y), FVector{0.f, 1.f, 0.f});
+	//matrix = glm::rotate(FMatrix4{ 1.f }, glm::radians(rotation.z), FVector{0.f, 0.f, 1.f});
+	//matrix = glm::scale(FMatrix4{ 1.f }, scale);
+
 	matrix = glm::translate(matrix, location);
-	matrix = glm::rotate(matrix, 0.f, rotation);
+	matrix = glm::rotate(matrix, glm::radians(rotation.x), FVector{ 1.f, 0.f, 0.f });
+	matrix = glm::rotate(matrix, glm::radians(rotation.y), FVector{ 0.f, 1.f, 0.f });
+	matrix = glm::rotate(matrix, glm::radians(rotation.z), FVector{ 0.f, 0.f, 1.f });
 	matrix = glm::scale(matrix, scale);
 
 	Shader->Active();
 	Shader->SetMatrix4("model", matrix);
+	//Shader->SetMatrix4("cameraPos", matrix);
 
 	for (uint32 i = 0; i < textures.size(); i++)
 	{

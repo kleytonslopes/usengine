@@ -78,6 +78,16 @@ void UWindow::SetShouldClose(bool wantClose)
 	bWantClose = wantClose;
 }
 
+void UWindow::SwapWindow()
+{
+	SDL_GL_SwapWindow(sdlWindow);
+}
+
+void UWindow::MakeCurrent()
+{
+	SDL_GL_MakeCurrent(sdlWindow, sdlGLContext);
+}
+
 bool UWindow::ShouldClose() const
 {
 	return bWantClose;

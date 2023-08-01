@@ -32,6 +32,7 @@ public:
 	void Create() override;
 	void PostCreate() override;
 	void Initialize() override;
+	void Update(float deltaTime) override;
 
 	UMeshComponent* GetMeshComponent();
 	URenderComponent* GetRenderComponent();

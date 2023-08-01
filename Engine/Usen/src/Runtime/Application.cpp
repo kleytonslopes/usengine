@@ -83,6 +83,7 @@ void UApplication::Loop()
 
 	while (!Window.Get()->ShouldClose())
 	{
+		Window.Get()->MakeCurrent();
 		Window.Get()->StartLoop();
 
 		Window.Get()->PollEvents();
@@ -93,6 +94,7 @@ void UApplication::Loop()
 		Scene.Get()->Update(deltaTime);
 
 		Window.Get()->StopLoop();
+		Window.Get()->SwapWindow();
 	}
 
 	Destroy();

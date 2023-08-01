@@ -71,29 +71,38 @@ void UScene::Initialize()
 	DefaultPawn.Get()->Initialize();
 
 	{
+		FTransform trasformC;
+		trasformC.Location = { 10.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
+		Camera->SetTransform(trasformC);
 		Camera->Initialize();
 
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
 		FTransform trasform;
-		trasform.Location = { 10,2,3 };
+		trasform.Location = { 0.f,0.f,0.f };
+		trasform.Rotation = { 0.f,0.f,0.f };
 		AActor* actor1 = CreateEntity<AActor>();
-		//actor1->AddComponent<UCameraComponent>();
 		actor1->SetTransform(trasform);
 
 		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
 		FAttachmentSettings att{};
 		AMesh* mesh = CreateEntity<AMesh>();
 		mesh->AttatchTo(actor1, att);
 		mesh->SetMeshParameters(peshParameters);
 
-		FVector loc = mesh->GetLocation();
-		FVector wloc = mesh->GetSceneLocation();
+		FMeshParameters peshParameters2{};
+		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+		AMesh* mesh1 = CreateEntity<AMesh>();
+		mesh1->SetMeshParameters(peshParameters2);
+
+		//FVector loc = mesh->GetLocation();
+		//FVector wloc = mesh->GetSceneLocation();
 
 		actor1->Initialize();
+		mesh1->Initialize();
 	}
 
 	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
@@ -111,7 +120,8 @@ void UScene::Update(float deltaTime)
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		Super::Application->GetRenderer()->Draw(it->second, deltaTime);
+		it->second->Update(deltaTime);
+		//Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
 
 	Super::Application->GetRenderer()->EndFrame();
