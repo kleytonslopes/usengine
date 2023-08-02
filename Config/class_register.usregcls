@@ -941,5 +941,28 @@
       "ClassGenDefinition": "hpp_UMeshRendererOpenGL_UMeshRenderer",
       "ClassGenDefinitionVersion": "hpp_UMeshRendererOpenGL_UMeshRenderer_def"
     }
+  },
+  {
+    "ClassName": "UPlayerController",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UPlayerController",
+      "ClassDefinition": "US_PLAYER_CONTROLLER_HPP",
+      "HppFileName": "PlayerController.hpp",
+      "CppFileName": "PlayerController.cpp",
+      "GenFileName": "PlayerController-generated.hpp",
+      "FolderHpp": "include/Controllers",
+      "FolderCpp": "src/Controllers",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UController",
+      "BaseClassPathHpp": "Controllers/Controller.hpp",
+      "BaseClassTemplate": " : public UController",
+      "BaseClassInclude": "\n#include \"Controllers/Controller.hpp\"",
+      "ClassGenDefinition": "hpp_UPlayerController_UController",
+      "ClassGenDefinitionVersion": "hpp_UPlayerController_UController_def"
+    }
   }
 ]

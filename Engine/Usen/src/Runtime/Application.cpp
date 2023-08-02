@@ -31,7 +31,7 @@ void UApplication::Initialize()
 {
 	Window = UUniquePtr<UWindow>::Make();
 	Window.Get()->Initialize();
-
+	OnUpdate.Call();
 	GameInstance = UUniquePtr<UGameInstance>::Make();
 	GameInstance.Get()->Initialize();
 
@@ -52,6 +52,8 @@ void UApplication::Initialize()
 	Controller.Get()->Initialize();
 
 	bIsInitialized = true;
+
+	
 }
 
 void UApplication::PostInitialize()
