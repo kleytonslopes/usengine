@@ -15,10 +15,13 @@
 
 #include "Base/Class.hpp"
 #include "Renderer/ShaderParameters.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
+#include "Renderer/Shader.hpp"
 #include "Renderer-generated.hpp"
 
 class BShader;
 class AEntity;
+class UShaderOpenGL;
 
 class BRenderer : public BClass
 {
@@ -28,9 +31,23 @@ public:
 	virtual ~BRenderer();
 
 	void Draw(AEntity* entity, float deltaTime);
+	virtual void StartFrame() = 0;
+	virtual void EndFrame() = 0;
+	virtual void OnWindowResize(uint32 width, uint32 height) = 0;
+
 
 	template<typename T>
-	T* CreateShader(const FShaderParameters& parameters);
+	inline T* CreateShader(const FShaderParameters& parameters)
+	{
+		T* shader = new T();
+		shader->LoadShader(parameters.GetVertexFilePath().c_str(), parameters.GetFragmentFilePath().c_str());
+
+		Shaders[parameters.Name] = shader;
+
+		return shader;
+	}
+
+	BShader* GetShader(const FString& shaderName);
 
 protected:
 	TMap<FString, BShader*> Shaders;

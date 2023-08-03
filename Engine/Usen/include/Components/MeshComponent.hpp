@@ -19,6 +19,7 @@
 struct FMeshParameters
 {
 	FString MeshPath;
+	FString ShaderName{ ShaderDefault::DEFAULT };
 };
 
 class UMeshComponent : public AComponent
@@ -29,12 +30,17 @@ public:
 	virtual ~UMeshComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
+	FString GetModelPath() const;
 
 protected:
 	void Serialize(SeriFile& otherOut) override;
 
 private:
 	FMeshParameters Parameters;
+
+	
+
+	friend class UModel;
 };
 
 #endif // !US_MESH_COMPONENT_HPP

@@ -34,12 +34,7 @@ void BRenderer::Draw(AEntity* entity, float deltaTime)
 		entity->Draw(deltaTime);
 }
 
-
-template<typename T>
-inline T* BRenderer::CreateShader(const FShaderParameters& parameters)
+BShader* BRenderer::GetShader(const FString& shaderName)
 {
-	T* shader = new T(parameters);
-	shader->Initialize();
-
-	shaders[parameters.Name] = shader;
+	return Shaders[shaderName];
 }

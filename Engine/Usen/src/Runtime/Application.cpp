@@ -35,19 +35,30 @@ void UApplication::Initialize()
 	GameInstance = UUniquePtr<UGameInstance>::Make();
 	GameInstance.Get()->Initialize();
 
-	Renderer = UUniquePtr<URendererOpenGL>::Make();
+	Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
 	Renderer.Get()->Initialize();
 
 	InputManagement = UUniquePtr<UInputManagement>::Make();
+	InputManagement.Get()->Create();
 	InputManagement.Get()->Initialize();
 
 	Scene = UUniquePtr<UScene>::Make();
+	Scene.Get()->Create();
+	Scene.Get()->LoadScene("Unnamed");
 	Scene.Get()->Initialize();
 
 	Controller = UUniquePtr<UController>::Make();
+	Controller.Get()->Create();
 	Controller.Get()->Initialize();
 
 	bIsInitialized = true;
+
+	
+}
+
+void UApplication::PostInitialize()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostInitialize!", Identity.c_str()));
 }
 
 void UApplication::Destroy()
@@ -58,6 +69,13 @@ void UApplication::Destroy()
 	GameInstance.Destroy();//.Get()->Destroy();
 	Renderer.Destroy();//.Get()->Destroy();
 	Window.Destroy();//.Get()->Destroy();
+
+	PostDestroy();
+}
+
+void UApplication::PostDestroy()
+{
+	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostDestroy!", Identity.c_str()));
 }
 
 void UApplication::Loop()
@@ -67,16 +85,20 @@ void UApplication::Loop()
 
 	while (!Window.Get()->ShouldClose())
 	{
+		Window.Get()->MakeCurrent();
 		Window.Get()->StartLoop();
-
+		
 		Window.Get()->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
+		
 		Window.Get()->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
-		Scene.Get()->Update(deltaTime);
+		//Scene.Get()->Update(deltaTime);
+		OnUpdateEvent.Broadcast(deltaTime);
 
 		Window.Get()->StopLoop();
+		Window.Get()->SwapWindow();
 	}
 
 	Destroy();

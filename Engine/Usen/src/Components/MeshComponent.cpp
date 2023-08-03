@@ -33,3 +33,8 @@ void UMeshComponent::Serialize(SeriFile& otherOut)
 
 	EndSection(otherOut);
 }
+
+FString UMeshComponent::GetModelPath() const
+{
+	return Parameters.MeshPath;
+}

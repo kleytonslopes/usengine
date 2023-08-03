@@ -13,19 +13,31 @@
 #define	US_WEAK_CLASS_HPP
 
 #include "Core/MinimalCore.hpp"
-#include "WeakClass-generated.hpp"
+
 
 class IWeakClass
 {
-	DEFAULT_BODY_GENERATED()
+
 public:
 	explicit IWeakClass();
 	virtual ~IWeakClass();
 
 	virtual void Initialize() = 0;
+	virtual void PostInitialize() = 0;
+
 	virtual void Destroy() = 0;
+	virtual void PostDestroy() = 0;
+
+	FString GetId() const { return Id; }
 protected:
+	FString Id;
 	bool bIsInitialized = false;
+	FString Identity;
+
+	inline void SetIdentity(FString identity)
+	{
+		Identity = identity;
+	}
 };
 
 #endif // !US_WEAK_CLASS_HPP

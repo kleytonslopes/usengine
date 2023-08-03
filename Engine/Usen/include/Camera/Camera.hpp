@@ -13,10 +13,10 @@
 #define	US_CAMERA_HPP
 
 
-#include "Actors/Entity.hpp"
+#include "Actors/Actor.hpp"
 #include "Camera-generated.hpp"
 
-class ACamera : public AEntity
+class ACamera : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
@@ -24,6 +24,7 @@ public:
 	virtual ~ACamera();
 
 	void Create() override;
+	FMatrix4 GetView();
 };
 
 #endif // !US_CAMERA_HPP

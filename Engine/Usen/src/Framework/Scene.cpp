@@ -9,7 +9,13 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
+
+#include "Renderer/Renderer.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Renderer/OpenGL/ShaderOpenGL.hpp"
+#include "Renderer/ShaderParameters.hpp"
+#include "Renderer/Shader.hpp"
+
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
 #include "Actors/Actor.hpp"
@@ -17,19 +23,23 @@
 #include "Pawns/Pawn.hpp"
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
+#include "Runtime/Application.hpp"
+
+
+#include "Mesh/Mesh.hpp"
 
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
 
 UScene::UScene()
 {
-	//Serializer = new FSceneSerializer();
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	Create();
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 }
 
 UScene::~UScene()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+
 }
 
 void UScene::Destroy()
@@ -47,39 +57,49 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	Serializer = UUniquePtr<FSceneSerializer>::Make();
-	Serializer.Get()->SetScene(this);
+	//initialize shaders
+	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
+	FShaderParameters shaderParameters{};
+	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
-	Camera = UUniquePtr<ACamera>::Make();
-	Camera.Get()->Create();
-	entities[Camera.Get()->Id] = Camera.Get();
+	//* act = GetApplication()->RegistryClass<AActor>();
+	//Camera = UUniquePtr<ACamera>::Make();
+	//Camera.Get()->Create();
+	//entities[Camera.Get()->Id] = Camera.Get();
 
 	DefaultPawn = UUniquePtr<APawn>::Make();
 	DefaultPawn.Get()->Initialize();
 
 	{
-		FShaderParameters shaderDefault{};
-		shaderDefault.Name = "default";
-
-		FShaderParameters shaderSkybox{};
-		shaderDefault.Name = "skybox";
-
-		Settings.ShadersParameters.push_back(shaderDefault);
-		Settings.ShadersParameters.push_back(shaderSkybox);
+		FTransform trasformC;
+		trasformC.Location = { 10.f,0.f,0.f };
+		Camera = CreateEntity<ACamera>();
+		Camera->SetTransform(trasformC);
+		Camera->Initialize();
 
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
+		FTransform trasform;
+		trasform.Location = { 0.f,0.f,0.f };
+		trasform.Rotation = { 0.f,0.f,0.f };
 		AActor* actor1 = CreateEntity<AActor>();
-		actor1->AddComponent<UCameraComponent>();
-		UMeshComponent* meshComp = actor1->AddComponent<UMeshComponent>();
+		actor1->SetTransform(trasform);
 
 		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = "mesh123.obj";
-		meshComp->SetMeshParameters(peshParameters);
-		
+		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
+		FAttachmentSettings att{};
+		AMesh* mesh = CreateEntity<AMesh>();
+		mesh->AttatchTo(actor1, att);
+		mesh->SetMeshParameters(peshParameters);
+
+		FMeshParameters peshParameters2{};
+		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+		AMesh* mesh1 = CreateEntity<AMesh>();
+		mesh1->SetMeshParameters(peshParameters2);
 
 		actor1->Initialize();
+		mesh1->Initialize();
 	}
 
 	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
@@ -92,11 +112,21 @@ void UScene::Initialize()
 void UScene::Update(float deltaTime)
 {
 	TMap<FString, AEntity*>::iterator it;
+	
+	Super::Application->GetRenderer()->StartFrame();
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		Super::Application->GetRenderer()->Draw(it->second, deltaTime);
+		it->second->Update(deltaTime);
+		//Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
+
+	Super::Application->GetRenderer()->EndFrame();
+}
+
+ACamera* UScene::GetCamera()
+{
+	return Camera;
 }
 
 template<class T>
@@ -108,6 +138,12 @@ T* UScene::CreateEntity()
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
+}
+
+void UScene::Create()
+{
+	Serializer = UUniquePtr<FSceneSerializer>::Make();
+	Serializer.Get()->SetScene(this);
 }
 
 void UScene::SaveScene()

@@ -57,14 +57,15 @@ void FSceneSerializer::Serialize()
 
 bool FSceneSerializer::Deserialize(const FString& scenePath)
 {
-	filePath = FText::Format(Content::SceneFilePath, scenePath.c_str());
-	SeriNode data = Load(filePath);
+	seriFilePath = FText::Format(Content::SceneFilePath, scenePath.c_str());
+	SeriNode data = Load(seriFilePath);
 
 	if (!data["Scene"])
 		return false;
 
 	Scene->Settings.Name = Read<FString>(data, "Scene");
 	DeserializeShaders(data);
+	DeserializeEntities(data);
 
 	return true;
 }

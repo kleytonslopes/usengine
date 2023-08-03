@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Kyrnness.Components.ucHierarchyFolder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kyrnness.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="25" TextAlignment="Center" Text="Folder Hierarchy" />
+
+        <TreeView x:Name="tvHierarchy" Grid.Column="0" Grid.Row="1" SelectedItemChanged="tvHierarchy_SelectedItemChanged" >
+            <!--<TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Text}"/>
+                        <Image Source="{Binding ImageSource}" Stretch="Uniform" Height="20"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>-->
+            
+            <TreeView.Resources>
+                <ContextMenu x:Key="SolutionContext" StaysOpen="True">
+                    <MenuItem x:Name="mnuAddClass" Header="Add Class" Click="mnuAddClass_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="mnuAddFolder" Header="Add Folder" Click="mnuAddFolder_Click"/>
+                    <!--<MenuItem x:Name="mnuRenameFolder" Header="Rename Folder" Click="mnuAddFolder_Click"/>-->
+                    <MenuItem x:Name="mnuRemoveFolder" Header="Delete Folder" Click="mnuRemoveFolder_Click"/>
+                </ContextMenu>
+            </TreeView.Resources>
+           
+            <TreeViewItem Header="ASD">
+                <TreeViewItem Header="ASDF"/>
+            </TreeViewItem>
+            <TreeViewItem Header="ASDF"/>
+        </TreeView>
+
+        <!--<TreeView x:Name="tvHierarchy" Grid.Row="1">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Text}"/>
+                        <Image Source="{Binding ImageSource}" Stretch="Uniform" Height="20"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.Resources>
+                <ContextMenu x:Key="SolutionContext" StaysOpen="True">
+                    <MenuItem x:Name="mnuAddFolder" Header="Add Folder" Click="mnuAddFolder_Click"/>
+                    <MenuItem x:Name="mnuAddClass" Header="Add Class"/>
+                </ContextMenu>
+            </TreeView.Resources>
+        </TreeView>-->
+    </Grid>
+</UserControl>

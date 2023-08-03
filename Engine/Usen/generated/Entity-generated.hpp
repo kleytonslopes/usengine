@@ -32,7 +32,7 @@
 private: \
 	using Super = BClass; using This = AEntity; \
 	FString Identity{ "AEntity" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+    template<class T, class U> T* Cast(U* other) { return static_cast<T*>(other); } \
 private: 
 	
 

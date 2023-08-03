@@ -1,3 +1,12 @@
 [submodule "ThirdParty/YAML"]
 	path = ThirdParty/YAML
 	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "ThirdParty/IMGUI"]
+	path = ThirdParty/IMGUI
+	url = https://github.com/ocornut/imgui.git
+[submodule "ThirdParty/ASSIMP"]
+	path = ThirdParty/ASSIMP
+	url = https://github.com/assimp/assimp.git
+[submodule "ThirdParty/STB"]
+	path = ThirdParty/STB
+	url = https://github.com/nothings/stb.git

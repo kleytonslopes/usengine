@@ -17,5 +17,6 @@
 
 using FString = std::string;
 using UCharPtr = const char*;
+using UUCharPtr = unsigned char*;
 
 #endif // !US_STRING_HPP

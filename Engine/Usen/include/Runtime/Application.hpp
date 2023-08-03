@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Application.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -14,8 +14,10 @@
 
 
 #include "Weaks/WeakClass.hpp"
+#include "Base/Class.hpp"
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Renderer/Renderer.hpp"
 #include "Application-generated.hpp"
 
 class UWindow;
@@ -24,10 +26,15 @@ class UScene;
 class UController;
 class UInputManagement;
 
+DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
+
 class UApplication : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
+	FOnUpdateSignature OnUpdateEvent;
+
 	explicit UApplication();
 	~UApplication() final;
 
@@ -35,19 +42,25 @@ public:
 
 	// Inherited via IWeakClass
 	void Initialize() override;
+	void PostInitialize() override;
 	void Destroy() override;
+	void PostDestroy() override;
 
 	template<typename T>
 	T* GetRenderer()
 	{
 		return static_cast<T*>(Renderer.Get());
 	}
-	URendererOpenGL* GetRenderer() { return Renderer.Get(); };
+
+	BRenderer* GetRenderer() { return Renderer.Get(); };
+
+	template<typename T>
+	void RegistryClass();
 
 private:
 	UUniquePtr<UWindow> Window;
 	UUniquePtr<UGameInstance> GameInstance;
-	UUniquePtr<URendererOpenGL> Renderer;
+	UUniquePtr<BRenderer> Renderer;
 	UUniquePtr<UScene> Scene;
 	UUniquePtr<UController> Controller;
 	UUniquePtr<UInputManagement> InputManagement;

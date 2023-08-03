@@ -19,18 +19,18 @@
 // !Camera/Camera.hpp: ## Class Head Path
 // !July 2023: ## Date Creation
 // !Camera-generated.hpp: ## This file
-// !hpp_ACamera_AEntity: ## Class Id
-// !hpp_ACamera_AEntity_def: ## Class Version
-// !AEntity: ## Base class name
+// !hpp_ACamera_AActor: ## Class Id
+// !hpp_ACamera_AActor_def: ## Class Version
+// !AActor: ## Base class name
 // !Actors/Entity.hpp: ## Base class path with file
 //--x
 
 #undef CURRENT_CLASS_IDENTITY_FILE
-#define CURRENT_CLASS_IDENTITY_FILE hpp_ACamera_AEntity
+#define CURRENT_CLASS_IDENTITY_FILE hpp_ACamera_AActor
 
-#define hpp_ACamera_AEntity_def \
+#define hpp_ACamera_AActor_def \
 private: \
-	using Super = AEntity; using This = ACamera; \
+	using Super = AActor; using This = ACamera; \
 	FString Identity{ "ACamera" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
 private: 

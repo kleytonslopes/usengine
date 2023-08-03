@@ -43,19 +43,23 @@ public:
 
 	template<class T>
 	T* CreateEntity();
+
+	ACamera* GetCamera();
 private:
 	FSceneSettings Settings{};
 
-	UUniquePtr<ACamera> Camera;
+	ACamera* Camera = nullptr;
 	UUniquePtr<APawn> DefaultPawn;
 	UUniquePtr<FSceneSerializer> Serializer;
 
 	TMap<FString, AEntity*> entities;
 
+	void Create();
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
 
 	friend class FSceneSerializer;
+	friend class UApplication;
 };
 
 #endif // !US_SCENE_HPP

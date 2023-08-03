@@ -34,6 +34,10 @@ namespace ClassCreator
         private static string CfgClassData = "F:\\Development\\usengine\\Config\\{class_cfg}.ini";
         private static string GenerateBat = "F:\\Development\\usengine\\GenerateProjectFile.bat";
 #else
+        //private static string EngineFolder = "..\\..\\..\\..\\Engine\\Usen";
+        //private static string RegClassData = "..\\..\\..\\..\\Config\\class_register.usregcls";
+        //private static string CfgClassData = "..\\..\\..\\..\\Config\\Classes\\{class_cfg}.ini";
+        //private static string GenerateBat  = "..\\..\\..\\..\\GenerateProjectFile.bat";
 
         private static string EngineFolder = "Engine\\Usen";
         private static string RegClassData = "Config\\class_register.usregcls";
