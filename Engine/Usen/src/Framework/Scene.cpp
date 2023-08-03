@@ -34,12 +34,12 @@
 UScene::UScene()
 {
 	Create();
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 }
 
 UScene::~UScene()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+
 }
 
 void UScene::Destroy()
@@ -97,9 +97,6 @@ void UScene::Initialize()
 		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
 		AMesh* mesh1 = CreateEntity<AMesh>();
 		mesh1->SetMeshParameters(peshParameters2);
-
-		//FVector loc = mesh->GetLocation();
-		//FVector wloc = mesh->GetSceneLocation();
 
 		actor1->Initialize();
 		mesh1->Initialize();

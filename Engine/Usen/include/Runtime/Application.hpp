@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Application.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -14,6 +14,7 @@
 
 
 #include "Weaks/WeakClass.hpp"
+#include "Base/Class.hpp"
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
@@ -25,11 +26,15 @@ class UScene;
 class UController;
 class UInputManagement;
 
+DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
+
 class UApplication : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
 
 public:
+	FOnUpdateSignature OnUpdateEvent;
+
 	explicit UApplication();
 	~UApplication() final;
 

@@ -20,6 +20,7 @@
 
 URendererOpenGL::URendererOpenGL()
 {
+	GetWindow()->OnWindowResizedEvent.Add(this, &This::OnWindowResize);
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -83,4 +84,9 @@ void URendererOpenGL::StartFrame()
 void URendererOpenGL::EndFrame()
 {
 	glUseProgram(0);
+}
+
+void URendererOpenGL::OnWindowResize(uint32 width, uint32 height)
+{
+	glViewport(0, 0, width, height);
 }

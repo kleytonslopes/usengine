@@ -22,5 +22,6 @@
 #include "Core/Vector.hpp"
 #include "Core/Macros.hpp"
 #include "Core/File.hpp"
+#include "Core/FunctionClass.hpp"
 
 #endif // !US_MINIMAL_CORE_HPP

@@ -52,6 +52,8 @@ void UApplication::Initialize()
 	Controller.Get()->Initialize();
 
 	bIsInitialized = true;
+
+	
 }
 
 void UApplication::PostInitialize()
@@ -85,13 +87,15 @@ void UApplication::Loop()
 	{
 		Window.Get()->MakeCurrent();
 		Window.Get()->StartLoop();
-
+		
 		Window.Get()->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
+		
 		Window.Get()->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
-		Scene.Get()->Update(deltaTime);
+		//Scene.Get()->Update(deltaTime);
+		OnUpdateEvent.Broadcast(deltaTime);
 
 		Window.Get()->StopLoop();
 		Window.Get()->SwapWindow();

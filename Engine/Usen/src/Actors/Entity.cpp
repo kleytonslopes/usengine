@@ -9,14 +9,12 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Actors/Entity.hpp"
-#include "Core/Guid.hpp"
 #include "Serializers/EntitySerializer.hpp"
 #include "Core/Attachment.hpp"
 #include "Runtime/Application.hpp"
 
 AEntity::AEntity()
 {
-	Id = FGuid::NewGuid();
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created with id %s!", Identity.c_str(), Id.c_str()));
 }
 

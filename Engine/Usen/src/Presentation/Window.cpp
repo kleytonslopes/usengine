@@ -41,6 +41,7 @@ void UWindow::Initialize()
 	InitializeForOpenGL();
 
 	Super::Initialize();
+
 }
 
 void UWindow::PollEvents()
@@ -51,6 +52,12 @@ void UWindow::PollEvents()
 		{
 		case SDL_QUIT:
 			SetShouldClose(true);
+			break;
+		case SDL_WINDOWEVENT:
+			if (sdlEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				OnWindowResizedEvent.Broadcast(sdlEvent.window.data1, sdlEvent.window.data2);
+			}
 			break;
 		default:
 

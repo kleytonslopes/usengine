@@ -22,6 +22,5 @@ UGameInstance::~UGameInstance()
 
 void UGameInstance::Initialize()
 {
-
 	Super::Initialize();
 }

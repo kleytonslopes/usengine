@@ -941,5 +941,51 @@
       "ClassGenDefinition": "hpp_UMeshRendererOpenGL_UMeshRenderer",
       "ClassGenDefinitionVersion": "hpp_UMeshRendererOpenGL_UMeshRenderer_def"
     }
+  },
+  {
+    "ClassName": "UPlayerController",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UPlayerController",
+      "ClassDefinition": "US_PLAYER_CONTROLLER_HPP",
+      "HppFileName": "PlayerController.hpp",
+      "CppFileName": "PlayerController.cpp",
+      "GenFileName": "PlayerController-generated.hpp",
+      "FolderHpp": "include/Controllers",
+      "FolderCpp": "src/Controllers",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UController",
+      "BaseClassPathHpp": "Controllers/Controller.hpp",
+      "BaseClassTemplate": " : public UController",
+      "BaseClassInclude": "\n#include \"Controllers/Controller.hpp\"",
+      "ClassGenDefinition": "hpp_UPlayerController_UController",
+      "ClassGenDefinitionVersion": "hpp_UPlayerController_UController_def"
+    }
+  },
+  {
+    "ClassName": "FFunctionClass",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FFunctionClass",
+      "ClassDefinition": "US_FUNCTION_CLASS_HPP",
+      "HppFileName": "FunctionClass.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]
