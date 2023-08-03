@@ -26,6 +26,7 @@ public:
 	void Initialize() override;
 	void StartFrame() override;
 	void EndFrame() override;
+	void OnWindowResize(uint32 width, uint32 height) override;
 };
 
 #endif // !US_RENDERER_OPEN_GL_HPP

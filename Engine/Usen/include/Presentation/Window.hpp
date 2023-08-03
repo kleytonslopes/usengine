@@ -19,10 +19,14 @@
 #include "glad/glad.h"
 #include "Window-generated.hpp"
 
+DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, float, height)
+
 class UWindow : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
+	FOnWindowResizedSignature OnWindowResizedEvent;
+
 	explicit UWindow();
 	~UWindow() final;
 

@@ -33,6 +33,7 @@ public:
 	void Draw(AEntity* entity, float deltaTime);
 	virtual void StartFrame() = 0;
 	virtual void EndFrame() = 0;
+	virtual void OnWindowResize(uint32 width, uint32 height) = 0;
 
 
 	template<typename T>
