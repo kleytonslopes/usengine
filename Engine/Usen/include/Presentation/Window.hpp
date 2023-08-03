@@ -41,8 +41,6 @@ public:
 	uint32& GetWidth() { return width; }
 	uint32& GetHeight() { return height; }
 
-	void OnUpdate_Implementation();
-
 protected:
 	void InitializeForOpenGL();
 

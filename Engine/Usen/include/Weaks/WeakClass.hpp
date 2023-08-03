@@ -27,7 +27,10 @@ public:
 
 	virtual void Destroy() = 0;
 	virtual void PostDestroy() = 0;
+
+	FString GetId() const { return Id; }
 protected:
+	FString Id;
 	bool bIsInitialized = false;
 	FString Identity;
 

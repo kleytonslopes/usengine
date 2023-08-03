@@ -31,7 +31,7 @@ void UApplication::Initialize()
 {
 	Window = UUniquePtr<UWindow>::Make();
 	Window.Get()->Initialize();
-	OnUpdate.Call();
+
 	GameInstance = UUniquePtr<UGameInstance>::Make();
 	GameInstance.Get()->Initialize();
 
@@ -87,13 +87,15 @@ void UApplication::Loop()
 	{
 		Window.Get()->MakeCurrent();
 		Window.Get()->StartLoop();
-
+		
 		Window.Get()->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
+		
 		Window.Get()->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
-		Scene.Get()->Update(deltaTime);
+		//Scene.Get()->Update(deltaTime);
+		OnUpdateEvent.Broadcast(deltaTime);
 
 		Window.Get()->StopLoop();
 		Window.Get()->SwapWindow();

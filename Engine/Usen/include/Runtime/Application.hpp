@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Application.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -18,7 +18,6 @@
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
-#include <iostream>
 #include "Application-generated.hpp"
 
 class UWindow;
@@ -27,67 +26,14 @@ class UScene;
 class UController;
 class UInputManagement;
 
-#define EX(A,B) A##->B()
-#define EXECI(A, B) EX(A,B)
-#define EXEC(A, B) EXECI(A,B);
-
-//#define AdIn(A, B, C) (A##,##B, C)
-//#define AddIn(A, B, C) AdIn(A,##B,C)
-//#define Add(A,...) AddIn(A, ##__VA_ARGS__##)
-
-
-
-//#define Add(Object, Function) Add_Intern(Object, Function)
-#define Add(Object, Function) Add_Intern(Object, Function, #Function)
-#define Add2(Object, Function) Add_Inter2(Object, Function)
-
-
-
-class BClass;
-class UWIndow;
-
-struct FFunction
-{
-	std::function<void()> Exec;
-	void* Target = nullptr;
-
-	template<class T>
-	void SetTarget(T* target)
-	{
-		Target = target;
-	}
-};
-
-class OAppOnUpdate
-{
-	typedef void Execute();
-public:
-	OAppOnUpdate(){}
-	virtual ~OAppOnUpdate(){}
-
-	template<class ClassType, typename ... Args>
-	void Add_Inter2(ClassType* InClass, Args&& ... args)
-	{
-		function.Exec = std::bind(std::forward<Args>(args)..., InClass);
-		function.SetTarget(InClass);
-	}
-
-	void Call()
-	{
-		function.Exec();
-	}
-
-	FFunction function;
-
-	TVector<Execute*> obs;
-};
+DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
 
 class UApplication : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
 
 public:
-	OAppOnUpdate OnUpdate;
+	FOnUpdateSignature OnUpdateEvent;
 
 	explicit UApplication();
 	~UApplication() final;

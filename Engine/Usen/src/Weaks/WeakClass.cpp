@@ -9,9 +9,11 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Weaks/WeakClass.hpp"
+#include "Core/Guid.hpp"
 
 IWeakClass::IWeakClass()
 {
+	Id = FGuid::NewGuid();
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 

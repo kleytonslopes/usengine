@@ -30,8 +30,6 @@ UWindow::~UWindow()
 
 void UWindow::Initialize()
 {
-	GetApplication()->OnUpdate.Add_Inter2(this, &This::OnUpdate_Implementation);
-
 	ULOG(ELogLevel::ELL_INFORMATION, "Initializing UWindow...");
 	desiredFps = 1000 / fpsLimit;
 
@@ -44,11 +42,6 @@ void UWindow::Initialize()
 
 	Super::Initialize();
 
-}
-
-void UWindow::OnUpdate_Implementation()
-{
-	ULOG(ELogLevel::ELL_DEBUG, Identity);
 }
 
 void UWindow::PollEvents()
@@ -105,8 +98,6 @@ uint32 UWindow::GetTicks() const
 {
 	return SDL_GetTicks();
 }
-
-
 
 void UWindow::InitializeForOpenGL()
 {

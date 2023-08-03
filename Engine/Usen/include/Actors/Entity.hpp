@@ -49,8 +49,6 @@ public:
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
 	void Detach(AEntity* entity);
 
-	FString GetId() const { return Id; }
-
 	template<typename T>
 	inline T* GetParent()
 	{
@@ -73,9 +71,6 @@ protected:
 	virtual void Draw(float deltaTime);
 
 private:
-	FString Id;
-	
-
 	//UUniquePtr<FEntitySerializer> Serializer;
 
 	friend class BRenderer;
