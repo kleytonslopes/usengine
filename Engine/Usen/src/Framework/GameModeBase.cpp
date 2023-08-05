@@ -25,13 +25,24 @@ UGameModeBase::~UGameModeBase()
 void UGameModeBase::Create()
 {
 	DefaultController = UPlayerController::GetClass();
+
+	Super::Create();
+}
+
+void UGameModeBase::PostCreate()
+{
+	CreateController();
 }
 
 void UGameModeBase::Initialize()
 {
-	Controller = USharedPtr<UController>::FromClass(DefaultController);
-
 	Super::Initialize();
 
 	Controller.Get()->Initialize();
+}
+
+void UGameModeBase::CreateController()
+{
+	Controller = USharedPtr<UController>::FromClass(DefaultController);
+	Controller.Get()->Create();
 }

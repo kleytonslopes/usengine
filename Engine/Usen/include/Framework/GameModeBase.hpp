@@ -26,10 +26,12 @@ public:
 	virtual ~UGameModeBase();
 
 	void Create() override;
+	void PostCreate() override;
 	void Initialize() override;
 
 protected:
 	USharedPtr<UController> Controller;
+	void CreateController();
 
 private:
 	TClassOf<UController> DefaultController;

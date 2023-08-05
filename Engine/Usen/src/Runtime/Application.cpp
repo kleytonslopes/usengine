@@ -39,7 +39,6 @@ void UApplication::PostCreate()
 	CreateRenderer();
 	CreateInputManagement();
 	CreateScene();
-	CreateController();
 
 	Initialize();
 }
@@ -51,9 +50,9 @@ void UApplication::Initialize()
 	Renderer.Get()->Initialize();
 	InputManagement.Get()->Initialize();
 	Scene.Get()->Initialize();
-	/*Controller.Get()->Initialize();*/
 
 	bIsInitialized = true;
+	PostInitialize();
 }
 
 void UApplication::CreateWindow()
@@ -83,12 +82,6 @@ void UApplication::CreateScene()
 {
 	Scene = USharedPtr<UScene>::Make();
 	Scene.Get()->Create();
-}
-
-void UApplication::CreateController()
-{
-	//Controller = USharedPtr<UController>::Make();
-	//Controller.Get()->Create();
 }
 
 void UApplication::PostInitialize()

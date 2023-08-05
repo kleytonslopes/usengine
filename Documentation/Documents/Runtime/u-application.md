@@ -33,20 +33,20 @@
 |    | UController*                   | private    | Controller          | Pointer to current Controller.   |
 
 ### Methods
-|          | **Type** | **Access** | **Name**                                               | **Observation**                |
-| --       | --       | --         | --                                                     | --                             |
-| virtual  | void     | public     | Create()                                               | pure function                  |
-| virtual  | void     | public     | PostCreate()                                           | pure function                  |
-| virtual  | void     | public     | Initialize()                                           | pure function                  |
-| virtual  | void     | public     | PostInitialize()                                       | pure function                  |
-| virtual  | void     | public     | Destroy()                                              | pure function                  |
-| virtual  | void     | public     | PostDestroy()                                          | pure function                  |
-|          | T*       | public     | GetRenderer\<T\>()                                     | Get Custom Renderer.           |
-| virtual  | void     | protected  | CreateWindow()                                         |                                |
-| virtual  | void     | protected  | CreateGameInstance()                                   |                                |
-| virtual  | void     | protected  | CreateRenderer()                                       |                                |
-| virtual  | void     | protected  | CreateInputManagement()                                |                                |
-| virtual  | void     | protected  | CreateScene()                                          |                                |
-| virtual  | void     | protected  | CreateController()                                     |                                |
-| virtual  | void     | private    | Loop()                                                 |                                |
-| virtual  | void     | private    | CalculeDeltaTime(FTime& currentTime, float& deltaTime) |                                |
+|          | **Type** | **Access** | **Name**                                               | **Observation**                 |
+| --       | --       | --         | --                                                     | --                              |
+| virtual  | void     | public     | Create()                                               |                                 |
+| virtual  | void     | public     | PostCreate()                                           | Called after Create(), used to Make dependency instances. |
+| virtual  | void     | public     | Initialize()                                           | Used to Initialize Dependencies |
+| virtual  | void     | public     | PostInitialize()                                       | Called after Initialize().      |
+| virtual  | void     | public     | Destroy()                                              |                                 |
+| virtual  | void     | public     | PostDestroy()                                          |                                 |
+|          | T*       | public     | GetRenderer\<T\>()                                     | Get Custom Renderer.            |
+| virtual  | void     | protected  | CreateWindow()                                         |                                 |
+| virtual  | void     | protected  | CreateGameInstance()                                   |                                 |
+| virtual  | void     | protected  | CreateRenderer()                                       |                                 |
+| virtual  | void     | protected  | CreateInputManagement()                                |                                 |
+| virtual  | void     | protected  | CreateScene()                                          |                                 |
+| virtual  | void     | protected  | CreateController()                                     |                                 |
+| virtual  | void     | private    | Loop()                                                 |                                 |
+| virtual  | void     | private    | CalculeDeltaTime(FTime& currentTime, float& deltaTime) |                                 |

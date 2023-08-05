@@ -2,10 +2,10 @@ Scene: Unnamed
 Shaders:
   name: []
 Entities:
-  - Entity: 22f2f94c-999c-4f24-a98a-36433621559e
+  - Entity: 2d67d4ab-0da9-4124-a751-e53ea273cb6b
     Components:
       UCameraComponent:
-        id: 1e80a672-4c85-4beb-9716-06b318b88623
+        id: 413f2b55-009c-4933-8683-154547eae1be
         near: 9.99999975e-05
         far: 100000
         fov: 45
@@ -16,43 +16,43 @@ Entities:
         pitchAxis: [1, 0, 0]
         rollAxis: [0, 0, 1]
       UTransformComponent:
-        id: b187c94c-008d-4b1c-87c0-412590aab59b
+        id: e67cd5af-1d70-4818-95bc-e08799a72995
         location: [500, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [-1, 0, 0]
-  - Entity: 3d76c0f7-7f5f-494f-859f-24f16eda0981
+  - Entity: 2f578812-8bc6-45fb-9f46-3ea81b144ceb
     Components:
       UMeshComponent:
-        id: 46a496a2-e373-4b84-9959-57b8e636fca5
-        mesh_path: ../../Content/Models/plane.obj
-      UTransformComponent:
-        id: f5daae71-800b-4007-9755-6ce7e44007c5
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [-1, 0, 0]
-  - Entity: 5b8bc12c-4ef1-450d-8c74-73911b5d2656
-    Components:
-      UTransformComponent:
-        id: 271d50e9-6474-4ff7-8e45-f2cc67ecfa3d
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [-1, 0, 0]
-  - Entity: 864c12f5-a39e-4f65-92a1-b1d9456848a9
-    Components:
-      UMeshComponent:
-        id: cd450296-bca5-407f-b308-af33b26624ef
+        id: cdb12a12-7f1f-435f-9e78-6fb956e10a28
         mesh_path: ../../Content/Models/cube.obj
       UTransformComponent:
-        id: 2c4257ea-d87e-4a22-870e-4f07753fccc6
+        id: bfb43d39-daf7-4f53-8ea7-ce963b7af5e3
         location: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [-1, 0, 0]
-  - Entity: f83e77aa-a36e-4087-99d4-4e80ff6bb267
+  - Entity: 39d818e5-528b-4da2-ab19-0c4ec8fe6708
+  - Entity: aabdc3e0-450c-415e-a092-8591dc08dc5a
+    Components:
+      UMeshComponent:
+        id: 2d1b8bc1-07ee-48b4-a662-d74a8e632252
+        mesh_path: ../../Content/Models/plane.obj
+      UTransformComponent:
+        id: caaf4306-9eaa-4267-8707-7ffa8de5567b
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [-1, 0, 0]
+  - Entity: c58b9404-ba9e-4f1b-be0f-705af3cf6b89
+    Components:
+      UTransformComponent:
+        id: 411fd7e4-2dac-45c7-a761-b60fb53870ae
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [-1, 0, 0]

@@ -67,7 +67,6 @@ protected:
 	virtual void CreateRenderer();
 	virtual void CreateInputManagement();
 	virtual void CreateScene();
-	virtual void CreateController();
 
 private:
 	USharedPtr<UWindow> Window;
