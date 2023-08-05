@@ -25,14 +25,13 @@ BClass::BClass()
 
 BClass::~BClass()
 {
-	ULOG(ELogLevel::ELL_WARNING, "BClass Destroyed!");
 }
 
 void BClass::Initialize()
 {
 	if (bIsInitialized)
 	{
-		UASSERT(false, "Already Initialized!");
+		FException::RuntimeError(FText::Format("%s Already Initialized!", GetId().c_str()));
 	}
 
 	bIsInitialized = true;

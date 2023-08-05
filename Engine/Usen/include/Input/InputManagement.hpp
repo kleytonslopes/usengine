@@ -26,6 +26,7 @@ public:
 	virtual ~UInputManagement();
 
 	void SetInputComponent(UInputComponent* inputComponent);
+	
 protected:
 	UInputComponent* InputComponent = nullptr;
 };

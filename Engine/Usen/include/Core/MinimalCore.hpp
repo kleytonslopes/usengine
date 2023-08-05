@@ -23,5 +23,6 @@
 #include "Core/Macros.hpp"
 #include "Core/File.hpp"
 #include "Core/FunctionClass.hpp"
+#include "Core/Exception.hpp"
 
 #endif // !US_MINIMAL_CORE_HPP

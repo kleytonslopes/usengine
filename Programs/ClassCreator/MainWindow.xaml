@@ -57,6 +57,12 @@
 
             </ComboBox>
 
+            <Label Grid.Column="2" Grid.Row="3" Content="Project"/>
+            <ComboBox x:Name="cboProject" Grid.Column="2" Grid.Row="4" SelectionChanged="cboProject_SelectionChanged">
+                <ComboBoxItem Content="Engine" IsSelected="True"/>
+                <ComboBoxItem Content="Editor"/>
+                <ComboBoxItem Content="Game"/>
+            </ComboBox>
 
 
             <!-- Flags -->
@@ -74,6 +80,7 @@
                     <RadioButton x:Name="rbClassPrefixF" Content="Function" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixI" Content="Interface" Checked="rbClassPrefix_Checked"/>
                     <RadioButton x:Name="rbClassPrefixB"  Content="Base" Checked="rbClassPrefix_Checked"/>
+                    <RadioButton x:Name="rbClassPrefixT"  Content="Type" Checked="rbClassPrefix_Checked"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">

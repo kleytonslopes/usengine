@@ -19,6 +19,10 @@
 
 UApplication::UApplication()
 {
+	DefaultGameInstance = UGameInstance::StaticClass();
+	DefaultRenderer = URendererOpenGL::StaticClass();
+	//DefaultGameInstance = ClassOf<UGameInstance>();
+
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -29,31 +33,64 @@ UApplication::~UApplication()
 
 void UApplication::Initialize()
 {
-	Window = UUniquePtr<UWindow>::Make();
-	Window.Get()->Initialize();
+	CreateWindow();
+	CreateGameInstance();
+	CreateRenderer();
+	CreateInputManagement();
+	CreateScene();
+	CreateController();
+	//GameInstance = UUniquePtr<UGameInstance>::Make();
+	//GameInstance.Get()->Initialize();
 
-	GameInstance = UUniquePtr<UGameInstance>::Make();
-	GameInstance.Get()->Initialize();
+	//Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
+	//Renderer.Get()->Initialize();
 
-	Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
-	Renderer.Get()->Initialize();
+	//InputManagement = UUniquePtr<UInputManagement>::Make();
+	//InputManagement.Get()->Create();
+	//InputManagement.Get()->Initialize();
 
-	InputManagement = UUniquePtr<UInputManagement>::Make();
-	InputManagement.Get()->Create();
-	InputManagement.Get()->Initialize();
+	//Scene = UUniquePtr<UScene>::Make();
+	//Scene.Get()->Create();
+	//Scene.Get()->LoadScene("Unnamed");
+	//Scene.Get()->Initialize();
 
-	Scene = UUniquePtr<UScene>::Make();
-	Scene.Get()->Create();
-	Scene.Get()->LoadScene("Unnamed");
-	Scene.Get()->Initialize();
-
-	Controller = UUniquePtr<UController>::Make();
-	Controller.Get()->Create();
-	Controller.Get()->Initialize();
+	//Controller = UUniquePtr<UController>::Make();
+	//Controller.Get()->Create();
+	//Controller.Get()->Initialize();
 
 	bIsInitialized = true;
+}
 
-	
+void UApplication::CreateWindow()
+{
+	Window = USharedPtr<UWindow>::Make();
+	Window.Get()->Create();
+}
+
+void UApplication::CreateGameInstance()
+{
+	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
+	Window.Get()->Create();
+}
+
+void UApplication::CreateRenderer()
+{
+	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);/// <URendererOpenGL>();
+}
+
+void UApplication::CreateInputManagement()
+{
+	InputManagement = USharedPtr<UInputManagement>::Make();
+}
+
+void UApplication::CreateScene()
+{
+	Scene = USharedPtr<UScene>::Make();
+}
+
+void UApplication::CreateController()
+{
+	Controller = USharedPtr<UController>::Make();
 }
 
 void UApplication::PostInitialize()

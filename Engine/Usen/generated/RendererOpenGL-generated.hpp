@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !URendererOpenGL: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = BRenderer; using This = URendererOpenGL; \
 	FString Identity{ "URendererOpenGL" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<URendererOpenGL> StaticClass() { return TClassOf<URendererOpenGL>(); } \
 private: 
 	
 

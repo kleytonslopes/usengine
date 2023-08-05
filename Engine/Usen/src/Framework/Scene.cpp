@@ -72,7 +72,7 @@ void UScene::Initialize()
 
 	{
 		FTransform trasformC;
-		trasformC.Location = { 10.f,0.f,0.f };
+		trasformC.Location = { 500.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
 		Camera->SetTransform(trasformC);
 		Camera->Initialize();

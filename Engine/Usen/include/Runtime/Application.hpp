@@ -26,6 +26,8 @@ class UScene;
 class UController;
 class UInputManagement;
 
+//#define CLASSOF(A) A
+
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
 
 class UApplication : public IWeakClass
@@ -36,8 +38,8 @@ public:
 	FOnUpdateSignature OnUpdateEvent;
 
 	explicit UApplication();
-	~UApplication() final;
-
+	virtual ~UApplication();
+	
 	void Run();
 
 	// Inherited via IWeakClass
@@ -54,16 +56,24 @@ public:
 
 	BRenderer* GetRenderer() { return Renderer.Get(); };
 
-	template<typename T>
-	void RegistryClass();
+protected:
+	TClassOf<UGameInstance> DefaultGameInstance;
+	TClassOf<BRenderer> DefaultRenderer;
+
+	virtual void CreateWindow();
+	virtual void CreateGameInstance();
+	virtual void CreateRenderer();
+	virtual void CreateInputManagement();
+	virtual void CreateScene();
+	virtual void CreateController();
 
 private:
-	UUniquePtr<UWindow> Window;
-	UUniquePtr<UGameInstance> GameInstance;
-	UUniquePtr<BRenderer> Renderer;
-	UUniquePtr<UScene> Scene;
-	UUniquePtr<UController> Controller;
-	UUniquePtr<UInputManagement> InputManagement;
+	USharedPtr<UWindow> Window;
+	USharedPtr<UGameInstance> GameInstance;
+	USharedPtr<BRenderer> Renderer;
+	USharedPtr<UScene> Scene;
+	USharedPtr<UController> Controller;
+	USharedPtr<UInputManagement> InputManagement;
 
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);

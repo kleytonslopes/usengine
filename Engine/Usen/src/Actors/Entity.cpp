@@ -15,12 +15,10 @@
 
 AEntity::AEntity()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created with id %s!", Identity.c_str(), Id.c_str()));
 }
 
 AEntity::~AEntity()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Created!", Identity.c_str()));
 }
 
 void AEntity::Create()

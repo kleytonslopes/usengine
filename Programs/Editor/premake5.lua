@@ -10,12 +10,14 @@ project "Editor"
     files
     {
         "include/**.hpp",
+        "generated/**.hpp",
         "src/**.cpp"
     }
 
     includedirs
     {
         "include",
+        "generated",
         "%{wks.location}/Engine/Usen/include",
         "%{wks.location}/Engine/Usen/generated",
         "%{include_dir.SDL2}",

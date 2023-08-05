@@ -25,7 +25,7 @@
   {
     "ClassName": "UApplication",
     "Data": {
-      "CanInherit": false,
+      "CanInherit": true,
       "HasGen": true,
       "HasCpp": true,
       "ClassName": "UApplication",
@@ -986,6 +986,98 @@
       "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FException",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "FException",
+      "ClassDefinition": "US_EXCEPTION_HPP",
+      "HppFileName": "Exception.hpp",
+      "CppFileName": "Exception.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "UApplicationEditor",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UApplicationEditor",
+      "ClassDefinition": "US_APPLICATION_EDITOR_HPP",
+      "HppFileName": "ApplicationEditor.hpp",
+      "CppFileName": "ApplicationEditor.cpp",
+      "GenFileName": "ApplicationEditor-generated.hpp",
+      "FolderHpp": "include/Runtime",
+      "FolderCpp": "src/Runtime",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UApplication",
+      "BaseClassPathHpp": "Runtime/Application.hpp",
+      "BaseClassTemplate": " : public UApplication",
+      "BaseClassInclude": "\n#include \"Runtime/Application.hpp\"",
+      "ClassGenDefinition": "hpp_UApplicationEditor_UApplication",
+      "ClassGenDefinitionVersion": "hpp_UApplicationEditor_UApplication_def"
+    }
+  },
+  {
+    "ClassName": "TClassOf",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "TClassOf",
+      "ClassDefinition": "US_CLASS_OF_HPP",
+      "HppFileName": "ClassOf.hpp",
+      "CppFileName": "ClassOf.cpp",
+      "GenFileName": "ClassOf-generated.hpp",
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_TClassOf",
+      "ClassGenDefinitionVersion": "hpp_TClassOf_def"
+    }
+  },
+  {
+    "ClassName": "UEditorGameInstance",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UEditorGameInstance",
+      "ClassDefinition": "US_EDITOR_GAME_INSTANCE_HPP",
+      "HppFileName": "EditorGameInstance.hpp",
+      "CppFileName": "EditorGameInstance.cpp",
+      "GenFileName": "EditorGameInstance-generated.hpp",
+      "FolderHpp": "include/Framework",
+      "FolderCpp": "src/Framework",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UGameInstance",
+      "BaseClassPathHpp": "Framework/GameInstance.hpp",
+      "BaseClassTemplate": " : public UGameInstance",
+      "BaseClassInclude": "\n#include \"Framework/GameInstance.hpp\"",
+      "ClassGenDefinition": "hpp_UEditorGameInstance_UGameInstance",
+      "ClassGenDefinitionVersion": "hpp_UEditorGameInstance_UGameInstance_def"
     }
   }
 ]

@@ -13,6 +13,7 @@
 #define	US_UNIQUE_PTR_HPP
 
 #include "Core/Core.hpp"
+#include "Core/ClassOf.hpp"
 #include <memory>
 
 template<typename T>
@@ -30,6 +31,13 @@ public:
 	{
 		std::unique_ptr<T> ptrm = std::make_unique<U>();
 		return UUniquePtr<T>(std::move(ptrm));
+	}
+
+	template<typename U>
+	static UUniquePtr<T> FromClass(TClassOf<U>& otherClass)
+	{
+		//std::unique_ptr<T> ptrm = std::make_unique<U>();
+		return UUniquePtr<U>(std::move(otherClass.Class));
 	}
 
 	UUniquePtr<T> Move();
