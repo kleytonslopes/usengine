@@ -1102,5 +1102,28 @@
       "ClassGenDefinition": "hpp_UGameModeBase_BClass",
       "ClassGenDefinitionVersion": "hpp_UGameModeBase_BClass_def"
     }
+  },
+  {
+    "ClassName": "TKeyHandler",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "TKeyHandler",
+      "ClassDefinition": "US_KEY_HANDLER_HPP",
+      "HppFileName": "KeyHandler.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Input",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]

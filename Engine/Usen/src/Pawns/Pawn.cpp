@@ -25,8 +25,6 @@ APawn::~APawn()
 
 void APawn::Create()
 {
-	Super::Create();
-
 	UCameraComponent* CameraComponent = AddComponent<UCameraComponent>();
 	CameraComponent->SetOwner(Owner);
 	CameraComponent->SetParent(this);
@@ -34,6 +32,15 @@ void APawn::Create()
 	UInputComponent* InputComponent = AddComponent<UInputComponent>();
 	InputComponent->SetOwner(Owner);
 	InputComponent->SetParent(this);
+
+	Super::Create();
+}
+
+void APawn::PostCreate()
+{
+	GetInputComponent()->Create();
+
+	Super::PostCreate();
 }
 
 void APawn::SetupInputComponent()

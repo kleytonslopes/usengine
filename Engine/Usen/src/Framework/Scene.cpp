@@ -68,14 +68,9 @@ void UScene::Initialize()
 		FException::RuntimeError("Renderer not Initialized!");
 
 	LoadScene("Unnamed");
-	//initialize shaders
-
 
 	FShaderParameters shaderParameters{};
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
-
-
-	
 
 	{
 		FTransform trasformC;

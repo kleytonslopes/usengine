@@ -26,6 +26,7 @@ public:
 	virtual ~APawn();
 
 	void Create() override;
+	void PostCreate() override;
 
 	void SetupInputComponent();
 

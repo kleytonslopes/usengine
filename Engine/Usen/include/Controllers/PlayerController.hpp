@@ -25,6 +25,7 @@ public:
 	virtual ~UPlayerController();
 
 	void Initialize() override;
+	void Create() override;
 
 	void SetupInputComponent();
 	void ExitAction(float scale);

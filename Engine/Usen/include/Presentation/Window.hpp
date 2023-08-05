@@ -17,15 +17,18 @@
 #include <SDL.h>
 #undef main
 #include "glad/glad.h"
+#include "Input/KeyHandler.hpp"
 #include "Window-generated.hpp"
 
 DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, float, height)
+DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
 
 class UWindow : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
 	FOnWindowResizedSignature OnWindowResizedEvent;
+	FOnKeyEvent OnKeyEvent;
 
 	explicit UWindow();
 	~UWindow() final;

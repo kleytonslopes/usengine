@@ -28,11 +28,16 @@ void UPlayerController::Initialize()
 	SetupInputComponent();
 }
 
+void UPlayerController::Create()
+{
+	Super::Create();
+}
+
 void UPlayerController::SetupInputComponent()
 {
 	UInputManagement* InputManagement = GetInputManagement();
 
-	InputManagement->AddAction("Action1", this, &This::ExitAction);
+	InputManagement->AddAction("Exit", this, EKeyHandler::KEY_PRESSED, &This::ExitAction);
 }
 
 void UPlayerController::ExitAction(float scale)

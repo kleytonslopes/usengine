@@ -23,6 +23,10 @@ AEntity::~AEntity()
 
 void AEntity::Create()
 {
+	if (bIsCreated)
+	{
+		FException::RuntimeError(FText::Format("%s Already Created!", GetIdentity().c_str()));
+	}
 	Attachments = UUniquePtr<UAttachment>::Make();
 
 	bIsCreated = true;
