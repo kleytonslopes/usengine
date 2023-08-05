@@ -78,7 +78,7 @@ UScene* BClass::GetScene()
 
 UController* BClass::GetController()
 {
-	return Application->Controller.Get();
+	return nullptr;//Application->Controller.Get();
 }
 
 UInputManagement* BClass::GetInputManagement()

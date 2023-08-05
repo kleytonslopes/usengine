@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: PlayerController.cpp
+ *   File: GameModeBase.cpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -8,34 +8,30 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
+#include "Framework/GameModeBase.hpp"
+#include "Controllers/Controller.hpp"
 #include "Controllers/PlayerController.hpp"
-#include "Input/InputManagement.hpp"
 
-UPlayerController::UPlayerController()
+UGameModeBase::UGameModeBase()
 {
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
-UPlayerController::~UPlayerController()
+UGameModeBase::~UGameModeBase()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void UPlayerController::Initialize()
+void UGameModeBase::Create()
 {
+	DefaultController = UPlayerController::GetClass();
+}
+
+void UGameModeBase::Initialize()
+{
+	Controller = USharedPtr<UController>::FromClass(DefaultController);
+
 	Super::Initialize();
 
-	SetupInputComponent();
-}
-
-void UPlayerController::SetupInputComponent()
-{
-	UInputManagement* InputManagement = GetInputManagement();
-
-	InputManagement->AddAction("Action1", this, &This::ExitAction);
-}
-
-void UPlayerController::ExitAction(float scale)
-{
-
+	Controller.Get()->Initialize();
 }

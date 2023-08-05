@@ -51,7 +51,7 @@ void UApplication::Initialize()
 	Renderer.Get()->Initialize();
 	InputManagement.Get()->Initialize();
 	Scene.Get()->Initialize();
-	Controller.Get()->Initialize();
+	/*Controller.Get()->Initialize();*/
 
 	bIsInitialized = true;
 }
@@ -87,8 +87,8 @@ void UApplication::CreateScene()
 
 void UApplication::CreateController()
 {
-	Controller = USharedPtr<UController>::Make();
-	Controller.Get()->Create();
+	//Controller = USharedPtr<UController>::Make();
+	//Controller.Get()->Create();
 }
 
 void UApplication::PostInitialize()
@@ -98,7 +98,7 @@ void UApplication::PostInitialize()
 
 void UApplication::Destroy()
 {
-	Controller.Destroy();//.Get()->Destroy();
+	//Controller.Destroy();//.Get()->Destroy();
 	Scene.Destroy();//.Get()->Destroy();
 	InputManagement.Destroy();//.Get()->Destroy();
 	GameInstance.Destroy();//.Get()->Destroy();

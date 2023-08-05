@@ -74,8 +74,9 @@ private:
 	USharedPtr<UGameInstance> GameInstance;
 	USharedPtr<BRenderer> Renderer;
 	USharedPtr<UScene> Scene;
-	USharedPtr<UController> Controller;
 	USharedPtr<UInputManagement> InputManagement;
+
+	UController* Controller;
 
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);

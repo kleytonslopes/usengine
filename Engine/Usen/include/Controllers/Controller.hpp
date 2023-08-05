@@ -29,6 +29,8 @@ public:
 
 protected:
 	APawn* Pawn = nullptr;
+
+	friend class UInputManagement;
 };
 
 #endif // !US_CONTROLLER_HPP

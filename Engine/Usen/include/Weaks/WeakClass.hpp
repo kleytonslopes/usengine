@@ -36,8 +36,8 @@ public:
 
 protected:
 	FString Id;
-	bool bIsInitialized = false;
 	FString Identity;
+	bool bIsInitialized = false;
 
 	inline void SetIdentity(const FString& identity)
 	{

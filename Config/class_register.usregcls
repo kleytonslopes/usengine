@@ -1079,5 +1079,28 @@
       "ClassGenDefinition": "hpp_UEditorGameInstance_UGameInstance",
       "ClassGenDefinitionVersion": "hpp_UEditorGameInstance_UGameInstance_def"
     }
+  },
+  {
+    "ClassName": "UGameModeBase",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UGameModeBase",
+      "ClassDefinition": "US_GAME_MODE_BASE_HPP",
+      "HppFileName": "GameModeBase.hpp",
+      "CppFileName": "GameModeBase.cpp",
+      "GenFileName": "GameModeBase-generated.hpp",
+      "FolderHpp": "include/Framework",
+      "FolderCpp": "src/Framework",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "BClass",
+      "BaseClassPathHpp": "Base/Class.hpp",
+      "BaseClassTemplate": " : public BClass",
+      "BaseClassInclude": "\n#include \"Base/Class.hpp\"",
+      "ClassGenDefinition": "hpp_UGameModeBase_BClass",
+      "ClassGenDefinitionVersion": "hpp_UGameModeBase_BClass_def"
+    }
   }
 ]
