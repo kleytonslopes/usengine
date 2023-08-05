@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UTransformComponent: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = AComponent; using This = UTransformComponent; \
 	FString Identity{ "UTransformComponent" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UTransformComponent> GetClass() { return TClassOf<UTransformComponent>(); } \
 private: 
 	
 

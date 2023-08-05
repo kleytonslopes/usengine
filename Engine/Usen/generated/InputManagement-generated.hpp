@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UInputManagement: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = AEntity; using This = UInputManagement; \
 	FString Identity{ "UInputManagement" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UInputManagement> GetClass() { return TClassOf<UInputManagement>(); } \
 private: 
 	
 

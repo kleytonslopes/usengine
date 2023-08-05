@@ -29,3 +29,18 @@ void UInputManagement::SetInputComponent(UInputComponent* inputComponent)
 	InputComponent = inputComponent;
 	InputComponent->Active();
 }
+
+void UInputManagement::RegisterAction(const FString& actionName, uint32 keyCode, float scale)
+{
+	ActionMap::iterator it = Actions.find(actionName);
+
+	if (it != Actions.end())
+	{
+		it->second.AddInput(keyCode, scale);
+		return;
+	}
+	
+	FAction newAction{};
+	newAction.AddInput(keyCode, scale);
+	Actions[actionName] = newAction;
+}

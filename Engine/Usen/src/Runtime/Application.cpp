@@ -12,7 +12,7 @@
 
 #include "Presentation/Window.hpp"
 #include "Framework/GameInstance.hpp"
-#include "Environment.hpp"
+#include "Environment/Environment.hpp"
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
 
@@ -27,33 +27,61 @@ UApplication::~UApplication()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
+void UApplication::Create()
+{
+	PostCreate();
+}
+
+void UApplication::PostCreate()
+{
+	CreateWindow();
+	CreateGameInstance();
+	CreateRenderer();
+	CreateInputManagement();
+	CreateScene();
+
+	Initialize();
+}
+
 void UApplication::Initialize()
 {
-	Window = UUniquePtr<UWindow>::Make();
 	Window.Get()->Initialize();
-
-	GameInstance = UUniquePtr<UGameInstance>::Make();
 	GameInstance.Get()->Initialize();
-
-	Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
 	Renderer.Get()->Initialize();
-
-	InputManagement = UUniquePtr<UInputManagement>::Make();
-	InputManagement.Get()->Create();
 	InputManagement.Get()->Initialize();
-
-	Scene = UUniquePtr<UScene>::Make();
-	Scene.Get()->Create();
-	Scene.Get()->LoadScene("Unnamed");
 	Scene.Get()->Initialize();
 
-	Controller = UUniquePtr<UController>::Make();
-	Controller.Get()->Create();
-	Controller.Get()->Initialize();
-
 	bIsInitialized = true;
+	PostInitialize();
+}
 
-	
+void UApplication::CreateWindow()
+{
+	Window = USharedPtr<UWindow>::Make();
+	Window.Get()->Create();
+}
+
+void UApplication::CreateGameInstance()
+{
+	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
+	Window.Get()->Create();
+}
+
+void UApplication::CreateRenderer()
+{
+	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
+}
+
+void UApplication::CreateInputManagement()
+{
+	InputManagement = USharedPtr<UInputManagement>::Make();
+	InputManagement.Get()->Create();
+}
+
+void UApplication::CreateScene()
+{
+	Scene = USharedPtr<UScene>::Make();
+	Scene.Get()->Create();
 }
 
 void UApplication::PostInitialize()
@@ -63,7 +91,7 @@ void UApplication::PostInitialize()
 
 void UApplication::Destroy()
 {
-	Controller.Destroy();//.Get()->Destroy();
+	//Controller.Destroy();//.Get()->Destroy();
 	Scene.Destroy();//.Get()->Destroy();
 	InputManagement.Destroy();//.Get()->Destroy();
 	GameInstance.Destroy();//.Get()->Destroy();
@@ -113,6 +141,6 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 
 void UApplication::Run()
 {
-	Initialize();
+	Create();
 	Loop();
 }

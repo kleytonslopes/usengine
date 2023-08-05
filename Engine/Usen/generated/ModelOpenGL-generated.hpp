@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UModelOpenGL: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = UModel; using This = UModelOpenGL; \
 	FString Identity{ "UModelOpenGL" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UModelOpenGL> GetClass() { return TClassOf<UModelOpenGL>(); } \
 private: 
 	
 

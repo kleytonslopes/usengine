@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UPlayerController: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = UController; using This = UPlayerController; \
 	FString Identity{ "UPlayerController" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UPlayerController> GetClass() { return TClassOf<UPlayerController>(); } \
 private: 
 	
 

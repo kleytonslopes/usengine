@@ -31,9 +31,9 @@ public:
 	virtual ~BRenderer();
 
 	void Draw(AEntity* entity, float deltaTime);
-	virtual void StartFrame() = 0;
-	virtual void EndFrame() = 0;
-	virtual void OnWindowResize(uint32 width, uint32 height) = 0;
+	virtual void StartFrame() { /* override */ };
+	virtual void EndFrame() { /* override */ };
+	virtual void OnWindowResize(uint32 width, uint32 height) { /* override */ };
 
 
 	template<typename T>

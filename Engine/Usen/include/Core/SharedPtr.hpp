@@ -13,6 +13,7 @@
 #define	US_SHARED_PTR_HPP
 
 #include "Core/MinimalCore.hpp"
+#include "Core/ClassOf.hpp"
 #include <memory>
 
 template<typename T>
@@ -25,12 +26,26 @@ public:
 	static USharedPtr<T> Make(Args... args);
 	static USharedPtr<T> Make();
 
+	template<typename U>
+	static USharedPtr<T> FromClass(TClassOf<U>& otherClass)
+	//static USharedPtr<T> FromClass(TClassOf<U>&& otherClass)
+	{
+		//std::unique_ptr<T> ptrm = std::make_unique<U>();
+		return USharedPtr<U>(otherClass.Class);
+	}
+
 	T* Get() { return ptr.get(); }
 
 	USharedPtr<T> Move();
 	void Destroy();
 
 	operator T* () { return ptr.get(); }
+
+	//template<typename U>
+	//operator USharedPtr<U>() 
+	//{ 
+	//	return USharedPtr<T>(std::make_shared<T>());
+	//}
 
 private:
 	USharedPtr(std::shared_ptr<T>& nptr);

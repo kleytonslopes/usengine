@@ -16,12 +16,19 @@
 #include "Controllers/Controller.hpp"
 #include "PlayerController-generated.hpp"
 
+
 class UPlayerController : public UController
 {
 	DEFAULT_BODY_GENERATED()
 public:
 	explicit UPlayerController();
 	virtual ~UPlayerController();
-};
 
+	void Initialize() override;
+
+	void SetupInputComponent();
+	void ExitAction(float scale);
+
+	friend class UInputManagement;
+};
 #endif // !US_PLAYER_CONTROLLER_HPP

@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UTextureOpenGL: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = UTexture; using This = UTextureOpenGL; \
 	FString Identity{ "UTextureOpenGL" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UTextureOpenGL> GetClass() { return TClassOf<UTextureOpenGL>(); } \
 private: 
 	
 

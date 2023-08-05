@@ -24,6 +24,15 @@ public:
 	virtual ~UAssetLoader();
 
 	void LoadModel(static FString& modelPath);
+
+	void Create() override { /* override */ };
+	void PostCreate() override { /* override */ };
+
+	void Initialize() override { /* override */ };
+	void PostInitialize() override { /* override */ };
+
+	void Destroy() override { /* override */ };
+	void PostDestroy() override { /* override */ };
 };
 
 #endif // !US_ASSET_LOADER_HPP

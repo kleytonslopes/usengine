@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
+#include "Framework/GameModeBase.hpp"
 
 #include "Renderer/Renderer.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
@@ -25,7 +26,6 @@
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
 
-
 #include "Mesh/Mesh.hpp"
 
 #include "Components/CameraComponent.hpp"
@@ -33,8 +33,7 @@
 
 UScene::UScene()
 {
-	Create();
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+	
 }
 
 UScene::~UScene()
@@ -57,22 +56,30 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	//initialize shaders
+	DefaultPawn = UUniquePtr<APawn>::Make();
+	DefaultPawn.Get()->Initialize();
+	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
+
+	GameMode.Get()->Initialize();
+	//Controller.Get()->Initialize();
+
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
+	if (!Renderer)
+		FException::RuntimeError("Renderer not Initialized!");
+
+	LoadScene("Unnamed");
+	//initialize shaders
+
+
 	FShaderParameters shaderParameters{};
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
-	//* act = GetApplication()->RegistryClass<AActor>();
-	//Camera = UUniquePtr<ACamera>::Make();
-	//Camera.Get()->Create();
-	//entities[Camera.Get()->Id] = Camera.Get();
 
-	DefaultPawn = UUniquePtr<APawn>::Make();
-	DefaultPawn.Get()->Initialize();
+	
 
 	{
 		FTransform trasformC;
-		trasformC.Location = { 10.f,0.f,0.f };
+		trasformC.Location = { 500.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
 		Camera->SetTransform(trasformC);
 		Camera->Initialize();
@@ -102,7 +109,7 @@ void UScene::Initialize()
 		mesh1->Initialize();
 	}
 
-	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
+	
 
 	SaveScene();
 
@@ -142,6 +149,10 @@ T* UScene::CreateEntity()
 
 void UScene::Create()
 {
+	GameMode = USharedPtr<UGameModeBase>::Make();
+	GameMode.Get()->Create();
+
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 	Serializer = UUniquePtr<FSceneSerializer>::Make();
 	Serializer.Get()->SetScene(this);
 }

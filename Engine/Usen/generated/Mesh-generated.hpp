@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !AMesh: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = AActor; using This = AMesh; \
 	FString Identity{ "AMesh" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<AMesh> GetClass() { return TClassOf<AMesh>(); } \
 private: 
 	
 

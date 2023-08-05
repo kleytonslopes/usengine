@@ -29,7 +29,11 @@ namespace ClassCreator
     public partial class MainWindow : Window
     {
 #if DEBUG
+        private static string ProjectFolder = "F:\\Development\\usengine\\Engine\\Usen";
+
         private static string EngineFolder = "F:\\Development\\usengine\\Engine\\Usen";
+        private static string EditorFolder = "F:\\Development\\usengine\\Programs\\Editor";
+
         private static string RegClassData = "F:\\Development\\usengine\\Config\\class_register.usregcls";
         private static string CfgClassData = "F:\\Development\\usengine\\Config\\{class_cfg}.ini";
         private static string GenerateBat = "F:\\Development\\usengine\\GenerateProjectFile.bat";
@@ -39,7 +43,11 @@ namespace ClassCreator
         //private static string CfgClassData = "..\\..\\..\\..\\Config\\Classes\\{class_cfg}.ini";
         //private static string GenerateBat  = "..\\..\\..\\..\\GenerateProjectFile.bat";
 
+        private static string ProjectFolder = "Engine\\Usen";
+
         private static string EngineFolder = "Engine\\Usen";
+        private static string EditorFolder = "Programs\\Editor";
+
         private static string RegClassData = "Config\\class_register.usregcls";
         private static string CfgClassData = "Config\\Classes\\{class_cfg}.ini";
         private static string GenerateBat = "GenerateProjectFile.bat";
@@ -92,7 +100,8 @@ namespace ClassCreator
                 return "A";
             if (rbClassPrefixB.IsChecked == true)
                 return "B";
-
+            if (rbClassPrefixT.IsChecked == true)
+                return "T";
             return string.Empty;
         }
 
@@ -144,6 +153,9 @@ namespace ClassCreator
 
         private void UpdateHierarchyView()
         {
+            if (tvHierarchy == null)
+                return;
+
             tvHierarchy.Items.Clear();
 
             foreach (Dir dir in directoriesHierarchy)
@@ -190,11 +202,11 @@ namespace ClassCreator
 
         private void LoadClassesData()
         {
-            string[] dirs = Directory.GetDirectories(EngineFolder);
+            string[] dirs = Directory.GetDirectories(ProjectFolder);
 
             for (int i = 0; i < dirs.Length; i++)
             {
-                Dir dir = new Dir(EngineFolder, dirs[i], null);
+                Dir dir = new Dir(ProjectFolder, dirs[i], null);
 
                 dir.Subs = LoadSubFolder(dir);
                 dir.Files = LoadFiles(dir);
@@ -258,19 +270,19 @@ namespace ClassCreator
             BuildTemplate buildTemplate = new BuildTemplate();
 
             string hpp = buildTemplate.GenerateClassHpp(classData);
-            string fileHpp = $"{EngineFolder}\\{classData.FolderHpp.Replace("/", "\\")}\\{classData.HppFileName}";
+            string fileHpp = $"{ProjectFolder}\\{classData.FolderHpp.Replace("/", "\\")}\\{classData.HppFileName}";
             File.WriteAllText($"{fileHpp}", hpp);
 
             if (chkHasCpp.IsChecked.Value == true)
             {
-                string fileCpp = $"{EngineFolder}\\{classData.FolderCpp.Replace("/", "\\")}\\{classData.CppFileName}";
+                string fileCpp = $"{ProjectFolder}\\{classData.FolderCpp.Replace("/", "\\")}\\{classData.CppFileName}";
                 string cpp = buildTemplate.GenerateClassCpp(classData);
                 File.WriteAllText($"{fileCpp}", cpp);
             }
 
             if (chkHasGen.IsChecked.Value == true)
             {
-                string fileGen = $"{EngineFolder}\\{classData.FolderGen.Replace("/", "\\")}\\{classData.GenFileName}";
+                string fileGen = $"{ProjectFolder}\\{classData.FolderGen.Replace("/", "\\")}\\{classData.GenFileName}";
                 string gen = buildTemplate.GenerateClassGen(classData);
                 File.WriteAllText($"{fileGen}", gen);
             }
@@ -431,7 +443,7 @@ namespace ClassCreator
             classRegister.Data = classData;
 
             ClassRegister classRegisterExistent = classRegisters.FirstOrDefault(x => x.ClassName == classData.ClassName);
-            if(classRegisterExistent == null)
+            if (classRegisterExistent == null)
             {
                 classRegisters.Add(classRegister);
             }
@@ -464,11 +476,11 @@ namespace ClassCreator
             iniClass.WriteString("CLASS", "Identity", classData.ClassName);
             iniClass.WriteString("CLASS", "Hpp", classData.HppFileName);
             iniClass.WriteString("CLASS", "Cpp", classData.CppFileName);
-            
+
             iniClass.WriteString("CLASS", "Definition", classData.ClassDefinition);
             iniClass.WriteString("CLASS", "FolderHpp", classData.FolderHpp);
             iniClass.WriteString("CLASS", "FolderCpp", classData.FolderCpp);
-            
+
 
             iniClass.WriteString("CLASS_BASE", "Name", classData.BaseClassName);
             iniClass.WriteString("CLASS_BASE", "Hpp", classData.BaseClassPathHpp);
@@ -519,6 +531,22 @@ namespace ClassCreator
                 {
                     Reload();
                 }
+            }
+        }
+
+        private void cboProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = cboProject.SelectedItem as ComboBoxItem;
+            if (item != null)
+            {
+                string selection = item.Content.ToString();
+
+                if (selection == "Engine")
+                    ProjectFolder = EngineFolder;
+                else if (selection == "Editor")
+                    ProjectFolder = EditorFolder;
+
+                Reload();
             }
         }
     }

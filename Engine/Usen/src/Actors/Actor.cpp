@@ -19,8 +19,6 @@ AActor::AActor()
 
 AActor::~AActor()
 {
-
-
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 

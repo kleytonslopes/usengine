@@ -23,24 +23,24 @@ public:
 	explicit BShader();
 	virtual ~BShader();
 
-	virtual void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) = 0;
+	virtual void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) { /* override */ };
 
-	virtual void Active() = 0;
-	virtual void Deactive() = 0;
+	virtual void Active() { /* override */ };
+	virtual void Deactive() { /* override */ };
 
-	virtual void SetBool(const FString& name, bool value) = 0;
-	virtual void SetInt(const FString& name, int value) = 0;
-	virtual void SetFloat(const FString& name, float value) = 0;
-	virtual void SetVector2(const FString& name, FVector2 value) = 0;
-	virtual void SetVector2(const FString& name, float x, float y) = 0;
-	virtual void SetVector3(const FString& name, FVector value) = 0;
-	virtual void SetVector3(const FString& name, float x, float y, float z) = 0;
-	virtual void SetVector4(const FString& name, FVector4 value) = 0;
-	virtual void SetVector4(const FString& name, float x, float y, float z, float w) = 0;
+	virtual void SetBool(const FString& name, bool value) { /* override */ };
+	virtual void SetInt(const FString& name, int value) { /* override */ };
+	virtual void SetFloat(const FString& name, float value) { /* override */ };
+	virtual void SetVector2(const FString& name, FVector2 value) { /* override */ };
+	virtual void SetVector2(const FString& name, float x, float y) { /* override */ };
+	virtual void SetVector3(const FString& name, FVector value) { /* override */ };
+	virtual void SetVector3(const FString& name, float x, float y, float z) { /* override */ };
+	virtual void SetVector4(const FString& name, FVector4 value) { /* override */ };
+	virtual void SetVector4(const FString& name, float x, float y, float z, float w) { /* override */ };
 
-	virtual void SetMatrix2(const FString& name, FMatrix2 value)= 0;
-	virtual void SetMatrix3(const FString& name, FMatrix3 value)= 0;
-	virtual void SetMatrix4(const FString& name, FMatrix4 value)= 0;
+	virtual void SetMatrix2(const FString& name, FMatrix2 value) { /* override */ };
+	virtual void SetMatrix3(const FString& name, FMatrix3 value) { /* override */ };
+	virtual void SetMatrix4(const FString& name, FMatrix4 value) { /* override */ };
 protected:
 	FString Name;
 	FString VertexFilePath;

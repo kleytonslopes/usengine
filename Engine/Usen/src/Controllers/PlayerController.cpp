@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Controllers/PlayerController.hpp"
+#include "Input/InputManagement.hpp"
 
 UPlayerController::UPlayerController()
 {
@@ -18,4 +19,23 @@ UPlayerController::UPlayerController()
 UPlayerController::~UPlayerController()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void UPlayerController::Initialize()
+{
+	Super::Initialize();
+
+	SetupInputComponent();
+}
+
+void UPlayerController::SetupInputComponent()
+{
+	UInputManagement* InputManagement = GetInputManagement();
+
+	InputManagement->AddAction("Action1", this, &This::ExitAction);
+}
+
+void UPlayerController::ExitAction(float scale)
+{
+
 }

@@ -78,9 +78,9 @@ protected:
 	virtual void Save();
 	SeriNode Load(const FString& filePath);
 
-	virtual void Serialize() = 0;
-	virtual void Serialize(SeriFile& otherOut) = 0;
-	virtual bool Deserialize(const FString& scenePath) = 0;
+	virtual void Serialize() { /* override */ };
+	virtual void Serialize(SeriFile& otherOut) { /* override */ };
+	virtual bool Deserialize(const FString& scenePath) { return false; /* override */ };
 };
 
 #endif // !US_SERIALIZER_HPP

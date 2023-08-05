@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !BShader: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = BClass; using This = BShader; \
 	FString Identity{ "BShader" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<BShader> GetClass() { return TClassOf<BShader>(); } \
 private: 
 	
 

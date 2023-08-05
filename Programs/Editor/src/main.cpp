@@ -8,12 +8,14 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 
-#include "Environment.hpp"
+#include "Environment/Environment.hpp"
+#include "Runtime/ApplicationEditor.hpp"
 
 int main()
 {
 	try
 	{
+		us::env::Environment::Applicaiton = UUniquePtr<UApplication>::MakeCast<UApplicationEditor>();
 		us::env::Environment::Applicaiton.Get()->Run();
 		us::env::Environment::Applicaiton.Destroy();
 	}

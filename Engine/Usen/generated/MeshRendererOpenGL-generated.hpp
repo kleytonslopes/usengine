@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UMeshRendererOpenGL: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = UMeshRenderer; using This = UMeshRendererOpenGL; \
 	FString Identity{ "UMeshRendererOpenGL" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UMeshRendererOpenGL> GetClass() { return TClassOf<UMeshRendererOpenGL>(); } \
 private: 
 	
 

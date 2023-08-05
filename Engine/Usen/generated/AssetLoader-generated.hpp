@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UAssetLoader: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = IWeakClass; using This = UAssetLoader; \
 	FString Identity{ "UAssetLoader" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UAssetLoader> GetClass() { return TClassOf<UAssetLoader>(); } \
 private: 
 	
 

@@ -30,7 +30,7 @@ public:
 	explicit UMeshRenderer();
 	virtual ~UMeshRenderer();
 
-	virtual void Draw(FVector location, FVector rotation, FVector scale) = 0;
+	virtual void Draw(FVector location, FVector rotation, FVector scale) { /* override */ };
 
 	void SetModel(UModel* model);
 

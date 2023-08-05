@@ -22,6 +22,9 @@ public:
 	explicit IWeakClass();
 	virtual ~IWeakClass();
 
+	virtual void Create() = 0;
+	virtual void PostCreate() = 0;
+
 	virtual void Initialize() = 0;
 	virtual void PostInitialize() = 0;
 
@@ -29,12 +32,14 @@ public:
 	virtual void PostDestroy() = 0;
 
 	FString GetId() const { return Id; }
+	FString GetIdentity() const { return Identity; }
+
 protected:
 	FString Id;
-	bool bIsInitialized = false;
 	FString Identity;
+	bool bIsInitialized = false;
 
-	inline void SetIdentity(FString identity)
+	inline void SetIdentity(const FString& identity)
 	{
 		Identity = identity;
 	}

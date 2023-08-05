@@ -19,10 +19,10 @@
 class AEntity;
 class ACamera;
 class APawn;
+class FSceneSerializer;
+class UGameModeBase;
 
 struct FShaderParameters;
-
-class FSceneSerializer;
 
 struct FSceneSettings
 {
@@ -38,6 +38,7 @@ public:
 	~UScene() final;
 	void Destroy() final;
 
+	void Create() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
 
@@ -51,10 +52,11 @@ private:
 	ACamera* Camera = nullptr;
 	UUniquePtr<APawn> DefaultPawn;
 	UUniquePtr<FSceneSerializer> Serializer;
+	USharedPtr<UGameModeBase> GameMode;
+	
 
 	TMap<FString, AEntity*> entities;
 
-	void Create();
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
 
