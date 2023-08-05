@@ -31,8 +31,8 @@ public:
 	virtual ~UModel();
 
 	void Initialize() override;
-	virtual void LoadModel() = 0;
-	virtual void Draw(float deltaTime) = 0;
+	virtual void LoadModel() { /* override */ };;
+	virtual void Draw(float deltaTime) { /* override */ };;
 	void SetMeshActor(AMesh* actor);
 
 protected:

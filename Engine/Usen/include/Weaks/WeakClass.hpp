@@ -22,7 +22,8 @@ public:
 	explicit IWeakClass();
 	virtual ~IWeakClass();
 
-	virtual void Create() {};
+	virtual void Create() = 0;
+	virtual void PostCreate() = 0;
 
 	virtual void Initialize() = 0;
 	virtual void PostInitialize() = 0;

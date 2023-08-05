@@ -12,17 +12,13 @@
 
 #include "Presentation/Window.hpp"
 #include "Framework/GameInstance.hpp"
-#include "Environment.hpp"
+#include "Environment/Environment.hpp"
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
 
 
 UApplication::UApplication()
 {
-	DefaultGameInstance = UGameInstance::StaticClass();
-	DefaultRenderer = URendererOpenGL::StaticClass();
-	//DefaultGameInstance = ClassOf<UGameInstance>();
-
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -31,7 +27,12 @@ UApplication::~UApplication()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void UApplication::Initialize()
+void UApplication::Create()
+{
+	PostCreate();
+}
+
+void UApplication::PostCreate()
 {
 	CreateWindow();
 	CreateGameInstance();
@@ -39,24 +40,18 @@ void UApplication::Initialize()
 	CreateInputManagement();
 	CreateScene();
 	CreateController();
-	//GameInstance = UUniquePtr<UGameInstance>::Make();
-	//GameInstance.Get()->Initialize();
 
-	//Renderer = UUniquePtr<BRenderer>::MakeCast<URendererOpenGL>();
-	//Renderer.Get()->Initialize();
+	Initialize();
+}
 
-	//InputManagement = UUniquePtr<UInputManagement>::Make();
-	//InputManagement.Get()->Create();
-	//InputManagement.Get()->Initialize();
-
-	//Scene = UUniquePtr<UScene>::Make();
-	//Scene.Get()->Create();
-	//Scene.Get()->LoadScene("Unnamed");
-	//Scene.Get()->Initialize();
-
-	//Controller = UUniquePtr<UController>::Make();
-	//Controller.Get()->Create();
-	//Controller.Get()->Initialize();
+void UApplication::Initialize()
+{
+	Window.Get()->Initialize();
+	GameInstance.Get()->Initialize();
+	Renderer.Get()->Initialize();
+	InputManagement.Get()->Initialize();
+	Scene.Get()->Initialize();
+	Controller.Get()->Initialize();
 
 	bIsInitialized = true;
 }
@@ -75,22 +70,25 @@ void UApplication::CreateGameInstance()
 
 void UApplication::CreateRenderer()
 {
-	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);/// <URendererOpenGL>();
+	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
 }
 
 void UApplication::CreateInputManagement()
 {
 	InputManagement = USharedPtr<UInputManagement>::Make();
+	InputManagement.Get()->Create();
 }
 
 void UApplication::CreateScene()
 {
 	Scene = USharedPtr<UScene>::Make();
+	Scene.Get()->Create();
 }
 
 void UApplication::CreateController()
 {
 	Controller = USharedPtr<UController>::Make();
+	Controller.Get()->Create();
 }
 
 void UApplication::PostInitialize()
@@ -150,6 +148,6 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 
 void UApplication::Run()
 {
-	Initialize();
+	Create();
 	Loop();
 }

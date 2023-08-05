@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UEditorGameInstance: ## Class Name
@@ -34,7 +35,7 @@ private: \
 	FString Identity{ "UEditorGameInstance" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
-	static TClassOf<UEditorGameInstance> StaticClass() { return TClassOf<UEditorGameInstance>(); } \
+	static TClassOf<UEditorGameInstance> GetClass() { return TClassOf<UEditorGameInstance>(); } \
 private: 
 	
 

@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UApplicationEditor: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = UApplication; using This = UApplicationEditor; \
 	FString Identity{ "UApplicationEditor" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UApplicationEditor> GetClass() { return TClassOf<UApplicationEditor>(); } \
 private: 
 	
 

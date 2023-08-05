@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !BRenderer: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = BClass; using This = BRenderer; \
 	FString Identity{ "BRenderer" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<BRenderer> GetClass() { return TClassOf<BRenderer>(); } \
 private: 
 	
 

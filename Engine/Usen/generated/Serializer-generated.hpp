@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !BSerializer: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using This = BSerializer; \
 	FString Identity{ "BSerializer" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<BSerializer> GetClass() { return TClassOf<BSerializer>(); } \
 private: 
 	
 

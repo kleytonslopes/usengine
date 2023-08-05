@@ -35,7 +35,7 @@ private: \
 	FString Identity{ "UGameInstance" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
-	static TClassOf<UGameInstance> StaticClass() { return TClassOf<UGameInstance>(); } \
+	static TClassOf<UGameInstance> GetClass() { return TClassOf<UGameInstance>(); } \
 private: 
 	
 

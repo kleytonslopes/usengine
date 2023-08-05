@@ -10,7 +10,7 @@
 #include "upch.hpp"
 #include "Base/Class.hpp"
 #include "Runtime/Application.hpp"
-#include "Environment.hpp"
+#include "Environment/Environment.hpp"
 
 #include "Presentation/Window.hpp"
 #include "Framework/GameInstance.hpp"
@@ -44,9 +44,19 @@ void BClass::PostInitialize()
 	bIsInitialized = true;
 }
 
+void BClass::Create()
+{
+	PostCreate();
+}
+
+void BClass::PostCreate()
+{
+	ULOG(ELogLevel::ELL_TRACE, "BClass PostCreate!");
+}
+
 void BClass::Destroy()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, "BClass Destroy!");
+	ULOG(ELogLevel::ELL_WARNING, "BClass Destroy!");
 
 	PostDestroy();
 }

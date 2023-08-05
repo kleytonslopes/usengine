@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !ACamera: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = AActor; using This = ACamera; \
 	FString Identity{ "ACamera" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+public: \
+	static TClassOf<ACamera> GetClass() { return TClassOf<ACamera>(); } \
 private: 
 	
 

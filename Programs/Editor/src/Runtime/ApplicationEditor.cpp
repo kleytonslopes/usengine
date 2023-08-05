@@ -13,11 +13,19 @@
 
 UApplicationEditor::UApplicationEditor()
 {
-	DefaultGameInstance = UEditorGameInstance::StaticClass();
+	
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
 UApplicationEditor::~UApplicationEditor()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+}
+
+void UApplicationEditor::Create()
+{
+	DefaultGameInstance = UEditorGameInstance::GetClass();
+	DefaultRenderer = URendererOpenGL::GetClass();
+
+	Super::Create();
 }

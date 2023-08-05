@@ -37,6 +37,8 @@ public:
 	/// </summary>
 	void Initialize() override;
 	void PostInitialize() override;
+	void Create() override;
+	void PostCreate() override;
 	void Destroy() override;
 	void PostDestroy() override { /* override */ };
 

@@ -22,6 +22,8 @@ class UApplicationEditor : public UApplication
 public:
 	explicit UApplicationEditor();
 	virtual ~UApplicationEditor();
+
+	void Create() override;
 };
 
 #endif // !US_APPLICATION_EDITOR_HPP

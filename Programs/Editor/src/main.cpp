@@ -8,7 +8,7 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 
-#include "Environment.hpp"
+#include "Environment/Environment.hpp"
 #include "Runtime/ApplicationEditor.hpp"
 
 int main()

@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !UInputComponent: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = AComponent; using This = UInputComponent; \
 	FString Identity{ "UInputComponent" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<UInputComponent> GetClass() { return TClassOf<UInputComponent>(); } \
 private: 
 	
 

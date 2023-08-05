@@ -33,8 +33,7 @@
 
 UScene::UScene()
 {
-	Create();
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+	
 }
 
 UScene::~UScene()
@@ -57,15 +56,17 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	//initialize shaders
+
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
+	if (!Renderer)
+		FException::RuntimeError("Renderer not Initialized!");
+
+	LoadScene("Unnamed");
+	//initialize shaders
+
+
 	FShaderParameters shaderParameters{};
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
-
-	//* act = GetApplication()->RegistryClass<AActor>();
-	//Camera = UUniquePtr<ACamera>::Make();
-	//Camera.Get()->Create();
-	//entities[Camera.Get()->Id] = Camera.Get();
 
 	DefaultPawn = UUniquePtr<APawn>::Make();
 	DefaultPawn.Get()->Initialize();
@@ -142,6 +143,7 @@ T* UScene::CreateEntity()
 
 void UScene::Create()
 {
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 	Serializer = UUniquePtr<FSceneSerializer>::Make();
 	Serializer.Get()->SetScene(this);
 }

@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !IWeakClass: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using This = IWeakClass; \
 	FString Identity{ "IWeakClass" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<IWeakClass> GetClass() { return TClassOf<IWeakClass>(); } \
 private: 
 	
 

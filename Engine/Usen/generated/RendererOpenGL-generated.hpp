@@ -35,7 +35,7 @@ private: \
 	FString Identity{ "URendererOpenGL" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
-	static TClassOf<URendererOpenGL> StaticClass() { return TClassOf<URendererOpenGL>(); } \
+	static TClassOf<URendererOpenGL> GetClass() { return TClassOf<URendererOpenGL>(); } \
 private: 
 	
 

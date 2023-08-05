@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Core/Macros.hpp"
+#include "Core/ClassOf.hpp"
 
 //--0
 // !FEntitySerializer: ## Class Name
@@ -33,6 +34,8 @@ private: \
 	using Super = BSerializer; using This = FEntitySerializer; \
 	FString Identity{ "FEntitySerializer" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+public: \
+	static TClassOf<FEntitySerializer> GetClass() { return TClassOf<FEntitySerializer>(); } \
 private: 
 	
 
