@@ -69,4 +69,7 @@ using TList = std::list<T>;
 template<typename K, typename T>
 using TMap = std::map<K, T>;
 
+template<typename R, typename L>
+using TPair = std::pair<R, L>;
+
 #endif // !US_COMMON_TYPES_HPP

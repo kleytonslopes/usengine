@@ -11,6 +11,8 @@
 #include "Mesh/Mesh.hpp"
 #include "Components/RenderComponent.hpp"
 #include "Components/MeshComponent.hpp"
+#include "Components/CollisionComponent.hpp"
+#include "Components/BoxCollisionComponent.hpp"
 #include "Renderer/Model.hpp"
 #include "Renderer/OpenGL/ModelOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
@@ -40,6 +42,11 @@ void AMesh::Create()
 	MeshComponent->SetOwner(Owner);
 	MeshComponent->SetParent(this);
 
+	CollisionComponent = AddComponent<UBoxCollisionComponent>();
+	CollisionComponent->SetOwner(Owner);
+	CollisionComponent->SetParent(this);
+	CollisionComponent->SetIsDynamic(true);
+
 	PostCreate();
 }
 
@@ -57,12 +64,10 @@ void AMesh::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	FTransform rotation = GetTransform();
-	rotation.Rotation.z += 20.0f * deltaTime;
-	rotation.Rotation.x += 10.0f * deltaTime;
-	rotation.Rotation.y += 5.0f * deltaTime;
-	SetTransform(rotation);
-
+	if (CollisionComponent && CollisionComponent->IsDynamic() && Parent == nullptr)
+	{
+		SetLocation(CollisionComponent->GetLocation());
+	}
 }
 
 UMeshComponent* AMesh::GetMeshComponent()
@@ -73,6 +78,11 @@ UMeshComponent* AMesh::GetMeshComponent()
 URenderComponent* AMesh::GetRenderComponent()
 {
 	return GetComponent<URenderComponent>();
+}
+
+UCollisionComponent* AMesh::GetCollisionComponent()
+{
+	return GetComponent<UCollisionComponent>();
 }
 
 void AMesh::SetMeshParameters(const FMeshParameters& parameters)

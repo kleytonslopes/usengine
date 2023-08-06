@@ -29,6 +29,8 @@ project "Usen"
         "%{include_dir.ASSIMP}",
         "%{include_dir.ASSIMP_BUILD}",
         "%{include_dir.STB}",
+        "%{include_dir.MINI}",
+        "%{include_dir.BULLET}",
     }
 
     links

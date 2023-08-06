@@ -1102,5 +1102,120 @@
       "ClassGenDefinition": "hpp_UGameModeBase_BClass",
       "ClassGenDefinitionVersion": "hpp_UGameModeBase_BClass_def"
     }
+  },
+  {
+    "ClassName": "TKeyHandler",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "TKeyHandler",
+      "ClassDefinition": "US_KEY_HANDLER_HPP",
+      "HppFileName": "KeyHandler.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Input",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FEngineConfig",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FEngineConfig",
+      "ClassDefinition": "US_ENGINE_CONFIG_HPP",
+      "HppFileName": "EngineConfig.hpp",
+      "CppFileName": "EngineConfig.cpp",
+      "GenFileName": "EngineConfig-generated.hpp",
+      "FolderHpp": "include/Configs",
+      "FolderCpp": "src/Configs",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_FEngineConfig",
+      "ClassGenDefinitionVersion": "hpp_FEngineConfig_def"
+    }
+  },
+  {
+    "ClassName": "UPhysicsSystem",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UPhysicsSystem",
+      "ClassDefinition": "US_PHYSICS_SYSTEM_HPP",
+      "HppFileName": "PhysicsSystem.hpp",
+      "CppFileName": "PhysicsSystem.cpp",
+      "GenFileName": "PhysicsSystem-generated.hpp",
+      "FolderHpp": "include/Physics",
+      "FolderCpp": "src/Physics",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "BClass",
+      "BaseClassPathHpp": "Base/Class.hpp",
+      "BaseClassTemplate": " : public BClass",
+      "BaseClassInclude": "\n#include \"Base/Class.hpp\"",
+      "ClassGenDefinition": "hpp_UPhysicsSystem_BClass",
+      "ClassGenDefinitionVersion": "hpp_UPhysicsSystem_BClass_def"
+    }
+  },
+  {
+    "ClassName": "UCollisionComponent",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UCollisionComponent",
+      "ClassDefinition": "US_COLLISION_COMPONENT_HPP",
+      "HppFileName": "CollisionComponent.hpp",
+      "CppFileName": "CollisionComponent.cpp",
+      "GenFileName": "CollisionComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "AComponent",
+      "BaseClassPathHpp": "Components/Component.hpp",
+      "BaseClassTemplate": " : public AComponent",
+      "BaseClassInclude": "\n#include \"Components/Component.hpp\"",
+      "ClassGenDefinition": "hpp_UCollisionComponent_AComponent",
+      "ClassGenDefinitionVersion": "hpp_UCollisionComponent_AComponent_def"
+    }
+  },
+  {
+    "ClassName": "UBoxCollisionComponent",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UBoxCollisionComponent",
+      "ClassDefinition": "US_BOX_COLLISION_COMPONENT_HPP",
+      "HppFileName": "BoxCollisionComponent.hpp",
+      "CppFileName": "BoxCollisionComponent.cpp",
+      "GenFileName": "BoxCollisionComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UCollisionComponent",
+      "BaseClassPathHpp": "Components/CollisionComponent.hpp",
+      "BaseClassTemplate": " : public UCollisionComponent",
+      "BaseClassInclude": "\n#include \"Components/CollisionComponent.hpp\"",
+      "ClassGenDefinition": "hpp_UBoxCollisionComponent_UCollisionComponent",
+      "ClassGenDefinitionVersion": "hpp_UBoxCollisionComponent_UCollisionComponent_def"
+    }
   }
 ]

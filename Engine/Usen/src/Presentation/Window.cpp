@@ -50,6 +50,12 @@ void UWindow::PollEvents()
 	{
 		switch (sdlEvent.type)
 		{
+		case SDL_KEYDOWN:
+			OnKeyEvent.Broadcast(sdlEvent.key.keysym.sym, EKeyHandler::KEY_PRESSED);
+			break;
+		case SDL_KEYUP:
+			OnKeyEvent.Broadcast(sdlEvent.key.keysym.sym, EKeyHandler::KEY_RELEASED);
+			break;
 		case SDL_QUIT:
 			SetShouldClose(true);
 			break;
@@ -59,6 +65,7 @@ void UWindow::PollEvents()
 				OnWindowResizedEvent.Broadcast(sdlEvent.window.data1, sdlEvent.window.data2);
 			}
 			break;
+
 		default:
 
 			break;

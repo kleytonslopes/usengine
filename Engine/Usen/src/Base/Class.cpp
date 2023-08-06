@@ -16,6 +16,8 @@
 #include "Framework/GameInstance.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Framework/GameModeBase.hpp"
+#include "Physics/PhysicsSystem.hpp"
 
 
 BClass::BClass() 
@@ -78,7 +80,7 @@ UScene* BClass::GetScene()
 
 UController* BClass::GetController()
 {
-	return nullptr;//Application->Controller.Get();
+	return GetGameMode()->Controller.Get();
 }
 
 UInputManagement* BClass::GetInputManagement()
@@ -89,6 +91,16 @@ UInputManagement* BClass::GetInputManagement()
 UApplication* BClass::GetApplication()
 {
 	return Application;
+}
+
+UGameModeBase* BClass::GetGameMode()
+{
+	return GetScene()->GameMode.Get();
+}
+
+UPhysicsSystem* BClass::GetPhysicsSystem()
+{
+	return Application->PhysicsSystem.Get();
 }
 
 BRenderer* BClass::GetRenderer()

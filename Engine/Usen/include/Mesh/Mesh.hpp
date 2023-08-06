@@ -18,6 +18,7 @@
 
 class UMeshComponent;
 class URenderComponent;
+class UCollisionComponent;
 class UModel;
 
 struct FMeshParameters;
@@ -36,6 +37,7 @@ public:
 
 	UMeshComponent* GetMeshComponent();
 	URenderComponent* GetRenderComponent();
+	UCollisionComponent* GetCollisionComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 
@@ -47,6 +49,7 @@ protected:
 
 private:
 	UUniquePtr<UModel> Model;
+	UCollisionComponent* CollisionComponent = nullptr;
 };
 
 #endif // !US_MESH_HPP

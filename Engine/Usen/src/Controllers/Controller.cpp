@@ -26,3 +26,8 @@ void UController::SetPawn(APawn* pawn)
 	this->Pawn = pawn;
 	pawn->SetOwner(this);
 }
+
+APawn* UController::GetPawn()
+{
+	return Pawn;
+}

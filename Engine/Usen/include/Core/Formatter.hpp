@@ -45,6 +45,11 @@ struct FText
 	{
 		return std::regex_replace(text, std::regex(repl), remov);
 	}
+
+	static FString Concat(FString& left, const FString& right)
+	{
+		return left.append(right);
+	}
 };
 
 #endif // !US_FORMATTER_HPP

@@ -10,3 +10,6 @@
 [submodule "ThirdParty/STB"]
 	path = ThirdParty/STB
 	url = https://github.com/nothings/stb.git
+[submodule "ThirdParty/MINI"]
+	path = ThirdParty/MINI
+	url = https://github.com/pulzed/mINI.git

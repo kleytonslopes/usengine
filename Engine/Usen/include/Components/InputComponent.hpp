@@ -14,6 +14,7 @@
 
 
 #include "Components/Component.hpp"
+#include "Input/KeyHandler.hpp"
 #include "InputComponent-generated.hpp"
 
 DECLARE_FUNCTION_OneParam(FOnActionHandleSignature, float, scale);
@@ -21,7 +22,7 @@ struct InputAction
 {
 	void* Target = nullptr;
 	FString Action;
-	FOnActionHandleSignature onActionHandleSignature;
+	FOnActionHandleSignature Execute;
 };
 
 class UInputComponent : public AComponent
@@ -34,14 +35,30 @@ public:
 
 	bool IsActive() const { return true; }
 
+	void Create() override;
+
 	template<class TObject, class Fx>
-	void AddAction(const FString& action, TObject* target, Fx&& function)
+	void AddAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)
 	{
 		InputAction inputAction{};
+		FString localAction = action;
+		switch (keyHandle)
+		{
+		case KEY_RELEASED:
+			localAction = action + "_Released";
+			break;
+		default:
+			localAction = action + "_Pressed";
+			break;
+		}
+		
+		inputAction.Action = localAction;
 		inputAction.Target = target;
-		inputAction.onActionHandleSignature.Add(target, function);
-		Actions[action] = inputAction;
+		inputAction.Execute.Add(target, function);
+		Actions[localAction] = inputAction;
 	}
+	
+	void ExecuteAction(const FString& action, EKeyHandler keyHandler);
 private:
 	bool bIsActive = false;
 	ActionMap Actions;

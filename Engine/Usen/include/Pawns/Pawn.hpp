@@ -26,10 +26,14 @@ public:
 	virtual ~APawn();
 
 	void Create() override;
+	void PostCreate() override;
 
 	void SetupInputComponent();
 
 	UInputComponent* GetInputComponent();
+
+	void MoveForward(float scale);
+	void MoveRight(float scale);
 };
 
 #endif // !US_PAWN_HPP

@@ -15,6 +15,7 @@
 #include "Environment/Environment.hpp"
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
+#include "Physics/PhysicsSystem.hpp"
 
 
 UApplication::UApplication()
@@ -38,6 +39,7 @@ void UApplication::PostCreate()
 	CreateGameInstance();
 	CreateRenderer();
 	CreateInputManagement();
+	CreatePhysicsSystem();
 	CreateScene();
 
 	Initialize();
@@ -84,6 +86,12 @@ void UApplication::CreateScene()
 	Scene.Get()->Create();
 }
 
+void UApplication::CreatePhysicsSystem()
+{
+	PhysicsSystem = USharedPtr<UPhysicsSystem>::Make();
+	PhysicsSystem.Get()->Create();
+}
+
 void UApplication::PostInitialize()
 {
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostInitialize!", Identity.c_str()));
@@ -91,12 +99,12 @@ void UApplication::PostInitialize()
 
 void UApplication::Destroy()
 {
-	//Controller.Destroy();//.Get()->Destroy();
-	Scene.Destroy();//.Get()->Destroy();
-	InputManagement.Destroy();//.Get()->Destroy();
-	GameInstance.Destroy();//.Get()->Destroy();
-	Renderer.Destroy();//.Get()->Destroy();
-	Window.Destroy();//.Get()->Destroy();
+	PhysicsSystem.Destroy();
+	Scene.Destroy();
+	InputManagement.Destroy();
+	GameInstance.Destroy();
+	Renderer.Destroy();
+	Window.Destroy();
 
 	PostDestroy();
 }

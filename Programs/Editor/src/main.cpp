@@ -19,8 +19,9 @@ int main()
 		us::env::Environment::Applicaiton.Get()->Run();
 		us::env::Environment::Applicaiton.Destroy();
 	}
-	catch (const std::exception&)
+	catch (const std::exception& ex)
 	{
+		ULOG(ELogLevel::ELL_FATAL, ex.what());
 		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;

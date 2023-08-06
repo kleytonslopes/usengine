@@ -17,6 +17,7 @@
 #include "GameModeBase-generated.hpp"
 
 class UController;
+class APawn;
 
 class UGameModeBase : public BClass
 {
@@ -31,10 +32,16 @@ public:
 
 protected:
 	USharedPtr<UController> Controller;
+	USharedPtr<APawn> PlayerPawn;
+
 	void CreateController();
+	void CreatePlayerPawn();
 
 private:
 	TClassOf<UController> DefaultController;
+	TClassOf<APawn> DefaultPlayerPawn;
+
+	friend class BClass;
 };
 
 #endif // !US_GAME_MODE_BASE_HPP

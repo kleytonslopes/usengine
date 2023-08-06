@@ -28,13 +28,15 @@ project "Editor"
         "%{include_dir.ASSIMP}",
         "%{include_dir.ASSIMP_BUILD}",
         "%{include_dir.STB}",
+        "%{include_dir.MINI}",
+        "%{include_dir.BULLET}",
     }
 
     libdirs
     {
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
-        
+        "%{extern_lib_dir.BULLET}",
     }
 
     links
@@ -46,6 +48,12 @@ project "Editor"
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",
+        "Bullet3Common_Debug.lib",
+        "Bullet3Dynamics_Debug.lib",
+        "Bullet3Collision_Debug.lib",
+        "BulletCollision_Debug.lib",
+        "BulletDynamics_Debug.lib",
+        "LinearMath_Debug.lib",
     }
 
     postbuildcommands

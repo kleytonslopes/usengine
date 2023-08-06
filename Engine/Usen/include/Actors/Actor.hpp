@@ -17,6 +17,8 @@
 #include "Components/TransformComponent.hpp"
 #include "Actor-generated.hpp"
 
+class UAttachment;
+
 class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
@@ -27,7 +29,11 @@ public:
 	void Destroy() override;
 
 	void Create() override;
+	void Initialize() override;
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
+	void DetachFromParent() override;
+	void Detach(AActor* entity);
+
 	void SetTransform(const FTransform& transform);
 	void Update(float deltaTime) override;
 
@@ -35,7 +41,11 @@ public:
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
 
+	void SetLocation(const FVector& location);
+	
+
 protected:
+	UUniquePtr<UAttachment> Attachments;
 	TMap<FString, AComponent*> components;
 
 	void Serialize(SeriFile& otherOut) override;
@@ -58,6 +68,7 @@ protected:
 	{
 		T* component = new T();
 		components[typeid(T).name()] = component;
+		component->Create();
 
 		return component;
 	}

@@ -25,6 +25,7 @@
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
+#include "Controllers/Controller.hpp"
 
 #include "Mesh/Mesh.hpp"
 
@@ -56,33 +57,30 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	DefaultPawn = UUniquePtr<APawn>::Make();
-	DefaultPawn.Get()->Initialize();
-	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
-
 	GameMode.Get()->Initialize();
-	//Controller.Get()->Initialize();
 
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
 	if (!Renderer)
 		FException::RuntimeError("Renderer not Initialized!");
 
 	LoadScene("Unnamed");
-	//initialize shaders
-
 
 	FShaderParameters shaderParameters{};
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
-
-	
-
 	{
+
+		APawn* Pawn = GetController()->GetPawn();
+		FAttachmentSettings camAtt{};
+		camAtt.AttachMode = EAttachMode::EAM_KeepTrasform;
 		FTransform trasformC;
-		trasformC.Location = { 500.f,0.f,0.f };
+		trasformC.Location = { 0.f,0.f,0.f };
+		trasformC.Origin = { -25.f,0.f,5.f };
+		trasformC.Rotation = { 0.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
 		Camera->SetTransform(trasformC);
 		Camera->Initialize();
+		Camera->AttatchTo(Pawn, camAtt);
 
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
@@ -90,23 +88,24 @@ void UScene::Initialize()
 		FTransform trasform;
 		trasform.Location = { 0.f,0.f,0.f };
 		trasform.Rotation = { 0.f,0.f,0.f };
-		AActor* actor1 = CreateEntity<AActor>();
-		actor1->SetTransform(trasform);
 
 		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
+		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
 		FAttachmentSettings att{};
 		AMesh* mesh = CreateEntity<AMesh>();
-		mesh->AttatchTo(actor1, att);
+		mesh->SetTransform(trasform);
 		mesh->SetMeshParameters(peshParameters);
 
 		FMeshParameters peshParameters2{};
+		FAttachmentSettings att2{};
 		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
 		AMesh* mesh1 = CreateEntity<AMesh>();
+		mesh1->AttatchTo(Pawn, att2);
 		mesh1->SetMeshParameters(peshParameters2);
 
-		actor1->Initialize();
+		//actor1->Initialize();
 		mesh1->Initialize();
+		mesh->Initialize();
 	}
 
 	
@@ -136,6 +135,11 @@ ACamera* UScene::GetCamera()
 	return Camera;
 }
 
+UGameModeBase* UScene::GetGameMode()
+{
+	return GameMode.Get();
+}
+
 template<class T>
 T* UScene::CreateEntity()
 {
@@ -149,10 +153,11 @@ T* UScene::CreateEntity()
 
 void UScene::Create()
 {
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+
 	GameMode = USharedPtr<UGameModeBase>::Make();
 	GameMode.Get()->Create();
-
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+	
 	Serializer = UUniquePtr<FSceneSerializer>::Make();
 	Serializer.Get()->SetScene(this);
 }

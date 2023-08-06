@@ -11,6 +11,9 @@
 #include "Framework/GameModeBase.hpp"
 #include "Controllers/Controller.hpp"
 #include "Controllers/PlayerController.hpp"
+#include "Input/InputManagement.hpp"
+#include "Pawns/Pawn.hpp"
+
 
 UGameModeBase::UGameModeBase()
 {
@@ -25,6 +28,7 @@ UGameModeBase::~UGameModeBase()
 void UGameModeBase::Create()
 {
 	DefaultController = UPlayerController::GetClass();
+	DefaultPlayerPawn = APawn::GetClass();
 
 	Super::Create();
 }
@@ -32,6 +36,7 @@ void UGameModeBase::Create()
 void UGameModeBase::PostCreate()
 {
 	CreateController();
+	CreatePlayerPawn();
 }
 
 void UGameModeBase::Initialize()
@@ -45,4 +50,13 @@ void UGameModeBase::CreateController()
 {
 	Controller = USharedPtr<UController>::FromClass(DefaultController);
 	Controller.Get()->Create();
+}
+
+void UGameModeBase::CreatePlayerPawn()
+{
+	PlayerPawn = USharedPtr<APawn>::FromClass(DefaultPlayerPawn);
+	PlayerPawn.Get()->Create();
+	GetInputManagement()->SetInputComponent(PlayerPawn.Get()->GetInputComponent());
+
+	Controller.Get()->SetPawn(PlayerPawn);
 }
