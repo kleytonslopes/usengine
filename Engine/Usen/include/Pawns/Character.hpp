@@ -23,5 +23,6 @@ public:
 	explicit ACharacter();
 	virtual ~ACharacter();
 
+};
 
 #endif // !US_CHARACTER_HPP
