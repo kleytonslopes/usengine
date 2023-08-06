@@ -25,6 +25,7 @@ class UGameInstance;
 class UScene;
 class UController;
 class UInputManagement;
+class UPhysicsSystem;
 
 //#define CLASSOF(A) A
 
@@ -66,6 +67,7 @@ protected:
 	virtual void CreateRenderer();
 	virtual void CreateInputManagement();
 	virtual void CreateScene();
+	virtual void CreatePhysicsSystem();
 
 private:
 	USharedPtr<UWindow> Window;
@@ -73,6 +75,7 @@ private:
 	USharedPtr<BRenderer> Renderer;
 	USharedPtr<UScene> Scene;
 	USharedPtr<UInputManagement> InputManagement;
+	USharedPtr<UPhysicsSystem> PhysicsSystem;
 
 	UController* Controller;
 

@@ -25,4 +25,6 @@
 #include "Core/FunctionClass.hpp"
 #include "Core/Exception.hpp"
 
+#include "btBulletDynamicsCommon.h"
+
 #endif // !US_MINIMAL_CORE_HPP

@@ -2,22 +2,10 @@ Scene: Unnamed
 Shaders:
   name: []
 Entities:
-  - Entity: 042f217a-d4f4-4e8e-aa70-1f54aa4993c0
-    Components:
-      UMeshComponent:
-        id: b2791b13-336c-44ae-842d-c4de4fac41c7
-        mesh_path: ../../Content/Models/cube.obj
-      UTransformComponent:
-        id: 80b9e52d-c6d9-40c5-9fb9-0b8bd8d22a68
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [1, 0, 0]
-  - Entity: 514230f3-7a87-4294-a7cb-f12478bbc27d
+  - Entity: 03152f39-521d-43c4-86a3-727fee7c253d
     Components:
       UCameraComponent:
-        id: 6022e890-f42f-4066-b796-ecd63debefb5
+        id: 55cc0144-da9f-4b6b-ad5b-1a6c8deec5c2
         near: 9.99999975e-05
         far: 100000
         fov: 45
@@ -28,29 +16,41 @@ Entities:
         pitchAxis: [1, 0, 0]
         rollAxis: [0, 0, 1]
       UTransformComponent:
-        id: 6d9bf3a4-c240-43b5-983e-6b8c92e0dd66
+        id: 38552fd3-07a2-43ed-8489-80ddb9e2a8b8
         location: [-25, 0, 5]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [1, 0, 0]
-  - Entity: ba2ceecc-7d00-4912-915d-46c83b516694
-  - Entity: ca132c9b-596c-4794-99a1-482143660490
+  - Entity: 2dc60a33-092e-49a6-a367-bc4c3e390c69
     Components:
-      UMeshComponent:
-        id: 07040063-76f1-4f10-a37d-b39743d4bb3d
-        mesh_path: ../../Content/Models/gizmo.obj
       UTransformComponent:
-        id: 0945455c-87e6-404e-b9ac-518b1d54f3d5
+        id: 2a2d7ad6-cb67-41eb-b9ac-ec60dbd33537
         location: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [1, 0, 0]
-  - Entity: e119c975-f33c-4611-b7c7-c01cb5740797
+  - Entity: 9a9a07c2-dd2f-4076-80ff-9ba26a8be854
+  - Entity: d3538e0d-92b7-49ac-8acb-fd6ddf497b05
     Components:
+      UMeshComponent:
+        id: 085be1e1-e221-424b-b847-b6c69720ea3d
+        mesh_path: ../../Content/Models/cube.obj
       UTransformComponent:
-        id: f300d4a1-a432-4ba4-bb97-126bf812b6dd
+        id: b08d4d5d-4bc1-4a68-a7b4-5e729e1c7545
+        location: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: f653a0ae-2ca4-4313-a000-8f14cfcf3693
+    Components:
+      UMeshComponent:
+        id: e1887041-5d1a-4784-84d8-77eb16388d9b
+        mesh_path: ../../Content/Models/gizmo.obj
+      UTransformComponent:
+        id: cbce3221-de10-4487-81ba-41ecdc9f6ab5
         location: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]

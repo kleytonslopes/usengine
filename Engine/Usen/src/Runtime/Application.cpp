@@ -15,6 +15,7 @@
 #include "Environment/Environment.hpp"
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
+#include "Physics/PhysicsSystem.hpp"
 
 
 UApplication::UApplication()
@@ -38,6 +39,7 @@ void UApplication::PostCreate()
 	CreateGameInstance();
 	CreateRenderer();
 	CreateInputManagement();
+	CreatePhysicsSystem();
 	CreateScene();
 
 	Initialize();
@@ -82,6 +84,12 @@ void UApplication::CreateScene()
 {
 	Scene = USharedPtr<UScene>::Make();
 	Scene.Get()->Create();
+}
+
+void UApplication::CreatePhysicsSystem()
+{
+	PhysicsSystem = USharedPtr<UPhysicsSystem>::Make();
+	PhysicsSystem.Get()->Create();
 }
 
 void UApplication::PostInitialize()

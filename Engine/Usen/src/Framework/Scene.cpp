@@ -153,10 +153,11 @@ T* UScene::CreateEntity()
 
 void UScene::Create()
 {
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+
 	GameMode = USharedPtr<UGameModeBase>::Make();
 	GameMode.Get()->Create();
-
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
+	
 	Serializer = UUniquePtr<FSceneSerializer>::Make();
 	Serializer.Get()->SetScene(this);
 }
