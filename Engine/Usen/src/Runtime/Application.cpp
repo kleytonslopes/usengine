@@ -99,12 +99,12 @@ void UApplication::PostInitialize()
 
 void UApplication::Destroy()
 {
-	//Controller.Destroy();//.Get()->Destroy();
-	Scene.Destroy();//.Get()->Destroy();
-	InputManagement.Destroy();//.Get()->Destroy();
-	GameInstance.Destroy();//.Get()->Destroy();
-	Renderer.Destroy();//.Get()->Destroy();
-	Window.Destroy();//.Get()->Destroy();
+	PhysicsSystem.Destroy();
+	Scene.Destroy();
+	InputManagement.Destroy();
+	GameInstance.Destroy();
+	Renderer.Destroy();
+	Window.Destroy();
 
 	PostDestroy();
 }

@@ -41,6 +41,7 @@ public:
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
 
+	void SetLocation(const FVector& location);
 	
 
 protected:
@@ -67,6 +68,7 @@ protected:
 	{
 		T* component = new T();
 		components[typeid(T).name()] = component;
+		component->Create();
 
 		return component;
 	}

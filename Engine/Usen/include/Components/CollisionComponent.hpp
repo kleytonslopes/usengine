@@ -25,14 +25,26 @@ public:
 
 	virtual void CalculeLocalInertia() { /* override */ };
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
+	
+	void Create() override;
+
+	void SetIsDynamic(const bool& isDynamic);
+	bool IsDynamic() const { return bIsDynamic; }
+	virtual FVector GetLocation() { return FVector{}; }
+
 protected:
-	bool bIsDynamic = false;
-	float Mass = 100.f;
+	bool bIsDynamic = true;
+	float Mass = 10.f;
+	
 	btVector3 LocalInertia{ 0.f, 0.f, 0.f };
 	btTransform StartTransform;
 
 	btRigidBody* Body = nullptr;
+
+	FVector GetLocationCalculated(const btVector3& btLocation);
+
 private:
+	float DefaultMass = 0.f;
 
 	friend class UPhysicsSystem;
 };

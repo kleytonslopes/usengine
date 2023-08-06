@@ -29,13 +29,17 @@ void AActor::Destroy()
 
 	if (bIsAttached)
 	{
-		Parent->DetachFromParent();
+		if(Parent)
+			Parent->DetachFromParent();
 	}
 
 	for (it = components.begin(); it != components.end(); it++)
 	{
-		it->second->Destroy();
-		delete it->second;
+		if (it->second != nullptr)
+		{
+			it->second->Destroy();
+			delete it->second;
+		}
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
@@ -77,7 +81,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 		return;
 
 	actorParent->Attachments.Get()->Attatch(this);
-	
+
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 		SetTransform(actorParent->GetTransform());
 	else if (attachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
@@ -110,11 +114,11 @@ void AActor::DetachFromParent()
 void AActor::SetTransform(const FTransform& transform)
 {
 	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
-	
+
 	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
 		TransformComponent->SetTransform(transform);
-	} 
+	}
 	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
 	{
 		AActor* MyParent = GetParent<AActor>();
@@ -167,6 +171,37 @@ FVector AActor::GetSceneLocation()
 FTransform& AActor::GetTransform()
 {
 	return GetComponent<UTransformComponent>()->GetTransform();
+}
+
+void AActor::SetLocation(const FVector& location)
+{
+	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
+
+	//TransformComponent->SetLocation(location);
+
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetLocation(location);
+	}
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* MyParent = GetParent<AActor>();
+		FVector location = MyParent->GetLocation();
+		FTransform myTransform = GetTransform();
+		FVector myLocation = GetLocation();
+		FVector myOrigin =
+
+		myTransform.Location = location + myTransform.Origin;
+		TransformComponent->SetLocation(myTransform.Location);
+	}
+
+	//if (Attachments.Get()->HasAttachments())
+	//{
+	//	for (auto& it : Attachments.Get()->Attachments)
+	//	{
+	//		it.second->SetTransform(transform);
+	//	}
+	//}
 }
 
 void AActor::Draw(float deltaTime)

@@ -21,12 +21,6 @@ UPhysicsSystem::UPhysicsSystem()
 UPhysicsSystem::~UPhysicsSystem()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-
-	delete DiscreteDynamicsWorld;
-	delete ConstraintSolver;
-	delete BroadphaseInterface;
-	delete CollisionDispatcher;
-	delete DefaultCollisionConfiguration;
 }
 
 void UPhysicsSystem::Create()
@@ -44,6 +38,62 @@ void UPhysicsSystem::Update(float deltaTime)
 	{
 		DiscreteDynamicsWorld->stepSimulation(deltaTime);
 	}
+}
+
+void UPhysicsSystem::Destroy()
+{
+	if (TypedConstraint)
+	{
+		RigidBody->forceActivationState(SavedState);
+		RigidBody->activate();
+		DiscreteDynamicsWorld->removeConstraint(TypedConstraint);
+		delete TypedConstraint;
+		TypedConstraint = 0;
+		RigidBody = 0;
+	}
+
+	if (CollisionDispatcher)
+	{
+		int i;
+		for (i = DiscreteDynamicsWorld->getNumConstraints() - 1; i >= 0; i--)
+		{
+			DiscreteDynamicsWorld->removeConstraint(DiscreteDynamicsWorld->getConstraint(i));
+		}
+		for (i = DiscreteDynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
+		{
+			btCollisionObject* obj = DiscreteDynamicsWorld->getCollisionObjectArray()[i];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			if (body && body->getMotionState())
+			{
+				delete body->getMotionState();
+			}
+			DiscreteDynamicsWorld->removeCollisionObject(obj);
+			delete obj;
+		}
+
+	}
+
+	for (int j = 0; j < CollisionShapes.size(); j++)
+	{
+		btCollisionShape* shape = CollisionShapes[j];
+		delete shape;
+	}
+	CollisionShapes.clear();
+
+	delete DiscreteDynamicsWorld;
+	DiscreteDynamicsWorld = 0;
+
+	delete ConstraintSolver;
+	ConstraintSolver = 0;
+
+	delete BroadphaseInterface;
+	BroadphaseInterface = 0;
+
+	delete CollisionDispatcher;
+	CollisionDispatcher = 0;
+
+	delete DefaultCollisionConfiguration;
+	DefaultCollisionConfiguration = 0;
 }
 
 void UPhysicsSystem::RegisterComponent(UBoxCollisionComponent* collisionComponent)

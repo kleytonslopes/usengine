@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "Physics/PhysicsSystem.hpp"
 
 UBoxCollisionComponent::UBoxCollisionComponent()
 {
@@ -23,7 +24,10 @@ UBoxCollisionComponent::~UBoxCollisionComponent()
 
 void UBoxCollisionComponent::Create()
 {
+	Super::Create();
 	Shape = new btBoxShape(btVector3{ BoundBox.x, BoundBox.y, BoundBox.z });
+
+	GetPhysicsSystem()->RegisterComponent(this);
 }
 
 void UBoxCollisionComponent::Destroy()
@@ -45,4 +49,11 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, myMotionState, Shape, LocalInertia);
 	Body = new btRigidBody(rbInfo);
 	return Body;
+}
+
+FVector UBoxCollisionComponent::GetLocation()
+{
+	btVector3 scalLocation = Shape->getLocalScaling();
+
+	return GetLocationCalculated(scalLocation);
 }

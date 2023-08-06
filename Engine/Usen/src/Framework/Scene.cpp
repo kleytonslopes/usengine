@@ -69,6 +69,7 @@ void UScene::Initialize()
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
 	{
+
 		APawn* Pawn = GetController()->GetPawn();
 		FAttachmentSettings camAtt{};
 		camAtt.AttachMode = EAttachMode::EAM_KeepTrasform;
@@ -87,14 +88,12 @@ void UScene::Initialize()
 		FTransform trasform;
 		trasform.Location = { 0.f,0.f,0.f };
 		trasform.Rotation = { 0.f,0.f,0.f };
-		AActor* actor1 = CreateEntity<AActor>();
-		actor1->SetTransform(trasform);
 
 		FMeshParameters peshParameters{};
 		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
 		FAttachmentSettings att{};
 		AMesh* mesh = CreateEntity<AMesh>();
-		mesh->AttatchTo(actor1, att);
+		mesh->SetTransform(trasform);
 		mesh->SetMeshParameters(peshParameters);
 
 		FMeshParameters peshParameters2{};
@@ -104,8 +103,9 @@ void UScene::Initialize()
 		mesh1->AttatchTo(Pawn, att2);
 		mesh1->SetMeshParameters(peshParameters2);
 
-		actor1->Initialize();
+		//actor1->Initialize();
 		mesh1->Initialize();
+		mesh->Initialize();
 	}
 
 	

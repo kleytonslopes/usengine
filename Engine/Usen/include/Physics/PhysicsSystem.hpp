@@ -27,6 +27,7 @@ public:
 
 	void Create() override;
 	void Update(float deltaTime) override;
+	void Destroy() override;
 	void RegisterComponent(UBoxCollisionComponent* collisionComponent);
 
 private:

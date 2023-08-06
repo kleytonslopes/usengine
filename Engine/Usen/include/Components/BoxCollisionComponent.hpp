@@ -28,6 +28,7 @@ public:
 
 	void CalculeLocalInertia() override;
 	btRigidBody* CreateRigidBody() override;
+	FVector GetLocation() override;
 
 private:
 	FVector BoundBox{ 1.f, 1.f, 1.f };
