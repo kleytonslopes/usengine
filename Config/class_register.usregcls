@@ -1217,5 +1217,28 @@
       "ClassGenDefinition": "hpp_UBoxCollisionComponent_UCollisionComponent",
       "ClassGenDefinitionVersion": "hpp_UBoxCollisionComponent_UCollisionComponent_def"
     }
+  },
+  {
+    "ClassName": "UStaticMesh",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UStaticMesh",
+      "ClassDefinition": "US_STATIC_MESH_HPP",
+      "HppFileName": "StaticMesh.hpp",
+      "CppFileName": "StaticMesh.cpp",
+      "GenFileName": "StaticMesh-generated.hpp",
+      "FolderHpp": "include/Mesh",
+      "FolderCpp": "src/Mesh",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "AMesh",
+      "BaseClassPathHpp": "Mesh/Mesh.hpp",
+      "BaseClassTemplate": " : public AMesh",
+      "BaseClassInclude": "\n#include \"Mesh/Mesh.hpp\"",
+      "ClassGenDefinition": "hpp_UStaticMesh_AMesh",
+      "ClassGenDefinitionVersion": "hpp_UStaticMesh_AMesh_def"
+    }
   }
 ]

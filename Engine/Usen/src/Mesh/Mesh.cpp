@@ -19,7 +19,6 @@
 
 AMesh::AMesh()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
 AMesh::~AMesh()
@@ -45,14 +44,11 @@ void AMesh::Create()
 	CollisionComponent = AddComponent<UBoxCollisionComponent>();
 	CollisionComponent->SetOwner(Owner);
 	CollisionComponent->SetParent(this);
-	CollisionComponent->SetIsDynamic(true);
-
-	PostCreate();
 }
 
 void AMesh::PostCreate()
 {
-
+	
 }
 
 void AMesh::Initialize()
@@ -95,6 +91,12 @@ void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 
 	URenderComponent* RenderComponent = GetRenderComponent();
 	RenderComponent->SetShader(shader);
+}
+
+void AMesh::SetIsDynamic(const bool& isDynamic)
+{
+	if (CollisionComponent)
+		CollisionComponent->SetIsDynamic(isDynamic);
 }
 
 void AMesh::Draw(float deltaTime)

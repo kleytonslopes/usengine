@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Scene.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Framework/Scene.hpp"
@@ -28,13 +28,14 @@
 #include "Controllers/Controller.hpp"
 
 #include "Mesh/Mesh.hpp"
+#include "Mesh/StaticMesh.hpp"
 
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
 
 UScene::UScene()
 {
-	
+
 }
 
 UScene::~UScene()
@@ -65,50 +66,64 @@ void UScene::Initialize()
 
 	LoadScene("Unnamed");
 
-	FShaderParameters shaderParameters{};
-	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
+	/* */
 
-	{
 
-		APawn* Pawn = GetController()->GetPawn();
-		FAttachmentSettings camAtt{};
-		camAtt.AttachMode = EAttachMode::EAM_KeepTrasform;
-		FTransform trasformC;
-		trasformC.Location = { 0.f,0.f,0.f };
-		trasformC.Origin = { -25.f,0.f,5.f };
-		trasformC.Rotation = { 0.f,0.f,0.f };
-		Camera = CreateEntity<ACamera>();
-		Camera->SetTransform(trasformC);
-		Camera->Initialize();
-		Camera->AttatchTo(Pawn, camAtt);
-
-		AEntity* entity1 = CreateEntity<AEntity>();
-		entity1->Initialize();
-
-		FTransform trasform;
-		trasform.Location = { 0.f,0.f,0.f };
-		trasform.Rotation = { 0.f,0.f,0.f };
-
-		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
-		FAttachmentSettings att{};
-		AMesh* mesh = CreateEntity<AMesh>();
-		mesh->SetTransform(trasform);
-		mesh->SetMeshParameters(peshParameters);
-
-		FMeshParameters peshParameters2{};
-		FAttachmentSettings att2{};
-		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-		AMesh* mesh1 = CreateEntity<AMesh>();
-		mesh1->AttatchTo(Pawn, att2);
-		mesh1->SetMeshParameters(peshParameters2);
-
-		//actor1->Initialize();
-		mesh1->Initialize();
-		mesh->Initialize();
-	}
+	Settings.ShadersParameters.push_back(FShaderParameters{ ShaderDefault::DEFAULT });
+	Settings.ShadersParameters.push_back(FShaderParameters{ ShaderDefault::SKYBOX });
 
 	
+
+	FShaderParameters shaderParameters{};
+	Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
+
+	
+
+	{
+		{ // Floor
+			FMeshParameters floorMeshParameters{};
+			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
+
+			UStaticMesh* FloorMesh = CreateEntity<UStaticMesh>();
+			FloorMesh->SetMeshParameters(floorMeshParameters);
+			FloorMesh->Initialize();
+		}
+		{ // Gizmo
+			FTransform trasform;
+			trasform.Location = { 0.f,0.f,0.f };
+			trasform.Rotation = { 0.f,0.f,0.f };
+			FMeshParameters gizmoMeshParameters{};
+			gizmoMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
+			AMesh* GizmoMesh = CreateEntity<AMesh>();
+			GizmoMesh->SetIsDynamic(false);
+			GizmoMesh->SetTransform(trasform);
+			GizmoMesh->SetMeshParameters(gizmoMeshParameters);
+			GizmoMesh->Initialize();
+		}
+
+		{ // Pawn
+			APawn* Pawn = GetController()->GetPawn();
+			Pawn->SetLocation(FVector{ 0.f,0.f,2.f });
+			FAttachmentSettings pawnCameraAttachmentSettings{};
+			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
+			FTransform trasformCamera;
+			trasformCamera.Location = { 0.f,0.f,0.f };
+			trasformCamera.Origin = { -25.f,0.f,5.f };
+			trasformCamera.Rotation = { 0.f,0.f,0.f };
+			Camera = CreateEntity<ACamera>();
+			Camera->SetTransform(trasformCamera);
+			Camera->Initialize();
+			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
+
+			FMeshParameters pawnMeshParameters{};
+			FAttachmentSettings pawnMeshAttachmentSettings{};
+			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			AMesh* pawnMesh = CreateEntity<AMesh>();
+			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
+			pawnMesh->SetMeshParameters(pawnMeshParameters);
+			pawnMesh->Initialize();
+		}
+	}
 
 	SaveScene();
 
@@ -118,13 +133,12 @@ void UScene::Initialize()
 void UScene::Update(float deltaTime)
 {
 	TMap<FString, AEntity*>::iterator it;
-	
+
 	Super::Application->GetRenderer()->StartFrame();
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
 		it->second->Update(deltaTime);
-		//Super::Application->GetRenderer()->Draw(it->second, deltaTime);
 	}
 
 	Super::Application->GetRenderer()->EndFrame();
@@ -157,7 +171,7 @@ void UScene::Create()
 
 	GameMode = USharedPtr<UGameModeBase>::Make();
 	GameMode.Get()->Create();
-	
+
 	Serializer = UUniquePtr<FSceneSerializer>::Make();
 	Serializer.Get()->SetScene(this);
 }

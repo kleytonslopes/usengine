@@ -40,16 +40,18 @@ public:
 	UCollisionComponent* GetCollisionComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
+	void SetIsDynamic(const bool& isDynamic);
 
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
+	UCollisionComponent* CollisionComponent = nullptr;
 
 	void Draw(float deltaTime) override;
 
 private:
 	UUniquePtr<UModel> Model;
-	UCollisionComponent* CollisionComponent = nullptr;
+	
 };
 
 #endif // !US_MESH_HPP
