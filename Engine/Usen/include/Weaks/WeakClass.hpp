@@ -34,6 +34,8 @@ public:
 	FString GetId() const { return Id; }
 	FString GetIdentity() const { return Identity; }
 
+	virtual FString GetIdentity() { return "IWeakClass"; }
+
 protected:
 	FString Id;
 	FString Identity;

@@ -95,7 +95,7 @@ void FSceneSerializer::SetializeEntities()
 	for (it = Scene->entities.begin(); it != Scene->entities.end(); it++)
 	{
 		BeginSection("Entity", it->second->GetId());
-
+		Key("Identity", it->second->GetIdentity());
 		it->second->Serialize(out);
 
 		ULOG(ELogLevel::ELL_TRACE, FText::Format("Iterating with %s", it->first.c_str()));

@@ -36,6 +36,7 @@ private: \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
 	static TClassOf<UStaticMesh> GetClass() { return TClassOf<UStaticMesh>(); } \
+    FString GetIdentity() { return Identity; } \
 private: 
 	
 

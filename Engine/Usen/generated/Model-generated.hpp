@@ -36,6 +36,7 @@ private: \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
 	static TClassOf<UModel> GetClass() { return TClassOf<UModel>(); } \
+    FString GetIdentity() { return Identity; } \
 private: 
 	
 
