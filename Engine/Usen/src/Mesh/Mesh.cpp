@@ -57,11 +57,11 @@ void AMesh::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	FTransform rotation = GetTransform();
-	rotation.Rotation.z += 20.0f * deltaTime;
-	rotation.Rotation.x += 10.0f * deltaTime;
-	rotation.Rotation.y += 5.0f * deltaTime;
-	SetTransform(rotation);
+	//FTransform rotation = GetTransform();
+	//rotation.Rotation.z += 20.0f * deltaTime;
+	//rotation.Rotation.x += 10.0f * deltaTime;
+	//rotation.Rotation.y += 5.0f * deltaTime;
+	//SetTransform(rotation);
 
 }
 

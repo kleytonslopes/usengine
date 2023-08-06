@@ -70,27 +70,32 @@ void UScene::Initialize()
 
 	{
 		APawn* Pawn = GetController()->GetPawn();
+		FAttachmentSettings camAtt{};
+		camAtt.AttachMode = EAttachMode::EAM_KeepTrasform;
 		FTransform trasformC;
-		trasformC.Location = { 50.f,0.f,0.f };
+		trasformC.Location = { 0.f,0.f,0.f };
+		trasformC.Origin = { -25.f,0.f,5.f };
+		trasformC.Rotation = { 0.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
 		Camera->SetTransform(trasformC);
 		Camera->Initialize();
+		Camera->AttatchTo(Pawn, camAtt);
 
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
-		//FTransform trasform;
-		//trasform.Location = { 0.f,0.f,0.f };
-		//trasform.Rotation = { 0.f,0.f,0.f };
-		//AActor* actor1 = CreateEntity<AActor>();
-		//actor1->SetTransform(trasform);
+		FTransform trasform;
+		trasform.Location = { 0.f,0.f,0.f };
+		trasform.Rotation = { 0.f,0.f,0.f };
+		AActor* actor1 = CreateEntity<AActor>();
+		actor1->SetTransform(trasform);
 
-		//FMeshParameters peshParameters{};
-		//peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
-		//FAttachmentSettings att{};
-		//AMesh* mesh = CreateEntity<AMesh>();
-		//mesh->AttatchTo(actor1, att);
-		//mesh->SetMeshParameters(peshParameters);
+		FMeshParameters peshParameters{};
+		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
+		FAttachmentSettings att{};
+		AMesh* mesh = CreateEntity<AMesh>();
+		mesh->AttatchTo(actor1, att);
+		mesh->SetMeshParameters(peshParameters);
 
 		FMeshParameters peshParameters2{};
 		FAttachmentSettings att2{};
@@ -99,7 +104,7 @@ void UScene::Initialize()
 		mesh1->AttatchTo(Pawn, att2);
 		mesh1->SetMeshParameters(peshParameters2);
 
-		//actor1->Initialize();
+		actor1->Initialize();
 		mesh1->Initialize();
 	}
 

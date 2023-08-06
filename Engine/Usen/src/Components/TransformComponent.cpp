@@ -23,6 +23,11 @@ FVector UTransformComponent::GetLocation()
 	return Transform.Location;
 }
 
+FVector UTransformComponent::GetOrigin()
+{
+	return Transform.Origin;
+}
+
 FVector UTransformComponent::GetRotation()
 {
 	return Transform.Rotation;
@@ -61,10 +66,18 @@ FVector UTransformComponent::GetDirection()
 void UTransformComponent::SetTransform(const FTransform transform)
 {
 	SetLocation(transform.Location);
+	SetOrigin(transform.Origin);
 	SetRotation(transform.Rotation);
 	SetScale(transform.Scale);
 	SetUpVector(transform.UpVector);
 	SetForwardVector(transform.ForwardVector);
+}
+
+void UTransformComponent::SetOrigin(const FVector& vector)
+{
+	Transform.Origin.x = vector.x;
+	Transform.Origin.y = vector.y;
+	Transform.Origin.z = vector.z;
 }
 
 void UTransformComponent::SetLocation(const FVector& vector)

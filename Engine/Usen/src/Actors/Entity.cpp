@@ -66,6 +66,7 @@ void AEntity::SetOwner(AEntity* owner)
 
 void AEntity::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 {
+	AttachmentSettings = attachmentSettings;
 	Parent = parent;
 	bIsAttached = true;
 }

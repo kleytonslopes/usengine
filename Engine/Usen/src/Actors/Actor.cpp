@@ -26,7 +26,7 @@ AActor::~AActor()
 void AActor::Destroy()
 {
 	TMap<FString, AComponent*>::iterator it;
-	
+
 	if (bIsAttached)
 	{
 		Parent->DetachFromParent();
@@ -66,17 +66,29 @@ void AActor::Initialize()
 
 void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 {
+	if (!parent)
+		return;
+
 	Super::AttatchTo(parent, attachmentSettings);
 
+	AActor* actorParent = GetParent<AActor>();
+
+	if (!actorParent)
+		return;
+
+	actorParent->Attachments.Get()->Attatch(this);
+	
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+		SetTransform(actorParent->GetTransform());
+	else if (attachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
 	{
-		AActor* actorParent = GetParent<AActor>();
-		if (actorParent)
-		{
-			actorParent->Attachments.Get()->Attatch(this);
-			SetTransform(actorParent->GetTransform());
-		}
+		FTransform parentTransform = actorParent->GetTransform();
+		FVector location = parentTransform.Location;
+		FTransform myTransform = GetTransform();
+		myTransform.Location = location + myTransform.Origin;
+		SetTransform(myTransform);
 	}
+
 }
 
 void AActor::Detach(AActor* actor)
@@ -98,8 +110,22 @@ void AActor::DetachFromParent()
 void AActor::SetTransform(const FTransform& transform)
 {
 	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
-	TransformComponent->SetTransform(transform);
 	
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetTransform(transform);
+	} 
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* MyParent = GetParent<AActor>();
+		FTransform parentTransform = MyParent->GetTransform();
+		FVector location = parentTransform.Location;
+		FTransform myTransform = GetTransform();
+
+		myTransform.Location = location + myTransform.Origin;
+		TransformComponent->SetTransform(myTransform);
+	}
+
 	if (Attachments.Get()->HasAttachments())
 	{
 		for (auto& it : Attachments.Get()->Attachments)

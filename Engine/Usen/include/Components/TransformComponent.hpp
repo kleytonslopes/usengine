@@ -19,10 +19,11 @@
 struct FTransform
 {
 	FVector Location{ 0.f, 0.f, 0.f };
+	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };
 	FVector Scale{ 1.f, 1.f, 1.f };
 	FVector UpVector{ 0.f, 0.f, 1.f };
-	FVector ForwardVector{ -1.f, 0.f, 0.f };
+	FVector ForwardVector{ 1.f, 0.f, 0.f };
 };
 
 class UTransformComponent : public AComponent
@@ -33,6 +34,7 @@ public:
 	~UTransformComponent() final;
 
 	FVector GetLocation();
+	FVector GetOrigin();
 	FVector GetRotation();
 	FVector GetScale();
 	FVector GetUpVector();
@@ -43,6 +45,7 @@ public:
 	FVector GetDirection();
 
 	void SetTransform(const FTransform transform);
+	void SetOrigin(const FVector& transform);
 	void SetLocation(const FVector& vector);
 	void SetRotation(const FVector& vector);
 	void SetScale(const FVector& vector);

@@ -48,7 +48,6 @@ public:
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
 	virtual void DetachFromParent();
-	//virtual void Detach(AEntity* entity);
 
 	template<typename T>
 	inline T* GetParent()
@@ -59,6 +58,7 @@ public:
 protected:
 	AEntity* Owner = nullptr;
 	AEntity* Parent = nullptr;
+	FAttachmentSettings AttachmentSettings;
 
 	/*UUniquePtr<UAttachment> Attachments;*/
 

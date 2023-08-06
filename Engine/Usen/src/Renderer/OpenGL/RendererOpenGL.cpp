@@ -80,6 +80,9 @@ void URendererOpenGL::StartFrame()
 		shdIterator->second->SetMatrix4("view", view);
 		shdIterator->second->Deactive();
 	}
+
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilMask(0xFF);
 }
 
 void URendererOpenGL::EndFrame()

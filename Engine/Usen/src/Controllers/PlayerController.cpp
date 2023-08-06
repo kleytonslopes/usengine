@@ -71,7 +71,7 @@ void UPlayerController::MoveRight(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveRight(scale);
+	Pawn->MoveRight(-scale);
 }
 
 void UPlayerController::MoveLeft(float scale)
@@ -79,5 +79,5 @@ void UPlayerController::MoveLeft(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveRight(-scale);
+	Pawn->MoveRight(scale);
 }
