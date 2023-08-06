@@ -23,24 +23,13 @@ UInputComponent::~UInputComponent()
 
 void UInputComponent::Create()
 {
-	/*GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);*/
+
 }
 
 void UInputComponent::ExecuteAction(const FString& action, EKeyHandler keyHandler)
 {
+	FString localAction = keyHandler == EKeyHandler::KEY_PRESSED ? action + "_Pressed" : action + "_Released";
 	
-	FString localAction;
-	
-	switch (keyHandler)
-	{
-	case KEY_RELEASED:
-		localAction = action + "_Released";
-		break;
-	default:
-		localAction = action + "_Pressed";
-		break;
-	}
-
 	ULOG(ELogLevel::ELL_DEBUG, FText::Format("Finding Action %s...", localAction.c_str()));
 
 	ActionMap::iterator it;

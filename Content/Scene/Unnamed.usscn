@@ -2,44 +2,23 @@ Scene: Unnamed
 Shaders:
   name: []
 Entities:
-  - Entity: 30920ea6-d8a9-469a-96d6-9bd7c394b7f6
-    Components:
-      UTransformComponent:
-        id: 8e7b9cc4-dfc3-4ce4-ada2-a58a2e87e1ed
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [-1, 0, 0]
-  - Entity: 3801ac9e-ff1f-49ad-86fd-15c4dd53bf76
+  - Entity: 0b5a95cd-3136-47de-b585-5a51cfd92904
     Components:
       UMeshComponent:
-        id: 424c6c3d-3125-4364-b2e6-9b435f36ae13
-        mesh_path: ../../Content/Models/plane.obj
-      UTransformComponent:
-        id: b691fdc7-98e0-4436-a3b8-4b8b7399cc5c
-        location: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [-1, 0, 0]
-  - Entity: 5d61c5c9-5976-43de-bd0d-b5df1592c6f6
-    Components:
-      UMeshComponent:
-        id: 83154110-7ecd-49d0-8084-9c1d3852da1c
+        id: 632e9b81-2767-4a33-8e25-16b6b3347079
         mesh_path: ../../Content/Models/cube.obj
       UTransformComponent:
-        id: ff38b285-78d6-44d2-a587-425900f9f452
+        id: d56ee6f3-9809-45bd-ad0c-a909d150b85b
         location: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [-1, 0, 0]
-  - Entity: 71be46e3-48c1-4210-9bd6-7a14d4625816
-  - Entity: db3da685-cb36-45eb-bcc8-d9d28c7a0a78
+  - Entity: 6734a66c-2f32-466f-b9e0-75f4d728607f
+  - Entity: c9f04a6e-feee-4cac-a11a-2592f8ac43aa
     Components:
       UCameraComponent:
-        id: de584b75-46f4-4c28-846e-6c744496c964
+        id: c1a70b5c-0c6f-4383-ad1a-5dccf5109a7b
         near: 9.99999975e-05
         far: 100000
         fov: 45
@@ -50,8 +29,8 @@ Entities:
         pitchAxis: [1, 0, 0]
         rollAxis: [0, 0, 1]
       UTransformComponent:
-        id: df880a41-e7ec-49bc-8192-665c8ba65ce4
-        location: [500, 0, 0]
+        id: db89d183-fe85-4b51-99b8-fb47d227f452
+        location: [50, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]

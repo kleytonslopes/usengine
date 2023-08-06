@@ -8,6 +8,7 @@ include_dir["IMGUI"]        = "%{wks.location}/ThirdParty/IMGUI/include"
 include_dir["ASSIMP"]       = "%{wks.location}/ThirdParty/ASSIMP/include"
 include_dir["ASSIMP_BUILD"] = "%{wks.location}/ThirdParty/ASSIMP/build/include"
 include_dir["STB"]          = "%{wks.location}/ThirdParty/STB"
+include_dir["MINI"]         = "%{wks.location}/ThirdParty/MINI/src"
 
 extern_lib_dir = {}
 extern_lib_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"

@@ -11,10 +11,10 @@
 #include "Pawns/Pawn.hpp"
 #include "Components/CameraComponent.hpp"
 #include "Components/InputComponent.hpp"
+#include "Components/TransformComponent.hpp"
 
 APawn::APawn()
 {
-	This::Create();
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
@@ -51,4 +51,22 @@ void APawn::SetupInputComponent()
 UInputComponent* APawn::GetInputComponent()
 {
 	return GetComponent<UInputComponent>();
+}
+
+void APawn::MoveForward(float scale)
+{
+	FTransform transform = GetTransform();
+
+	transform.Location.x += scale;
+
+	SetTransform(transform);
+}
+
+void APawn::MoveRight(float scale)
+{
+	FTransform transform = GetTransform();
+
+	transform.Location.y += scale;
+
+	SetTransform(transform);
 }

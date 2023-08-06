@@ -57,7 +57,6 @@ public:
 	}
 
 	BRenderer* GetRenderer() { return Renderer.Get(); };
-
 protected:
 	TClassOf<UGameInstance> DefaultGameInstance;
 	TClassOf<BRenderer> DefaultRenderer;

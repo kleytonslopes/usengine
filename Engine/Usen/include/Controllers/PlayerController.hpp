@@ -29,6 +29,10 @@ public:
 
 	void SetupInputComponent();
 	void ExitAction(float scale);
+	void MoveForward(float scale);
+	void MoveBackward(float scale);
+	void MoveRight(float scale);
+	void MoveLeft(float scale);
 
 	friend class UInputManagement;
 };

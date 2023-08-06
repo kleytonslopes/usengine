@@ -24,6 +24,7 @@ class BRenderer;
 class UController;
 class UInputManagement;
 class URendererOpenGL;
+class UGameModeBase;
 
 class BClass : public IWeakClass
 {
@@ -52,6 +53,7 @@ protected:
 	UInputManagement* GetInputManagement();
 	UApplication* GetApplication();
 	BRenderer* GetRenderer();
+	UGameModeBase* GetGameMode();
 	template<typename R>
 	R* GetRenderer()
 	{

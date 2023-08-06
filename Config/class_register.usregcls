@@ -1125,5 +1125,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "FEngineConfig",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FEngineConfig",
+      "ClassDefinition": "US_ENGINE_CONFIG_HPP",
+      "HppFileName": "EngineConfig.hpp",
+      "CppFileName": "EngineConfig.cpp",
+      "GenFileName": "EngineConfig-generated.hpp",
+      "FolderHpp": "include/Configs",
+      "FolderCpp": "src/Configs",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_FEngineConfig",
+      "ClassGenDefinitionVersion": "hpp_FEngineConfig_def"
+    }
   }
 ]

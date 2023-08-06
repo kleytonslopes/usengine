@@ -46,11 +46,13 @@ public:
 	T* CreateEntity();
 
 	ACamera* GetCamera();
+
+	UGameModeBase* GetGameMode();
 private:
 	FSceneSettings Settings{};
 
 	ACamera* Camera = nullptr;
-	UUniquePtr<APawn> DefaultPawn;
+	/*UUniquePtr<APawn> DefaultPawn;*/
 	UUniquePtr<FSceneSerializer> Serializer;
 	USharedPtr<UGameModeBase> GameMode;
 	
@@ -62,6 +64,7 @@ private:
 
 	friend class FSceneSerializer;
 	friend class UApplication;
+	friend class BClass;
 };
 
 #endif // !US_SCENE_HPP

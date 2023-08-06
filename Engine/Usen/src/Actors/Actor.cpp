@@ -11,6 +11,7 @@
 #include "Actors/Actor.hpp"
 #include "Components/Component.hpp"
 #include "Components/RenderComponent.hpp"
+#include "Core/Attachment.hpp"
 
 AActor::AActor()
 {
@@ -25,6 +26,11 @@ AActor::~AActor()
 void AActor::Destroy()
 {
 	TMap<FString, AComponent*>::iterator it;
+	
+	if (bIsAttached)
+	{
+		Parent->DetachFromParent();
+	}
 
 	for (it = components.begin(); it != components.end(); it++)
 	{
@@ -39,11 +45,23 @@ void AActor::Create()
 {
 	Super::Create();
 
+	Attachments = UUniquePtr<UAttachment>::Make();
+
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
 	TransformComponent->SetParent(this);
 
 	PostCreate();
+}
+
+void AActor::Initialize()
+{
+	Super::Initialize();
+
+	if (Attachments.Get()->HasAttachments())
+	{
+		Attachments.Get()->Initialize();
+	}
 }
 
 void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
@@ -55,8 +73,25 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 		AActor* actorParent = GetParent<AActor>();
 		if (actorParent)
 		{
+			actorParent->Attachments.Get()->Attatch(this);
 			SetTransform(actorParent->GetTransform());
 		}
+	}
+}
+
+void AActor::Detach(AActor* actor)
+{
+	Attachments.Get()->Detach(actor);
+}
+
+void AActor::DetachFromParent()
+{
+	Super::DetachFromParent();
+	AActor* actorParent = GetParent<AActor>();
+
+	if (actorParent)
+	{
+		actorParent->Attachments.Get()->Detach(this);
 	}
 }
 
@@ -64,6 +99,14 @@ void AActor::SetTransform(const FTransform& transform)
 {
 	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 	TransformComponent->SetTransform(transform);
+	
+	if (Attachments.Get()->HasAttachments())
+	{
+		for (auto& it : Attachments.Get()->Attachments)
+		{
+			it.second->SetTransform(transform);
+		}
+	}
 }
 
 void AActor::Update(float deltaTime)

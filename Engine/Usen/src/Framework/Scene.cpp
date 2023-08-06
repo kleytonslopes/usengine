@@ -25,6 +25,7 @@
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
+#include "Controllers/Controller.hpp"
 
 #include "Mesh/Mesh.hpp"
 
@@ -56,12 +57,7 @@ void UScene::Destroy()
 
 void UScene::Initialize()
 {
-	DefaultPawn = UUniquePtr<APawn>::Make();
-	DefaultPawn.Get()->Initialize();
-	GetInputManagement()->SetInputComponent(DefaultPawn.Get()->GetInputComponent());
-
 	GameMode.Get()->Initialize();
-	//Controller.Get()->Initialize();
 
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
 	if (!Renderer)
@@ -73,8 +69,9 @@ void UScene::Initialize()
 	UShaderOpenGL* shaderDefault = Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
 
 	{
+		APawn* Pawn = GetController()->GetPawn();
 		FTransform trasformC;
-		trasformC.Location = { 500.f,0.f,0.f };
+		trasformC.Location = { 50.f,0.f,0.f };
 		Camera = CreateEntity<ACamera>();
 		Camera->SetTransform(trasformC);
 		Camera->Initialize();
@@ -82,25 +79,27 @@ void UScene::Initialize()
 		AEntity* entity1 = CreateEntity<AEntity>();
 		entity1->Initialize();
 
-		FTransform trasform;
-		trasform.Location = { 0.f,0.f,0.f };
-		trasform.Rotation = { 0.f,0.f,0.f };
-		AActor* actor1 = CreateEntity<AActor>();
-		actor1->SetTransform(trasform);
+		//FTransform trasform;
+		//trasform.Location = { 0.f,0.f,0.f };
+		//trasform.Rotation = { 0.f,0.f,0.f };
+		//AActor* actor1 = CreateEntity<AActor>();
+		//actor1->SetTransform(trasform);
 
-		FMeshParameters peshParameters{};
-		peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
-		FAttachmentSettings att{};
-		AMesh* mesh = CreateEntity<AMesh>();
-		mesh->AttatchTo(actor1, att);
-		mesh->SetMeshParameters(peshParameters);
+		//FMeshParameters peshParameters{};
+		//peshParameters.MeshPath = FText::Format(Content::ModelFilePath, "plane.obj");
+		//FAttachmentSettings att{};
+		//AMesh* mesh = CreateEntity<AMesh>();
+		//mesh->AttatchTo(actor1, att);
+		//mesh->SetMeshParameters(peshParameters);
 
 		FMeshParameters peshParameters2{};
+		FAttachmentSettings att2{};
 		peshParameters2.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
 		AMesh* mesh1 = CreateEntity<AMesh>();
+		mesh1->AttatchTo(Pawn, att2);
 		mesh1->SetMeshParameters(peshParameters2);
 
-		actor1->Initialize();
+		//actor1->Initialize();
 		mesh1->Initialize();
 	}
 
@@ -129,6 +128,11 @@ void UScene::Update(float deltaTime)
 ACamera* UScene::GetCamera()
 {
 	return Camera;
+}
+
+UGameModeBase* UScene::GetGameMode()
+{
+	return GameMode.Get();
 }
 
 template<class T>

@@ -18,7 +18,7 @@
 #include "Entity-generated.hpp"
 
 class FEntitySerializer;
-class UAttachment;
+
 
 enum class EAttachMode
 {
@@ -47,7 +47,8 @@ public:
 
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
-	void Detach(AEntity* entity);
+	virtual void DetachFromParent();
+	//virtual void Detach(AEntity* entity);
 
 	template<typename T>
 	inline T* GetParent()
@@ -59,7 +60,7 @@ protected:
 	AEntity* Owner = nullptr;
 	AEntity* Parent = nullptr;
 
-	UUniquePtr<UAttachment> Attachments;
+	/*UUniquePtr<UAttachment> Attachments;*/
 
 	bool bIsAttached = false;
 	bool bIsCreated = false;

@@ -24,6 +24,7 @@ struct FKeyMap
 {
 	uint32 KeyCode;
 	FString ActionName;
+	bool bIsPressed = false;
 };
 struct FAction
 {
@@ -38,7 +39,7 @@ struct FAction
 class UInputManagement : public AEntity
 {
 	using ActionMap = TMap<FString, FAction>;
-	using KeyMap = TMap<uint32, FString>;
+	using KeyMap = TMap<uint32, FKeyMap>;
 
 	DEFAULT_BODY_GENERATED()
 public:
@@ -46,6 +47,7 @@ public:
 	virtual ~UInputManagement();
 
 	void Create() override;
+	void Update(float deltaTime) override;
 	void SetInputComponent(UInputComponent* inputComponent);
 	void OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler);
 

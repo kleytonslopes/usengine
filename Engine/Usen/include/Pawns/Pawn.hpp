@@ -31,6 +31,9 @@ public:
 	void SetupInputComponent();
 
 	UInputComponent* GetInputComponent();
+
+	void MoveForward(float scale);
+	void MoveRight(float scale);
 };
 
 #endif // !US_PAWN_HPP

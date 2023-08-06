@@ -26,6 +26,7 @@ public:
 	virtual ~UController();
 
 	void SetPawn(APawn* pawn);
+	APawn* GetPawn();
 
 protected:
 	APawn* Pawn = nullptr;

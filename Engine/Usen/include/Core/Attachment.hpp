@@ -16,7 +16,7 @@
 #include "Base/Class.hpp"
 #include "Attachment-generated.hpp"
 
-class AEntity;
+class AActor;
 
 class UAttachment : public BClass
 {
@@ -29,12 +29,13 @@ public:
 	void Initialize() override;
 
 private:
-	TMap<FString, AEntity*> Attachments;
+	TMap<FString, AActor*> Attachments;
 
-	void Attatch(AEntity* entity);
-	bool Detach(AEntity* entity);
+	void Attatch(AActor* actor);
+	bool Detach(AActor* actor);
 
 	friend class AEntity;
+	friend class AActor;
 };
 
 #endif // !US_ATTACHMENT_HPP

@@ -9,7 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Core/Attachment.hpp"
-#include "Actors/Entity.hpp"
+#include "Actors/Actor.hpp"
 
 UAttachment::UAttachment()
 {
@@ -31,7 +31,7 @@ void UAttachment::Initialize()
 {
 	Super::Initialize();
 
-	TMap<FString, AEntity*>::iterator it;
+	TMap<FString, AActor*>::iterator it;
 
 	for (it = Attachments.begin(); it != Attachments.end(); it++)
 	{
@@ -39,24 +39,24 @@ void UAttachment::Initialize()
 	}
 }
 
-void UAttachment::Attatch(AEntity* entity)
+void UAttachment::Attatch(AActor* actor)
 {
-	if (!entity)
+	if (!actor)
 		return;
 
-	Attachments.emplace(entity->GetId(), entity);
+	Attachments.emplace(actor->GetId(), actor);
 }
 
-bool UAttachment::Detach(AEntity* entity)
+bool UAttachment::Detach(AActor* actor)
 {
-	if (!entity)
+	if (!actor)
 		return false;
 
-	TMap<FString, AEntity*>::iterator it = Attachments.find(entity->GetId());
+	TMap<FString, AActor*>::iterator it = Attachments.find(actor->GetId());
 
 	if (it != Attachments.end())
 	{
-		Attachments.erase(entity->GetId());
+		Attachments.erase(actor->GetId());
 		return true;
 	}
 

@@ -27,17 +27,13 @@ void AEntity::Create()
 	{
 		FException::RuntimeError(FText::Format("%s Already Created!", GetIdentity().c_str()));
 	}
-	Attachments = UUniquePtr<UAttachment>::Make();
 
 	bIsCreated = true;
 }
 
 void AEntity::Destroy()
 {
-	if (Parent)
-	{
-		Parent->Detach(this);
-	}
+
 }
 
 void AEntity::Initialize()
@@ -47,10 +43,10 @@ void AEntity::Initialize()
 	if (!bIsCreated)
 		return;
 
-	if (Attachments.Get()->HasAttachments())
-	{
-		Attachments.Get()->Initialize();
-	}
+	//if (Attachments.Get()->HasAttachments())
+	//{
+	//	Attachments.Get()->Initialize();
+	//}
 }
 
 void AEntity::Update(float deltaTime)
@@ -70,14 +66,14 @@ void AEntity::SetOwner(AEntity* owner)
 
 void AEntity::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 {
-	parent->Attachments.Get()->Attatch(this);
-	this->Parent = parent;
+	Parent = parent;
 	bIsAttached = true;
 }
 
-void AEntity::Detach(AEntity* entity)
+void AEntity::DetachFromParent()
 {
-	Attachments.Get()->Detach(entity);
+	Parent = nullptr;
+	bIsAttached = false;
 }
 
 void AEntity::Draw(float deltaTime)

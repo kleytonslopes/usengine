@@ -11,6 +11,8 @@
 #include "Input/InputManagement.hpp"
 #include "Presentation/Window.hpp"
 #include "Components/InputComponent.hpp"
+#include "Runtime/Application.hpp"
+#include "Configs/EngineConfig.hpp"
 
 UInputManagement::UInputManagement()
 {
@@ -25,10 +27,38 @@ UInputManagement::~UInputManagement()
 void UInputManagement::Create()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);
+	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 
-	RegisteredKeys[27] = "Exit";
+	FEngineConfig engineConfig{};
+
+	engineConfig.LoadConfig();
+	TMap<uint32, FString> keysBinds = engineConfig.GetKeyBinds();
+
+	for (const auto& it : keysBinds)
+	{
+		FKeyMap kb{};
+		kb.ActionName = it.second;
+		kb.KeyCode = it.first;
+
+		RegisteredKeys[it.first] = kb;
+	}
 
 	Super::Create();
+}
+
+void UInputManagement::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+	//KeyMap::iterator it;
+
+	for (auto& it : RegisteredKeys)
+	{
+		if (it.second.bIsPressed)
+		{
+			InputComponent->ExecuteAction(it.second.ActionName.c_str(), EKeyHandler::KEY_PRESSED);
+		}
+	}
 }
 
 void UInputManagement::SetInputComponent(UInputComponent* inputComponent)
@@ -51,7 +81,9 @@ void UInputManagement::OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler)
 	
 	if (it != RegisteredKeys.end())
 	{
-		InputComponent->ExecuteAction(it->second.c_str(), keyHandler);
+
+		it->second.bIsPressed = keyHandler == EKeyHandler::KEY_PRESSED ? true : false;
+		//InputComponent->ExecuteAction(it->second.c_str(), keyHandler);
 	}
 }
 
