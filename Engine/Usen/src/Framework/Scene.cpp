@@ -19,9 +19,13 @@
 
 #include "Runtime/Application.hpp"
 #include "Camera/Camera.hpp"
+
 #include "Actors/Actor.hpp"
 #include "Actors/Entity.hpp"
+
 #include "Pawns/Pawn.hpp"
+#include "Pawns/Character.hpp"
+
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
@@ -33,9 +37,11 @@
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
 
+#include "Serializers/Serializer.hpp"
+
 UScene::UScene()
 {
-
+	
 }
 
 UScene::~UScene()
@@ -60,24 +66,22 @@ void UScene::Initialize()
 {
 	GameMode.Get()->Initialize();
 
+	CreateDefaultPawn();
+
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
 	if (!Renderer)
 		FException::RuntimeError("Renderer not Initialized!");
 
 	LoadScene("Unnamed");
 
+	// Prepare Shaders
+	for (auto& shader : Settings.ShadersParameters)
+	{
+		Renderer->CreateShader<UShaderOpenGL>(shader);
+	}
+
+
 	/* */
-
-
-	Settings.ShadersParameters.push_back(FShaderParameters{ ShaderDefault::DEFAULT });
-	Settings.ShadersParameters.push_back(FShaderParameters{ ShaderDefault::SKYBOX });
-
-	
-
-	FShaderParameters shaderParameters{};
-	Renderer->CreateShader<UShaderOpenGL>(shaderParameters);
-
-	
 
 	{
 		{ // Floor
@@ -184,4 +188,16 @@ void UScene::SaveScene()
 bool UScene::LoadScene(const FString& sceneName)
 {
 	return Serializer.Get()->Deserialize(sceneName);
+}
+
+void UScene::CreateDefaultPawn()
+{
+	//ACharacter* character = new ACharacter();
+	//APawn* p1 = new APawn();
+	//APawn* p2 = new APawn(*p1);
+
+	//TClassOf<APawn> DefaultPlayerPawn = GameMode.Get()->GetDefaultPlayerPawn();
+	////APawn* pa = DefaultPlayerPawn.GetNew();
+
+	//APawn* PlayerPawn = CreateEntity<APawn>(DefaultPlayerPawn);
 }

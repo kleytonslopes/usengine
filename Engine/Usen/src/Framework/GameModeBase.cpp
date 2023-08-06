@@ -13,6 +13,7 @@
 #include "Controllers/PlayerController.hpp"
 #include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
+#include "Pawns/Character.hpp"
 
 
 UGameModeBase::UGameModeBase()
@@ -28,7 +29,7 @@ UGameModeBase::~UGameModeBase()
 void UGameModeBase::Create()
 {
 	DefaultController = UPlayerController::GetClass();
-	DefaultPlayerPawn = APawn::GetClass();
+	DefaultPlayerPawn = ACharacter::GetClass();
 
 	Super::Create();
 }

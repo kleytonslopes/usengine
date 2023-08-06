@@ -48,6 +48,7 @@ public:
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
 	virtual void DetachFromParent();
+	FString GetParentId();
 
 	template<typename T>
 	inline T* GetParent()

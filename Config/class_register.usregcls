@@ -1240,5 +1240,28 @@
       "ClassGenDefinition": "hpp_UStaticMesh_AMesh",
       "ClassGenDefinitionVersion": "hpp_UStaticMesh_AMesh_def"
     }
+  },
+  {
+    "ClassName": "ACharacter",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "ACharacter",
+      "ClassDefinition": "US_CHARACTER_HPP",
+      "HppFileName": "Character.hpp",
+      "CppFileName": "Character.cpp",
+      "GenFileName": "Character-generated.hpp",
+      "FolderHpp": "include/Pawns",
+      "FolderCpp": "src/Pawns",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "APawn",
+      "BaseClassPathHpp": "Pawns/Pawn.hpp",
+      "BaseClassTemplate": " : public APawn",
+      "BaseClassInclude": "\n#include \"Pawns/Pawn.hpp\"",
+      "ClassGenDefinition": "hpp_ACharacter_APawn",
+      "ClassGenDefinitionVersion": "hpp_ACharacter_APawn_def"
+    }
   }
 ]

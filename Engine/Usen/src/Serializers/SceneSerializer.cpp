@@ -96,6 +96,7 @@ void FSceneSerializer::SetializeEntities()
 	{
 		BeginSection("Entity", it->second->GetId());
 		Key("Identity", it->second->GetIdentity());
+		Key("Parent", it->second->GetParentId());
 		it->second->Serialize(out);
 
 		ULOG(ELogLevel::ELL_TRACE, FText::Format("Iterating with %s", it->first.c_str()));
@@ -117,4 +118,9 @@ void FSceneSerializer::DeserializeShaders(SeriNode& data)
 void FSceneSerializer::DeserializeEntities(SeriNode& data)
 {
 	auto entities = data["Entities"];
+
+	if (entities)
+	{
+
+	}
 }

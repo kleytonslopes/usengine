@@ -30,6 +30,7 @@ public:
 	void PostCreate() override;
 	void Initialize() override;
 
+	TClassOf<APawn> GetDefaultPlayerPawn();
 protected:
 	USharedPtr<UController> Controller;
 	USharedPtr<APawn> PlayerPawn;

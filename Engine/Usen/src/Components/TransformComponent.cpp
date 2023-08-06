@@ -120,6 +120,7 @@ void UTransformComponent::Serialize(SeriFile& otherOut)
 	BeginComponentSection(otherOut, Identity);
 
 	Key(otherOut, "location", Transform.Location);
+	Key(otherOut, "origin", Transform.Origin);
 	Key(otherOut, "rotation", Transform.Rotation);
 	Key(otherOut, "scale", Transform.Scale);
 	Key(otherOut, "upVector", Transform.UpVector);

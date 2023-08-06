@@ -61,6 +61,7 @@ private:
 
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
+	void CreateDefaultPawn();
 
 	friend class FSceneSerializer;
 	friend class UApplication;

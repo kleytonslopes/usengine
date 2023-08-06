@@ -77,6 +77,11 @@ void AEntity::DetachFromParent()
 	bIsAttached = false;
 }
 
+FString AEntity::GetParentId()
+{
+	return Parent != nullptr ? Parent->GetId() : "";
+}
+
 void AEntity::Draw(float deltaTime)
 {
 
