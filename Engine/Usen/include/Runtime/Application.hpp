@@ -18,6 +18,7 @@
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
+#include "Environment/Environment.hpp"
 #include "Application-generated.hpp"
 
 class UWindow;
@@ -44,9 +45,7 @@ public:
 	void Create() override;
 	void PostCreate() override;
 	void Initialize() override;
-	void PostInitialize() override;
 	void Destroy() override;
-	void PostDestroy() override;
 
 	template<typename T>
 	T* GetRenderer()
@@ -58,6 +57,8 @@ public:
 protected:
 	TClassOf<UGameInstance> DefaultGameInstance;
 	TClassOf<BRenderer> DefaultRenderer;
+
+	UUniquePtr<TThread> ThreadTickEvent = UUniquePtr<TThread>::Make();
 
 	virtual void CreateWindow();
 	virtual void CreateGameInstance();

@@ -96,11 +96,6 @@ void UApplication::CreatePhysicsSystem()
 	PhysicsSystem.Get()->Create();
 }
 
-void UApplication::PostInitialize()
-{
-	
-}
-
 void UApplication::Destroy()
 {
 	PhysicsSystem.Destroy();
@@ -113,14 +108,15 @@ void UApplication::Destroy()
 	Super::Destroy();
 }
 
-void UApplication::PostDestroy()
-{
-}
-
 void UApplication::Loop()
 {
 	float deltaTime = 0.f;
 	FTime currentTime = FTime::Now();
+
+	auto TickFunction = [](float deltaTime)
+	{
+		us::env::Environment::TickComponent.Get()->Tick(deltaTime);
+	};
 
 	while (!Window.Get()->ShouldClose())
 	{
@@ -134,9 +130,11 @@ void UApplication::Loop()
 		Window.Get()->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
 		
-		us::env::Environment::TickComponent.Get()->Tick(deltaTime);
+		ThreadTickEvent.New(new TThread(TickFunction, deltaTime));
 		
 		OnUpdateEvent.Broadcast(deltaTime);
+
+		ThreadTickEvent.Get()->join();
 
 		Window.Get()->StopLoop();
 		Window.Get()->SwapWindow();

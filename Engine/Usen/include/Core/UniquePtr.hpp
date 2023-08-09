@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: UniquePtr.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -41,6 +41,7 @@ public:
 	}
 
 	UUniquePtr<T> Move();
+	void New(T* newPtr);
 	void Destroy();
 
 	T* Get() { return ptr.get(); }
@@ -77,6 +78,12 @@ template<typename T>
 inline UUniquePtr<T> UUniquePtr<T>::Move()
 {
 	return UUniquePtr<T>(std::move(ptr));
+}
+
+template<typename T>
+inline void UUniquePtr<T>::New(T* newPtr)
+{
+	ptr.reset(newPtr);
 }
 
 template<typename T>

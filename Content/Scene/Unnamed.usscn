@@ -2,30 +2,42 @@ Scene: Unnamed
 Shaders:
   name: [default]
 Entities:
-  - Entity: 245e4cf4-bc1c-4773-9c91-685805004291
+  - Entity: 28185f44-d978-4d28-aae6-2a0a9192d1c1
+    Identity: AMesh
+    Parent: ""
+    Components:
+      UMeshComponent:
+        id: 9f697654-9e7f-4000-a0a7-f31cddb9ee5c
+        mesh_path: ../../Content/Models/gizmo.obj
+      UTransformComponent:
+        id: cdcedc25-7e85-420b-8199-d145ec704e89
+        location: [0, 0, 0]
+        origin: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: 287b430b-159c-4be3-8926-9cbf4931cca2
     Identity: UStaticMesh
     Parent: ""
     Components:
       UMeshComponent:
-        id: f387d9a3-f23d-4419-aa61-3d15eff2093f
+        id: 27f31331-df64-4a51-9d16-70b42992d0eb
         mesh_path: ../../Content/Models/sm_floor.obj
       UTransformComponent:
-        id: b8175789-daec-4ab9-897b-a1b6db4cac02
+        id: 16752e5d-7930-4d6f-adbc-006ac63cc32c
         location: [0, 0, 0]
         origin: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [1, 0, 0]
-  - Entity: 2f778735-615d-4210-a248-3ec80a37952e
-    Identity: UController
+  - Entity: 4166b647-83af-4621-b820-1ecc90eda9df
+    Identity: ACharacter
     Parent: ""
-  - Entity: 4b800907-af22-4a11-b1cb-73b7e915df83
-    Identity: ACamera
-    Parent: afc6ec45-05cd-4ca0-9ad1-fc99e94b29a8
     Components:
       UCameraComponent:
-        id: c0ba6148-f0e2-4f7d-adc8-805144cacf9e
+        id: 92df4412-637d-447a-969a-dbeb04a741a0
         near: 9.99999975e-05
         far: 100000
         fov: 45
@@ -36,62 +48,50 @@ Entities:
         pitchAxis: [1, 0, 0]
         rollAxis: [0, 0, 1]
       UTransformComponent:
-        id: 037bcc39-7b65-4011-9934-54c10eeffe7d
-        location: [-25, 0, 7]
-        origin: [-25, 0, 5]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [1, 0, 0]
-  - Entity: 58471807-999e-49da-a7fa-79e0cca40e77
-    Identity: AMesh
-    Parent: ""
-    Components:
-      UMeshComponent:
-        id: b03caad2-c6f9-4590-81e6-6cfb21604cc2
-        mesh_path: ../../Content/Models/gizmo.obj
-      UTransformComponent:
-        id: 22e62272-0875-4b42-8c67-f66d35f80970
-        location: [0, 0, 0]
-        origin: [0, 0, 0]
-        rotation: [0, 0, 0]
-        scale: [1, 1, 1]
-        upVector: [0, 0, 1]
-        forwardVector: [1, 0, 0]
-  - Entity: afc6ec45-05cd-4ca0-9ad1-fc99e94b29a8
-    Identity: APawn
-    Parent: ""
-    Components:
-      UCameraComponent:
-        id: 7a812473-b85f-4547-86df-b653259e741c
-        near: 9.99999975e-05
-        far: 100000
-        fov: 45
-        yaw: 0
-        pitch: 0
-        roll: 0
-        yawAxis: [0, 1, 0]
-        pitchAxis: [1, 0, 0]
-        rollAxis: [0, 0, 1]
-      UTransformComponent:
-        id: 28bf01c0-c1e4-4e61-bf07-60c6a4468d80
+        id: e8e8666f-96b8-4bb0-b5c1-890f3f61c3e0
         location: [0, 0, 2]
         origin: [0, 0, 0]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]
         forwardVector: [1, 0, 0]
-  - Entity: e1d2f6c8-9753-4173-9c30-7e76f9e340f0
+  - Entity: 452e9b41-6b3a-4b50-9597-2569ece8fb9d
+    Identity: UPlayerController
+    Parent: ""
+  - Entity: 78ada8a7-8611-4280-b6dd-0b42cd4b1976
     Identity: AMesh
-    Parent: afc6ec45-05cd-4ca0-9ad1-fc99e94b29a8
+    Parent: 4166b647-83af-4621-b820-1ecc90eda9df
     Components:
       UMeshComponent:
-        id: 75b97a4c-7a3e-42c8-9465-167930fc4cd2
+        id: bb60bf89-7d39-4e7a-91ab-b0e41d69d53b
         mesh_path: ../../Content/Models/cube.obj
       UTransformComponent:
-        id: 16aaf503-63e5-4674-998a-56a01f72b51d
+        id: abc9ce89-96bc-4dcd-9f76-feda040e0300
         location: [0, 0, 2]
         origin: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: cc212310-16a4-42d8-b055-67ab177eb20e
+    Identity: ACamera
+    Parent: 4166b647-83af-4621-b820-1ecc90eda9df
+    Components:
+      UCameraComponent:
+        id: e766a715-0686-41c8-9d99-204a5e67f47e
+        near: 9.99999975e-05
+        far: 100000
+        fov: 45
+        yaw: 0
+        pitch: 0
+        roll: 0
+        yawAxis: [0, 1, 0]
+        pitchAxis: [1, 0, 0]
+        rollAxis: [0, 0, 1]
+      UTransformComponent:
+        id: 6071f83f-4f1d-49a8-bd68-47c90d5c590c
+        location: [-25, 0, 7]
+        origin: [-25, 0, 5]
         rotation: [0, 0, 0]
         scale: [1, 1, 1]
         upVector: [0, 0, 1]

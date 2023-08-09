@@ -30,6 +30,7 @@ class UPhysicsSystem;
 class BClass : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
 	BClass();
 	virtual ~BClass();
