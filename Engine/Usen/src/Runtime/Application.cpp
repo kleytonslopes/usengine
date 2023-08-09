@@ -17,16 +17,16 @@
 #include "Input/InputManagement.hpp"
 #include "Physics/PhysicsSystem.hpp"
 
-
-UApplication::UApplication()
-{
-
-}
-
-UApplication::~UApplication()
-{
-
-}
+DEFAULT_BODY(UApplication);
+//UApplication::UApplication()
+//{
+//
+//}
+//
+//UApplication::~UApplication()
+//{
+//
+//}
 
 void UApplication::Construct()
 {

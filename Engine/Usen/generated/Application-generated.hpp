@@ -32,11 +32,11 @@
 #define hpp_UApplication_IWeakClass_def \
 private: \
 	using Super = IWeakClass; using This = UApplication; \
-	FString Identity{ "UApplication" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UApplication> GetClass() { return TClassOf<UApplication>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UApplication) \
+	DEFINE_OPERATOR_CPY(UApplication) \
+	DEFINE_OPERATOR_MOV(UApplication) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UApplication) \
+private:

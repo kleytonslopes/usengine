@@ -20,8 +20,6 @@ class UApplicationEditor : public UApplication
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UApplicationEditor();
-	virtual ~UApplicationEditor();
 
 	void Create() override;
 };

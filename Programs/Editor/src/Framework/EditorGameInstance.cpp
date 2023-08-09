@@ -10,12 +10,4 @@
 #include "upch.hpp"
 #include "Framework/EditorGameInstance.hpp"
 
-UEditorGameInstance::UEditorGameInstance()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UEditorGameInstance::~UEditorGameInstance()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UEditorGameInstance)

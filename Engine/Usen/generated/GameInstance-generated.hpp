@@ -32,11 +32,11 @@
 #define hpp_UGameInstance_BClass_def \
 private: \
 	using Super = BClass; using This = UGameInstance; \
-	FString Identity{ "UGameInstance" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UGameInstance> GetClass() { return TClassOf<UGameInstance>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UGameInstance) \
+	DEFINE_OPERATOR_CPY(UGameInstance) \
+	DEFINE_OPERATOR_MOV(UGameInstance) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UGameInstance) \
+private:

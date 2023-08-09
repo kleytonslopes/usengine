@@ -10,12 +10,13 @@
 #include "upch.hpp"
 #include "Framework/GameInstance.hpp"
 
-UGameInstance::UGameInstance()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UGameInstance::~UGameInstance()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UGameInstance);
+//UGameInstance::UGameInstance()
+//{
+//	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+//}
+//
+//UGameInstance::~UGameInstance()
+//{
+//	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+//}

@@ -13,6 +13,8 @@
 #include "Components/RenderComponent.hpp"
 #include "Core/Attachment.hpp"
 
+DEFAULT_BODY(AActor);
+
 void AActor::Destroy()
 {
 	TMap<FString, AComponent*>::iterator it;

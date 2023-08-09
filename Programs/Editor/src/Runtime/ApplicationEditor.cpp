@@ -11,16 +11,7 @@
 #include "Runtime/ApplicationEditor.hpp"
 #include "Framework/EditorGameInstance.hpp"
 
-UApplicationEditor::UApplicationEditor()
-{
-	
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UApplicationEditor::~UApplicationEditor()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UApplicationEditor)
 
 void UApplicationEditor::Create()
 {

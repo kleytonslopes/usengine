@@ -27,17 +27,30 @@ ULOG(ELogLevel::ELL_FATAL, MSG); \
 assert(COND && MSG)
 
 #define DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ClassName) \
-ClassName() : ClassName(STRINGFY(ClassName)) { } \
-ClassName(const FString& className) { Identity = className; } \
-virtual ~ClassName() = default; \
+explicit ClassName(); \
+virtual ~ClassName(); \
 
-#define DEFINE_OPERATOR_CPY(ClassName)  \
-ClassName(const ClassName& other) = default; \
-ClassName& operator=(const ClassName& other) = default; \
+#define DEFAULT_BODY(ClassName) \
+ClassName::ClassName() { Identity = STRINGFY(ClassName); } \
+ClassName::~ClassName() { } \
 
-#define DEFINE_OPERATOR_MOV(ClassName) \
-ClassName(ClassName&& other) = default; \
-ClassName& operator=(ClassName&& other) = default; \
+#define N_ENABLE_DEFINE_OPERATOR_CPY
+#  if defined(ENABLE_DEFINE_OPERATOR_CPY)
+#    define DEFINE_OPERATOR_CPY(ClassName)  \
+       ClassName(const ClassName& other) = default; \
+       ClassName& operator=(const ClassName& other) = default;
+#  else
+#    define DEFINE_OPERATOR_CPY(ClassName)
+#endif // ENABLE_DEFINE_OPERATOR_CPY
+
+#define N_ENABLE_DEFINE_OPERATOR_MOV
+#  if defined(ENABLE_DEFINE_OPERATOR_MOV)
+#    define DEFINE_OPERATOR_MOV(ClassName) \
+       ClassName(ClassName&& other) = default; \
+       ClassName& operator=(ClassName&& other) = default;
+#  else
+#    define DEFINE_OPERATOR_MOV(ClassName)
+#endif // ENABLE_DEFINE_OPERATOR_MOV
 
 #define DEFINE_CAST_FUNCTION() \
 template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\

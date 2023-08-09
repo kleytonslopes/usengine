@@ -13,6 +13,8 @@
 #include "Core/Attachment.hpp"
 #include "Runtime/Application.hpp"
 
+DEFAULT_BODY(AEntity);
+
 void AEntity::Create()
 {
 	if (bIsCreated)

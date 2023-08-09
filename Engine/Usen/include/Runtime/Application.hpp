@@ -38,8 +38,8 @@ class UApplication : public IWeakClass
 public:
 	FOnUpdateSignature OnUpdateEvent;
 
-	explicit UApplication();
-	virtual ~UApplication();
+	//explicit UApplication();
+	//virtual ~UApplication();
 	
 	void Run();
 

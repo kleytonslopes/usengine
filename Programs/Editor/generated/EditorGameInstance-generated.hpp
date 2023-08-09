@@ -32,10 +32,12 @@
 #define hpp_UEditorGameInstance_UGameInstance_def \
 private: \
 	using Super = UGameInstance; using This = UEditorGameInstance; \
-	FString Identity{ "UEditorGameInstance" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UEditorGameInstance> GetClass() { return TClassOf<UEditorGameInstance>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UEditorGameInstance) \
+	DEFINE_OPERATOR_CPY(UEditorGameInstance) \
+	DEFINE_OPERATOR_MOV(UEditorGameInstance) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UEditorGameInstance) \
+private:
 
