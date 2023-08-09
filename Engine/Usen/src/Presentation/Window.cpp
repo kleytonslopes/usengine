@@ -28,20 +28,28 @@ UWindow::~UWindow()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
-void UWindow::Initialize()
+void UWindow::Construct()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, "Initializing UWindow...");
 	desiredFps = 1000 / fpsLimit;
 
+	Super::Construct();
+}
+
+void UWindow::PostConstruct()
+{
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		UASSERT(false, "Failed to Initialize window!");
 	}
 
+	Super::PostConstruct();
+}
+
+void UWindow::Initialize()
+{
 	InitializeForOpenGL();
 
 	Super::Initialize();
-
 }
 
 void UWindow::PollEvents()

@@ -25,6 +25,9 @@ public:
 
 	void LoadModel(static FString& modelPath);
 
+	void Construct() override { /* override */ };;
+	void PostConstruct() override { /* override */ };;
+
 	void Create() override { /* override */ };
 	void PostCreate() override { /* override */ };
 

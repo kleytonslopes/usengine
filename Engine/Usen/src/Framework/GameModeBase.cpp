@@ -34,30 +34,28 @@ void UGameModeBase::Create()
 	Super::Create();
 }
 
-void UGameModeBase::PostCreate()
-{
-	CreateController();
-	CreatePlayerPawn();
-}
-
 void UGameModeBase::Initialize()
 {
+
 	Super::Initialize();
-
-	Controller.Get()->Initialize();
 }
 
-void UGameModeBase::CreateController()
+TClassOf<APawn> UGameModeBase::GetDefaultPlayerPawn()
 {
-	Controller = USharedPtr<UController>::FromClass(DefaultController);
-	Controller.Get()->Create();
+	return DefaultPlayerPawn;
 }
 
-void UGameModeBase::CreatePlayerPawn()
+TClassOf<UController> UGameModeBase::GetDefaultController()
 {
-	PlayerPawn = USharedPtr<APawn>::FromClass(DefaultPlayerPawn);
-	PlayerPawn.Get()->Create();
-	GetInputManagement()->SetInputComponent(PlayerPawn.Get()->GetInputComponent());
+	return DefaultController;
+}
 
-	Controller.Get()->SetPawn(PlayerPawn);
+void UGameModeBase::SetController(UController* controller)
+{
+	Controller = controller;
+}
+
+void UGameModeBase::SetPlayerPawn(APawn* playerPawn)
+{
+	PlayerPawn = playerPawn;
 }

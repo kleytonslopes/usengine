@@ -20,19 +20,36 @@
 
 UApplication::UApplication()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+
 }
 
 UApplication::~UApplication()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+
+}
+
+void UApplication::Construct()
+{
+	DefaultRenderer = TClassOf<URendererOpenGL>();
+
+	Super::Construct();
+}
+void UApplication::PostConstruct()
+{
+	Window = USharedPtr<UWindow>::Make();
+	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
+	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
+	InputManagement = USharedPtr<UInputManagement>::Make();
+	Scene = USharedPtr<UScene>::Make();
+	PhysicsSystem = USharedPtr<UPhysicsSystem>::Make();
+
+	Super::PostConstruct();
 }
 
 void UApplication::Create()
 {
-	PostCreate();
+	Super::Create();
 }
-
 void UApplication::PostCreate()
 {
 	CreateWindow();
@@ -42,7 +59,7 @@ void UApplication::PostCreate()
 	CreatePhysicsSystem();
 	CreateScene();
 
-	Initialize();
+	Super::PostCreate();
 }
 
 void UApplication::Initialize()
@@ -52,49 +69,45 @@ void UApplication::Initialize()
 	Renderer.Get()->Initialize();
 	InputManagement.Get()->Initialize();
 	Scene.Get()->Initialize();
+	PhysicsSystem.Get()->Initialize();
 
-	bIsInitialized = true;
-	PostInitialize();
+	Super::Initialize();
 }
 
 void UApplication::CreateWindow()
 {
-	Window = USharedPtr<UWindow>::Make();
+	Window.Get()->Construct();
 	Window.Get()->Create();
 }
-
 void UApplication::CreateGameInstance()
 {
-	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
-	Window.Get()->Create();
+	GameInstance.Get()->Construct();
+	GameInstance.Get()->Create();
 }
-
 void UApplication::CreateRenderer()
 {
-	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
+	Renderer.Get()->Construct();
+	Renderer.Get()->Create();
 }
-
 void UApplication::CreateInputManagement()
 {
-	InputManagement = USharedPtr<UInputManagement>::Make();
+	InputManagement.Get()->Construct();
 	InputManagement.Get()->Create();
 }
-
 void UApplication::CreateScene()
 {
-	Scene = USharedPtr<UScene>::Make();
+	Scene.Get()->Construct();
 	Scene.Get()->Create();
 }
-
 void UApplication::CreatePhysicsSystem()
 {
-	PhysicsSystem = USharedPtr<UPhysicsSystem>::Make();
+	PhysicsSystem.Get()->Construct();
 	PhysicsSystem.Get()->Create();
 }
 
 void UApplication::PostInitialize()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostInitialize!", Identity.c_str()));
+	
 }
 
 void UApplication::Destroy()
@@ -106,12 +119,11 @@ void UApplication::Destroy()
 	Renderer.Destroy();
 	Window.Destroy();
 
-	PostDestroy();
+	Super::Destroy();
 }
 
 void UApplication::PostDestroy()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostDestroy!", Identity.c_str()));
 }
 
 void UApplication::Loop()
@@ -130,7 +142,9 @@ void UApplication::Loop()
 		
 		Window.Get()->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
-		//Scene.Get()->Update(deltaTime);
+		
+		us::env::Environment::TickComponent.Get()->Tick(deltaTime);
+		
 		OnUpdateEvent.Broadcast(deltaTime);
 
 		Window.Get()->StopLoop();
@@ -149,6 +163,8 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 
 void UApplication::Run()
 {
+	Construct();
 	Create();
+	Initialize();
 	Loop();
 }

@@ -66,7 +66,7 @@ void UScene::Initialize()
 {
 	GameMode.Get()->Initialize();
 
-	CreateDefaultPawn();
+	
 
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
 	if (!Renderer)
@@ -162,6 +162,7 @@ template<class T>
 T* UScene::CreateEntity()
 {
 	T* newEntity = new T();
+	newEntity->Construct();
 	newEntity->Create();
 
 	entities[newEntity->Id] = newEntity;
@@ -169,15 +170,38 @@ T* UScene::CreateEntity()
 	return newEntity;
 }
 
-void UScene::Create()
+template<class T, class U>
+T* UScene::CreateEntity(TClassOf<U> entityClass)
 {
+	T* newEntity = entityClass.GetNew();
+	newEntity->Construct();
+	newEntity->Create();
+
+	entities[newEntity->Id] = newEntity;
+
+	return newEntity;
+}
+
+void UScene::PostConstruct()
+{
+	GameMode = USharedPtr<UGameModeBase>::Make();
+	Serializer = UUniquePtr<FSceneSerializer>::Make();
+
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 
-	GameMode = USharedPtr<UGameModeBase>::Make();
-	GameMode.Get()->Create();
+	Super::PostConstruct();
+}
 
-	Serializer = UUniquePtr<FSceneSerializer>::Make();
+void UScene::Create()
+{
+	GameMode.Get()->Construct();
+	GameMode.Get()->Create();
 	Serializer.Get()->SetScene(this);
+
+	CreateDefaultController();
+	CreateDefaultPawn();
+
+	Super::Create();
 }
 
 void UScene::SaveScene()
@@ -192,12 +216,17 @@ bool UScene::LoadScene(const FString& sceneName)
 
 void UScene::CreateDefaultPawn()
 {
-	//ACharacter* character = new ACharacter();
-	//APawn* p1 = new APawn();
-	//APawn* p2 = new APawn(*p1);
+	TClassOf<APawn> DefaultPlayerPawnClass = GameMode.Get()->GetDefaultPlayerPawn();
+	APawn* PlayerPawn = CreateEntity<APawn>(DefaultPlayerPawnClass);
 
-	//TClassOf<APawn> DefaultPlayerPawn = GameMode.Get()->GetDefaultPlayerPawn();
-	////APawn* pa = DefaultPlayerPawn.GetNew();
+	GameMode.Get()->SetPlayerPawn(PlayerPawn);
+	GameMode.Get()->Controller->SetPawn(PlayerPawn);
+}
 
-	//APawn* PlayerPawn = CreateEntity<APawn>(DefaultPlayerPawn);
+void UScene::CreateDefaultController()
+{
+	TClassOf<UController> DefaultControllerClass = GameMode.Get()->GetDefaultController();
+	UController* Controller = CreateEntity<UController>(DefaultControllerClass);
+
+	GameMode.Get()->SetController(Controller);
 }

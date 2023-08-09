@@ -72,8 +72,11 @@ public:
 	}
 
 protected:
-	SeriFile out;
+	SeriFile* outPtr = nullptr;
+	SeriFile& out;
 	FString seriFilePath;
+
+	SeriFile& CreateSeriFile();
 
 	virtual void Save();
 	SeriNode Load(const FString& filePath);

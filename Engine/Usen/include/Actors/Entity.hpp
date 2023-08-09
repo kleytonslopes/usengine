@@ -39,7 +39,6 @@ public:
 	virtual ~AEntity();
 
 	virtual void Create();
-	virtual void PostCreate() { /* override*/ };
 	void Destroy() override;
 
 	void Initialize() override;

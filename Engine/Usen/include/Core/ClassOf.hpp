@@ -40,6 +40,16 @@ public:
 		return *this;
 	}
 
+	Ty* GetNew()
+	{
+		return new Ty(*Class.get());
+	}
+
+	operator Ty* ()
+	{
+		return Class.get();
+	}
+
 	template<typename U>
 	bool operator==(const TClassOf<U>&& other)
 	{

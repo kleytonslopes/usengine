@@ -1263,5 +1263,28 @@
       "ClassGenDefinition": "hpp_ACharacter_APawn",
       "ClassGenDefinitionVersion": "hpp_ACharacter_APawn_def"
     }
+  },
+  {
+    "ClassName": "UTickClass",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "UTickClass",
+      "ClassDefinition": "UK_TICK_CLASS_HPP",
+      "HppFileName": "TickClass.hpp",
+      "CppFileName": "TickClass.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]

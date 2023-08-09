@@ -28,6 +28,8 @@ public:
 
 	void Destroy() override;
 
+	void Construct() override;
+
 	void Create() override;
 	void Initialize() override;
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
@@ -45,7 +47,7 @@ public:
 	
 
 protected:
-	UUniquePtr<UAttachment> Attachments;
+	UAttachment* Attachments = nullptr;
 	TMap<FString, AComponent*> components;
 
 	void Serialize(SeriFile& otherOut) override;
@@ -68,6 +70,7 @@ protected:
 	{
 		T* component = new T();
 		components[typeid(T).name()] = component;
+		component->Construct();
 		component->Create();
 
 		return component;
@@ -78,6 +81,8 @@ protected:
 	{
 		T* component = new T(std::forward<Args>(args)...);
 		components[typeid(T).name()] = component;
+		component->Construct();
+		component->Create();
 
 		return component;
 	}

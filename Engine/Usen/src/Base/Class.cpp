@@ -29,39 +29,6 @@ BClass::~BClass()
 {
 }
 
-void BClass::Initialize()
-{
-	if (bIsInitialized)
-	{
-		FException::RuntimeError(FText::Format("%s Already Initialized!", GetId().c_str()));
-	}
-
-	bIsInitialized = true;
-
-	PostInitialize();
-}
-
-void BClass::PostInitialize()
-{
-	bIsInitialized = true;
-}
-
-void BClass::Create()
-{
-	PostCreate();
-}
-
-void BClass::PostCreate()
-{
-	ULOG(ELogLevel::ELL_TRACE, "BClass PostCreate!");
-}
-
-void BClass::Destroy()
-{
-	ULOG(ELogLevel::ELL_WARNING, "BClass Destroy!");
-
-	PostDestroy();
-}
 
 UWindow* BClass::GetWindow()
 {
@@ -80,7 +47,7 @@ UScene* BClass::GetScene()
 
 UController* BClass::GetController()
 {
-	return GetGameMode()->Controller.Get();
+	return GetGameMode()->Controller;
 }
 
 UInputManagement* BClass::GetInputManagement()

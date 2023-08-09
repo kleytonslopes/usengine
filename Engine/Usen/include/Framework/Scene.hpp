@@ -38,12 +38,16 @@ public:
 	~UScene() final;
 	void Destroy() final;
 
+	void PostConstruct() override;
 	void Create() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
 
 	template<class T>
 	T* CreateEntity();
+
+	template<class T, class U>
+	T* CreateEntity(TClassOf<U> entityClass);
 
 	ACamera* GetCamera();
 
@@ -55,13 +59,13 @@ private:
 	/*UUniquePtr<APawn> DefaultPawn;*/
 	UUniquePtr<FSceneSerializer> Serializer;
 	USharedPtr<UGameModeBase> GameMode;
-	
 
 	TMap<FString, AEntity*> entities;
 
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
 	void CreateDefaultPawn();
+	void CreateDefaultController();
 
 	friend class FSceneSerializer;
 	friend class UApplication;

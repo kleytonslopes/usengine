@@ -34,16 +34,6 @@ public:
 	explicit BClass();
 	~BClass() override;
 
-	/// <summary>
-	/// Call at Last Initialize overridden function
-	/// </summary>
-	void Initialize() override;
-	void PostInitialize() override;
-	void Create() override;
-	void PostCreate() override;
-	void Destroy() override;
-	void PostDestroy() override { /* override */ };
-
 	virtual void Update(float deltaTime) { /* override */ };
 
 protected:

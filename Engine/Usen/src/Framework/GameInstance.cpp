@@ -19,8 +19,3 @@ UGameInstance::~UGameInstance()
 {
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
-
-void UGameInstance::Initialize()
-{
-	Super::Initialize();
-}

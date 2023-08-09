@@ -1,0 +1,47 @@
+﻿<Window x:Class="Kyrnness.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kyrnness" xmlns:components="clr-namespace:Kyrnness.Components"
+        mc:Ignorable="d"
+
+        Title="Kyrnness" Height="1000" Width="1700" WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <components:ucTitleBar x:Name="ux" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Title="Kyrnness - Class Maker"/>
+        <components:ucHierarchyFolder x:Name="ucFolderHierarchy" Grid.Column="1" Grid.Row="1" FolderStructureChanged="ucFolderHierarchy_FolderStructureChanged" ClassSelected="ucFolderHierarchy_ClassSelected" />
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Margin="10, 40, 20, 20">
+                <CheckBox x:Name="chkIncludePragmaOnce" Content="Include Pragma once" Checked="HppFlagsChanged_CheckedChanged" Unchecked="HppFlagsChanged_CheckedChanged" IsChecked="True"/>
+                <CheckBox x:Name="chkIncludeCopyright" Content="Include Copyright" Checked="HppFlagsChanged_CheckedChanged" Unchecked="HppFlagsChanged_CheckedChanged" IsChecked="True"/>
+                <CheckBox x:Name="chkIncludeGeneratedBody" Content="Include Generated Body" Checked="HppFlagsChanged_CheckedChanged" Unchecked="HppFlagsChanged_CheckedChanged" IsChecked="True"/>
+                <CheckBox x:Name="chkIncludeClassDefine" Content="Include Defines" Checked="HppFlagsChanged_CheckedChanged" Unchecked="HppFlagsChanged_CheckedChanged" IsChecked="True"/>
+            </StackPanel>
+            
+            <TabControl Grid.Column="1">
+                <TabItem Header="Hpp">
+                    <components:ucHppViewer x:Name="hppViewer"/>
+                    <!--<RichTextBox x:Name="rtbHpp" IsEnabled="False"/>-->
+                </TabItem>
+                <TabItem Header="Cpp">
+                    <RichTextBox x:Name="rtbCpp" IsEnabled="False"/>
+                </TabItem>
+                <TabItem Header="Generated"/>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

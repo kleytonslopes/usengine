@@ -33,6 +33,9 @@ public:
 	explicit UWindow();
 	~UWindow() final;
 
+	void Construct() override;
+	void PostConstruct() override;
+
 	void Initialize() override;
 
 	void PollEvents();

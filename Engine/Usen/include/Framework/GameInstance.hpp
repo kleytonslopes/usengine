@@ -22,8 +22,6 @@ class UGameInstance : public BClass
 public:
 	explicit UGameInstance();
 	virtual ~UGameInstance();
-
-	void Initialize() override;
 };
 
 #endif // !US_GAME_INSTANCE_HPP

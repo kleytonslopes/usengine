@@ -31,6 +31,8 @@ void AMesh::Create()
 	Super::Create();
 
 	Model = UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	Model.Get()->Construct();
+	Model.Get()->Create();
 	Model.Get()->SetMeshActor(this);
 
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();

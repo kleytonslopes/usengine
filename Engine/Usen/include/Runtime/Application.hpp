@@ -44,6 +44,8 @@ public:
 	void Run();
 
 	// Inherited via IWeakClass
+	void Construct() override;
+	void PostConstruct() override;
 	void Create() override;
 	void PostCreate() override;
 	void Initialize() override;

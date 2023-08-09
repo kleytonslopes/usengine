@@ -10,6 +10,7 @@
 
 #include "Environment/Environment.hpp"
 #include "Runtime/ApplicationEditor.hpp"
+#include "Pawns/Pawn.hpp"
 
 int main()
 {

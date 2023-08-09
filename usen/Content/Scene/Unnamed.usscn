@@ -1,0 +1,72 @@
+Scene: Unnamed
+Shaders:
+  name: [default]
+Entities:
+  - Entity: 090b92e2-2309-4ed8-8a56-d8f38f717007
+    Identity: ACamera
+    Parent: 2ac96d5d-c363-4b83-8909-9249f2c02530
+    Components:
+      UCameraComponent:
+        id: 99fa3715-3e99-468f-a4d3-750bbfa72bfa
+        near: 9.99999975e-05
+        far: 100000
+        fov: 45
+        yaw: 0
+        pitch: 0
+        roll: 0
+        yawAxis: [0, 1, 0]
+        pitchAxis: [1, 0, 0]
+        rollAxis: [0, 0, 1]
+      UTransformComponent:
+        id: 268758a9-49d3-4d69-bfab-3611d9921212
+        location: [-25, 0, 7]
+        origin: [-25, 0, 5]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: 35258a55-036a-4384-91b6-bbdd4cf88cf5
+    Identity: UStaticMesh
+    Parent: ""
+    Components:
+      UMeshComponent:
+        id: 8adf6bb4-1f95-449e-8f4d-b212fcd6ae6d
+        mesh_path: ../../Content/Models/sm_floor.obj
+      UTransformComponent:
+        id: 21f76a52-cb8f-4d3e-af53-28a54ae67902
+        location: [0, 0, 0]
+        origin: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: 84dc69ac-ff4e-4211-821d-77efd5a3bde5
+    Identity: AMesh
+    Parent: 2ac96d5d-c363-4b83-8909-9249f2c02530
+    Components:
+      UMeshComponent:
+        id: cd87b10f-c740-4c58-8a44-e8611f1d1717
+        mesh_path: ../../Content/Models/cube.obj
+      UTransformComponent:
+        id: 27734418-7397-4980-bcd8-6880a1de539e
+        location: [0, 0, 2]
+        origin: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]
+  - Entity: e96b144c-9482-4615-b262-85ab934cf798
+    Identity: AMesh
+    Parent: ""
+    Components:
+      UMeshComponent:
+        id: 16ee2567-acd1-477d-bbce-c8bb19d63617
+        mesh_path: ../../Content/Models/gizmo.obj
+      UTransformComponent:
+        id: bf25b616-ca24-45c3-8ce3-fe626202d289
+        location: [0, 0, 0]
+        origin: [0, 0, 0]
+        rotation: [0, 0, 0]
+        scale: [1, 1, 1]
+        upVector: [0, 0, 1]
+        forwardVector: [1, 0, 0]

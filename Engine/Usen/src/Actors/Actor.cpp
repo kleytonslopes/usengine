@@ -45,11 +45,18 @@ void AActor::Destroy()
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
 }
 
+void AActor::Construct()
+{
+	bTick = true;
+
+	Super::Construct();
+}
+
 void AActor::Create()
 {
 	Super::Create();
 
-	Attachments = UUniquePtr<UAttachment>::Make();
+	Attachments = new UAttachment();
 
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
@@ -62,9 +69,9 @@ void AActor::Initialize()
 {
 	Super::Initialize();
 
-	if (Attachments.Get()->HasAttachments())
+	if (Attachments->HasAttachments())
 	{
-		Attachments.Get()->Initialize();
+		Attachments->Initialize();
 	}
 }
 
@@ -80,7 +87,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	if (!actorParent)
 		return;
 
-	actorParent->Attachments.Get()->Attatch(this);
+	actorParent->Attachments->Attatch(this);
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 		SetTransform(actorParent->GetTransform());
@@ -97,7 +104,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 
 void AActor::Detach(AActor* actor)
 {
-	Attachments.Get()->Detach(actor);
+	Attachments->Detach(actor);
 }
 
 void AActor::DetachFromParent()
@@ -107,7 +114,7 @@ void AActor::DetachFromParent()
 
 	if (actorParent)
 	{
-		actorParent->Attachments.Get()->Detach(this);
+		actorParent->Attachments->Detach(this);
 	}
 }
 
@@ -130,9 +137,9 @@ void AActor::SetTransform(const FTransform& transform)
 		TransformComponent->SetTransform(myTransform);
 	}
 
-	if (Attachments.Get()->HasAttachments())
+	if (Attachments->HasAttachments())
 	{
-		for (auto& it : Attachments.Get()->Attachments)
+		for (auto& it : Attachments->Attachments)
 		{
 			it.second->SetTransform(transform);
 		}

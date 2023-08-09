@@ -28,7 +28,7 @@ void AEntity::Create()
 		FException::RuntimeError(FText::Format("%s Already Created!", GetIdentity().c_str()));
 	}
 
-	bIsCreated = true;
+	Super::Create();
 }
 
 void AEntity::Destroy()
@@ -39,14 +39,6 @@ void AEntity::Destroy()
 void AEntity::Initialize()
 {
 	Super::Initialize();
-
-	if (!bIsCreated)
-		return;
-
-	//if (Attachments.Get()->HasAttachments())
-	//{
-	//	Attachments.Get()->Initialize();
-	//}
 }
 
 void AEntity::Update(float deltaTime)

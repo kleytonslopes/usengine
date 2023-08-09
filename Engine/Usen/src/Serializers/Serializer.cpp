@@ -10,13 +10,14 @@
 #include "upch.hpp"
 #include "Serializers/Serializer.hpp"
 
-BSerializer::BSerializer()
+BSerializer::BSerializer() : out{ CreateSeriFile() }
 {
 	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
 }
 
 BSerializer::~BSerializer()
 {
+	delete outPtr;
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
@@ -24,6 +25,14 @@ void BSerializer::Save()
 {
 	std::ofstream fout(seriFilePath);
 	fout << out.c_str();
+}
+
+SeriFile& BSerializer::CreateSeriFile()
+{
+	if(!outPtr)
+		outPtr = new SeriFile();
+
+	return *outPtr;
 }
 
 SeriNode BSerializer::Load(const FString& filePath)
