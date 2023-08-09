@@ -11,16 +11,7 @@
 #include "Core/Attachment.hpp"
 #include "Actors/Actor.hpp"
 
-UAttachment::UAttachment()
-{
-	Attachments.empty();
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UAttachment::~UAttachment()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UAttachment)
 
 bool UAttachment::HasAttachments() const
 {
@@ -29,6 +20,7 @@ bool UAttachment::HasAttachments() const
 
 void UAttachment::Initialize()
 {
+	Attachments.empty();
 	Super::Initialize();
 
 	TMap<FString, AActor*>::iterator it;

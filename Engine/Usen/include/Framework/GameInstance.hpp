@@ -20,8 +20,7 @@ class UGameInstance : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	//explicit UGameInstance();
-	//virtual ~UGameInstance();
+
 };
 
 #endif // !US_GAME_INSTANCE_HPP

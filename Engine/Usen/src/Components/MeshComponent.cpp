@@ -10,15 +10,7 @@
 #include "upch.hpp"
 #include "Components/MeshComponent.hpp"
 
-UMeshComponent::UMeshComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UMeshComponent::~UMeshComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UMeshComponent)
 
 void UMeshComponent::SetMeshParameters(const FMeshParameters& parameters)
 {

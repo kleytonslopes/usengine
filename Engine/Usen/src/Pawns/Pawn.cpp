@@ -13,15 +13,7 @@
 #include "Components/InputComponent.hpp"
 #include "Components/TransformComponent.hpp"
 
-APawn::APawn()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-APawn::~APawn()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(APawn)
 
 void APawn::Create()
 {

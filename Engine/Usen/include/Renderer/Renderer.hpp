@@ -27,8 +27,7 @@ class BRenderer : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit BRenderer();
-	virtual ~BRenderer();
+	void Destroy() override;
 
 	void Draw(AEntity* entity, float deltaTime);
 	virtual void StartFrame() { /* override */ };

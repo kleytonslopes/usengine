@@ -13,15 +13,7 @@
 #include "Components/CollisionComponent.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 
-UPhysicsSystem::UPhysicsSystem()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UPhysicsSystem::~UPhysicsSystem()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UPhysicsSystem)
 
 void UPhysicsSystem::Create()
 {

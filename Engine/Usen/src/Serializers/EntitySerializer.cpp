@@ -13,15 +13,7 @@
 #include "Actors/Actor.hpp"
 #include "Components/Component.hpp"
 
-FEntitySerializer::FEntitySerializer()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-FEntitySerializer::~FEntitySerializer()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(FEntitySerializer)
 
 void FEntitySerializer::Serialize()
 {

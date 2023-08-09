@@ -27,9 +27,6 @@ class AMesh : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit AMesh();
-	virtual ~AMesh();
-
 	void Create() override;
 	void PostCreate() override;
 	void Initialize() override;

@@ -22,9 +22,6 @@ class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit APawn();
-	virtual ~APawn();
-
 	void Create() override;
 	void PostCreate() override;
 

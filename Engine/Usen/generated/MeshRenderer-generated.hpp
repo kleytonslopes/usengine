@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UMeshRenderer: ## Class Name
-// !MeshRenderer.cpp: ## File Class CPP
-// !MeshRenderer.hpp: ## File Class HPP
-// !US_MESH_RENDERER_HPP: ## Class Definition
-// !Renderer/MeshRenderer.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !MeshRenderer-generated.hpp: ## This file
-// !hpp_UMeshRenderer_BClass: ## Class Id
-// !hpp_UMeshRenderer_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UMeshRenderer_BClass
 
 #define hpp_UMeshRenderer_BClass_def \
 private: \
 	using Super = BClass; using This = UMeshRenderer; \
-	FString Identity{ "UMeshRenderer" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UMeshRenderer> GetClass() { return TClassOf<UMeshRenderer>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UMeshRenderer) \
+	DEFINE_OPERATOR_CPY(UMeshRenderer) \
+	DEFINE_OPERATOR_MOV(UMeshRenderer) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UMeshRenderer) \
+private:
 

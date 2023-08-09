@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UController: ## Class Name
-// !Controller.cpp: ## File Class CPP
-// !Controller.hpp: ## File Class HPP
-// !US_CONTROLLER_HPP: ## Class Definition
-// !Controllers/Controller.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Controller-generated.hpp: ## This file
-// !hpp_UController_AEntity: ## Class Id
-// !hpp_UController_AEntity_def: ## Class Version
-// !AEntity: ## Base class name
-// !Actors/Entity.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UController_AEntity
 
 #define hpp_UController_AEntity_def \
 private: \
 	using Super = AEntity; using This = UController; \
-	FString Identity{ "UController" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UController> GetClass() { return TClassOf<UController>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UController) \
+	DEFINE_OPERATOR_CPY(UController) \
+	DEFINE_OPERATOR_MOV(UController) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UController) \
+private:
 

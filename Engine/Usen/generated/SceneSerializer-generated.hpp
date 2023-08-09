@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !FSceneSerializer: ## Class Name
-// !SceneSerializer.cpp: ## File Class CPP
-// !SceneSerializer.hpp: ## File Class HPP
-// !US_SCENE_SERIALIZER_HPP: ## Class Definition
-// !Serializers/SceneSerializer.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !SceneSerializer-generated.hpp: ## This file
-// !hpp_FSceneSerializer_BSerializer: ## Class Id
-// !hpp_FSceneSerializer_BSerializer_def: ## Class Version
-// !BSerializer: ## Base class name
-// !Serializers/Serializer.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_FSceneSerializer_BSerializer
 
 #define hpp_FSceneSerializer_BSerializer_def \
 private: \
 	using Super = BSerializer; using This = FSceneSerializer; \
-	FString Identity{ "FSceneSerializer" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<FSceneSerializer> GetClass() { return TClassOf<FSceneSerializer>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(FSceneSerializer) \
+	DEFINE_OPERATOR_CPY(FSceneSerializer) \
+	DEFINE_OPERATOR_MOV(FSceneSerializer) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(FSceneSerializer) \
+private:
 

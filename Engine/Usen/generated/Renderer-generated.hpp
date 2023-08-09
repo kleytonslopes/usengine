@@ -12,31 +12,17 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !BRenderer: ## Class Name
-// !Renderer.cpp: ## File Class CPP
-// !Renderer.hpp: ## File Class HPP
-// !US_RENDERER_HPP: ## Class Definition
-// !Renderer/Renderer.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Renderer-generated.hpp: ## This file
-// !hpp_BRenderer_BClass: ## Class Id
-// !hpp_BRenderer_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_BRenderer_BClass
 
 #define hpp_BRenderer_BClass_def \
 private: \
 	using Super = BClass; using This = BRenderer; \
-	FString Identity{ "BRenderer" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<BRenderer> GetClass() { return TClassOf<BRenderer>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(BRenderer) \
+	DEFINE_OPERATOR_CPY(BRenderer) \
+	DEFINE_OPERATOR_MOV(BRenderer) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(BRenderer) \
+private:

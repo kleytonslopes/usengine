@@ -12,20 +12,6 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !AEntity: ## Class Name
-// !Entity.cpp: ## File Class CPP
-// !Entity.hpp: ## File Class HPP
-// !US_ENTITY_HPP: ## Class Definition
-// !Actors/Entity.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Entity-generated.hpp: ## This file
-// !hpp_AEntity_BClass: ## Class Id
-// !hpp_AEntity_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_AEntity_BClass
 

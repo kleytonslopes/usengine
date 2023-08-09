@@ -13,15 +13,7 @@
 #include "Core/Vertex.hpp"
 #include "Renderer/Model.hpp"
 
-UMeshRenderer::UMeshRenderer()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UMeshRenderer::~UMeshRenderer()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UMeshRenderer)
 
 void UMeshRenderer::SetModel(UModel* model)
 {

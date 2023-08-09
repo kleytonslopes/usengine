@@ -10,15 +10,7 @@
 #include "upch.hpp"
 #include "Components/Component.hpp"
 
-AComponent::AComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-AComponent::~AComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(AComponent)
 
 void AComponent::Create()
 {

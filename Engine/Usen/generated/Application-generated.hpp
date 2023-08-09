@@ -12,20 +12,6 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UApplication: ## Class Name
-// !Application.cpp: ## File Class CPP
-// !Application.hpp: ## File Class HPP
-// !US_APPLICATION_HPP: ## Class Definition
-// !Runtime/Application.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Application-generated.hpp: ## This file
-// !hpp_UApplication_IWeakClass: ## Class Id
-// !hpp_UApplication_IWeakClass_def: ## Class Version
-// !IWeakClass: ## Base class name
-// !Weaks/WeakClass.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UApplication_IWeakClass
 

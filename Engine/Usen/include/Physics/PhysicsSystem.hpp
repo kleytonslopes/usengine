@@ -22,9 +22,6 @@ class UPhysicsSystem : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UPhysicsSystem();
-	virtual ~UPhysicsSystem();
-
 	void Create() override;
 	void Update(float deltaTime) override;
 	void Destroy() override;

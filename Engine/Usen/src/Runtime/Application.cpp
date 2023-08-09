@@ -18,15 +18,6 @@
 #include "Physics/PhysicsSystem.hpp"
 
 DEFAULT_BODY(UApplication);
-//UApplication::UApplication()
-//{
-//
-//}
-//
-//UApplication::~UApplication()
-//{
-//
-//}
 
 void UApplication::Construct()
 {

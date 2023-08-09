@@ -11,15 +11,7 @@
 #include "Camera/Camera.hpp"
 #include "Components/CameraComponent.hpp"
 
-ACamera::ACamera()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-ACamera::~ACamera()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(ACamera);
 
 void ACamera::Create()
 {

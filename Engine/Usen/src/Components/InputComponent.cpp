@@ -11,15 +11,7 @@
 #include "Presentation/Window.hpp"
 #include "Components/InputComponent.hpp"
 
-UInputComponent::UInputComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UInputComponent::~UInputComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UInputComponent)
 
 void UInputComponent::Create()
 {

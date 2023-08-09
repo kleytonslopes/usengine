@@ -20,8 +20,6 @@ class ACharacter : public APawn
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit ACharacter();
-	virtual ~ACharacter();
 
 };
 

@@ -10,12 +10,4 @@
 #include "upch.hpp"
 #include "Pawns/Character.hpp"
 
-ACharacter::ACharacter()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-ACharacter::~ACharacter()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(ACharacter)

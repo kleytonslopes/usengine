@@ -11,15 +11,7 @@
 #include "Controllers/Controller.hpp"
 #include "Pawns/Pawn.hpp"
 
-UController::UController()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UController::~UController()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UController)
 
 void UController::SetPawn(APawn* pawn)
 {

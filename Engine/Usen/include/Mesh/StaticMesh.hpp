@@ -20,8 +20,6 @@ class UStaticMesh : public AMesh
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UStaticMesh();
-	virtual ~UStaticMesh();
 
 	void Create() override;
 };

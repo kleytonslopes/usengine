@@ -20,9 +20,6 @@ class BShader : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit BShader();
-	virtual ~BShader();
-
 	virtual void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) { /* override */ };
 
 	virtual void Active() { /* override */ };

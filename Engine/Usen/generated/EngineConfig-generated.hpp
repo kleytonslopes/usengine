@@ -12,20 +12,6 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !FEngineConfig: ## Class Name
-// !EngineConfig.cpp: ## File Class CPP
-// !EngineConfig.hpp: ## File Class HPP
-// !US_ENGINE_CONFIG_HPP: ## Class Definition
-// !Configs/EngineConfig.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !EngineConfig-generated.hpp: ## This file
-// !hpp_FEngineConfig: ## Class Id
-// !hpp_FEngineConfig_def: ## Class Version
-// !: ## Base class name
-// !: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_FEngineConfig
 

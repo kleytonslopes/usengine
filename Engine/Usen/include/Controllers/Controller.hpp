@@ -22,9 +22,6 @@ class UController : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UController();
-	virtual ~UController();
-
 	void SetPawn(APawn* pawn);
 	APawn* GetPawn();
 

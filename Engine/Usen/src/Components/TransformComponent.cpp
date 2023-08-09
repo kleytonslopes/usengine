@@ -10,13 +10,7 @@
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
 
-UTransformComponent::UTransformComponent()
-{
-}
-
-UTransformComponent::~UTransformComponent()
-{
-}
+DEFAULT_BODY(UTransformComponent)
 
 FVector UTransformComponent::GetLocation()
 {

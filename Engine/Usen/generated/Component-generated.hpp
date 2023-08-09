@@ -12,31 +12,19 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !AComponent: ## Class Name
-// !Component.cpp: ## File Class CPP
-// !Component.hpp: ## File Class HPP
-// !US_COMPONENT_HPP: ## Class Definition
-// !Components/Component.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Component-generated.hpp: ## This file
-// !hpp_AComponent_AEntity: ## Class Id
-// !hpp_AComponent_AEntity_def: ## Class Version
-// !AEntity: ## Base class name
-// !Actors/Entity.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_AComponent_AEntity
 
 #define hpp_AComponent_AEntity_def \
 private: \
 	using Super = AEntity; using This = AComponent; \
-	FString Identity{ "AComponent" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<AComponent> GetClass() { return TClassOf<AComponent>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(AComponent) \
+	DEFINE_OPERATOR_CPY(AComponent) \
+	DEFINE_OPERATOR_MOV(AComponent) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(AComponent) \
+private:
+
 

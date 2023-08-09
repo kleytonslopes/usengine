@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !ACharacter: ## Class Name
-// !Character.cpp: ## File Class CPP
-// !Character.hpp: ## File Class HPP
-// !US_CHARACTER_HPP: ## Class Definition
-// !Pawns/Character.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !Character-generated.hpp: ## This file
-// !hpp_ACharacter_APawn: ## Class Id
-// !hpp_ACharacter_APawn_def: ## Class Version
-// !APawn: ## Base class name
-// !Pawns/Pawn.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_ACharacter_APawn
 
 #define hpp_ACharacter_APawn_def \
 private: \
 	using Super = APawn; using This = ACharacter; \
-	FString Identity{ "ACharacter" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<ACharacter> GetClass() { return TClassOf<ACharacter>(); } \
-	FString GetIdentity() { return "ACharacter"; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ACharacter) \
+	DEFINE_OPERATOR_CPY(ACharacter) \
+	DEFINE_OPERATOR_MOV(ACharacter) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(ACharacter) \
+private:
 

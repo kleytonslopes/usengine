@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UMeshComponent: ## Class Name
-// !MeshComponent.cpp: ## File Class CPP
-// !MeshComponent.hpp: ## File Class HPP
-// !US_MESH_COMPONENT_HPP: ## Class Definition
-// !Components/MeshComponent.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !MeshComponent-generated.hpp: ## This file
-// !hpp_UMeshComponent_AComponent: ## Class Id
-// !hpp_UMeshComponent_AComponent_def: ## Class Version
-// !AComponent: ## Base class name
-// !Components/Component.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UMeshComponent_AComponent
 
 #define hpp_UMeshComponent_AComponent_def \
 private: \
 	using Super = AComponent; using This = UMeshComponent; \
-	FString Identity{ "UMeshComponent" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UMeshComponent> GetClass() { return TClassOf<UMeshComponent>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UMeshComponent) \
+	DEFINE_OPERATOR_CPY(UMeshComponent) \
+	DEFINE_OPERATOR_MOV(UMeshComponent) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UMeshComponent) \
+private:
 

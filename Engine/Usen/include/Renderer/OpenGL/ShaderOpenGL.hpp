@@ -21,10 +21,8 @@ class UShaderOpenGL : public BShader
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UShaderOpenGL();
-	~UShaderOpenGL() final;
-
 	void LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName) override;
+	void Destroy() override;
 
 	void Active() override;
 	void Deactive() override;

@@ -10,12 +10,4 @@
 #include "upch.hpp"
 #include "Renderer/OpenGL/TextureOpenGL.hpp"
 
-UTextureOpenGL::UTextureOpenGL()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UTextureOpenGL::~UTextureOpenGL()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UTextureOpenGL)

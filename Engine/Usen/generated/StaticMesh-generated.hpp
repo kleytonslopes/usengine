@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UStaticMesh: ## Class Name
-// !StaticMesh.cpp: ## File Class CPP
-// !StaticMesh.hpp: ## File Class HPP
-// !US_STATIC_MESH_HPP: ## Class Definition
-// !Mesh/StaticMesh.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !StaticMesh-generated.hpp: ## This file
-// !hpp_UStaticMesh_AMesh: ## Class Id
-// !hpp_UStaticMesh_AMesh_def: ## Class Version
-// !AMesh: ## Base class name
-// !Mesh/Mesh.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UStaticMesh_AMesh
 
 #define hpp_UStaticMesh_AMesh_def \
 private: \
 	using Super = AMesh; using This = UStaticMesh; \
-    FString Identity{ "UStaticMesh" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UStaticMesh> GetClass() { return TClassOf<UStaticMesh>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UStaticMesh) \
+	DEFINE_OPERATOR_CPY(UStaticMesh) \
+	DEFINE_OPERATOR_MOV(UStaticMesh) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UStaticMesh) \
+private:
 

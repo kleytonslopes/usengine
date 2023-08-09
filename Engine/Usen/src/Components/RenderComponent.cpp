@@ -12,15 +12,7 @@
 
 #include "Renderer/Shader.hpp"
 
-URenderComponent::URenderComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-URenderComponent::~URenderComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(URenderComponent)
 
 void URenderComponent::SetShader(BShader* shader)
 {

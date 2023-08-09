@@ -27,8 +27,6 @@ class UController;
 class UInputManagement;
 class UPhysicsSystem;
 
-//#define CLASSOF(A) A
-
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
 
 class UApplication : public IWeakClass
@@ -38,9 +36,6 @@ class UApplication : public IWeakClass
 public:
 	FOnUpdateSignature OnUpdateEvent;
 
-	//explicit UApplication();
-	//virtual ~UApplication();
-	
 	void Run();
 
 	// Inherited via IWeakClass

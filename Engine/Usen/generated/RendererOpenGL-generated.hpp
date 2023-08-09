@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !URendererOpenGL: ## Class Name
-// !RendererOpenGL.cpp: ## File Class CPP
-// !RendererOpenGL.hpp: ## File Class HPP
-// !US_RENDERER_OPEN_GL_HPP: ## Class Definition
-// !Renderer/OpenGL/RendererOpenGL.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !RendererOpenGL-generated.hpp: ## This file
-// !hpp_URendererOpenGL_BRenderer: ## Class Id
-// !hpp_URendererOpenGL_BRenderer_def: ## Class Version
-// !BRenderer: ## Base class name
-// !Renderer/Renderer.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_URendererOpenGL_BRenderer
 
 #define hpp_URendererOpenGL_BRenderer_def \
 private: \
 	using Super = BRenderer; using This = URendererOpenGL; \
-	FString Identity{ "URendererOpenGL" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<URendererOpenGL> GetClass() { return TClassOf<URendererOpenGL>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(URendererOpenGL) \
+	DEFINE_OPERATOR_CPY(URendererOpenGL) \
+	DEFINE_OPERATOR_MOV(URendererOpenGL) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(URendererOpenGL) \
+private:
 

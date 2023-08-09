@@ -11,16 +11,7 @@
 #include "Components/BoxCollisionComponent.hpp"
 #include "Physics/PhysicsSystem.hpp"
 
-UBoxCollisionComponent::UBoxCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UBoxCollisionComponent::~UBoxCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-
-}
+DEFAULT_BODY(UBoxCollisionComponent);
 
 void UBoxCollisionComponent::Create()
 {

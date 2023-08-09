@@ -12,15 +12,7 @@
 #include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
 
-UPlayerController::UPlayerController()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UPlayerController::~UPlayerController()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UPlayerController)
 
 void UPlayerController::Initialize()
 {

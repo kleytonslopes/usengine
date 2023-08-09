@@ -22,9 +22,6 @@ class UAttachment : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UAttachment();
-	virtual ~UAttachment();
-
 	bool HasAttachments() const;
 	void Initialize() override;
 

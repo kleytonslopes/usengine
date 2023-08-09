@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UPhysicsSystem: ## Class Name
-// !PhysicsSystem.cpp: ## File Class CPP
-// !PhysicsSystem.hpp: ## File Class HPP
-// !US_PHYSICS_SYSTEM_HPP: ## Class Definition
-// !Physics/PhysicsSystem.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !PhysicsSystem-generated.hpp: ## This file
-// !hpp_UPhysicsSystem_BClass: ## Class Id
-// !hpp_UPhysicsSystem_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UPhysicsSystem_BClass
 
 #define hpp_UPhysicsSystem_BClass_def \
 private: \
 	using Super = BClass; using This = UPhysicsSystem; \
-	FString Identity{ "UPhysicsSystem" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UPhysicsSystem> GetClass() { return TClassOf<UPhysicsSystem>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UPhysicsSystem) \
+	DEFINE_OPERATOR_CPY(UPhysicsSystem) \
+	DEFINE_OPERATOR_MOV(UPhysicsSystem) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UPhysicsSystem) \
+private:
 

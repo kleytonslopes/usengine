@@ -21,9 +21,6 @@ class UPlayerController : public UController
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UPlayerController();
-	virtual ~UPlayerController();
-
 	void Initialize() override;
 	void Create() override;
 

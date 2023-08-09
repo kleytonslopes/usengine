@@ -18,8 +18,7 @@ class {className}{baseClassDefinition}
 {
 	{genBody}
 public:
-	explicit {className}();
-	virtual ~{className}();
+	
 };
 
 #endif // !{classDefinition}

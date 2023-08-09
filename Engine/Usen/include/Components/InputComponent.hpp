@@ -30,9 +30,6 @@ class UInputComponent : public AComponent
 	using ActionMap = TMap<FString, InputAction>;
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UInputComponent();
-	virtual ~UInputComponent();
-
 	bool IsActive() const { return true; }
 
 	void Create() override;

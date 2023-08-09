@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UGameModeBase: ## Class Name
-// !GameModeBase.cpp: ## File Class CPP
-// !GameModeBase.hpp: ## File Class HPP
-// !US_GAME_MODE_BASE_HPP: ## Class Definition
-// !Framework/GameModeBase.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !GameModeBase-generated.hpp: ## This file
-// !hpp_UGameModeBase_BClass: ## Class Id
-// !hpp_UGameModeBase_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UGameModeBase_BClass
 
 #define hpp_UGameModeBase_BClass_def \
 private: \
 	using Super = BClass; using This = UGameModeBase; \
-	FString Identity{ "UGameModeBase" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UGameModeBase> GetClass() { return TClassOf<UGameModeBase>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UGameModeBase) \
+	DEFINE_OPERATOR_CPY(UGameModeBase) \
+	DEFINE_OPERATOR_MOV(UGameModeBase) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UGameModeBase) \
+private:
 

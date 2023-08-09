@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UTextureOpenGL: ## Class Name
-// !TextureOpenGL.cpp: ## File Class CPP
-// !TextureOpenGL.hpp: ## File Class HPP
-// !US_TEXTURE_OPEN_GL_HPP: ## Class Definition
-// !Renderer/OpenGL/TextureOpenGL.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !TextureOpenGL-generated.hpp: ## This file
-// !hpp_UTextureOpenGL_UTexture: ## Class Id
-// !hpp_UTextureOpenGL_UTexture_def: ## Class Version
-// !UTexture: ## Base class name
-// !Renderer/Texture.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UTextureOpenGL_UTexture
 
 #define hpp_UTextureOpenGL_UTexture_def \
 private: \
 	using Super = UTexture; using This = UTextureOpenGL; \
-	FString Identity{ "UTextureOpenGL" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UTextureOpenGL> GetClass() { return TClassOf<UTextureOpenGL>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UTextureOpenGL) \
+	DEFINE_OPERATOR_CPY(UTextureOpenGL) \
+	DEFINE_OPERATOR_MOV(UTextureOpenGL) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UTextureOpenGL) \
+private:
 

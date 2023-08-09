@@ -15,16 +15,7 @@
 #include "Pawns/Pawn.hpp"
 #include "Pawns/Character.hpp"
 
-
-UGameModeBase::UGameModeBase()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UGameModeBase::~UGameModeBase()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UGameModeBase)
 
 void UGameModeBase::Create()
 {

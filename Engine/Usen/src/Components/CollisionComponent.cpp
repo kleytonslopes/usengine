@@ -10,15 +10,7 @@
 #include "upch.hpp"
 #include "Components/CollisionComponent.hpp"
 
-UCollisionComponent::UCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UCollisionComponent::~UCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UCollisionComponent)
 
 void UCollisionComponent::Create()
 {

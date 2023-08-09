@@ -23,9 +23,6 @@ class UGameModeBase : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UGameModeBase();
-	virtual ~UGameModeBase();
-
 	void Create() override;
 	void Initialize() override;
 

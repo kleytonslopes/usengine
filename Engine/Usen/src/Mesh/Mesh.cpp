@@ -17,14 +17,7 @@
 #include "Renderer/OpenGL/ModelOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
 
-AMesh::AMesh()
-{
-}
-
-AMesh::~AMesh()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(AMesh)
 
 void AMesh::Create()
 {

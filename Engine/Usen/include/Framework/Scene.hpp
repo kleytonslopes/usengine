@@ -34,8 +34,6 @@ class UScene : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UScene();
-	~UScene() final;
 	void Destroy() final;
 
 	void PostConstruct() override;

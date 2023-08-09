@@ -11,22 +11,7 @@
 #include "Presentation/Window.hpp"
 #include "Runtime/Application.hpp"
 
-UWindow::UWindow()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UWindow::~UWindow()
-{
-	if (sdlGLContext)
-		SDL_GL_DeleteContext(sdlGLContext);
-
-	SDL_FreeSurface(sdlSurface);
-	SDL_DestroyRenderer(sdlRenderer);
-	SDL_DestroyWindow(sdlWindow);
-	SDL_Quit();
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UWindow)
 
 void UWindow::Construct()
 {
@@ -43,6 +28,17 @@ void UWindow::PostConstruct()
 	}
 
 	Super::PostConstruct();
+}
+
+void UWindow::Destroy()
+{
+	if (sdlGLContext)
+		SDL_GL_DeleteContext(sdlGLContext);
+
+	SDL_FreeSurface(sdlSurface);
+	SDL_DestroyRenderer(sdlRenderer);
+	SDL_DestroyWindow(sdlWindow);
+	SDL_Quit();
 }
 
 void UWindow::Initialize()

@@ -12,31 +12,17 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UBoxCollisionComponent: ## Class Name
-// !BoxCollisionComponent.cpp: ## File Class CPP
-// !BoxCollisionComponent.hpp: ## File Class HPP
-// !US_BOX_COLLISION_COMPONENT_HPP: ## Class Definition
-// !Components/BoxCollisionComponent.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !BoxCollisionComponent-generated.hpp: ## This file
-// !hpp_UBoxCollisionComponent_UCollisionComponent: ## Class Id
-// !hpp_UBoxCollisionComponent_UCollisionComponent_def: ## Class Version
-// !UCollisionComponent: ## Base class name
-// !Components/CollisionComponent.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UBoxCollisionComponent_UCollisionComponent
 
 #define hpp_UBoxCollisionComponent_UCollisionComponent_def \
 private: \
 	using Super = UCollisionComponent; using This = UBoxCollisionComponent; \
-	FString Identity{ "UBoxCollisionComponent" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UBoxCollisionComponent> GetClass() { return TClassOf<UBoxCollisionComponent>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UBoxCollisionComponent) \
+	DEFINE_OPERATOR_CPY(UBoxCollisionComponent) \
+	DEFINE_OPERATOR_MOV(UBoxCollisionComponent) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UBoxCollisionComponent) \
+private:

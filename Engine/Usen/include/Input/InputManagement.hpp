@@ -43,9 +43,6 @@ class UInputManagement : public AEntity
 
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UInputManagement();
-	virtual ~UInputManagement();
-
 	void Create() override;
 	void Update(float deltaTime) override;
 	void SetInputComponent(UInputComponent* inputComponent);

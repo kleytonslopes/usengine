@@ -20,9 +20,6 @@ class URendererOpenGL : public BRenderer
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit URendererOpenGL();
-	virtual ~URendererOpenGL();
-
 	void Initialize() override;
 	void StartFrame() override;
 	void EndFrame() override;

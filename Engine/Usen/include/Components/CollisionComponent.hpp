@@ -20,9 +20,6 @@ class UCollisionComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UCollisionComponent();
-	virtual ~UCollisionComponent();
-
 	virtual void CalculeLocalInertia() { /* override */ };
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
 	

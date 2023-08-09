@@ -39,15 +39,7 @@
 
 #include "Serializers/Serializer.hpp"
 
-UScene::UScene()
-{
-	
-}
-
-UScene::~UScene()
-{
-
-}
+DEFAULT_BODY(UScene)
 
 void UScene::Destroy()
 {

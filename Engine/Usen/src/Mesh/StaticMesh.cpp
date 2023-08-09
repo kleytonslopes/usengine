@@ -11,14 +11,7 @@
 #include "Mesh/StaticMesh.hpp"
 #include "Components/CollisionComponent.hpp"
 
-UStaticMesh::UStaticMesh()
-{
-}
-
-UStaticMesh::~UStaticMesh()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UStaticMesh)
 
 void UStaticMesh::Create()
 {

@@ -12,31 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UModelOpenGL: ## Class Name
-// !ModelOpenGL.cpp: ## File Class CPP
-// !ModelOpenGL.hpp: ## File Class HPP
-// !US_MODEL_OPEN_GL_HPP: ## Class Definition
-// !Renderer/OpenGL/ModelOpenGL.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !ModelOpenGL-generated.hpp: ## This file
-// !hpp_UModelOpenGL_UModel: ## Class Id
-// !hpp_UModelOpenGL_UModel_def: ## Class Version
-// !UModel: ## Base class name
-// !Renderer/Model.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UModelOpenGL_UModel
 
 #define hpp_UModelOpenGL_UModel_def \
 private: \
-	using Super = UModel; using This = UModelOpenGL; \
-	FString Identity{ "UModelOpenGL" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+		using Super = UModel; using This = UModelOpenGL; \
+		DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UModelOpenGL> GetClass() { return TClassOf<UModelOpenGL>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+		DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UModelOpenGL) \
+		DEFINE_OPERATOR_CPY(UModelOpenGL) \
+		DEFINE_OPERATOR_MOV(UModelOpenGL) \
+		DEFINE_IDENTITY_BODY() \
+		DEFINE_GET_CLASS(UModelOpenGL) \
+private:
 

@@ -20,9 +20,6 @@ class UAssetLoader : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UAssetLoader();
-	virtual ~UAssetLoader();
-
 	void LoadModel(static FString& modelPath);
 
 	void Construct() override { /* override */ };;

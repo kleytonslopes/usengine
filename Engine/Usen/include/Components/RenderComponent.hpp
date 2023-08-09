@@ -24,9 +24,6 @@ class URenderComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit URenderComponent();
-	virtual ~URenderComponent();
-
 	void SetShader(BShader* shader);
 	BShader* GetShader();
 

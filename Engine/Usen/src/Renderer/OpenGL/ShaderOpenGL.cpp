@@ -10,16 +10,7 @@
 #include "upch.hpp"
 #include "Renderer/OpenGL/ShaderOpenGL.hpp"
 
-UShaderOpenGL::UShaderOpenGL()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UShaderOpenGL::~UShaderOpenGL()
-{
-	glDeleteProgram(programId);
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UShaderOpenGL)
 
 void UShaderOpenGL::LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShaderFileName)
 {
@@ -33,6 +24,11 @@ void UShaderOpenGL::LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShade
 
 	glDeleteShader(vertId);
 	glDeleteShader(fragId);
+}
+
+void UShaderOpenGL::Destroy()
+{
+	glDeleteProgram(programId);
 }
 
 void UShaderOpenGL::Active()

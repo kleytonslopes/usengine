@@ -20,9 +20,6 @@ class UBoxCollisionComponent : public UCollisionComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UBoxCollisionComponent();
-	virtual ~UBoxCollisionComponent();
-
 	void Create() override;
 	void Destroy() override;
 

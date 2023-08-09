@@ -31,15 +31,7 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const TVector<FShaderParameters>& 
 	return out;
 }
 
-FSceneSerializer::FSceneSerializer()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-FSceneSerializer::~FSceneSerializer()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(FSceneSerializer)
 
 void FSceneSerializer::Serialize()
 {

@@ -20,15 +20,7 @@
 
 #include <glad/glad.h>
 
-UMeshRendererOpenGL::UMeshRendererOpenGL()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UMeshRendererOpenGL::~UMeshRendererOpenGL()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UMeshRendererOpenGL)
 
 void UMeshRendererOpenGL::Setup(TVector<FVertex> vertices, TVector<uint32> indices, TVector<UTextureOpenGL> textures)
 {

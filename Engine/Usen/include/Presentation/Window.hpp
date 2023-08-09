@@ -30,11 +30,9 @@ public:
 	FOnWindowResizedSignature OnWindowResizedEvent;
 	FOnKeyEvent OnKeyEvent;
 
-	explicit UWindow();
-	~UWindow() final;
-
 	void Construct() override;
 	void PostConstruct() override;
+	void Destroy() override;
 
 	void Initialize() override;
 

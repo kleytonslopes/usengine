@@ -22,9 +22,6 @@ class FSceneSerializer : public BSerializer
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit FSceneSerializer();
-	virtual ~FSceneSerializer();
-
 	void Serialize() override;
 	void Serialize(SeriFile& otherOut) override { /* DoNothing */ }
 	bool Deserialize(const FString& scenePath) override;
