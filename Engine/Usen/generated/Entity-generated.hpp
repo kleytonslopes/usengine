@@ -32,11 +32,13 @@
 #define hpp_AEntity_BClass_def \
 private: \
 	using Super = BClass; using This = AEntity; \
-	FString Identity{ "AEntity" }; \
-    template<class T, class U> T* Cast(U* other) { return static_cast<T*>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<AEntity> GetClass() { return TClassOf<AEntity>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(AEntity) \
+	DEFINE_OPERATOR_CPY(AEntity) \
+	DEFINE_OPERATOR_MOV(AEntity) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(AEntity) \
+private:
+
 

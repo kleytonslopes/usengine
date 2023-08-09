@@ -14,6 +14,10 @@
 
 #include "Core/Core.hpp"
 
+#define STRINGFY_INNER(A) #A
+#define STRINGFY_ARGS(A) STRINGFY_INNER(A)
+#define STRINGFY(...) STRINGFY_ARGS(__VA_ARGS__)
+
 #define DEFAULT_BODY_GENERATED_FILTER_IN(A,B,C) A##B##C
 #define DEFAULT_BODY_GENERATED_FILTER(A,B,C) DEFAULT_BODY_GENERATED_FILTER_IN(A,B,C)
 #define DEFAULT_BODY_GENERATED(...) DEFAULT_BODY_GENERATED_FILTER(CURRENT_CLASS_IDENTITY_FILE,_,def);
@@ -21,5 +25,27 @@
 #define UASSERT(COND, MSG) \
 ULOG(ELogLevel::ELL_FATAL, MSG); \
 assert(COND && MSG)
+
+#define DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ClassName) \
+ClassName() : ClassName(STRINGFY(ClassName)) { } \
+ClassName(const FString& className) { Identity = className; } \
+virtual ~ClassName() = default; \
+
+#define DEFINE_OPERATOR_CPY(ClassName)  \
+ClassName(const ClassName& other) = default; \
+ClassName& operator=(const ClassName& other) = default; \
+
+#define DEFINE_OPERATOR_MOV(ClassName) \
+ClassName(ClassName&& other) = default; \
+ClassName& operator=(ClassName&& other) = default; \
+
+#define DEFINE_CAST_FUNCTION() \
+template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+
+#define DEFINE_IDENTITY_BODY() \
+FString GetIdentity() { return Identity; } \
+
+#define DEFINE_GET_CLASS(ClassName) \
+static TClassOf<ClassName> GetClass() { return TClassOf<ClassName>(); } \
 
 #endif // !US_MACROS_HPP

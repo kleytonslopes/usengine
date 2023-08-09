@@ -32,11 +32,10 @@
 #define hpp_BClass_IWeakClass_def \
 private: \
 	using Super = IWeakClass; using This = BClass; \
-	FString Identity{ "BClass" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<BClass> GetClass() { return TClassOf<BClass>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_OPERATOR_CPY(BClass) \
+	DEFINE_OPERATOR_MOV(BClass) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(BClass) \
+private:

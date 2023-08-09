@@ -10,15 +10,15 @@
 #include "upch.hpp"
 #include "Serializers/Serializer.hpp"
 
-BSerializer::BSerializer() : out{ CreateSeriFile() }
+BSerializer::BSerializer()
+	: out{ CreateSeriFile() }
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	Identity = "BSerializer";
 }
 
 BSerializer::~BSerializer()
 {
 	delete outPtr;
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void BSerializer::Save()

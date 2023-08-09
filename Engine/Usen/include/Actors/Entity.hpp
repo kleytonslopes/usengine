@@ -31,13 +31,11 @@ struct FAttachmentSettings
 	EAttachMode AttachMode = EAttachMode::EAM_SnapToTarget;
 };
 
-class AEntity : public BClass, public BSerializer
+class AEntity : public BSerializer
 {
 	DEFAULT_BODY_GENERATED()
-public:
-	explicit AEntity();
-	virtual ~AEntity();
 
+public:
 	virtual void Create();
 	void Destroy() override;
 
@@ -52,7 +50,7 @@ public:
 	template<typename T>
 	inline T* GetParent()
 	{
-		return Cast<T>(Parent);
+		return Cast<T*>(Parent);
 	}
 
 protected:

@@ -13,16 +13,6 @@
 #include "Components/RenderComponent.hpp"
 #include "Core/Attachment.hpp"
 
-AActor::AActor()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-AActor::~AActor()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
 void AActor::Destroy()
 {
 	TMap<FString, AComponent*>::iterator it;

@@ -13,14 +13,6 @@
 #include "Core/Attachment.hpp"
 #include "Runtime/Application.hpp"
 
-AEntity::AEntity()
-{
-}
-
-AEntity::~AEntity()
-{
-}
-
 void AEntity::Create()
 {
 	if (bIsCreated)

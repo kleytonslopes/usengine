@@ -31,9 +31,8 @@ class BClass : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit BClass();
-	~BClass() override;
-
+	BClass();
+	virtual ~BClass();
 	virtual void Update(float deltaTime) { /* override */ };
 
 protected:

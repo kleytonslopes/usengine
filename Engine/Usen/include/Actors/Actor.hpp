@@ -22,10 +22,8 @@ class UAttachment;
 class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
-public:
-	explicit AActor();
-	virtual ~AActor();
 
+public:
 	void Destroy() override;
 
 	void Construct() override;
