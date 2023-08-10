@@ -1286,5 +1286,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "FConstructorHelper",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "FConstructorHelper",
+      "ClassDefinition": "US_CONSTRUCTOR_HELPER_HPP",
+      "HppFileName": "ConstructorHelper.hpp",
+      "CppFileName": "ConstructorHelper.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]

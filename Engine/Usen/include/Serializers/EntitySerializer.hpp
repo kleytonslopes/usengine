@@ -28,7 +28,7 @@ public:
 
 	void SetEntity(AEntity* entity);
 private:
-	AEntity* Entity;
+	AEntity* Entity = nullptr;
 
 	void SerializeComponents(SeriFile& otherOut);
 };

@@ -24,6 +24,7 @@
 #include "Core/File.hpp"
 #include "Core/FunctionClass.hpp"
 #include "Core/Exception.hpp"
+#include "Core/ConstructorHelper.hpp"
 
 #include "btBulletDynamicsCommon.h"
 

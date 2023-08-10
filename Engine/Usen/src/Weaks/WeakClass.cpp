@@ -26,8 +26,6 @@ void IWeakClass::Construct()
 {
 	if (bTick)
 		us::env::Environment::TickComponent.Get()->Register(this, &IWeakClass::Tick);
-
-	PostConstruct();
 }
 void IWeakClass::PostConstruct()
 {
@@ -38,8 +36,6 @@ void IWeakClass::Create()
 {
 	if (!bIsConstructed)
 		FException::RuntimeError(FText::Format("%s Not constructed!", Identity.c_str()));
-
-	PostCreate();
 }
 void IWeakClass::PostCreate()
 {
@@ -53,8 +49,6 @@ void IWeakClass::Initialize()
 
 	if (bIsInitialized)
 		FException::RuntimeError(FText::Format("%s Already Initialized!", Identity.c_str()));
-
-	PostInitialize();
 }
 void IWeakClass::PostInitialize()
 {
@@ -63,7 +57,7 @@ void IWeakClass::PostInitialize()
 
 void IWeakClass::Destroy()
 {
-	PostDestroy();
+
 }
 void IWeakClass::PostDestroy()
 {

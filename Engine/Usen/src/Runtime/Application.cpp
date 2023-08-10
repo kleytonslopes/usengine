@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Application.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Runtime/Application.hpp"
@@ -19,15 +19,20 @@
 
 DEFAULT_BODY(UApplication);
 
-void UApplication::Construct()
+void UApplication::Create()
 {
-	DefaultRenderer = TClassOf<URendererOpenGL>();
-
-	Super::Construct();
+	CreateWindow();
+	CreateGameInstance();
+	CreateRenderer();
+	CreateInputManagement();
+	CreatePhysicsSystem();
+	CreateScene();
 }
+
 void UApplication::PostConstruct()
 {
-	Window = USharedPtr<UWindow>::Make();
+	
+
 	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
 	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
 	InputManagement = USharedPtr<UInputManagement>::Make();
@@ -37,25 +42,17 @@ void UApplication::PostConstruct()
 	Super::PostConstruct();
 }
 
-void UApplication::Create()
-{
-	Super::Create();
-}
 void UApplication::PostCreate()
 {
-	CreateWindow();
-	CreateGameInstance();
-	CreateRenderer();
-	CreateInputManagement();
-	CreatePhysicsSystem();
-	CreateScene();
+
 
 	Super::PostCreate();
 }
 
 void UApplication::Initialize()
 {
-	Window.Get()->Initialize();
+	//Window.Get()->Initialize();
+	Window->Initialize();
 	GameInstance.Get()->Initialize();
 	Renderer.Get()->Initialize();
 	InputManagement.Get()->Initialize();
@@ -67,8 +64,7 @@ void UApplication::Initialize()
 
 void UApplication::CreateWindow()
 {
-	Window.Get()->Construct();
-	Window.Get()->Create();
+	Window = FConstructorHelper::CreateObject<UWindow>();
 }
 void UApplication::CreateGameInstance()
 {
@@ -103,7 +99,10 @@ void UApplication::Destroy()
 	InputManagement.Destroy();
 	GameInstance.Destroy();
 	Renderer.Destroy();
-	Window.Destroy();
+	if(Window)
+		Window->Destroy();
+
+	delete Window;
 
 	Super::Destroy();
 }
@@ -113,31 +112,39 @@ void UApplication::Loop()
 	float deltaTime = 0.f;
 	FTime currentTime = FTime::Now();
 
-	auto TickFunction = [](float deltaTime)
+	auto TickFunction = [](float delta)
 	{
-		us::env::Environment::TickComponent.Get()->Tick(deltaTime);
+		us::env::Environment::TickComponent.Get()->Tick(delta);
 	};
 
-	while (!Window.Get()->ShouldClose())
+	//while (!Window.Get()->ShouldClose())
+	while (!Window->ShouldClose())
 	{
-		Window.Get()->MakeCurrent();
-		Window.Get()->StartLoop();
-		
-		Window.Get()->PollEvents();
+		//Window.Get()->MakeCurrent();
+		//Window.Get()->StartLoop();
+		Window->MakeCurrent();
+		Window->StartLoop();
+
+		//Window.Get()->PollEvents();
+		Window->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
-		
-		Window.Get()->Update(deltaTime);
+
+		//Window.Get()->Update(deltaTime);
+		Window->Update(deltaTime);
 		GameInstance.Get()->Update(deltaTime);
-		
+
 		ThreadTickEvent.New(new TThread(TickFunction, deltaTime));
-		
+
 		OnUpdateEvent.Broadcast(deltaTime);
 
 		ThreadTickEvent.Get()->join();
 
-		Window.Get()->StopLoop();
-		Window.Get()->SwapWindow();
+		//Window.Get()->StopLoop();
+		//Window.Get()->SwapWindow();
+
+		Window->StopLoop();
+		Window->SwapWindow();
 	}
 
 	Destroy();

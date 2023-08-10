@@ -27,12 +27,15 @@ ULOG(ELogLevel::ELL_FATAL, MSG); \
 assert(COND && MSG)
 
 #define DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ClassName) \
+private: \
+friend class FConstructorHelper; \
+public: \
 explicit ClassName(); \
 virtual ~ClassName(); \
 
 #define DEFAULT_BODY(ClassName) \
 ClassName::ClassName() { Identity = STRINGFY(ClassName); } \
-ClassName::~ClassName() { } \
+ClassName::~ClassName() { if(!bIsDestroyed) { Destroy(); PostDestroy(); }} \
 
 #define N_ENABLE_DEFINE_OPERATOR_CPY
 #  if defined(ENABLE_DEFINE_OPERATOR_CPY)

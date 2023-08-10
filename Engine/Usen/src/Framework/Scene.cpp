@@ -163,9 +163,9 @@ T* UScene::CreateEntity()
 }
 
 template<class T, class U>
-T* UScene::CreateEntity(TClassOf<U> entityClass)
+T* UScene::CreateEntity(TClassOf<U>& entityClass)
 {
-	T* newEntity = entityClass.GetNew();
+	U* newEntity = new U(*entityClass.Class);//entityClass.GetNew();
 	newEntity->Construct();
 	newEntity->Create();
 
@@ -213,6 +213,7 @@ void UScene::CreateDefaultPawn()
 
 	GameMode.Get()->SetPlayerPawn(PlayerPawn);
 	GameMode.Get()->Controller->SetPawn(PlayerPawn);
+
 }
 
 void UScene::CreateDefaultController()
@@ -221,4 +222,5 @@ void UScene::CreateDefaultController()
 	UController* Controller = CreateEntity<UController>(DefaultControllerClass);
 
 	GameMode.Get()->SetController(Controller);
+	Controller->Initialize();
 }

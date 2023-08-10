@@ -45,7 +45,7 @@ public:
 	T* CreateEntity();
 
 	template<class T, class U>
-	T* CreateEntity(TClassOf<U> entityClass);
+	T* CreateEntity(TClassOf<U>& entityClass);
 
 	ACamera* GetCamera();
 

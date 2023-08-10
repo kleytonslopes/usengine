@@ -32,7 +32,8 @@ BClass::~BClass()
 
 UWindow* BClass::GetWindow()
 {
-	return Application->Window.Get();
+	//return Application->Window.Get();
+	return Application->Window;
 }
 
 UGameInstance* BClass::GetGameInstance()

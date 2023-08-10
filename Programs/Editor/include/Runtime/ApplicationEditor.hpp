@@ -21,7 +21,9 @@ class UApplicationEditor : public UApplication
 	DEFAULT_BODY_GENERATED()
 public:
 
+	void Construct() override;
 	void Create() override;
+
 };
 
 #endif // !US_APPLICATION_EDITOR_HPP

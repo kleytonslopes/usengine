@@ -26,6 +26,10 @@ DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
 class UWindow : public BClass
 {
 	DEFAULT_BODY_GENERATED()
+	void* operator new(size_t sz)
+	{
+		return new char[sz];
+	}
 public:
 	FOnWindowResizedSignature OnWindowResizedEvent;
 	FOnKeyEvent OnKeyEvent;

@@ -35,11 +35,6 @@ void APawn::PostCreate()
 	Super::PostCreate();
 }
 
-void APawn::SetupInputComponent()
-{
-
-}
-
 UInputComponent* APawn::GetInputComponent()
 {
 	return GetComponent<UInputComponent>();

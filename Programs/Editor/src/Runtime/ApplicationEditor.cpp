@@ -13,10 +13,15 @@
 
 DEFAULT_BODY(UApplicationEditor)
 
+void UApplicationEditor::Construct()
+{
+	Super::Construct();
+
+	FConstructorHelper::MakeClassOf<URendererOpenGL>(DefaultRenderer);
+	FConstructorHelper::MakeClassOf<UEditorGameInstance>(DefaultGameInstance);
+}
+
 void UApplicationEditor::Create()
 {
-	DefaultGameInstance = UEditorGameInstance::GetClass();
-	DefaultRenderer = URendererOpenGL::GetClass();
-
 	Super::Create();
 }

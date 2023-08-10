@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Controllers/Controller.hpp"
+#include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
 
 DEFAULT_BODY(UController)
@@ -17,6 +18,8 @@ void UController::SetPawn(APawn* pawn)
 {
 	this->Pawn = pawn;
 	pawn->SetOwner(this);
+
+	GetInputManagement()->SetInputComponent(Pawn->GetInputComponent());
 }
 
 APawn* UController::GetPawn()

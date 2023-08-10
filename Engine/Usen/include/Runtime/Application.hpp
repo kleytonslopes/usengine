@@ -40,9 +40,8 @@ public:
 	void Run();
 
 	// Inherited via IWeakClass
-	void Construct() override;
-	void PostConstruct() override;
 	void Create() override;
+	void PostConstruct() override;
 	void PostCreate() override;
 	void Initialize() override;
 	void Destroy() override;
@@ -68,14 +67,15 @@ protected:
 	virtual void CreatePhysicsSystem();
 
 private:
-	USharedPtr<UWindow> Window;
+	UWindow* Window = nullptr;
+	//USharedPtr<UWindow> Window;
 	USharedPtr<UGameInstance> GameInstance;
 	USharedPtr<BRenderer> Renderer;
 	USharedPtr<UScene> Scene;
 	USharedPtr<UInputManagement> InputManagement;
 	USharedPtr<UPhysicsSystem> PhysicsSystem;
 
-	UController* Controller;
+	UController* Controller = nullptr;
 
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
