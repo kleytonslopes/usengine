@@ -22,7 +22,6 @@ class UPlayerController : public UController
 	DEFAULT_BODY_GENERATED()
 public:
 	void Initialize() override;
-	void Create() override;
 
 	void SetupInputComponent();
 	void ExitAction(float scale);

@@ -20,7 +20,6 @@ class AComponent : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
 	void SetParent(AEntity* parent);
 
 protected:

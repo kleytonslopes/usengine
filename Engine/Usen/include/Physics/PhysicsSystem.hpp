@@ -22,7 +22,7 @@ class UPhysicsSystem : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
+	void PostConstruct() override;
 	void Update(float deltaTime) override;
 	void Destroy() override;
 	void RegisterComponent(UBoxCollisionComponent* collisionComponent);

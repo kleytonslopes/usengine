@@ -20,7 +20,7 @@ class UBoxCollisionComponent : public UCollisionComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
+	void Construct() override;
 	void Destroy() override;
 
 	void CalculeLocalInertia() override;

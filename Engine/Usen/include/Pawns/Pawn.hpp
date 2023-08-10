@@ -22,8 +22,8 @@ class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
-	void PostCreate() override;
+	void Construct() override;
+	void PostConstruct() override;
 
 	void SetupInputComponent();
 

@@ -32,18 +32,17 @@ BClass::~BClass()
 
 UWindow* BClass::GetWindow()
 {
-	//return Application->Window.Get();
 	return Application->Window;
 }
 
 UGameInstance* BClass::GetGameInstance()
 {
-	return Application->GameInstance.Get();
+	return Application->GameInstance;
 }
 
 UScene* BClass::GetScene()
 {
-	return Application->Scene.Get();
+	return Application->Scene;
 }
 
 UController* BClass::GetController()
@@ -53,7 +52,7 @@ UController* BClass::GetController()
 
 UInputManagement* BClass::GetInputManagement()
 {
-	return Application->InputManagement.Get();
+	return Application->InputManagement;
 }
 
 UApplication* BClass::GetApplication()
@@ -63,15 +62,15 @@ UApplication* BClass::GetApplication()
 
 UGameModeBase* BClass::GetGameMode()
 {
-	return GetScene()->GameMode.Get();
+	return GetScene()->GameMode;
 }
 
 UPhysicsSystem* BClass::GetPhysicsSystem()
 {
-	return Application->PhysicsSystem.Get();
+	return Application->PhysicsSystem;
 }
 
 BRenderer* BClass::GetRenderer()
 {
-	return Application->Renderer.Get();
+	return Application->Renderer;
 }

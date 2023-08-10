@@ -15,13 +15,13 @@
 
 DEFAULT_BODY(UPhysicsSystem)
 
-void UPhysicsSystem::Create()
+void UPhysicsSystem::PostConstruct()
 {
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
-	
+
 	CreateEmptyDynamicsWorld();
 
-	Super::Create();
+	Super::PostConstruct();
 }
 
 void UPhysicsSystem::Update(float deltaTime)

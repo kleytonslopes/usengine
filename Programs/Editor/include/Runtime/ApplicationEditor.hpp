@@ -22,7 +22,6 @@ class UApplicationEditor : public UApplication
 public:
 
 	void Construct() override;
-	void Create() override;
 
 };
 

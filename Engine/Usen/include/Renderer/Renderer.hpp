@@ -38,7 +38,7 @@ public:
 	template<typename T>
 	inline T* CreateShader(const FShaderParameters& parameters)
 	{
-		T* shader = new T();
+		T* shader = FConstructorHelper::CreateObject<T>();// new T();
 		shader->LoadShader(parameters.GetVertexFilePath().c_str(), parameters.GetFragmentFilePath().c_str());
 
 		Shaders[parameters.Name] = shader;

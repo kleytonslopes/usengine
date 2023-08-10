@@ -18,11 +18,11 @@
 #define hpp_ACamera_AActor_def \
 private: \
 	using Super = AActor; using This = ACamera; \
-	FString Identity{ "ACamera" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<ACamera> GetClass() { return TClassOf<ACamera>(); } \
-    FString GetIdentity() { return Identity; } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ACamera) \
+	DEFINE_OPERATOR_CPY(ACamera) \
+	DEFINE_OPERATOR_MOV(ACamera) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(ACamera) \
+private:

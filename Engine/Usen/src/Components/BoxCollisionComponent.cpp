@@ -13,9 +13,9 @@
 
 DEFAULT_BODY(UBoxCollisionComponent);
 
-void UBoxCollisionComponent::Create()
+void UBoxCollisionComponent::Construct()
 {
-	Super::Create();
+	Super::Construct();
 	Shape = new btBoxShape(btVector3{ BoundBox.x, BoundBox.y, BoundBox.z });
 
 	GetPhysicsSystem()->RegisterComponent(this);

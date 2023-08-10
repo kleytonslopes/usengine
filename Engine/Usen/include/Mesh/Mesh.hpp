@@ -27,10 +27,11 @@ class AMesh : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
-	void PostCreate() override;
+	void Construct() override;
+	void PostConstruct() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
+	void Destroy() override;
 
 	UMeshComponent* GetMeshComponent();
 	URenderComponent* GetRenderComponent();
@@ -47,7 +48,7 @@ protected:
 	void Draw(float deltaTime) override;
 
 private:
-	UUniquePtr<UModel> Model;
+	UModel* Model = nullptr;
 	
 };
 

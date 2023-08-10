@@ -21,7 +21,7 @@ class UStaticMesh : public AMesh
 	DEFAULT_BODY_GENERATED()
 public:
 
-	void Create() override;
+	void Construct() override;
 };
 
 #endif // !US_STATIC_MESH_HPP

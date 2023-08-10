@@ -15,34 +15,14 @@
 
 DEFAULT_BODY(AEntity);
 
-void AEntity::Create()
+void AEntity::Construct()
 {
-	if (bIsCreated)
-	{
-		FException::RuntimeError(FText::Format("%s Already Created!", GetIdentity().c_str()));
-	}
-
-	Super::Create();
-}
-
-void AEntity::Destroy()
-{
-
-}
-
-void AEntity::Initialize()
-{
-	Super::Initialize();
+	Super::Construct();
 }
 
 void AEntity::Update(float deltaTime)
 {
 	GetApplication()->GetRenderer()->Draw(this, deltaTime);
-}
-
-void AEntity::Serialize(SeriFile& otherOut)
-{
-	/* override */
 }
 
 void AEntity::SetOwner(AEntity* owner)
@@ -66,9 +46,4 @@ void AEntity::DetachFromParent()
 FString AEntity::GetParentId()
 {
 	return Parent != nullptr ? Parent->GetId() : "";
-}
-
-void AEntity::Draw(float deltaTime)
-{
-
 }

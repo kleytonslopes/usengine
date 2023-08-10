@@ -36,10 +36,7 @@ class AEntity : public BSerializer
 	DEFAULT_BODY_GENERATED()
 
 public:
-	virtual void Create();
-	void Destroy() override;
-
-	void Initialize() override;
+	void Construct() override;
 	void Update(float deltaTime) override;
 
 	void SetOwner(AEntity* owner);
@@ -58,16 +55,9 @@ protected:
 	AEntity* Parent = nullptr;
 	FAttachmentSettings AttachmentSettings;
 
-	/*UUniquePtr<UAttachment> Attachments;*/
-
 	bool bIsAttached = false;
-	bool bIsCreated = false;
 
-	void Serialize() override { /* override */ }
-	void Serialize(SeriFile& otherOut) override;
-	bool Deserialize(const FString& scenePath) override { return false; }
-
-	virtual void Draw(float deltaTime);
+	virtual void Draw(float deltaTime) { /* */ };
 
 private:
 	//UUniquePtr<FEntitySerializer> Serializer;

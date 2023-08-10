@@ -28,7 +28,6 @@ public:
 
 	void Construct() override;
 
-	void Create() override;
 	void Initialize() override;
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
 	void DetachFromParent() override;
@@ -66,10 +65,10 @@ protected:
 	template<typename T>
 	T* AddComponent()
 	{
-		T* component = new T();
+		T* component = FConstructorHelper::CreateObject<T>();// new T();
 		components[typeid(T).name()] = component;
-		component->Construct();
-		component->Create();
+		//component->Construct();
+		//component->Create();
 
 		return component;
 	}
@@ -77,10 +76,10 @@ protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&& ... args)
 	{
-		T* component = new T(std::forward<Args>(args)...);
+		T* component = FConstructorHelper::CreateObject<T>(); //new T(std::forward<Args>(args)...);
 		components[typeid(T).name()] = component;
-		component->Construct();
-		component->Create();
+		//component->Construct();
+		//component->Create();
 
 		return component;
 	}

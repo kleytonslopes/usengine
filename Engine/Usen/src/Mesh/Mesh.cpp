@@ -19,14 +19,12 @@
 
 DEFAULT_BODY(AMesh)
 
-void AMesh::Create()
+void AMesh::Construct()
 {
-	Super::Create();
+	Super::Construct();
 
-	Model = UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
-	Model.Get()->Construct();
-	Model.Get()->Create();
-	Model.Get()->SetMeshActor(this);
+	Model = FConstructorHelper::CreateObject<UModel>();//UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	Model->SetMeshActor(this);
 
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
 	RenderComponent->SetOwner(Owner);
@@ -41,14 +39,14 @@ void AMesh::Create()
 	CollisionComponent->SetParent(this);
 }
 
-void AMesh::PostCreate()
+void AMesh::PostConstruct()
 {
-	
+	Super::PostConstruct();
 }
 
 void AMesh::Initialize()
 {
-	Model.Get()->Initialize();
+	Model->Initialize();
 }
 
 void AMesh::Update(float deltaTime)
@@ -59,6 +57,13 @@ void AMesh::Update(float deltaTime)
 	{
 		SetLocation(CollisionComponent->GetLocation());
 	}
+}
+
+void AMesh::Destroy()
+{
+	if(Model) Model->Destroy();
+
+	delete Model;
 }
 
 UMeshComponent* AMesh::GetMeshComponent()
@@ -97,5 +102,5 @@ void AMesh::SetIsDynamic(const bool& isDynamic)
 void AMesh::Draw(float deltaTime)
 {
 
-	Model.Get()->Draw(deltaTime);
+	Model->Draw(deltaTime);
 }

@@ -20,8 +20,3 @@ void UApplicationEditor::Construct()
 	FConstructorHelper::MakeClassOf<URendererOpenGL>(DefaultRenderer);
 	FConstructorHelper::MakeClassOf<UEditorGameInstance>(DefaultGameInstance);
 }
-
-void UApplicationEditor::Create()
-{
-	Super::Create();
-}

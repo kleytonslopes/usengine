@@ -13,9 +13,9 @@
 
 DEFAULT_BODY(UStaticMesh)
 
-void UStaticMesh::Create()
+void UStaticMesh::Construct()
 {
-	Super::Create();
+	Super::Construct();
 
 	CollisionComponent->SetIsDynamic(false);
 }

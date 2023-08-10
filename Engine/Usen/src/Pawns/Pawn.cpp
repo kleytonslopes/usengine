@@ -15,7 +15,7 @@
 
 DEFAULT_BODY(APawn)
 
-void APawn::Create()
+void APawn::Construct()
 {
 	UCameraComponent* CameraComponent = AddComponent<UCameraComponent>();
 	CameraComponent->SetOwner(Owner);
@@ -25,14 +25,14 @@ void APawn::Create()
 	InputComponent->SetOwner(Owner);
 	InputComponent->SetParent(this);
 
-	Super::Create();
+	Super::Construct();
 }
 
-void APawn::PostCreate()
+void APawn::PostConstruct()
 {
-	GetInputComponent()->Create();
+	GetInputComponent()->Construct();
 
-	Super::PostCreate();
+	Super::PostConstruct();
 }
 
 UInputComponent* APawn::GetInputComponent()

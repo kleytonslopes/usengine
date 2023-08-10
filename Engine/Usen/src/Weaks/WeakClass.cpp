@@ -24,22 +24,18 @@ IWeakClass::~IWeakClass()
 
 void IWeakClass::Construct()
 {
-	if (bTick)
-		us::env::Environment::TickComponent.Get()->Register(this, &IWeakClass::Tick);
+	if (bIsConstructed)
+	{
+		FException::RuntimeError(FText::Format("%s Already Created!", GetIdentity().c_str()));
+	}
+
 }
 void IWeakClass::PostConstruct()
 {
-	bIsConstructed = true;
-}
+	if (bTick)
+		us::env::Environment::TickComponent->Register(this, &IWeakClass::Tick);
 
-void IWeakClass::Create()
-{
-	if (!bIsConstructed)
-		FException::RuntimeError(FText::Format("%s Not constructed!", Identity.c_str()));
-}
-void IWeakClass::PostCreate()
-{
-	bIsCreated = true;
+	bIsConstructed = true;
 }
 
 void IWeakClass::Initialize()

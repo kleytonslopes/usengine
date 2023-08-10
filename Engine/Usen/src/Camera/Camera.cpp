@@ -13,9 +13,11 @@
 
 DEFAULT_BODY(ACamera);
 
-void ACamera::Create()
+void ACamera::Construct()
 {
-	Super::Create();
+	Super::Construct();
+
+	bTick = false;
 
 	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
 	cameraComponent->SetOwner(Owner);

@@ -30,7 +30,11 @@ class UPhysicsSystem;
 class BClass : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
-
+	
+	void* operator new(size_t sz)
+	{
+		return new char[sz];
+	}
 public:
 	BClass();
 	virtual ~BClass();
@@ -57,6 +61,7 @@ private:
 	UApplication* Application = nullptr;
 
 	friend class UScene;
+	friend class FConstructorHelper;
 };
 
 #endif // !US_CLASS_HPP

@@ -36,8 +36,8 @@ class UScene : public BClass
 public:
 	void Destroy() final;
 
+	void Construct() override;
 	void PostConstruct() override;
-	void Create() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
 
@@ -51,12 +51,12 @@ public:
 
 	UGameModeBase* GetGameMode();
 private:
+	TClassOf<UGameModeBase> GameModeClass;
 	FSceneSettings Settings{};
 
 	ACamera* Camera = nullptr;
-	/*UUniquePtr<APawn> DefaultPawn;*/
-	UUniquePtr<FSceneSerializer> Serializer;
-	USharedPtr<UGameModeBase> GameMode;
+	FSceneSerializer* Serializer = nullptr;
+	UGameModeBase* GameMode = nullptr;
 
 	TMap<FString, AEntity*> entities;
 

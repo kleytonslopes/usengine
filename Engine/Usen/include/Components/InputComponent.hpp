@@ -32,8 +32,6 @@ class UInputComponent : public AComponent
 public:
 	bool IsActive() const { return true; }
 
-	void Create() override;
-
 	template<class TObject, class Fx>
 	void AddAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)
 	{

@@ -25,9 +25,6 @@ public:
 	void Construct() override { /* override */ };;
 	void PostConstruct() override { /* override */ };;
 
-	void Create() override { /* override */ };
-	void PostCreate() override { /* override */ };
-
 	void Initialize() override { /* override */ };
 	void PostInitialize() override { /* override */ };
 

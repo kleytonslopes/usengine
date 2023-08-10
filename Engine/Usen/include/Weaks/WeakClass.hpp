@@ -32,9 +32,6 @@ public:
 	virtual void Construct();
 	virtual void PostConstruct();
 
-	virtual void Create();
-	virtual void PostCreate();
-
 	virtual void Initialize();
 	virtual void PostInitialize();
 
@@ -63,6 +60,8 @@ protected:
 	{
 		Identity = identity;
 	}
+
+	friend class FConstructorHelper;
 };
 
 #endif // !US_WEAK_CLASS_HPP

@@ -21,11 +21,6 @@ void UPlayerController::Initialize()
 	SetupInputComponent();
 }
 
-void UPlayerController::Create()
-{
-	Super::Create();
-}
-
 void UPlayerController::SetupInputComponent()
 {
 	UInputManagement* InputManagement = GetInputManagement();

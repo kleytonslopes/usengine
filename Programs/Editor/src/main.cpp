@@ -16,12 +16,19 @@ int main()
 {
 	try
 	{
-		us::env::Environment::Applicaiton = UUniquePtr<UApplication>::MakeCast<UApplicationEditor>();
-		us::env::Environment::Applicaiton.Get()->Run();
-		us::env::Environment::Applicaiton.Destroy();
+		us::env::Environment::Applicaiton = new UApplicationEditor();// FConstructorHelper::CreateObject<UApplicationEditor>();
+		us::env::Environment::Applicaiton->Run();
+		us::env::Environment::Applicaiton->Destroy();
+
+		delete us::env::Environment::TickComponent;
+		delete us::env::Environment::Applicaiton;
+
 	}
 	catch (const std::exception& ex)
 	{
+		delete us::env::Environment::TickComponent;
+		delete us::env::Environment::Applicaiton;
+
 		ULOG(ELogLevel::ELL_FATAL, ex.what());
 		return EXIT_FAILURE;
 	}

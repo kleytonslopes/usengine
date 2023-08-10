@@ -20,10 +20,7 @@ class ACamera : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit ACamera();
-	virtual ~ACamera();
-
-	void Create() override;
+	void Construct() override;
 	FMatrix4 GetView();
 };
 

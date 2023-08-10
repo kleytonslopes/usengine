@@ -16,7 +16,7 @@
 
 DEFAULT_BODY(UInputManagement)
 
-void UInputManagement::Create()
+void UInputManagement::PostConstruct()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
@@ -35,7 +35,7 @@ void UInputManagement::Create()
 		RegisteredKeys[it.first] = kb;
 	}
 
-	Super::Create();
+	Super::PostConstruct();
 }
 
 void UInputManagement::Update(float deltaTime)

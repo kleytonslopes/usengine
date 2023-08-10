@@ -17,12 +17,12 @@
 
 DEFAULT_BODY(UGameModeBase)
 
-void UGameModeBase::Create()
+void UGameModeBase::Construct()
 {
-	DefaultController = UPlayerController::GetClass();
-	DefaultPlayerPawn = ACharacter::GetClass();
+	FConstructorHelper::MakeClassOf<UPlayerController>(DefaultController);
+	FConstructorHelper::MakeClassOf<ACharacter>(DefaultPlayerPawn);
 
-	Super::Create();
+	Super::Construct();
 }
 
 void UGameModeBase::Initialize()

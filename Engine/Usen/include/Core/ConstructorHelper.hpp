@@ -42,7 +42,7 @@ inline void FConstructorHelper::MakeClassOf(TClassOf<U>& targetClassOf)
 template<class T, class U>
 inline T* FConstructorHelper::CreateObject(TClassOf<U>& targetClassOf)
 {
-	return new T();
+	return new T(*targetClassOf.Class.get());
 }
 
 template<class T>

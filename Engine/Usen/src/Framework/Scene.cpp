@@ -52,13 +52,13 @@ void UScene::Destroy()
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
+
+	Super::Destroy();
 }
 
 void UScene::Initialize()
 {
-	GameMode.Get()->Initialize();
-
-	
+	GameMode->Initialize();
 
 	URendererOpenGL* Renderer = GetRenderer<URendererOpenGL>();
 	if (!Renderer)
@@ -147,15 +147,15 @@ ACamera* UScene::GetCamera()
 
 UGameModeBase* UScene::GetGameMode()
 {
-	return GameMode.Get();
+	return GameMode;
 }
 
 template<class T>
 T* UScene::CreateEntity()
 {
-	T* newEntity = new T();
-	newEntity->Construct();
-	newEntity->Create();
+	T* newEntity = FConstructorHelper::CreateObject<T>();// new T();
+	//newEntity->Construct();
+	//newEntity->Create();
 
 	entities[newEntity->Id] = newEntity;
 
@@ -165,9 +165,9 @@ T* UScene::CreateEntity()
 template<class T, class U>
 T* UScene::CreateEntity(TClassOf<U>& entityClass)
 {
-	U* newEntity = new U(*entityClass.Class);//entityClass.GetNew();
-	newEntity->Construct();
-	newEntity->Create();
+	U* newEntity = FConstructorHelper::CreateObject<U>();//new U(*entityClass.Class);//entityClass.GetNew();
+	//newEntity->Construct();
+	//newEntity->PostConstruct();
 
 	entities[newEntity->Id] = newEntity;
 
@@ -176,51 +176,51 @@ T* UScene::CreateEntity(TClassOf<U>& entityClass)
 
 void UScene::PostConstruct()
 {
-	GameMode = USharedPtr<UGameModeBase>::Make();
-	Serializer = UUniquePtr<FSceneSerializer>::Make();
+	GameMode = FConstructorHelper::CreateObject<UGameModeBase>(GameModeClass);
+	
+	Serializer = FConstructorHelper::CreateObject<FSceneSerializer>();
+	Serializer->SetScene(this);
 
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
-
-	Super::PostConstruct();
-}
-
-void UScene::Create()
-{
-	GameMode.Get()->Construct();
-	GameMode.Get()->Create();
-	Serializer.Get()->SetScene(this);
 
 	CreateDefaultController();
 	CreateDefaultPawn();
 
-	Super::Create();
+	Super::PostConstruct();
+}
+
+void UScene::Construct()
+{
+	FConstructorHelper::MakeClassOf<UGameModeBase>(GameModeClass);
+
+	Super::Construct();
 }
 
 void UScene::SaveScene()
 {
-	Serializer.Get()->Serialize();
+	Serializer->Serialize();
 }
 
 bool UScene::LoadScene(const FString& sceneName)
 {
-	return Serializer.Get()->Deserialize(sceneName);
+	return Serializer->Deserialize(sceneName);
 }
 
 void UScene::CreateDefaultPawn()
 {
-	TClassOf<APawn> DefaultPlayerPawnClass = GameMode.Get()->GetDefaultPlayerPawn();
+	TClassOf<APawn> DefaultPlayerPawnClass = GameMode->GetDefaultPlayerPawn();
 	APawn* PlayerPawn = CreateEntity<APawn>(DefaultPlayerPawnClass);
 
-	GameMode.Get()->SetPlayerPawn(PlayerPawn);
-	GameMode.Get()->Controller->SetPawn(PlayerPawn);
+	GameMode->SetPlayerPawn(PlayerPawn);
+	GameMode->Controller->SetPawn(PlayerPawn);
 
 }
 
 void UScene::CreateDefaultController()
 {
-	TClassOf<UController> DefaultControllerClass = GameMode.Get()->GetDefaultController();
+	TClassOf<UController> DefaultControllerClass = GameMode->GetDefaultController();
 	UController* Controller = CreateEntity<UController>(DefaultControllerClass);
 
-	GameMode.Get()->SetController(Controller);
+	GameMode->SetController(Controller);
 	Controller->Initialize();
 }

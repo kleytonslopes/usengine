@@ -12,7 +12,7 @@
 
 DEFAULT_BODY(UCollisionComponent)
 
-void UCollisionComponent::Create()
+void UCollisionComponent::Construct()
 {
 	StartTransform.setIdentity();
 	StartTransform.setOrigin(btVector3(0.f, 0.f, 0.f));
@@ -22,7 +22,7 @@ void UCollisionComponent::Create()
 	if (!bIsDynamic)
 		Mass = 0.f;
 
-	Super::Create();
+	Super::Construct();
 }
 
 void UCollisionComponent::SetIsDynamic(const bool& isDynamic)

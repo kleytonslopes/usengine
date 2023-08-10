@@ -17,6 +17,8 @@ DEFAULT_BODY(AActor)
 
 void AActor::Destroy()
 {
+	Super::Destroy();
+
 	TMap<FString, AComponent*>::iterator it;
 
 	if (bIsAttached)
@@ -39,22 +41,15 @@ void AActor::Destroy()
 
 void AActor::Construct()
 {
+	Super::Construct();
+
 	bTick = true;
 
-	Super::Construct();
-}
-
-void AActor::Create()
-{
-	Super::Create();
-
-	Attachments = new UAttachment();
+	Attachments = FConstructorHelper::CreateObject<UAttachment>();
 
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
 	TransformComponent->SetParent(this);
-
-	PostCreate();
 }
 
 void AActor::Initialize()

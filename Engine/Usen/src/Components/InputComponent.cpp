@@ -13,11 +13,6 @@
 
 DEFAULT_BODY(UInputComponent)
 
-void UInputComponent::Create()
-{
-
-}
-
 void UInputComponent::ExecuteAction(const FString& action, EKeyHandler keyHandler)
 {
 	FString localAction = keyHandler == EKeyHandler::KEY_PRESSED ? action + "_Pressed" : action + "_Released";

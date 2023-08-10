@@ -40,42 +40,39 @@ public:
 	void Run();
 
 	// Inherited via IWeakClass
-	void Create() override;
 	void PostConstruct() override;
-	void PostCreate() override;
 	void Initialize() override;
 	void Destroy() override;
 
 	template<typename T>
 	T* GetRenderer()
 	{
-		return static_cast<T*>(Renderer.Get());
+		return static_cast<T*>(Renderer);
 	}
 
-	BRenderer* GetRenderer() { return Renderer.Get(); };
+	BRenderer* GetRenderer() { return Renderer; };
 protected:
 	TClassOf<UGameInstance> DefaultGameInstance;
 	TClassOf<BRenderer> DefaultRenderer;
 
-	UUniquePtr<TThread> ThreadTickEvent = UUniquePtr<TThread>::Make();
+	TThread* ThreadTickEvent = nullptr;;
 
-	virtual void CreateWindow();
-	virtual void CreateGameInstance();
-	virtual void CreateRenderer();
-	virtual void CreateInputManagement();
-	virtual void CreateScene();
-	virtual void CreatePhysicsSystem();
+	//virtual void CreateWindow();
+	//virtual void CreateGameInstance();
+	//virtual void CreateRenderer();
+	//virtual void CreateInputManagement();
+	//virtual void CreateScene();
+	//virtual void CreatePhysicsSystem();
 
 private:
-	UWindow* Window = nullptr;
-	//USharedPtr<UWindow> Window;
-	USharedPtr<UGameInstance> GameInstance;
-	USharedPtr<BRenderer> Renderer;
-	USharedPtr<UScene> Scene;
-	USharedPtr<UInputManagement> InputManagement;
-	USharedPtr<UPhysicsSystem> PhysicsSystem;
+	UWindow* Window                   = nullptr;
+	UGameInstance* GameInstance       = nullptr;
+	BRenderer* Renderer               = nullptr;
+	UScene* Scene                     = nullptr;
+	UInputManagement* InputManagement = nullptr;
+	UPhysicsSystem* PhysicsSystem     = nullptr;
 
-	UController* Controller = nullptr;
+	UController* Controller           = nullptr;
 
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);

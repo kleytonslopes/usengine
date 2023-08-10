@@ -8,8 +8,8 @@
 
 namespace us::env::Environment
 {
-	inline UUniquePtr<UApplication> Applicaiton;
-	inline UUniquePtr<UTickClass> TickComponent = UUniquePtr<UTickClass>::Make();
+	inline UApplication* Applicaiton;
+	inline UTickClass* TickComponent = new UTickClass();
 }
 
 #endif // !US_ENVIRONMENT_HPP

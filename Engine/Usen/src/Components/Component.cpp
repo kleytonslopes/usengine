@@ -12,11 +12,6 @@
 
 DEFAULT_BODY(AComponent)
 
-void AComponent::Create()
-{
-
-}
-
 void AComponent::SetParent(AEntity* parent)
 {
 	this->Parent = parent;

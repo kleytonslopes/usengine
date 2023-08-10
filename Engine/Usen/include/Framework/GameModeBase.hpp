@@ -23,7 +23,7 @@ class UGameModeBase : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void Create() override;
+	void Construct() override;
 	void Initialize() override;
 
 	TClassOf<APawn> GetDefaultPlayerPawn();
