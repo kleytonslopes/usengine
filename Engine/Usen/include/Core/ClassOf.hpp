@@ -44,7 +44,7 @@ public:
 
 	Ty* GetNew()
 	{
-		return FConstructorHelper::CreateObject<Ty>(*Class);
+		return new Ty(*Class->GetNew()); //FConstructorHelper::CreateObject<Ty>(*Class);
 	}
 
 	operator Ty* ()

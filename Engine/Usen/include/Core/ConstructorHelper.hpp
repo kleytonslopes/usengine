@@ -43,13 +43,11 @@ public:
 	}
 
 	template<class T, class U>
-	inline static T* CreateObject(const TClassOf<U>& targetClassOf)
+	inline static T* CreateObject(U& targetClassOf)
 	{
-		//T* test = *targetClassOf.Class;
-		T* object = targetClassOf.Class->GetNew();//new T(*targetClassOf.Class);
+		T* object = std::move(targetClassOf.Class);
 		object->Construct();
 		object->PostConstruct();
-
 		return object;
 	}
 

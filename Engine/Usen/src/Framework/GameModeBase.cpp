@@ -27,8 +27,10 @@ void UGameModeBase::Construct()
 
 void UGameModeBase::Initialize()
 {
-
 	Super::Initialize();
+
+	Controller->Initialize();
+	PlayerPawn->Initialize();
 }
 
 TClassOf<APawn> UGameModeBase::GetDefaultPlayerPawn()

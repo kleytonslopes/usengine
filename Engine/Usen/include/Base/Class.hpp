@@ -32,10 +32,10 @@ class BClass : public IWeakClass
 	DEFAULT_BODY_GENERATED()
 	
 protected:
-	void* operator new(size_t sz)
-	{
-		return new char[sz];
-	}
+	//void* operator new(size_t sz)
+	//{
+	//	return new char[sz];
+	//}
 public:
 	BClass();
 	virtual ~BClass();

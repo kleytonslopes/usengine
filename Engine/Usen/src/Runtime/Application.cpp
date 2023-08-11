@@ -55,13 +55,6 @@ void UApplication::Initialize()
 
 void UApplication::Destroy()
 {
-	//if (PhysicsSystem) PhysicsSystem->Destroy();
-	//if (Scene) Scene->Destroy();
-	//if (InputManagement) InputManagement->Destroy();
-	//if (GameInstance) GameInstance->Destroy();
-	//if (Renderer) Renderer->Destroy();
-	//if (Window) Window->Destroy();
-
 	delete PhysicsSystem;	PhysicsSystem = nullptr;
 	delete Scene;           Scene = nullptr;
 	delete InputManagement; InputManagement = nullptr;

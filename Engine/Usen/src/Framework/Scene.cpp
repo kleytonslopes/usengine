@@ -29,7 +29,9 @@
 #include "Input/InputManagement.hpp"
 #include "Serializers/SceneSerializer.hpp"
 #include "Runtime/Application.hpp"
+
 #include "Controllers/Controller.hpp"
+#include "Controllers/PlayerController.hpp"
 
 #include "Mesh/Mesh.hpp"
 #include "Mesh/StaticMesh.hpp"
@@ -167,10 +169,12 @@ T* UScene::CreateEntity()
 }
 
 template<class T, class U>
-T* UScene::CreateEntity(TClassOf<U>& entityClass)
+T* UScene::CreateEntity(U& entityClass)
 {
-	U* newEntity = FConstructorHelper::CreateObject<U>(entityClass);//new U(*entityClass.Class);//entityClass.GetNew();
-
+	T* newEntity = FConstructorHelper::CreateObject<T>(entityClass);
+	//T* newEntity = std::move(entityClass.Class);//FConstructorHelper::CreateObject<U>(entityClass);//new U(*entityClass.Class);//entityClass.GetNew();
+	//newEntity->Construct();
+	//newEntity->PostConstruct();
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
@@ -225,7 +229,6 @@ void UScene::CreateDefaultController()
 	UController* Controller = CreateEntity<UController>(DefaultControllerClass);
 
 	GameMode->SetController(Controller);
-	Controller->Initialize();
 }
 
 void UScene::CreateDefaultCamera()
