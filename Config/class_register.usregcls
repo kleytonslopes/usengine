@@ -1309,5 +1309,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "UCapsuleComponent",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UCapsuleComponent",
+      "ClassDefinition": "US_CAPSULE_COMPONENT_HPP",
+      "HppFileName": "CapsuleComponent.hpp",
+      "CppFileName": "CapsuleComponent.cpp",
+      "GenFileName": "CapsuleComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UCollisionComponent",
+      "BaseClassPathHpp": "Components/CollisionComponent.hpp",
+      "BaseClassTemplate": " : public UCollisionComponent",
+      "BaseClassInclude": "\n#include \"Components/CollisionComponent.hpp\"",
+      "ClassGenDefinition": "hpp_UCapsuleComponent_UCollisionComponent",
+      "ClassGenDefinitionVersion": "hpp_UCapsuleComponent_UCollisionComponent_def"
+    }
   }
 ]

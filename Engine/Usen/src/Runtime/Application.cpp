@@ -19,16 +19,6 @@
 
 DEFAULT_BODY(UApplication);
 
-////void UApplication::Create()
-////{
-////	CreateWindow();
-////	CreateGameInstance();
-////	CreateRenderer();
-////	CreateInputManagement();
-////	CreatePhysicsSystem();
-////	CreateScene();
-////}
-
 void UApplication::PostConstruct()
 {
 	Super::PostConstruct();

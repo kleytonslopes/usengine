@@ -17,6 +17,7 @@
 #include "Pawn-generated.hpp"
 
 class UInputComponent;
+class UCapsuleComponent;
 
 class APawn : public AActor
 {
@@ -28,6 +29,7 @@ public:
 	void SetupInputComponent();
 
 	UInputComponent* GetInputComponent();
+	UCapsuleComponent* GetCapsuleComponent();
 
 	void MoveForward(float scale);
 	void MoveRight(float scale);

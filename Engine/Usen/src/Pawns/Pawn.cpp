@@ -12,6 +12,7 @@
 #include "Components/CameraComponent.hpp"
 #include "Components/InputComponent.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/CapsuleComponent.hpp"
 
 DEFAULT_BODY(APawn)
 
@@ -25,6 +26,10 @@ void APawn::Construct()
 	InputComponent->SetOwner(Owner);
 	InputComponent->SetParent(this);
 
+	UCapsuleComponent* CapsuleComponent = AddComponent<UCapsuleComponent>();
+	CapsuleComponent->SetOwner(Owner);
+	CapsuleComponent->SetParent(this);
+
 	Super::Construct();
 }
 
@@ -36,6 +41,11 @@ void APawn::PostConstruct()
 UInputComponent* APawn::GetInputComponent()
 {
 	return GetComponent<UInputComponent>();
+}
+
+UCapsuleComponent* APawn::GetCapsuleComponent()
+{
+	return GetComponent<UCapsuleComponent>();
 }
 
 void APawn::MoveForward(float scale)
