@@ -13,50 +13,42 @@
 #include "Controllers/PlayerController.hpp"
 #include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
+#include "Pawns/Character.hpp"
 
+DEFAULT_BODY(UGameModeBase)
 
-UGameModeBase::UGameModeBase()
+void UGameModeBase::Construct()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+	FConstructorHelper::MakeClassOf<UPlayerController>(DefaultController);
+	//FConstructorHelper::MakeClassOf<ACharacter>(DefaultPlayerPawn);
 
-UGameModeBase::~UGameModeBase()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UGameModeBase::Create()
-{
-	DefaultController = UPlayerController::GetClass();
-	DefaultPlayerPawn = APawn::GetClass();
-
-	Super::Create();
-}
-
-void UGameModeBase::PostCreate()
-{
-	CreateController();
-	CreatePlayerPawn();
+	Super::Construct();
 }
 
 void UGameModeBase::Initialize()
 {
 	Super::Initialize();
 
-	Controller.Get()->Initialize();
+	Controller->Initialize();
+	PlayerPawn->Initialize();
 }
 
-void UGameModeBase::CreateController()
+TClassOf<APawn> UGameModeBase::GetDefaultPlayerPawn()
 {
-	Controller = USharedPtr<UController>::FromClass(DefaultController);
-	Controller.Get()->Create();
+	return DefaultPlayerPawn;
 }
 
-void UGameModeBase::CreatePlayerPawn()
+TClassOf<UController> UGameModeBase::GetDefaultController()
 {
-	PlayerPawn = USharedPtr<APawn>::FromClass(DefaultPlayerPawn);
-	PlayerPawn.Get()->Create();
-	GetInputManagement()->SetInputComponent(PlayerPawn.Get()->GetInputComponent());
+	return DefaultController;
+}
 
-	Controller.Get()->SetPawn(PlayerPawn);
+void UGameModeBase::SetController(UController* controller)
+{
+	Controller = controller;
+}
+
+void UGameModeBase::SetPlayerPawn(APawn* playerPawn)
+{
+	PlayerPawn = playerPawn;
 }

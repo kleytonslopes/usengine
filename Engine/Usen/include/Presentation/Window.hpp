@@ -26,12 +26,14 @@ DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
 class UWindow : public BClass
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
 	FOnWindowResizedSignature OnWindowResizedEvent;
 	FOnKeyEvent OnKeyEvent;
 
-	explicit UWindow();
-	~UWindow() final;
+	void Construct() override;
+	void PostConstruct() override;
+	void Destroy() override;
 
 	void Initialize() override;
 

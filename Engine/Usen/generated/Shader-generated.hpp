@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !BShader: ## Class Name
-// !Shader.cpp: ## File Class CPP
-// !Shader.hpp: ## File Class HPP
-// !US_SHADER_HPP: ## Class Definition
-// !Renderer/Shader.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Shader-generated.hpp: ## This file
-// !hpp_BShader_BClass: ## Class Id
-// !hpp_BShader_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_BShader_BClass
 
 #define hpp_BShader_BClass_def \
 private: \
 	using Super = BClass; using This = BShader; \
-	FString Identity{ "BShader" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<BShader> GetClass() { return TClassOf<BShader>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(BShader) \
+	DEFINE_OPERATOR_CPY(BShader) \
+	DEFINE_OPERATOR_MOV(BShader) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(BShader) \
+private:
 

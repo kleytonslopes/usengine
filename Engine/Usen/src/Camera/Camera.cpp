@@ -11,19 +11,13 @@
 #include "Camera/Camera.hpp"
 #include "Components/CameraComponent.hpp"
 
-ACamera::ACamera()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(ACamera);
 
-ACamera::~ACamera()
+void ACamera::Construct()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+	Super::Construct();
 
-void ACamera::Create()
-{
-	Super::Create();
+	bTick = false;
 
 	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
 	cameraComponent->SetOwner(Owner);

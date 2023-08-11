@@ -1,28 +1,28 @@
 /*********************************************************************
  *   File: Serializer.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
 #ifndef US_SERIALIZER_HPP
 #define	US_SERIALIZER_HPP
 
-#include "Core/MinimalCore.hpp"
+#include "Base/Class.hpp"
 #include "Serializers/SerializerTypes.hpp"
 #include "Serializers/SerializerOperators.hpp"
 #include "Serializers/SerializeConverters.hpp"
 #include "Serializer-generated.hpp"
 
-class BSerializer
+class BSerializer : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit BSerializer();
+	BSerializer();
 	virtual ~BSerializer();
 
 	void SetFilePath(const FString& fineName);
@@ -72,8 +72,11 @@ public:
 	}
 
 protected:
-	SeriFile out;
+	SeriFile* outPtr = nullptr;
+	SeriFile& out;
 	FString seriFilePath;
+
+	SeriFile& CreateSeriFile();
 
 	virtual void Save();
 	SeriNode Load(const FString& filePath);

@@ -26,9 +26,6 @@ class UMeshComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UMeshComponent();
-	virtual ~UMeshComponent();
-
 	void SetMeshParameters(const FMeshParameters& parameters);
 	FString GetModelPath() const;
 

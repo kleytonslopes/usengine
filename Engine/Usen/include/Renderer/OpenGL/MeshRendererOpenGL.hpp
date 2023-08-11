@@ -23,8 +23,6 @@ class UMeshRendererOpenGL : public UMeshRenderer
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UMeshRendererOpenGL();
-	virtual ~UMeshRendererOpenGL();
 
 	void Setup(TVector<FVertex> vertices, TVector<uint32> indices, TVector<UTextureOpenGL> textures);
 	void Draw(FVector location, FVector rotation, FVector scale) override;

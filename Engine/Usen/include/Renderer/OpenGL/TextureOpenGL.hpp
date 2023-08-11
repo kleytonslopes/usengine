@@ -21,9 +21,6 @@ class UTextureOpenGL : public UTexture
 	DEFAULT_BODY_GENERATED()
 public:
 	uint32 Id;
-
-	explicit UTextureOpenGL();
-	~UTextureOpenGL() final;
 };
 
 #endif // !US_TEXTURE_OPEN_GL_HPP

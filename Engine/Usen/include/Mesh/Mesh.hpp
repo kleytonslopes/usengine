@@ -27,29 +27,29 @@ class AMesh : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit AMesh();
-	virtual ~AMesh();
-
-	void Create() override;
-	void PostCreate() override;
+	void Construct() override;
+	void PostConstruct() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
+	void Destroy() override;
 
 	UMeshComponent* GetMeshComponent();
 	URenderComponent* GetRenderComponent();
 	UCollisionComponent* GetCollisionComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
+	void SetIsDynamic(const bool& isDynamic);
 
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
+	UCollisionComponent* CollisionComponent = nullptr;
 
 	void Draw(float deltaTime) override;
 
 private:
-	UUniquePtr<UModel> Model;
-	UCollisionComponent* CollisionComponent = nullptr;
+	UModel* Model = nullptr;
+	
 };
 
 #endif // !US_MESH_HPP

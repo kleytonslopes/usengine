@@ -39,6 +39,9 @@ inline void ULOG(ELogLevel level, const FString& message)
 	case ELogLevel::ELL_TRACE:
 		FLogger::Trace(message);
 		break;
+	case ELogLevel::ELL_SUCCESS:
+		FLogger::Success(message);
+		break;
 	default:
 		FLogger::Log(message);
 		break;

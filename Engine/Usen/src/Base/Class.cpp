@@ -29,63 +29,30 @@ BClass::~BClass()
 {
 }
 
-void BClass::Initialize()
-{
-	if (bIsInitialized)
-	{
-		FException::RuntimeError(FText::Format("%s Already Initialized!", GetId().c_str()));
-	}
-
-	bIsInitialized = true;
-
-	PostInitialize();
-}
-
-void BClass::PostInitialize()
-{
-	bIsInitialized = true;
-}
-
-void BClass::Create()
-{
-	PostCreate();
-}
-
-void BClass::PostCreate()
-{
-	ULOG(ELogLevel::ELL_TRACE, "BClass PostCreate!");
-}
-
-void BClass::Destroy()
-{
-	ULOG(ELogLevel::ELL_WARNING, "BClass Destroy!");
-
-	PostDestroy();
-}
 
 UWindow* BClass::GetWindow()
 {
-	return Application->Window.Get();
+	return Application->Window;
 }
 
 UGameInstance* BClass::GetGameInstance()
 {
-	return Application->GameInstance.Get();
+	return Application->GameInstance;
 }
 
 UScene* BClass::GetScene()
 {
-	return Application->Scene.Get();
+	return Application->Scene;
 }
 
 UController* BClass::GetController()
 {
-	return GetGameMode()->Controller.Get();
+	return GetGameMode()->Controller;
 }
 
 UInputManagement* BClass::GetInputManagement()
 {
-	return Application->InputManagement.Get();
+	return Application->InputManagement;
 }
 
 UApplication* BClass::GetApplication()
@@ -95,15 +62,15 @@ UApplication* BClass::GetApplication()
 
 UGameModeBase* BClass::GetGameMode()
 {
-	return GetScene()->GameMode.Get();
+	return GetScene()->GameMode;
 }
 
 UPhysicsSystem* BClass::GetPhysicsSystem()
 {
-	return Application->PhysicsSystem.Get();
+	return Application->PhysicsSystem;
 }
 
 BRenderer* BClass::GetRenderer()
 {
-	return Application->Renderer.Get();
+	return Application->Renderer;
 }

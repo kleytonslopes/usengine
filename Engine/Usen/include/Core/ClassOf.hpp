@@ -12,7 +12,6 @@
 #ifndef US_CLASS_OF_HPP
 #define	US_CLASS_OF_HPP
 
-//#include "Core/MinimalCore.hpp"
 #include "Core/CommonTypes.hpp"
 #include "Core/String.hpp"
 
@@ -22,32 +21,45 @@ class TClassOf
 public:
 	TClassOf()	
 	{
-		Class = std::make_shared<Ty>();
+		Class = FConstructorHelper::CreateWeakObject<Ty>();
+		IdentityClass = Class->GetIdentity();
 	}
 	~TClassOf()	{ }
 
 	template<typename U>
-	TClassOf& operator=(const TClassOf<U>&& other)
+	TClassOf& operator=(TClassOf<U>&& other)
 	{
-		//if (*this == *other)
-		//	return *this;
-
 		if (Class)
-			Class.reset();
+		{
+			FConstructorHelper::Destroy(Class);
+			//delete Class;
+			//Class = nullptr;
+		}
 
-		IdentityClass = other.Class.get()->GetIdentity();
-		Class = std::move(other.Class);
+		this->IdentityClass = other.IdentityClass;
+
+		Class = other.Class->GetNew();//std::move(other.Class);
 		return *this;
+	}
+
+	Ty* GetNew()
+	{
+		return new Ty(*Class->GetNew()); //FConstructorHelper::CreateObject<Ty>(*Class);
+	}
+
+	operator Ty* ()
+	{
+		return Class;
 	}
 
 	template<typename U>
 	bool operator==(const TClassOf<U>&& other)
 	{
-		return other.Class.get()->GetIdentity() == IdentityClass;
+		return other.Class->GetIdentity() == IdentityClass;
 	}
 
 	FString IdentityClass;
-	std::shared_ptr<Ty> Class;
+	Ty* Class = nullptr;
 };
 
 #endif // !US_CLASS_OF_HPP

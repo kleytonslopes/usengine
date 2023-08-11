@@ -13,23 +13,15 @@
 #include "Components/CollisionComponent.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 
-UPhysicsSystem::UPhysicsSystem()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(UPhysicsSystem)
 
-UPhysicsSystem::~UPhysicsSystem()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UPhysicsSystem::Create()
+void UPhysicsSystem::PostConstruct()
 {
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
-	
+
 	CreateEmptyDynamicsWorld();
 
-	Super::Create();
+	Super::PostConstruct();
 }
 
 void UPhysicsSystem::Update(float deltaTime)

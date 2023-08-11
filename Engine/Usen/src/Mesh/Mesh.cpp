@@ -17,22 +17,14 @@
 #include "Renderer/OpenGL/ModelOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
 
-AMesh::AMesh()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(AMesh)
 
-AMesh::~AMesh()
+void AMesh::Construct()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+	Super::Construct();
 
-void AMesh::Create()
-{
-	Super::Create();
-
-	Model = UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
-	Model.Get()->SetMeshActor(this);
+	Model = FConstructorHelper::CreateObject<UModelOpenGL>();//UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	Model->SetMeshActor(this);
 
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
 	RenderComponent->SetOwner(Owner);
@@ -45,19 +37,16 @@ void AMesh::Create()
 	CollisionComponent = AddComponent<UBoxCollisionComponent>();
 	CollisionComponent->SetOwner(Owner);
 	CollisionComponent->SetParent(this);
-	CollisionComponent->SetIsDynamic(true);
-
-	PostCreate();
 }
 
-void AMesh::PostCreate()
+void AMesh::PostConstruct()
 {
-
+	Super::PostConstruct();
 }
 
 void AMesh::Initialize()
 {
-	Model.Get()->Initialize();
+	Model->Initialize();
 }
 
 void AMesh::Update(float deltaTime)
@@ -68,6 +57,15 @@ void AMesh::Update(float deltaTime)
 	{
 		SetLocation(CollisionComponent->GetLocation());
 	}
+}
+
+void AMesh::Destroy()
+{
+	Super::Destroy();
+
+	if(Model) Model->Destroy();
+
+	delete Model;
 }
 
 UMeshComponent* AMesh::GetMeshComponent()
@@ -97,8 +95,14 @@ void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 	RenderComponent->SetShader(shader);
 }
 
+void AMesh::SetIsDynamic(const bool& isDynamic)
+{
+	if (CollisionComponent)
+		CollisionComponent->SetIsDynamic(isDynamic);
+}
+
 void AMesh::Draw(float deltaTime)
 {
 
-	Model.Get()->Draw(deltaTime);
+	Model->Draw(deltaTime);
 }

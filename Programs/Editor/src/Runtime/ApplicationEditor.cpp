@@ -11,21 +11,19 @@
 #include "Runtime/ApplicationEditor.hpp"
 #include "Framework/EditorGameInstance.hpp"
 
-UApplicationEditor::UApplicationEditor()
+DEFAULT_BODY(UApplicationEditor)
+
+void UApplicationEditor::Construct()
 {
-	
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	Super::Construct();
+
+	FConstructorHelper::MakeClassOf<URendererOpenGL>(DefaultRenderer);
+	FConstructorHelper::MakeClassOf<UEditorGameInstance>(DefaultGameInstance);
 }
 
-UApplicationEditor::~UApplicationEditor()
+void UApplicationEditor::PostConstruct()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+	Super::PostConstruct();
 
-void UApplicationEditor::Create()
-{
-	DefaultGameInstance = UEditorGameInstance::GetClass();
-	DefaultRenderer = URendererOpenGL::GetClass();
-
-	Super::Create();
+	GameInstance = FConstructorHelper::CreateObject<UEditorGameInstance>();
 }

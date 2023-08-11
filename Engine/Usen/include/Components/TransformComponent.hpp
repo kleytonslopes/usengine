@@ -30,9 +30,6 @@ class UTransformComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	UTransformComponent();
-	~UTransformComponent() final;
-
 	FVector GetLocation();
 	FVector GetOrigin();
 	FVector GetRotation();

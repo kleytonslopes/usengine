@@ -11,19 +11,11 @@
 #include "Presentation/Window.hpp"
 #include "Components/InputComponent.hpp"
 
-UInputComponent::UInputComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(UInputComponent)
 
-UInputComponent::~UInputComponent()
+void UInputComponent::Construct()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UInputComponent::Create()
-{
-
+	Super::Construct();
 }
 
 void UInputComponent::ExecuteAction(const FString& action, EKeyHandler keyHandler)

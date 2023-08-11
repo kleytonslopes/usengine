@@ -12,18 +12,11 @@
 #include "Components/CameraComponent.hpp"
 #include "Components/InputComponent.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/CapsuleComponent.hpp"
 
-APawn::APawn()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(APawn)
 
-APawn::~APawn()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void APawn::Create()
+void APawn::Construct()
 {
 	UCameraComponent* CameraComponent = AddComponent<UCameraComponent>();
 	CameraComponent->SetOwner(Owner);
@@ -33,24 +26,26 @@ void APawn::Create()
 	InputComponent->SetOwner(Owner);
 	InputComponent->SetParent(this);
 
-	Super::Create();
+	UCapsuleComponent* CapsuleComponent = AddComponent<UCapsuleComponent>();
+	CapsuleComponent->SetOwner(Owner);
+	CapsuleComponent->SetParent(this);
+
+	Super::Construct();
 }
 
-void APawn::PostCreate()
+void APawn::PostConstruct()
 {
-	GetInputComponent()->Create();
-
-	Super::PostCreate();
-}
-
-void APawn::SetupInputComponent()
-{
-
+	Super::PostConstruct();
 }
 
 UInputComponent* APawn::GetInputComponent()
 {
 	return GetComponent<UInputComponent>();
+}
+
+UCapsuleComponent* APawn::GetCapsuleComponent()
+{
+	return GetComponent<UCapsuleComponent>();
 }
 
 void APawn::MoveForward(float scale)

@@ -11,20 +11,11 @@
 #include "Components/BoxCollisionComponent.hpp"
 #include "Physics/PhysicsSystem.hpp"
 
-UBoxCollisionComponent::UBoxCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(UBoxCollisionComponent);
 
-UBoxCollisionComponent::~UBoxCollisionComponent()
+void UBoxCollisionComponent::Construct()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-
-}
-
-void UBoxCollisionComponent::Create()
-{
-	Super::Create();
+	Super::Construct();
 	Shape = new btBoxShape(btVector3{ BoundBox.x, BoundBox.y, BoundBox.z });
 
 	GetPhysicsSystem()->RegisterComponent(this);
@@ -34,8 +25,8 @@ void UBoxCollisionComponent::Destroy()
 {
 	Super::Destroy();
 
-	delete Body;
-	delete Shape;
+	//delete Body;  Body = nullptr;
+	//delete Shape; Shape = nullptr;
 }
 
 void UBoxCollisionComponent::CalculeLocalInertia()

@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !FEntitySerializer: ## Class Name
-// !EntitySerializer.cpp: ## File Class CPP
-// !EntitySerializer.hpp: ## File Class HPP
-// !US_ENTITY_SERIALIZER_HPP: ## Class Definition
-// !Serializers/EntitySerializer.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !EntitySerializer-generated.hpp: ## This file
-// !hpp_FEntitySerializer_BSerializer: ## Class Id
-// !hpp_FEntitySerializer_BSerializer_def: ## Class Version
-// !BSerializer: ## Base class name
-// !Serializers/Serializer.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_FEntitySerializer_BSerializer
 
 #define hpp_FEntitySerializer_BSerializer_def \
 private: \
 	using Super = BSerializer; using This = FEntitySerializer; \
-	FString Identity{ "FEntitySerializer" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<FEntitySerializer> GetClass() { return TClassOf<FEntitySerializer>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(FEntitySerializer) \
+	DEFINE_OPERATOR_CPY(FEntitySerializer) \
+	DEFINE_OPERATOR_MOV(FEntitySerializer) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(FEntitySerializer) \
+private:
 

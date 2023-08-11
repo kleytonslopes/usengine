@@ -12,30 +12,17 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !ACamera: ## Class Name
-// !Camera.cpp: ## File Class CPP
-// !Camera.hpp: ## File Class HPP
-// !US_CAMERA_HPP: ## Class Definition
-// !Camera/Camera.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Camera-generated.hpp: ## This file
-// !hpp_ACamera_AActor: ## Class Id
-// !hpp_ACamera_AActor_def: ## Class Version
-// !AActor: ## Base class name
-// !Actors/Entity.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_ACamera_AActor
 
 #define hpp_ACamera_AActor_def \
 private: \
 	using Super = AActor; using This = ACamera; \
-	FString Identity{ "ACamera" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<ACamera> GetClass() { return TClassOf<ACamera>(); } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(ACamera) \
+	DEFINE_OPERATOR_CPY(ACamera) \
+	DEFINE_OPERATOR_MOV(ACamera) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(ACamera) \
+private:

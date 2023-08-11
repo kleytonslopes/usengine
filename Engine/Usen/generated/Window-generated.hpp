@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UWindow: ## Class Name
-// !Window.cpp: ## File Class CPP
-// !Window.hpp: ## File Class HPP
-// !US_WINDOW_HPP: ## Class Definition
-// !Presentation/Window.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Window-generated.hpp: ## This file
-// !hpp_UWindow_BClass: ## Class Id
-// !hpp_UWindow_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UWindow_BClass
 
 #define hpp_UWindow_BClass_def \
 private: \
 	using Super = BClass; using This = UWindow; \
-	FString Identity{ "UWindow" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UWindow> GetClass() { return TClassOf<UWindow>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UWindow) \
+	DEFINE_OPERATOR_CPY(UWindow) \
+	DEFINE_OPERATOR_MOV(UWindow) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UWindow) \
+private:
 

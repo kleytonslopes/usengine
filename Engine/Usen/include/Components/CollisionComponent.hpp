@@ -20,13 +20,10 @@ class UCollisionComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UCollisionComponent();
-	virtual ~UCollisionComponent();
-
 	virtual void CalculeLocalInertia() { /* override */ };
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
 	
-	void Create() override;
+	void Construct() override;
 
 	void SetIsDynamic(const bool& isDynamic);
 	bool IsDynamic() const { return bIsDynamic; }

@@ -22,7 +22,8 @@ enum class ELogLevel
 	ELL_INFORMATION,
 	ELL_DEBUG,
 	ELL_TRACE,
-	ELL_LOG
+	ELL_LOG,
+	ELL_SUCCESS
 };
 
 struct FLogger
@@ -34,6 +35,7 @@ struct FLogger
 	static void Debug(const FString& text);
 	static void Trace(const FString& text);
 	static void Log(const FString& text);
+	static void Success(const FString& text);
 };
 
 #endif // !US_LOGGER_HPP

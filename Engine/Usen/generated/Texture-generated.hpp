@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UTexture: ## Class Name
-// !Texture.cpp: ## File Class CPP
-// !Texture.hpp: ## File Class HPP
-// !US_TEXTURE_HPP: ## Class Definition
-// !Renderer/Texture.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Texture-generated.hpp: ## This file
-// !hpp_UTexture_BClass: ## Class Id
-// !hpp_UTexture_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UTexture_BClass
 
 #define hpp_UTexture_BClass_def \
 private: \
 	using Super = BClass; using This = UTexture; \
-	FString Identity{ "UTexture" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UTexture> GetClass() { return TClassOf<UTexture>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UTexture) \
+	DEFINE_OPERATOR_CPY(UTexture) \
+	DEFINE_OPERATOR_MOV(UTexture) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UTexture) \
+private:
 

@@ -30,12 +30,9 @@ class UInputComponent : public AComponent
 	using ActionMap = TMap<FString, InputAction>;
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UInputComponent();
-	virtual ~UInputComponent();
+	void Construct() override;
 
 	bool IsActive() const { return true; }
-
-	void Create() override;
 
 	template<class TObject, class Fx>
 	void AddAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)

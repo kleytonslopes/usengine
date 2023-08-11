@@ -18,16 +18,7 @@
 
 #include "Presentation/Window.hpp"
 
-URendererOpenGL::URendererOpenGL()
-{
-	
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-URendererOpenGL::~URendererOpenGL()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(URendererOpenGL)
 
 void URendererOpenGL::Initialize()
 {

@@ -30,20 +30,15 @@ class UPhysicsSystem;
 class BClass : public IWeakClass
 {
 	DEFAULT_BODY_GENERATED()
+	
+protected:
+	//void* operator new(size_t sz)
+	//{
+	//	return new char[sz];
+	//}
 public:
-	explicit BClass();
-	~BClass() override;
-
-	/// <summary>
-	/// Call at Last Initialize overridden function
-	/// </summary>
-	void Initialize() override;
-	void PostInitialize() override;
-	void Create() override;
-	void PostCreate() override;
-	void Destroy() override;
-	void PostDestroy() override { /* override */ };
-
+	BClass();
+	virtual ~BClass();
 	virtual void Update(float deltaTime) { /* override */ };
 
 protected:
@@ -67,6 +62,7 @@ private:
 	UApplication* Application = nullptr;
 
 	friend class UScene;
+	friend class FConstructorHelper;
 };
 
 #endif // !US_CLASS_HPP

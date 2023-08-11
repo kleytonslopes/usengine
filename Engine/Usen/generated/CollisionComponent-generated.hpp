@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UCollisionComponent: ## Class Name
-// !CollisionComponent.cpp: ## File Class CPP
-// !CollisionComponent.hpp: ## File Class HPP
-// !US_COLLISION_COMPONENT_HPP: ## Class Definition
-// !Components/CollisionComponent.hpp: ## Class Head Path
-// !August 2023: ## Date Creation
-// !CollisionComponent-generated.hpp: ## This file
-// !hpp_UCollisionComponent_AComponent: ## Class Id
-// !hpp_UCollisionComponent_AComponent_def: ## Class Version
-// !AComponent: ## Base class name
-// !Components/Component.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UCollisionComponent_AComponent
 
 #define hpp_UCollisionComponent_AComponent_def \
 private: \
 	using Super = AComponent; using This = UCollisionComponent; \
-	FString Identity{ "UCollisionComponent" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UCollisionComponent> GetClass() { return TClassOf<UCollisionComponent>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UCollisionComponent) \
+	DEFINE_OPERATOR_CPY(UCollisionComponent) \
+	DEFINE_OPERATOR_MOV(UCollisionComponent) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UCollisionComponent) \
+private:
 

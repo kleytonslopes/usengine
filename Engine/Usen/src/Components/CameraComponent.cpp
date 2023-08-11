@@ -10,15 +10,7 @@
 #include "upch.hpp"
 #include "Components/CameraComponent.hpp"
 
-UCameraComponent::UCameraComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UCameraComponent::~UCameraComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UCameraComponent);
 
 void UCameraComponent::Serialize(SeriFile& otherOut)
 {

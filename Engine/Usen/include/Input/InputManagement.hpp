@@ -43,10 +43,8 @@ class UInputManagement : public AEntity
 
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UInputManagement();
-	virtual ~UInputManagement();
-
-	void Create() override;
+	void Construct() override;
+	void PostConstruct() override;
 	void Update(float deltaTime) override;
 	void SetInputComponent(UInputComponent* inputComponent);
 	void OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler);

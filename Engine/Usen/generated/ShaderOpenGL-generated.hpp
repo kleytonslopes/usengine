@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UShaderOpenGL: ## Class Name
-// !ShaderOpenGL.cpp: ## File Class CPP
-// !ShaderOpenGL.hpp: ## File Class HPP
-// !US_SHADER_OPEN_GL_HPP: ## Class Definition
-// !Renderer/OpenGL/ShaderOpenGL.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !ShaderOpenGL-generated.hpp: ## This file
-// !hpp_UShaderOpenGL_BShader: ## Class Id
-// !hpp_UShaderOpenGL_BShader_def: ## Class Version
-// !BShader: ## Base class name
-// !Renderer/Shader.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UShaderOpenGL_BShader
 
 #define hpp_UShaderOpenGL_BShader_def \
 private: \
 	using Super = BShader; using This = UShaderOpenGL; \
-	FString Identity{ "UShaderOpenGL" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UShaderOpenGL> GetClass() { return TClassOf<UShaderOpenGL>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UShaderOpenGL) \
+	DEFINE_OPERATOR_CPY(UShaderOpenGL) \
+	DEFINE_OPERATOR_MOV(UShaderOpenGL) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UShaderOpenGL) \
+private:
 

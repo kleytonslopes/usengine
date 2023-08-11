@@ -10,20 +10,7 @@
 #include "upch.hpp"
 #include "Components/Component.hpp"
 
-AComponent::AComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-AComponent::~AComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void AComponent::Create()
-{
-
-}
+DEFAULT_BODY(AComponent)
 
 void AComponent::SetParent(AEntity* parent)
 {

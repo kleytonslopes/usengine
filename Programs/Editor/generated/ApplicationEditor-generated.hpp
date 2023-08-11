@@ -32,10 +32,11 @@
 #define hpp_UApplicationEditor_UApplication_def \
 private: \
 	using Super = UApplication; using This = UApplicationEditor; \
-	FString Identity{ "UApplicationEditor" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UApplicationEditor> GetClass() { return TClassOf<UApplicationEditor>(); } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UApplicationEditor) \
+	DEFINE_OPERATOR_CPY(UApplicationEditor) \
+	DEFINE_OPERATOR_MOV(UApplicationEditor) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UApplicationEditor) \
+private:

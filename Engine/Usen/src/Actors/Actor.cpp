@@ -13,23 +13,17 @@
 #include "Components/RenderComponent.hpp"
 #include "Core/Attachment.hpp"
 
-AActor::AActor()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-AActor::~AActor()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(AActor)
 
 void AActor::Destroy()
 {
+	Super::Destroy();
+
 	TMap<FString, AComponent*>::iterator it;
 
 	if (bIsAttached)
 	{
-		if(Parent)
+		if(Parent->IsValid())
 			Parent->DetachFromParent();
 	}
 
@@ -37,34 +31,33 @@ void AActor::Destroy()
 	{
 		if (it->second != nullptr)
 		{
-			it->second->Destroy();
-			delete it->second;
+			FConstructorHelper::Destroy(it->second);
 		}
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
 }
 
-void AActor::Create()
+void AActor::Construct()
 {
-	Super::Create();
+	Super::Construct();
 
-	Attachments = UUniquePtr<UAttachment>::Make();
+	bTick = true;
+
+	Attachments = FConstructorHelper::CreateObject<UAttachment>();
 
 	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
 	TransformComponent->SetOwner(Owner);
 	TransformComponent->SetParent(this);
-
-	PostCreate();
 }
 
 void AActor::Initialize()
 {
 	Super::Initialize();
 
-	if (Attachments.Get()->HasAttachments())
+	if (Attachments->HasAttachments())
 	{
-		Attachments.Get()->Initialize();
+		Attachments->Initialize();
 	}
 }
 
@@ -80,7 +73,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	if (!actorParent)
 		return;
 
-	actorParent->Attachments.Get()->Attatch(this);
+	actorParent->Attachments->Attatch(this);
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 		SetTransform(actorParent->GetTransform());
@@ -97,7 +90,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 
 void AActor::Detach(AActor* actor)
 {
-	Attachments.Get()->Detach(actor);
+	Attachments->Detach(actor);
 }
 
 void AActor::DetachFromParent()
@@ -107,7 +100,7 @@ void AActor::DetachFromParent()
 
 	if (actorParent)
 	{
-		actorParent->Attachments.Get()->Detach(this);
+		actorParent->Attachments->Detach(this);
 	}
 }
 
@@ -130,9 +123,9 @@ void AActor::SetTransform(const FTransform& transform)
 		TransformComponent->SetTransform(myTransform);
 	}
 
-	if (Attachments.Get()->HasAttachments())
+	if (Attachments->HasAttachments())
 	{
-		for (auto& it : Attachments.Get()->Attachments)
+		for (auto& it : Attachments->Attachments)
 		{
 			it.second->SetTransform(transform);
 		}

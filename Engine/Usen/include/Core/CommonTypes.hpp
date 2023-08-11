@@ -18,6 +18,7 @@
 #include <tuple>
 #include <chrono>
 #include <map>
+#include <thread>
 
 namespace us::types
 {
@@ -36,6 +37,8 @@ namespace us::types
 		using Clock = std::chrono::high_resolution_clock;
 		using Time = std::chrono::high_resolution_clock::time_point;
 		using Seconds = std::chrono::seconds;
+
+		using SThread = std::thread;
 	};
 }
 
@@ -71,5 +74,7 @@ using TMap = std::map<K, T>;
 
 template<typename R, typename L>
 using TPair = std::pair<R, L>;
+
+using TThread = us::types::FCommonTypes::SThread;
 
 #endif // !US_COMMON_TYPES_HPP

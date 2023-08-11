@@ -11,12 +11,26 @@
 #include "Presentation/Window.hpp"
 #include "Runtime/Application.hpp"
 
-UWindow::UWindow()
+DEFAULT_BODY(UWindow)
+
+void UWindow::Construct()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	desiredFps = 1000 / fpsLimit;
+
+	Super::Construct();
 }
 
-UWindow::~UWindow()
+void UWindow::PostConstruct()
+{
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		UASSERT(false, "Failed to Initialize window!");
+	}
+
+	Super::PostConstruct();
+}
+
+void UWindow::Destroy()
 {
 	if (sdlGLContext)
 		SDL_GL_DeleteContext(sdlGLContext);
@@ -25,23 +39,13 @@ UWindow::~UWindow()
 	SDL_DestroyRenderer(sdlRenderer);
 	SDL_DestroyWindow(sdlWindow);
 	SDL_Quit();
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void UWindow::Initialize()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, "Initializing UWindow...");
-	desiredFps = 1000 / fpsLimit;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		UASSERT(false, "Failed to Initialize window!");
-	}
-
 	InitializeForOpenGL();
 
 	Super::Initialize();
-
 }
 
 void UWindow::PollEvents()

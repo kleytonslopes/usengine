@@ -1217,5 +1217,120 @@
       "ClassGenDefinition": "hpp_UBoxCollisionComponent_UCollisionComponent",
       "ClassGenDefinitionVersion": "hpp_UBoxCollisionComponent_UCollisionComponent_def"
     }
+  },
+  {
+    "ClassName": "UStaticMesh",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UStaticMesh",
+      "ClassDefinition": "US_STATIC_MESH_HPP",
+      "HppFileName": "StaticMesh.hpp",
+      "CppFileName": "StaticMesh.cpp",
+      "GenFileName": "StaticMesh-generated.hpp",
+      "FolderHpp": "include/Mesh",
+      "FolderCpp": "src/Mesh",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "AMesh",
+      "BaseClassPathHpp": "Mesh/Mesh.hpp",
+      "BaseClassTemplate": " : public AMesh",
+      "BaseClassInclude": "\n#include \"Mesh/Mesh.hpp\"",
+      "ClassGenDefinition": "hpp_UStaticMesh_AMesh",
+      "ClassGenDefinitionVersion": "hpp_UStaticMesh_AMesh_def"
+    }
+  },
+  {
+    "ClassName": "ACharacter",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "ACharacter",
+      "ClassDefinition": "US_CHARACTER_HPP",
+      "HppFileName": "Character.hpp",
+      "CppFileName": "Character.cpp",
+      "GenFileName": "Character-generated.hpp",
+      "FolderHpp": "include/Pawns",
+      "FolderCpp": "src/Pawns",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "APawn",
+      "BaseClassPathHpp": "Pawns/Pawn.hpp",
+      "BaseClassTemplate": " : public APawn",
+      "BaseClassInclude": "\n#include \"Pawns/Pawn.hpp\"",
+      "ClassGenDefinition": "hpp_ACharacter_APawn",
+      "ClassGenDefinitionVersion": "hpp_ACharacter_APawn_def"
+    }
+  },
+  {
+    "ClassName": "UTickClass",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "UTickClass",
+      "ClassDefinition": "UK_TICK_CLASS_HPP",
+      "HppFileName": "TickClass.hpp",
+      "CppFileName": "TickClass.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FConstructorHelper",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": true,
+      "ClassName": "FConstructorHelper",
+      "ClassDefinition": "US_CONSTRUCTOR_HELPER_HPP",
+      "HppFileName": "ConstructorHelper.hpp",
+      "CppFileName": "ConstructorHelper.cpp",
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "UCapsuleComponent",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UCapsuleComponent",
+      "ClassDefinition": "US_CAPSULE_COMPONENT_HPP",
+      "HppFileName": "CapsuleComponent.hpp",
+      "CppFileName": "CapsuleComponent.cpp",
+      "GenFileName": "CapsuleComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UCollisionComponent",
+      "BaseClassPathHpp": "Components/CollisionComponent.hpp",
+      "BaseClassTemplate": " : public UCollisionComponent",
+      "BaseClassInclude": "\n#include \"Components/CollisionComponent.hpp\"",
+      "ClassGenDefinition": "hpp_UCapsuleComponent_UCollisionComponent",
+      "ClassGenDefinitionVersion": "hpp_UCapsuleComponent_UCollisionComponent_def"
+    }
   }
 ]

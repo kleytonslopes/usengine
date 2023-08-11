@@ -34,33 +34,38 @@ class UScene : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UScene();
-	~UScene() final;
 	void Destroy() final;
 
-	void Create() override;
+	void Construct() override;
+	void PostConstruct() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
 
 	template<class T>
 	T* CreateEntity();
 
+	template<class T, class U>
+	T* CreateEntity(U& entityClass);
+
 	ACamera* GetCamera();
 
 	UGameModeBase* GetGameMode();
 private:
+	TClassOf<UGameModeBase> GameModeClass;
 	FSceneSettings Settings{};
 
 	ACamera* Camera = nullptr;
-	/*UUniquePtr<APawn> DefaultPawn;*/
-	UUniquePtr<FSceneSerializer> Serializer;
-	USharedPtr<UGameModeBase> GameMode;
-	
+	FSceneSerializer* Serializer = nullptr;
+	UGameModeBase* GameMode = nullptr;
 
 	TMap<FString, AEntity*> entities;
 
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
+
+	void CreateDefaultCamera();
+	void CreateDefaultPawn();
+	void CreateDefaultController();
 
 	friend class FSceneSerializer;
 	friend class UApplication;

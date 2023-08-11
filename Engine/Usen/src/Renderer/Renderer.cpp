@@ -11,12 +11,9 @@
 #include "Renderer/Renderer.hpp"
 #include "Actors/Entity.hpp"
 
-BRenderer::BRenderer()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(BRenderer)
 
-BRenderer::~BRenderer()
+void BRenderer::Destroy()
 {
 	TMap<FString, BShader*>::iterator it;
 	for (it = Shaders.begin(); it != Shaders.end(); it++)
@@ -24,8 +21,6 @@ BRenderer::~BRenderer()
 		ULOG(ELogLevel::ELL_TRACE, FText::Format("Deleting Shader %s...", it->first.c_str()));
 		delete it->second;
 	}
-
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
 }
 
 void BRenderer::Draw(AEntity* entity, float deltaTime)

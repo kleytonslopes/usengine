@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UMeshRendererOpenGL: ## Class Name
-// !MeshRendererOpenGL.cpp: ## File Class CPP
-// !MeshRendererOpenGL.hpp: ## File Class HPP
-// !US_MESH_RENDERER_OPEN_GL_HPP: ## Class Definition
-// !Renderer/OpenGL/MeshRendererOpenGL.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !MeshRendererOpenGL-generated.hpp: ## This file
-// !hpp_UMeshRendererOpenGL_UMeshRenderer: ## Class Id
-// !hpp_UMeshRendererOpenGL_UMeshRenderer_def: ## Class Version
-// !UMeshRenderer: ## Base class name
-// !Renderer/MeshRenderer.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UMeshRendererOpenGL_UMeshRenderer
 
 #define hpp_UMeshRendererOpenGL_UMeshRenderer_def \
 private: \
 	using Super = UMeshRenderer; using This = UMeshRendererOpenGL; \
-	FString Identity{ "UMeshRendererOpenGL" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UMeshRendererOpenGL> GetClass() { return TClassOf<UMeshRendererOpenGL>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UMeshRendererOpenGL) \
+	DEFINE_OPERATOR_CPY(UMeshRendererOpenGL) \
+	DEFINE_OPERATOR_MOV(UMeshRendererOpenGL) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UMeshRendererOpenGL) \
+private:
 

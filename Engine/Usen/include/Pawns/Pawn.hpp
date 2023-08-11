@@ -17,20 +17,19 @@
 #include "Pawn-generated.hpp"
 
 class UInputComponent;
+class UCapsuleComponent;
 
 class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit APawn();
-	virtual ~APawn();
-
-	void Create() override;
-	void PostCreate() override;
+	void Construct() override;
+	void PostConstruct() override;
 
 	void SetupInputComponent();
 
 	UInputComponent* GetInputComponent();
+	UCapsuleComponent* GetCapsuleComponent();
 
 	void MoveForward(float scale);
 	void MoveRight(float scale);

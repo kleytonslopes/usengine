@@ -27,9 +27,6 @@ class UMeshRenderer : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UMeshRenderer();
-	virtual ~UMeshRenderer();
-
 	virtual void Draw(FVector location, FVector rotation, FVector scale) { /* override */ };
 
 	void SetModel(UModel* model);

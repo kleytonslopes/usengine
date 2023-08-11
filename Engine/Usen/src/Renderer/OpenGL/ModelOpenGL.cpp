@@ -23,15 +23,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-UModelOpenGL::UModelOpenGL()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UModelOpenGL::~UModelOpenGL()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UModelOpenGL);
 
 void UModelOpenGL::Initialize()
 {

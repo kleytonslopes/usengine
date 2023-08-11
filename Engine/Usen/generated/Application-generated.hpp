@@ -12,30 +12,17 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UApplication: ## Class Name
-// !Application.cpp: ## File Class CPP
-// !Application.hpp: ## File Class HPP
-// !US_APPLICATION_HPP: ## Class Definition
-// !Runtime/Application.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Application-generated.hpp: ## This file
-// !hpp_UApplication_IWeakClass: ## Class Id
-// !hpp_UApplication_IWeakClass_def: ## Class Version
-// !IWeakClass: ## Base class name
-// !Weaks/WeakClass.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UApplication_IWeakClass
 
 #define hpp_UApplication_IWeakClass_def \
 private: \
 	using Super = IWeakClass; using This = UApplication; \
-	FString Identity{ "UApplication" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UApplication> GetClass() { return TClassOf<UApplication>(); } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UApplication) \
+	DEFINE_OPERATOR_CPY(UApplication) \
+	DEFINE_OPERATOR_MOV(UApplication) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UApplication) \
+private:

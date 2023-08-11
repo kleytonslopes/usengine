@@ -19,9 +19,6 @@
 class UCameraComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
-public:
-	explicit UCameraComponent();
-	~UCameraComponent() final;
 
 protected:
 	void Serialize(SeriFile& otherOut) override;

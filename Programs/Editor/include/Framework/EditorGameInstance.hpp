@@ -20,8 +20,8 @@ class UEditorGameInstance : public UGameInstance
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UEditorGameInstance();
-	virtual ~UEditorGameInstance();
+	void Construct() override;
+	void PostConstruct() override;
 };
 
 #endif // !US_EDITOR_GAME_INSTANCE_HPP

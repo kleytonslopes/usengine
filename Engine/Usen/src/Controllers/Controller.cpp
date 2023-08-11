@@ -9,22 +9,17 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Controllers/Controller.hpp"
+#include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
 
-UController::UController()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-UController::~UController()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(UController)
 
 void UController::SetPawn(APawn* pawn)
 {
 	this->Pawn = pawn;
 	pawn->SetOwner(this);
+
+	GetInputManagement()->SetInputComponent(Pawn->GetInputComponent());
 }
 
 APawn* UController::GetPawn()

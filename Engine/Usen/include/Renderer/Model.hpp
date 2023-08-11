@@ -27,9 +27,6 @@ class UModel : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UModel();
-	virtual ~UModel();
-
 	void Initialize() override;
 	virtual void LoadModel() { /* override */ };;
 	virtual void Draw(float deltaTime) { /* override */ };;

@@ -12,30 +12,17 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UScene: ## Class Name
-// !Scene.cpp: ## File Class CPP
-// !Scene.hpp: ## File Class HPP
-// !US_SCENE_HPP: ## Class Definition
-// !Framework/Scene.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Scene-generated.hpp: ## This file
-// !hpp_UScene_BClass: ## Class Id
-// !hpp_UScene_BClass_def: ## Class Version
-// !BClass: ## Base class name
-// !Base/Class.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UScene_BClass
 
 #define hpp_UScene_BClass_def \
 private: \
 	using Super = BClass; using This = UScene; \
-	FString Identity{ "UScene" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UScene> GetClass() { return TClassOf<UScene>(); } \
-private: 
-	
-
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UScene) \
+	DEFINE_OPERATOR_CPY(UScene) \
+	DEFINE_OPERATOR_MOV(UScene) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UScene) \
+private:

@@ -10,12 +10,4 @@
 #include "upch.hpp"
 #include "Renderer/Shader.hpp"
 
-BShader::BShader()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-BShader::~BShader()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(BShader)

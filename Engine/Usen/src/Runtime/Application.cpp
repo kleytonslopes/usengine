@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Application.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Runtime/Application.hpp"
@@ -17,101 +17,42 @@
 #include "Input/InputManagement.hpp"
 #include "Physics/PhysicsSystem.hpp"
 
+DEFAULT_BODY(UApplication);
 
-UApplication::UApplication()
+void UApplication::PostConstruct()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+	Super::PostConstruct();
 
-UApplication::~UApplication()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UApplication::Create()
-{
-	PostCreate();
-}
-
-void UApplication::PostCreate()
-{
-	CreateWindow();
-	CreateGameInstance();
-	CreateRenderer();
-	CreateInputManagement();
-	CreatePhysicsSystem();
-	CreateScene();
-
-	Initialize();
+	Window = FConstructorHelper::CreateObject<UWindow>();
+	GameInstance = FConstructorHelper::CreateObject<UGameInstance>();
+	Renderer = FConstructorHelper::CreateObject<URendererOpenGL>();
+	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
+	Scene = FConstructorHelper::CreateObject<UScene>();
+	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
 }
 
 void UApplication::Initialize()
 {
-	Window.Get()->Initialize();
-	GameInstance.Get()->Initialize();
-	Renderer.Get()->Initialize();
-	InputManagement.Get()->Initialize();
-	Scene.Get()->Initialize();
+	Window->Initialize();
+	GameInstance->Initialize();
+	Renderer->Initialize();
+	InputManagement->Initialize();
+	Scene->Initialize();
+	PhysicsSystem->Initialize();
 
-	bIsInitialized = true;
-	PostInitialize();
-}
-
-void UApplication::CreateWindow()
-{
-	Window = USharedPtr<UWindow>::Make();
-	Window.Get()->Create();
-}
-
-void UApplication::CreateGameInstance()
-{
-	GameInstance = USharedPtr<UGameInstance>::FromClass(DefaultGameInstance);
-	Window.Get()->Create();
-}
-
-void UApplication::CreateRenderer()
-{
-	Renderer = USharedPtr<BRenderer>::FromClass(DefaultRenderer);
-}
-
-void UApplication::CreateInputManagement()
-{
-	InputManagement = USharedPtr<UInputManagement>::Make();
-	InputManagement.Get()->Create();
-}
-
-void UApplication::CreateScene()
-{
-	Scene = USharedPtr<UScene>::Make();
-	Scene.Get()->Create();
-}
-
-void UApplication::CreatePhysicsSystem()
-{
-	PhysicsSystem = USharedPtr<UPhysicsSystem>::Make();
-	PhysicsSystem.Get()->Create();
-}
-
-void UApplication::PostInitialize()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostInitialize!", Identity.c_str()));
+	Super::Initialize();
 }
 
 void UApplication::Destroy()
 {
-	PhysicsSystem.Destroy();
-	Scene.Destroy();
-	InputManagement.Destroy();
-	GameInstance.Destroy();
-	Renderer.Destroy();
-	Window.Destroy();
+	delete PhysicsSystem;	PhysicsSystem = nullptr;
+	delete Scene;           Scene = nullptr;
+	delete InputManagement; InputManagement = nullptr;
+	delete GameInstance;    GameInstance = nullptr;
+	delete Renderer;        Renderer = nullptr;
+	delete Window;          Window = nullptr;
 
-	PostDestroy();
-}
-
-void UApplication::PostDestroy()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s PostDestroy!", Identity.c_str()));
+	Super::Destroy();
 }
 
 void UApplication::Loop()
@@ -119,22 +60,34 @@ void UApplication::Loop()
 	float deltaTime = 0.f;
 	FTime currentTime = FTime::Now();
 
-	while (!Window.Get()->ShouldClose())
+	auto TickFunction = [](float delta)
 	{
-		Window.Get()->MakeCurrent();
-		Window.Get()->StartLoop();
-		
-		Window.Get()->PollEvents();
+		us::env::Environment::TickComponent->Tick(delta);
+	};
+
+	//while (!Window->ShouldClose())
+	while (!Window->ShouldClose())
+	{
+		Window->MakeCurrent();
+		Window->StartLoop();
+
+		Window->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
-		
-		Window.Get()->Update(deltaTime);
-		GameInstance.Get()->Update(deltaTime);
-		//Scene.Get()->Update(deltaTime);
+
+		Window->Update(deltaTime);
+		GameInstance->Update(deltaTime);
+
+		ThreadTickEvent = new TThread(TickFunction, deltaTime);
+
 		OnUpdateEvent.Broadcast(deltaTime);
 
-		Window.Get()->StopLoop();
-		Window.Get()->SwapWindow();
+		ThreadTickEvent->join();
+
+		Window->StopLoop();
+		Window->SwapWindow();
+
+		delete ThreadTickEvent;
 	}
 
 	Destroy();
@@ -149,6 +102,11 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 
 void UApplication::Run()
 {
-	Create();
+	Construct();
+	PostConstruct();
+
+	Initialize();
+	PostInitialize();
+
 	Loop();
 }

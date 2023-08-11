@@ -12,30 +12,18 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !UCameraComponent: ## Class Name
-// !CameraComponent.cpp: ## File Class CPP
-// !CameraComponent.hpp: ## File Class HPP
-// !US_CAMERA_COMPONENT_HPP: ## Class Definition
-// !Components/CameraComponent.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !CameraComponent-generated.hpp: ## This file
-// !hpp_UCameraComponent_AComponent: ## Class Id
-// !hpp_UCameraComponent_AComponent_def: ## Class Version
-// !AComponent: ## Base class name
-// !Components/Component.hpp: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_UCameraComponent_AComponent
 
 #define hpp_UCameraComponent_AComponent_def \
 private: \
 	using Super = AComponent; using This = UCameraComponent; \
-	FString Identity{ "UCameraComponent" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); }\
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<UCameraComponent> GetClass() { return TClassOf<UCameraComponent>(); } \
-private: 
-	
+	DEFINE_DEFAULT_CONSTTRUCTORS_DESTRUCTORS(UCameraComponent) \
+	DEFINE_OPERATOR_CPY(UCameraComponent) \
+	DEFINE_OPERATOR_MOV(UCameraComponent) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(UCameraComponent) \
+private:
 

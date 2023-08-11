@@ -20,10 +20,9 @@ class UApplicationEditor : public UApplication
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UApplicationEditor();
-	virtual ~UApplicationEditor();
 
-	void Create() override;
+	void Construct() override;
+	void PostConstruct() override;
 };
 
 #endif // !US_APPLICATION_EDITOR_HPP

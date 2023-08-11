@@ -22,13 +22,12 @@ class UAttachment;
 class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
-public:
-	explicit AActor();
-	virtual ~AActor();
 
+public:
 	void Destroy() override;
 
-	void Create() override;
+	void Construct() override;
+
 	void Initialize() override;
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
 	void DetachFromParent() override;
@@ -45,7 +44,7 @@ public:
 	
 
 protected:
-	UUniquePtr<UAttachment> Attachments;
+	UAttachment* Attachments = nullptr;
 	TMap<FString, AComponent*> components;
 
 	void Serialize(SeriFile& otherOut) override;
@@ -66,9 +65,10 @@ protected:
 	template<typename T>
 	T* AddComponent()
 	{
-		T* component = new T();
+		T* component = FConstructorHelper::CreateObject<T>();// new T();
 		components[typeid(T).name()] = component;
-		component->Create();
+		//component->Construct();
+		//component->Create();
 
 		return component;
 	}
@@ -76,8 +76,10 @@ protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&& ... args)
 	{
-		T* component = new T(std::forward<Args>(args)...);
+		T* component = FConstructorHelper::CreateObject<T>(); //new T(std::forward<Args>(args)...);
 		components[typeid(T).name()] = component;
+		//component->Construct();
+		//component->Create();
 
 		return component;
 	}

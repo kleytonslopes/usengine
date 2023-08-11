@@ -18,6 +18,7 @@
 #include "Framework/Scene.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Renderer/Renderer.hpp"
+#include "Environment/Environment.hpp"
 #include "Application-generated.hpp"
 
 class UWindow;
@@ -26,8 +27,6 @@ class UScene;
 class UController;
 class UInputManagement;
 class UPhysicsSystem;
-
-//#define CLASSOF(A) A
 
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
 
@@ -38,47 +37,36 @@ class UApplication : public IWeakClass
 public:
 	FOnUpdateSignature OnUpdateEvent;
 
-	explicit UApplication();
-	virtual ~UApplication();
-	
 	void Run();
 
 	// Inherited via IWeakClass
-	void Create() override;
-	void PostCreate() override;
+	void PostConstruct() override;
 	void Initialize() override;
-	void PostInitialize() override;
 	void Destroy() override;
-	void PostDestroy() override;
 
 	template<typename T>
 	T* GetRenderer()
 	{
-		return static_cast<T*>(Renderer.Get());
+		return static_cast<T*>(Renderer);
 	}
 
-	BRenderer* GetRenderer() { return Renderer.Get(); };
+	BRenderer* GetRenderer() { return Renderer; };
 protected:
 	TClassOf<UGameInstance> DefaultGameInstance;
 	TClassOf<BRenderer> DefaultRenderer;
 
-	virtual void CreateWindow();
-	virtual void CreateGameInstance();
-	virtual void CreateRenderer();
-	virtual void CreateInputManagement();
-	virtual void CreateScene();
-	virtual void CreatePhysicsSystem();
+	TThread* ThreadTickEvent = nullptr;;
+
+	UWindow* Window                   = nullptr;
+	UGameInstance* GameInstance       = nullptr;
+	BRenderer* Renderer               = nullptr;
+	UScene* Scene                     = nullptr;
+	UInputManagement* InputManagement = nullptr;
+	UPhysicsSystem* PhysicsSystem     = nullptr;
+
+	UController* Controller           = nullptr;
 
 private:
-	USharedPtr<UWindow> Window;
-	USharedPtr<UGameInstance> GameInstance;
-	USharedPtr<BRenderer> Renderer;
-	USharedPtr<UScene> Scene;
-	USharedPtr<UInputManagement> InputManagement;
-	USharedPtr<UPhysicsSystem> PhysicsSystem;
-
-	UController* Controller;
-
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
 

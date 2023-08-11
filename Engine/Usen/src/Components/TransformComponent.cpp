@@ -10,13 +10,7 @@
 #include "upch.hpp"
 #include "Components/TransformComponent.hpp"
 
-UTransformComponent::UTransformComponent()
-{
-}
-
-UTransformComponent::~UTransformComponent()
-{
-}
+DEFAULT_BODY(UTransformComponent)
 
 FVector UTransformComponent::GetLocation()
 {
@@ -120,6 +114,7 @@ void UTransformComponent::Serialize(SeriFile& otherOut)
 	BeginComponentSection(otherOut, Identity);
 
 	Key(otherOut, "location", Transform.Location);
+	Key(otherOut, "origin", Transform.Origin);
 	Key(otherOut, "rotation", Transform.Rotation);
 	Key(otherOut, "scale", Transform.Scale);
 	Key(otherOut, "upVector", Transform.UpVector);

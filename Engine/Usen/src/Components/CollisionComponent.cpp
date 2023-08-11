@@ -10,17 +10,9 @@
 #include "upch.hpp"
 #include "Components/CollisionComponent.hpp"
 
-UCollisionComponent::UCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
+DEFAULT_BODY(UCollisionComponent)
 
-UCollisionComponent::~UCollisionComponent()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UCollisionComponent::Create()
+void UCollisionComponent::Construct()
 {
 	StartTransform.setIdentity();
 	StartTransform.setOrigin(btVector3(0.f, 0.f, 0.f));
@@ -30,7 +22,7 @@ void UCollisionComponent::Create()
 	if (!bIsDynamic)
 		Mass = 0.f;
 
-	Super::Create();
+	Super::Construct();
 }
 
 void UCollisionComponent::SetIsDynamic(const bool& isDynamic)

@@ -12,30 +12,16 @@
 #include "Core/Macros.hpp"
 #include "Core/ClassOf.hpp"
 
-//--0
-// !BSerializer: ## Class Name
-// !Serializer.cpp: ## File Class CPP
-// !Serializer.hpp: ## File Class HPP
-// !US_SERIALIZER_HPP: ## Class Definition
-// !Serializers/Serializer.hpp: ## Class Head Path
-// !July 2023: ## Date Creation
-// !Serializer-generated.hpp: ## This file
-// !hpp_BSerializer: ## Class Id
-// !hpp_BSerializer_def: ## Class Version
-// !: ## Base class name
-// !: ## Base class path with file
-//--x
-
 #undef CURRENT_CLASS_IDENTITY_FILE
 #define CURRENT_CLASS_IDENTITY_FILE hpp_BSerializer
 
 #define hpp_BSerializer_def \
 private: \
-	using This = BSerializer; \
-	FString Identity{ "BSerializer" }; \
-    template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
+	using Super = BClass; using This = BSerializer; \
+	DEFINE_CAST_FUNCTION() \
 public: \
-	static TClassOf<BSerializer> GetClass() { return TClassOf<BSerializer>(); } \
-private: 
-	
-
+	DEFINE_OPERATOR_CPY(BSerializer) \
+	DEFINE_OPERATOR_MOV(BSerializer) \
+	DEFINE_IDENTITY_BODY() \
+	DEFINE_GET_CLASS(BSerializer) \
+private:

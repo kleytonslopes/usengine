@@ -31,28 +31,23 @@ struct FAttachmentSettings
 	EAttachMode AttachMode = EAttachMode::EAM_SnapToTarget;
 };
 
-class AEntity : public BClass, public BSerializer
+class AEntity : public BSerializer
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
-	explicit AEntity();
-	virtual ~AEntity();
-
-	virtual void Create();
-	virtual void PostCreate() { /* override*/ };
-	void Destroy() override;
-
-	void Initialize() override;
+	void Construct() override;
 	void Update(float deltaTime) override;
 
 	void SetOwner(AEntity* owner);
 	virtual void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings);
 	virtual void DetachFromParent();
+	FString GetParentId();
 
 	template<typename T>
 	inline T* GetParent()
 	{
-		return Cast<T>(Parent);
+		return Cast<T*>(Parent);
 	}
 
 protected:
@@ -60,20 +55,11 @@ protected:
 	AEntity* Parent = nullptr;
 	FAttachmentSettings AttachmentSettings;
 
-	/*UUniquePtr<UAttachment> Attachments;*/
-
 	bool bIsAttached = false;
-	bool bIsCreated = false;
 
-	void Serialize() override { /* override */ }
-	void Serialize(SeriFile& otherOut) override;
-	bool Deserialize(const FString& scenePath) override { return false; }
-
-	virtual void Draw(float deltaTime);
+	virtual void Draw(float deltaTime) { /* */ };
 
 private:
-	//UUniquePtr<FEntitySerializer> Serializer;
-
 	friend class BRenderer;
 	friend class UScene;
 	friend class FSceneSerializer;

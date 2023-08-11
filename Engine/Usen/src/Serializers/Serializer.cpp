@@ -11,19 +11,28 @@
 #include "Serializers/Serializer.hpp"
 
 BSerializer::BSerializer()
+	: out{ CreateSeriFile() }
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	Identity = "BSerializer";
 }
 
 BSerializer::~BSerializer()
 {
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
+	delete outPtr;
 }
 
 void BSerializer::Save()
 {
 	std::ofstream fout(seriFilePath);
 	fout << out.c_str();
+}
+
+SeriFile& BSerializer::CreateSeriFile()
+{
+	if(!outPtr)
+		outPtr = new SeriFile();
+
+	return *outPtr;
 }
 
 SeriNode BSerializer::Load(const FString& filePath)

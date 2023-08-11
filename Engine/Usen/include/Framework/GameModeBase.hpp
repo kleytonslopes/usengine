@@ -23,25 +23,25 @@ class UGameModeBase : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UGameModeBase();
-	virtual ~UGameModeBase();
-
-	void Create() override;
-	void PostCreate() override;
+	void Construct() override;
 	void Initialize() override;
 
-protected:
-	USharedPtr<UController> Controller;
-	USharedPtr<APawn> PlayerPawn;
+	TClassOf<APawn> GetDefaultPlayerPawn();
+	TClassOf<UController> GetDefaultController();
 
-	void CreateController();
-	void CreatePlayerPawn();
+protected:
+	UController* Controller = nullptr;
+	APawn* PlayerPawn = nullptr;
 
 private:
 	TClassOf<UController> DefaultController;
 	TClassOf<APawn> DefaultPlayerPawn;
 
+	void SetController(UController* controller);
+	void SetPlayerPawn(APawn* playerPawn);
+
 	friend class BClass;
+	friend class UScene;
 };
 
 #endif // !US_GAME_MODE_BASE_HPP

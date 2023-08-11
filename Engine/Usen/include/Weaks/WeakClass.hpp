@@ -1,6 +1,13 @@
 /*********************************************************************
  *   File: WeakClass.hpp
- *  Brief: 
+ *  Brief: Sequence to initialize a instance
+ * 
+ * 1º Call Constructor  - this call PostConstruct
+ *    -   Constructor(): This method should be used for setup defaults properties
+ *    - PostConstruct(): This method should be used for initialize instances and pointers
+ * 
+ * 2º Call Create       - this call PostCreate
+ * 3º Call Initialize   - this call PostInitialize
  * 
  * Author: Kleyton Lopes
  *   Date: July 2023
@@ -22,27 +29,40 @@ public:
 	explicit IWeakClass();
 	virtual ~IWeakClass();
 
-	virtual void Create() = 0;
-	virtual void PostCreate() = 0;
+	virtual void Construct();
+	virtual void PostConstruct();
 
-	virtual void Initialize() = 0;
-	virtual void PostInitialize() = 0;
+	virtual void Initialize();
+	virtual void PostInitialize();
 
-	virtual void Destroy() = 0;
-	virtual void PostDestroy() = 0;
+	virtual void Destroy();
+	virtual void PostDestroy();
+
+	virtual void Tick(float deltaTime);
 
 	FString GetId() const { return Id; }
 	FString GetIdentity() const { return Identity; }
 
+	virtual FString GetIdentity() { return "IWeakClass"; }
+
+	bool IsValid() const { return Id.size() == 36; }
+
 protected:
 	FString Id;
 	FString Identity;
+
+	bool bIsConstructed = false;
 	bool bIsInitialized = false;
+	bool bIsDestroyed = false;
+
+	bool bTick = false;
 
 	inline void SetIdentity(const FString& identity)
 	{
 		Identity = identity;
 	}
+
+	friend class FConstructorHelper;
 };
 
 #endif // !US_WEAK_CLASS_HPP

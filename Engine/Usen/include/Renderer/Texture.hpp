@@ -23,9 +23,6 @@ public:
 	FString Path;
 	FString Type;
 
-	explicit UTexture();
-	virtual ~UTexture();
-
 	UCharPtr GetPath() const { return Path.c_str(); };
 
 protected:

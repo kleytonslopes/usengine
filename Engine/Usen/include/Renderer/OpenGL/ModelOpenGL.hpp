@@ -24,9 +24,6 @@ class UModelOpenGL : public UModel
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit UModelOpenGL();
-	~UModelOpenGL() final;
-
 	void Initialize() override;
 	void LoadModel() override;
 	void Draw(float deltaTime) override;

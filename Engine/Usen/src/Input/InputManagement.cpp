@@ -14,17 +14,14 @@
 #include "Runtime/Application.hpp"
 #include "Configs/EngineConfig.hpp"
 
-UInputManagement::UInputManagement()
+DEFAULT_BODY(UInputManagement)
+
+void UInputManagement::Construct()
 {
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
+	Super::Construct();
 }
 
-UInputManagement::~UInputManagement()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
-
-void UInputManagement::Create()
+void UInputManagement::PostConstruct()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
@@ -43,7 +40,7 @@ void UInputManagement::Create()
 		RegisteredKeys[it.first] = kb;
 	}
 
-	Super::Create();
+	Super::PostConstruct();
 }
 
 void UInputManagement::Update(float deltaTime)

@@ -22,16 +22,13 @@ class FEntitySerializer : public BSerializer
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	explicit FEntitySerializer();
-	virtual ~FEntitySerializer();
-
 	void Serialize() override;
 	void Serialize(SeriFile& otherOut) override;
 	bool Deserialize(const FString& scenePath) override;
 
 	void SetEntity(AEntity* entity);
 private:
-	AEntity* Entity;
+	AEntity* Entity = nullptr;
 
 	void SerializeComponents(SeriFile& otherOut);
 };

@@ -31,15 +31,7 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const TVector<FShaderParameters>& 
 	return out;
 }
 
-FSceneSerializer::FSceneSerializer()
-{
-	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-}
-
-FSceneSerializer::~FSceneSerializer()
-{
-	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-}
+DEFAULT_BODY(FSceneSerializer)
 
 void FSceneSerializer::Serialize()
 {
@@ -95,7 +87,8 @@ void FSceneSerializer::SetializeEntities()
 	for (it = Scene->entities.begin(); it != Scene->entities.end(); it++)
 	{
 		BeginSection("Entity", it->second->GetId());
-
+		Key("Identity", it->second->GetIdentity());
+		Key("Parent", it->second->GetParentId());
 		it->second->Serialize(out);
 
 		ULOG(ELogLevel::ELL_TRACE, FText::Format("Iterating with %s", it->first.c_str()));
@@ -117,4 +110,9 @@ void FSceneSerializer::DeserializeShaders(SeriNode& data)
 void FSceneSerializer::DeserializeEntities(SeriNode& data)
 {
 	auto entities = data["Entities"];
+
+	if (entities)
+	{
+
+	}
 }
