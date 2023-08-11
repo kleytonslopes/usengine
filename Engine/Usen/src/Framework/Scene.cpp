@@ -50,7 +50,7 @@ void UScene::Destroy()
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		if(it->second->IsValid())
+		if (it->second->IsValid())
 			FConstructorHelper::Destroy(it->second);
 	}
 
@@ -105,14 +105,17 @@ void UScene::Initialize()
 			Pawn->SetLocation(FVector{ 0.f,0.f,2.f });
 			FAttachmentSettings pawnCameraAttachmentSettings{};
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
-			FTransform trasformCamera;
-			trasformCamera.Location = { 0.f,0.f,0.f };
-			trasformCamera.Origin = { -25.f,0.f,5.f };
-			trasformCamera.Rotation = { 0.f,0.f,0.f };
-			Camera = CreateEntity<ACamera>();
-			Camera->SetTransform(trasformCamera);
 			Camera->Initialize();
 			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
+
+			///FTransform trasformCamera;
+			///trasformCamera.Location = { 0.f,0.f,0.f };
+			///trasformCamera.Origin = { -25.f,0.f,5.f };
+			///trasformCamera.Rotation = { 0.f,0.f,0.f };
+			///Camera = CreateEntity<ACamera>();
+			///Camera->SetTransform(trasformCamera);
+			///Camera->Initialize();
+			///Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
 
 			FMeshParameters pawnMeshParameters{};
 			FAttachmentSettings pawnMeshAttachmentSettings{};
@@ -124,7 +127,7 @@ void UScene::Initialize()
 		}
 	}
 
-	SaveScene();
+	//SaveScene();
 
 	Super::Initialize();
 }
@@ -161,8 +164,6 @@ T* UScene::CreateEntity()
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
-
-	return nullptr; 
 }
 
 template<class T, class U>
@@ -173,19 +174,18 @@ T* UScene::CreateEntity(TClassOf<U>& entityClass)
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
-
-	return nullptr;
 }
 
 void UScene::PostConstruct()
 {
 	GameMode = FConstructorHelper::CreateObject<UGameModeBase>(GameModeClass);
-	
+
 	Serializer = FConstructorHelper::CreateObject<FSceneSerializer>();
 	Serializer->SetScene(this);
 
 	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 
+	CreateDefaultCamera();
 	CreateDefaultController();
 	CreateDefaultPawn();
 
@@ -226,4 +226,15 @@ void UScene::CreateDefaultController()
 
 	GameMode->SetController(Controller);
 	Controller->Initialize();
+}
+
+void UScene::CreateDefaultCamera()
+{
+	FTransform trasformCamera;
+	trasformCamera.Location = { 0.f,0.f,0.f };
+	trasformCamera.Origin = { -25.f,0.f,5.f };
+	trasformCamera.Rotation = { 0.f,0.f,0.f };
+	Camera = CreateEntity<ACamera>();
+	Camera->SetTransform(trasformCamera);
+	Camera->Initialize();
 }

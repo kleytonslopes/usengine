@@ -62,6 +62,8 @@ private:
 
 	void SaveScene();
 	bool LoadScene(const FString& sceneName);
+
+	void CreateDefaultCamera();
 	void CreateDefaultPawn();
 	void CreateDefaultController();
 

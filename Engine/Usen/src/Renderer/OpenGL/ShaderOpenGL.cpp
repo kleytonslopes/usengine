@@ -28,6 +28,7 @@ void UShaderOpenGL::LoadShader(UCharPtr vertexShaderFile, UCharPtr fragmentShade
 
 void UShaderOpenGL::Destroy()
 {
+	Super::Destroy();
 	glDeleteProgram(programId);
 }
 
