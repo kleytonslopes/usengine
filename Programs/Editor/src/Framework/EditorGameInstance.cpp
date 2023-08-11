@@ -11,3 +11,13 @@
 #include "Framework/EditorGameInstance.hpp"
 
 DEFAULT_BODY(UEditorGameInstance)
+
+void UEditorGameInstance::Construct()
+{
+	Super::Construct();
+}
+
+void UEditorGameInstance::PostConstruct()
+{
+	Super::PostConstruct();
+}

@@ -63,5 +63,6 @@ FString GetIdentity() { return Identity; } \
 
 #define DEFINE_GET_CLASS(ClassName) \
 static TClassOf<ClassName> GetClass() { return TClassOf<ClassName>(); } \
+static ClassName* GetNew() { return new ClassName(); } \
 
 #endif // !US_MACROS_HPP

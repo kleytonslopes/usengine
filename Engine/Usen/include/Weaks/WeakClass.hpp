@@ -45,12 +45,13 @@ public:
 
 	virtual FString GetIdentity() { return "IWeakClass"; }
 
+	bool IsValid() const { return Id.size() == 36; }
+
 protected:
 	FString Id;
 	FString Identity;
 
 	bool bIsConstructed = false;
-	bool bIsCreated = false;
 	bool bIsInitialized = false;
 	bool bIsDestroyed = false;
 

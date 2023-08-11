@@ -23,7 +23,7 @@ void AActor::Destroy()
 
 	if (bIsAttached)
 	{
-		if(Parent)
+		if(Parent->IsValid())
 			Parent->DetachFromParent();
 	}
 
@@ -31,8 +31,7 @@ void AActor::Destroy()
 	{
 		if (it->second != nullptr)
 		{
-			it->second->Destroy();
-			delete it->second;
+			FConstructorHelper::Destroy(it->second);
 		}
 	}
 

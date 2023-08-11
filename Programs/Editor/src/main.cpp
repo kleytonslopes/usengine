@@ -16,7 +16,7 @@ int main()
 {
 	try
 	{
-		us::env::Environment::Applicaiton = new UApplicationEditor();// FConstructorHelper::CreateObject<UApplicationEditor>();
+		us::env::Environment::Applicaiton = new UApplicationEditor();
 		us::env::Environment::Applicaiton->Run();
 		us::env::Environment::Applicaiton->Destroy();
 

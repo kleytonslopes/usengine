@@ -21,7 +21,6 @@ private: \
 	FString Identity{ "FEngineConfig" }; \
     template<class T, class U> T Cast(U other) { return static_cast<T>(other); } \
 public: \
-	static TClassOf<FEngineConfig> GetClass() { return TClassOf<FEngineConfig>(); } \
     FString GetIdentity() { return Identity; } \
 private: 
 	

@@ -20,7 +20,7 @@ DEFAULT_BODY(UGameModeBase)
 void UGameModeBase::Construct()
 {
 	FConstructorHelper::MakeClassOf<UPlayerController>(DefaultController);
-	FConstructorHelper::MakeClassOf<ACharacter>(DefaultPlayerPawn);
+	//FConstructorHelper::MakeClassOf<ACharacter>(DefaultPlayerPawn);
 
 	Super::Construct();
 }

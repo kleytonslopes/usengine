@@ -25,8 +25,8 @@ void UBoxCollisionComponent::Destroy()
 {
 	Super::Destroy();
 
-	delete Body;
-	delete Shape;
+	//delete Body;  Body = nullptr;
+	//delete Shape; Shape = nullptr;
 }
 
 void UBoxCollisionComponent::CalculeLocalInertia()

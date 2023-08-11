@@ -30,6 +30,8 @@ class UInputComponent : public AComponent
 	using ActionMap = TMap<FString, InputAction>;
 	DEFAULT_BODY_GENERATED()
 public:
+	void Construct() override;
+
 	bool IsActive() const { return true; }
 
 	template<class TObject, class Fx>

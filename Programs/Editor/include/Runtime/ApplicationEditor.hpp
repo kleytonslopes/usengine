@@ -22,7 +22,7 @@ class UApplicationEditor : public UApplication
 public:
 
 	void Construct() override;
-
+	void PostConstruct() override;
 };
 
 #endif // !US_APPLICATION_EDITOR_HPP

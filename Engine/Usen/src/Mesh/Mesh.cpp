@@ -23,7 +23,7 @@ void AMesh::Construct()
 {
 	Super::Construct();
 
-	Model = FConstructorHelper::CreateObject<UModel>();//UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	Model = FConstructorHelper::CreateObject<UModelOpenGL>();//UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
 	Model->SetMeshActor(this);
 
 	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
@@ -61,6 +61,8 @@ void AMesh::Update(float deltaTime)
 
 void AMesh::Destroy()
 {
+	Super::Destroy();
+
 	if(Model) Model->Destroy();
 
 	delete Model;

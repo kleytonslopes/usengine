@@ -43,12 +43,15 @@ DEFAULT_BODY(UScene)
 
 void UScene::Destroy()
 {
+	if (bIsDestroyed)
+		return;
+
 	TMap<FString, AEntity*>::iterator it;
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		it->second->Destroy();
-		delete it->second;
+		if(it->second->IsValid())
+			FConstructorHelper::Destroy(it->second);
 	}
 
 	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroy!", Identity.c_str()));
@@ -154,24 +157,24 @@ template<class T>
 T* UScene::CreateEntity()
 {
 	T* newEntity = FConstructorHelper::CreateObject<T>();// new T();
-	//newEntity->Construct();
-	//newEntity->Create();
 
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
+
+	return nullptr; 
 }
 
 template<class T, class U>
 T* UScene::CreateEntity(TClassOf<U>& entityClass)
 {
-	U* newEntity = FConstructorHelper::CreateObject<U>();//new U(*entityClass.Class);//entityClass.GetNew();
-	//newEntity->Construct();
-	//newEntity->PostConstruct();
+	U* newEntity = FConstructorHelper::CreateObject<U>(entityClass);//new U(*entityClass.Class);//entityClass.GetNew();
 
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
+
+	return nullptr;
 }
 
 void UScene::PostConstruct()
@@ -192,6 +195,7 @@ void UScene::PostConstruct()
 void UScene::Construct()
 {
 	FConstructorHelper::MakeClassOf<UGameModeBase>(GameModeClass);
+	//GameModeClass = FConstructorHelper::GetClassOf<UGameModeBase>(GameModeClass);
 
 	Super::Construct();
 }
@@ -213,7 +217,6 @@ void UScene::CreateDefaultPawn()
 
 	GameMode->SetPlayerPawn(PlayerPawn);
 	GameMode->Controller->SetPawn(PlayerPawn);
-
 }
 
 void UScene::CreateDefaultController()

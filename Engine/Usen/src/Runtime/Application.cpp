@@ -31,14 +31,14 @@ DEFAULT_BODY(UApplication);
 
 void UApplication::PostConstruct()
 {
+	Super::PostConstruct();
+
 	Window = FConstructorHelper::CreateObject<UWindow>();
-	GameInstance = FConstructorHelper::CreateObject<UGameInstance>(DefaultGameInstance);
-	Renderer = FConstructorHelper::CreateObject<BRenderer>(DefaultRenderer);
+	GameInstance = FConstructorHelper::CreateObject<UGameInstance>();
+	Renderer = FConstructorHelper::CreateObject<URendererOpenGL>();
 	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
 	Scene = FConstructorHelper::CreateObject<UScene>();
 	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
-
-	Super::PostConstruct();
 }
 
 void UApplication::Initialize()
@@ -53,34 +53,6 @@ void UApplication::Initialize()
 	Super::Initialize();
 }
 
-//void UApplication::CreateWindow()
-//{
-//	Window = FConstructorHelper::CreateObject<UWindow>();
-//}
-//void UApplication::CreateGameInstance()
-//{
-//	GameInstance->Construct();
-//}
-//void UApplication::CreateRenderer()
-//{
-//	Renderer->Construct();
-//}
-//void UApplication::CreateInputManagement()
-//{
-//	InputManagement->Construct();
-//	InputManagement->PostConstruct();
-//}
-//void UApplication::CreateScene()
-//{
-//	Scene->Construct();
-//	Scene->PostConstruct();
-//}
-//void UApplication::CreatePhysicsSystem()
-//{
-//	PhysicsSystem->Construct();
-//	PhysicsSystem->PostConstruct();
-//}
-
 void UApplication::Destroy()
 {
 	if (PhysicsSystem) PhysicsSystem->Destroy();
@@ -90,12 +62,12 @@ void UApplication::Destroy()
 	if (Renderer) Renderer->Destroy();
 	if (Window) Window->Destroy();
 
-	delete PhysicsSystem;
-	delete Scene;
-	delete InputManagement;
-	delete GameInstance;
-	delete Renderer;
-	delete Window;
+	delete PhysicsSystem;	PhysicsSystem = nullptr;
+	delete Scene;           Scene = nullptr;
+	delete InputManagement; InputManagement = nullptr;
+	delete GameInstance;    GameInstance = nullptr;
+	delete Renderer;        Renderer = nullptr;
+	delete Window;          Window = nullptr;
 
 	Super::Destroy();
 }

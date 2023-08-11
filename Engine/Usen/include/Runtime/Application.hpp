@@ -57,14 +57,6 @@ protected:
 
 	TThread* ThreadTickEvent = nullptr;;
 
-	//virtual void CreateWindow();
-	//virtual void CreateGameInstance();
-	//virtual void CreateRenderer();
-	//virtual void CreateInputManagement();
-	//virtual void CreateScene();
-	//virtual void CreatePhysicsSystem();
-
-private:
 	UWindow* Window                   = nullptr;
 	UGameInstance* GameInstance       = nullptr;
 	BRenderer* Renderer               = nullptr;
@@ -74,6 +66,7 @@ private:
 
 	UController* Controller           = nullptr;
 
+private:
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
 

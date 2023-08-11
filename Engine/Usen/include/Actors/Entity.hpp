@@ -60,8 +60,6 @@ protected:
 	virtual void Draw(float deltaTime) { /* */ };
 
 private:
-	//UUniquePtr<FEntitySerializer> Serializer;
-
 	friend class BRenderer;
 	friend class UScene;
 	friend class FSceneSerializer;

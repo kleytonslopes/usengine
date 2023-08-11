@@ -16,6 +16,11 @@
 
 DEFAULT_BODY(UInputManagement)
 
+void UInputManagement::Construct()
+{
+	Super::Construct();
+}
+
 void UInputManagement::PostConstruct()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);

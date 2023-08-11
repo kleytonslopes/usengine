@@ -30,8 +30,6 @@ void APawn::Construct()
 
 void APawn::PostConstruct()
 {
-	GetInputComponent()->Construct();
-
 	Super::PostConstruct();
 }
 
