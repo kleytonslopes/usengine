@@ -23,6 +23,9 @@ class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
+
+	float Speed = 10.f; //temp
+
 	void Construct() override;
 	void PostConstruct() override;
 

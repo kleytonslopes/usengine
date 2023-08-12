@@ -59,8 +59,3 @@ FString AEntity::GetParentId()
 {
 	return Parent != nullptr ? Parent->GetId() : "";
 }
-
-void AEntity::Draw(float deltaTime)
-{
-	ULOG(ELogLevel::ELL_TRACE, FText::Format("%s Draw...", this->GetId().c_str()));
-}

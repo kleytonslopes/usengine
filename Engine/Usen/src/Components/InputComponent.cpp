@@ -22,17 +22,12 @@ void UInputComponent::ExecuteAction(const FString& action, EKeyHandler keyHandle
 {
 	FString localAction = keyHandler == EKeyHandler::KEY_PRESSED ? action + "_Pressed" : action + "_Released";
 	
-	ULOG(ELogLevel::ELL_DEBUG, FText::Format("Finding Action %s...", localAction.c_str()));
-
 	ActionMap::iterator it;
 	it = Actions.find(localAction);
 	if (it != Actions.end())
 	{
 		it->second.Execute.Broadcast(1.f);
-		ULOG(ELogLevel::ELL_DEBUG, FText::Format("Action %s Executed!", localAction.c_str()));
 	}
-	else
-		ULOG(ELogLevel::ELL_DEBUG, FText::Format("Action %s Not found!", localAction.c_str()));
 }
 
 void UInputComponent::Active()

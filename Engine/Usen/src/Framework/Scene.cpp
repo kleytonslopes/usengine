@@ -133,7 +133,6 @@ void UScene::Initialize()
 			Pawn->SetLocation(FVector{ 0.f,0.f,2.f });
 			FAttachmentSettings pawnCameraAttachmentSettings{};
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
-			Camera->Initialize();
 			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
 
 			///FTransform trasformCamera;
@@ -152,6 +151,21 @@ void UScene::Initialize()
 			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
 			pawnMesh->SetMeshParameters(pawnMeshParameters);
 			pawnMesh->Initialize();
+		}
+
+		{ // Box
+
+			FTransform transformBox;
+			transformBox.Location = { 0.f,5.f,5.f };
+			transformBox.Origin   = { 0.f,0.f,0.f };
+			transformBox.Rotation = { 0.f,0.f,0.f };
+			FMeshParameters boxMeshParameters{};
+			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			AMesh* boxMesh = CreateEntity<AMesh>();
+			boxMesh->SetMeshParameters(boxMeshParameters);
+			boxMesh->SetIsDynamic(true);
+			boxMesh->SetLocation(transformBox.Location);
+			boxMesh->Initialize();
 		}
 	}
 

@@ -40,6 +40,8 @@ public:
 	void SetMeshParameters(const FMeshParameters& parameters);
 	void SetIsDynamic(const bool& isDynamic);
 
+	void SetLocation(FVector& location) override;
+
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;

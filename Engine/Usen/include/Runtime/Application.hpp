@@ -45,6 +45,7 @@ public:
 	void PostConstruct() override;
 	void Initialize() override;
 	void Destroy() override;
+	float GetDeltaTime() const { return DeltaTime; }
 
 	template<typename T>
 	T* GetRenderer()
@@ -70,6 +71,7 @@ protected:
 	UController* Controller           = nullptr;
 
 private:
+	float DeltaTime = 0.f;
 	void Loop();
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
 

@@ -41,9 +41,9 @@ public:
 	FVector GetRightVector();
 	FVector GetDirection();
 
-	void SetTransform(const FTransform transform);
+	void SetTransform(FTransform transform);
 	void SetOrigin(const FVector& transform);
-	void SetLocation(const FVector& vector);
+	void SetLocation(FVector& vector);
 	void SetRotation(const FVector& vector);
 	void SetScale(const FVector& vector);
 	void SetUpVector(const FVector& vector);

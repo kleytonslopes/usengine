@@ -59,7 +59,7 @@ protected:
 	bool bIsAttached = false;
 	bool bIsDrawable = false;
 
-	virtual void Draw(float deltaTime);
+	virtual void Draw(float deltaTime) {/* override */ }
 
 private:
 	friend class BRenderer;

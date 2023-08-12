@@ -27,7 +27,10 @@ int main()
 	}
 	catch (const std::exception& ex)
 	{
+		us::env::Environment::Applicaiton->Destroy();
+
 		delete us::env::Environment::TickComponent;
+		delete us::env::Environment::RenderComponent;
 		delete us::env::Environment::Applicaiton;
 
 		ULOG(ELogLevel::ELL_FATAL, ex.what());

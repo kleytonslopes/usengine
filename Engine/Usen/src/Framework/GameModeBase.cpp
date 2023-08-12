@@ -31,8 +31,6 @@ void UGameModeBase::Construct()
 void UGameModeBase::PostConstruct()
 {
 	Super::PostConstruct();
-
-	//GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 }
 
 void UGameModeBase::Initialize()

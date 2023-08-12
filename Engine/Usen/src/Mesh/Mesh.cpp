@@ -24,21 +24,14 @@ void AMesh::Construct()
 	Super::Construct();
 
 	bIsDrawable = true;
+	bCanUpdate = true;
 
 	Model = FConstructorHelper::CreateObject<UModelOpenGL>();
 	Model->SetMeshActor(this);
 
 	RenderComponent = AddComponent<URenderComponent>();
-	RenderComponent->SetOwner(Owner);
-	RenderComponent->SetParent(this);
-
 	MeshComponent = AddComponent<UMeshComponent>();
-	MeshComponent->SetOwner(Owner);
-	MeshComponent->SetParent(this);
-
 	CollisionComponent = AddComponent<UBoxCollisionComponent>();
-	CollisionComponent->SetOwner(Owner);
-	CollisionComponent->SetParent(this);
 }
 
 void AMesh::PostConstruct()
@@ -48,6 +41,8 @@ void AMesh::PostConstruct()
 
 void AMesh::Initialize()
 {
+	Super::Initialize();
+
 	Model->Initialize();
 }
 
@@ -57,7 +52,8 @@ void AMesh::Update(float deltaTime)
 
 	if (CollisionComponent && CollisionComponent->IsDynamic() && Parent == nullptr)
 	{
-		SetLocation(CollisionComponent->GetLocation());
+		FVector location = CollisionComponent->GetComponentLocation();
+		SetLocation(location);
 	}
 }
 
@@ -105,6 +101,29 @@ void AMesh::SetIsDynamic(const bool& isDynamic)
 {
 	if (CollisionComponent)
 		CollisionComponent->SetIsDynamic(isDynamic);
+}
+
+void AMesh::SetLocation(FVector& location)
+{
+	Super::SetLocation(location);
+	//CollisionComponent->SetOrigin(location);
+
+	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	//{
+	//	TransformComponent->SetLocation(location);
+	//}
+	//else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	//{
+	//	AActor* MyParent = GetParent<AActor>();
+	//	FVector location = MyParent->GetLocation();
+	//	FTransform myTransform = GetTransform();
+	//	FVector myLocation = GetLocation();
+	//	//FVector myOrigin =
+	//
+	//	myTransform.Location = location + myTransform.Origin;
+	//	CollisionComponent->SetOrigin(myTransform.Location);
+	//	TransformComponent->SetLocation(myTransform.Location);
+	//}
 }
 
 void AMesh::Draw(float deltaTime)

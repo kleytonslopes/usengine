@@ -46,9 +46,7 @@ void AActor::Construct()
 
 	Attachments = FConstructorHelper::CreateObject<UAttachment>();
 
-	UTransformComponent* TransformComponent = AddComponent<UTransformComponent>();
-	TransformComponent->SetOwner(Owner);
-	TransformComponent->SetParent(this);
+	TransformComponent = AddComponent<UTransformComponent>();
 }
 
 void AActor::Initialize()
@@ -58,6 +56,16 @@ void AActor::Initialize()
 	if (Attachments->HasAttachments())
 	{
 		Attachments->Initialize();
+	}
+
+	if (components.size() > 0)
+	{
+		ComponentsMap::iterator it;
+		for (it = components.begin() ; it != components.end() ; it++)
+		{
+			it->second->Initialize();
+			it->second->PostInitialize();
+		}
 	}
 }
 
@@ -104,10 +112,9 @@ void AActor::DetachFromParent()
 	}
 }
 
-void AActor::SetTransform(const FTransform& transform)
+void AActor::SetTransform(FTransform& transform)
 {
-	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
-
+	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
 		TransformComponent->SetTransform(transform);
@@ -139,14 +146,14 @@ void AActor::Update(float deltaTime)
 
 FVector AActor::GetLocation()
 {
-	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
+	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 
 	return TransformComponent->GetLocation();
 }
 
 FVector AActor::GetSceneLocation()
 {
-	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
+	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 	FVector location = TransformComponent->GetLocation();
 	if (bIsAttached)
 	{
@@ -162,12 +169,12 @@ FVector AActor::GetSceneLocation()
 
 FTransform& AActor::GetTransform()
 {
-	return GetComponent<UTransformComponent>()->GetTransform();
+	return TransformComponent->GetTransform();//GetComponent<UTransformComponent>()->GetTransform();
 }
 
-void AActor::SetLocation(const FVector& location)
+void AActor::SetLocation(FVector& location)
 {
-	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
+	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 
 	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
@@ -179,7 +186,7 @@ void AActor::SetLocation(const FVector& location)
 		FVector location = MyParent->GetLocation();
 		FTransform myTransform = GetTransform();
 		FVector myLocation = GetLocation();
-		FVector myOrigin =
+		//FVector myOrigin =
 
 		myTransform.Location = location + myTransform.Origin;
 		TransformComponent->SetLocation(myTransform.Location);

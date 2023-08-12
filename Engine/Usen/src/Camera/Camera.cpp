@@ -20,8 +20,8 @@ void ACamera::Construct()
 	bCanTick = false;
 
 	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
-	cameraComponent->SetOwner(Owner);
-	cameraComponent->SetParent(this);
+	//cameraComponent->SetOwner(Owner);
+	//cameraComponent->SetParent(this);
 }
 
 FMatrix4 ACamera::GetView()

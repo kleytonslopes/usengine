@@ -48,8 +48,6 @@ void UInputManagement::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	//KeyMap::iterator it;
-
 	for (auto& it : RegisteredKeys)
 	{
 		if (it.second.bIsPressed)
@@ -81,7 +79,6 @@ void UInputManagement::OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler)
 	{
 
 		it->second.bIsPressed = keyHandler == EKeyHandler::KEY_PRESSED ? true : false;
-		//InputComponent->ExecuteAction(it->second.c_str(), keyHandler);
 	}
 }
 

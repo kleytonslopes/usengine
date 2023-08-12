@@ -21,11 +21,14 @@ class UBoxCollisionComponent : public UCollisionComponent
 	DEFAULT_BODY_GENERATED()
 public:
 	void Construct() override;
+	void PostConstruct() override;
 	void Destroy() override;
 
 	void CalculeLocalInertia() override;
 	btRigidBody* CreateRigidBody() override;
-	FVector GetLocation() override;
+	FVector GetComponentLocation() override;
+
+	//void SetOrigin(FVector& location) override;
 
 private:
 	FVector BoundBox{ 1.f, 1.f, 1.f };

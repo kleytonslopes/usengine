@@ -57,7 +57,7 @@ FVector UTransformComponent::GetDirection()
 	return glm::normalize(Transform.Location - Transform.ForwardVector);
 }
 
-void UTransformComponent::SetTransform(const FTransform transform)
+void UTransformComponent::SetTransform(FTransform transform)
 {
 	SetLocation(transform.Location);
 	SetOrigin(transform.Origin);
@@ -74,7 +74,7 @@ void UTransformComponent::SetOrigin(const FVector& vector)
 	Transform.Origin.z = vector.z;
 }
 
-void UTransformComponent::SetLocation(const FVector& vector)
+void UTransformComponent::SetLocation(FVector& vector)
 {
 	Transform.Location.x = vector.x;
 	Transform.Location.y = vector.y;

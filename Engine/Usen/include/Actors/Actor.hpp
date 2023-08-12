@@ -23,6 +23,8 @@ class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 
+	using ComponentsMap = TMap<FString, AComponent*>;
+
 public:
 	void Destroy() override;
 
@@ -33,19 +35,20 @@ public:
 	void DetachFromParent() override;
 	void Detach(AActor* entity);
 
-	void SetTransform(const FTransform& transform);
+	void SetTransform(FTransform& transform);
 	void Update(float deltaTime) override;
 
 	FVector GetLocation();
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
 
-	void SetLocation(const FVector& location);
+	virtual void SetLocation(FVector& location);
 	
 
 protected:
 	UAttachment* Attachments = nullptr;
-	TMap<FString, AComponent*> components;
+	ComponentsMap components;
+	UTransformComponent* TransformComponent = nullptr;
 
 	void Serialize(SeriFile& otherOut) override;
 
@@ -65,7 +68,13 @@ protected:
 	template<typename T>
 	T* AddComponent()
 	{
-		T* component = FConstructorHelper::CreateObject<T>();// new T();
+		T* component = FConstructorHelper::CreateWeakObject<T>();
+		
+		component->SetOwner(Owner);
+		component->SetParent(this);
+		component->Construct();
+		component->PostConstruct();
+
 		components[typeid(T).name()] = component;
 
 		return component;
@@ -74,11 +83,14 @@ protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&& ... args)
 	{
-		T* component = FConstructorHelper::CreateObject<T>(); //new T(std::forward<Args>(args)...);
+		T* component = FConstructorHelper::CreateWeakObject<T>(); //new T(std::forward<Args>(args)...);
+		
+		component->SetOwner(Owner);
+		component->SetParent(this);
+		component->Construct();
+		component->PostConstruct();
+		
 		components[typeid(T).name()] = component;
-		//component->Construct();
-		//component->Create();
-
 		return component;
 	}
 

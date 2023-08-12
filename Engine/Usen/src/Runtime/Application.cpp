@@ -75,6 +75,8 @@ void UApplication::Loop()
 
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
+		PhysicsSystem->Update(deltaTime);
+
 		OnUpdateEvent.Broadcast(deltaTime);
 		OnDrawEvent.Broadcast(deltaTime);
 		
@@ -95,6 +97,7 @@ void UApplication::CalculeDeltaTime(FTime& currentTime, float& deltaTime)
 	FTime newTime = FClock::Now();
 	deltaTime = FClock::Duration(newTime, currentTime);
 	currentTime = newTime;
+	DeltaTime = deltaTime; //refactory
 }
 
 void UApplication::Run()

@@ -18,15 +18,19 @@ void UBoxCollisionComponent::Construct()
 	Super::Construct();
 	Shape = new btBoxShape(btVector3{ BoundBox.x, BoundBox.y, BoundBox.z });
 
+	/*GetPhysicsSystem()->RegisterComponent(this);*/
+}
+
+void UBoxCollisionComponent::PostConstruct()
+{
+	Super::PostConstruct();
+
 	GetPhysicsSystem()->RegisterComponent(this);
 }
 
 void UBoxCollisionComponent::Destroy()
 {
 	Super::Destroy();
-
-	//delete Body;  Body = nullptr;
-	//delete Shape; Shape = nullptr;
 }
 
 void UBoxCollisionComponent::CalculeLocalInertia()
@@ -42,9 +46,21 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	return Body;
 }
 
-FVector UBoxCollisionComponent::GetLocation()
+FVector UBoxCollisionComponent::GetComponentLocation()
 {
 	btVector3 scalLocation = Shape->getLocalScaling();
 
 	return GetLocationCalculated(scalLocation);
 }
+//
+//void UBoxCollisionComponent::SetOrigin(FVector& location)
+//{
+//	Super::SetOrigin(location);
+//
+//	btVector3 scalLocation;
+//	scalLocation.setX(location.x);
+//	scalLocation.setY(location.y);
+//	scalLocation.setZ(location.z);
+//
+//	Shape->setLocalScaling(scalLocation);
+//}

@@ -19,7 +19,7 @@ void UPhysicsSystem::Construct()
 {
 	Super::Construct();
 
-	bCanUpdate = true;
+	bCanUpdate = false;
 }
 
 void UPhysicsSystem::PostConstruct()

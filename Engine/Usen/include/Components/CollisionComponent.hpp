@@ -24,10 +24,13 @@ public:
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
 	
 	void Construct() override;
+	void PostConstruct() override;
+	void Initialize() override;
 
 	void SetIsDynamic(const bool& isDynamic);
 	bool IsDynamic() const { return bIsDynamic; }
-	virtual FVector GetLocation() { return FVector{}; }
+	virtual FVector GetComponentLocation();
+	virtual void SetOrigin(FVector& location);
 
 protected:
 	bool bIsDynamic = true;
