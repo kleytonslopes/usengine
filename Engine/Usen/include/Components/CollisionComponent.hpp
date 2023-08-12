@@ -28,6 +28,7 @@ public:
 	void Initialize() override;
 
 	void SetIsDynamic(const bool& isDynamic);
+
 	bool IsDynamic() const { return bIsDynamic; }
 	virtual FVector GetComponentLocation();
 	virtual void SetOrigin(FVector& location);
@@ -35,13 +36,13 @@ public:
 protected:
 	bool bIsDynamic = true;
 	float Mass = 10.f;
-	
-	btVector3 LocalInertia{ 0.f, 0.f, 0.f };
+
+	btVector3 LocalInertia{ 100.f, 0.f, 0.f };
 	btTransform StartTransform;
 
 	btRigidBody* Body = nullptr;
 
-	FVector GetLocationCalculated(const btVector3& btLocation);
+	// FVector GetLocationCalculated(const btVector3& btLocation);
 
 private:
 	float DefaultMass = 0.f;

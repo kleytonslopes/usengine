@@ -1,22 +1,37 @@
 /*********************************************************************
  *   File: BoxCollisionComponent.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: August 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 #include "Physics/PhysicsSystem.hpp"
+#include "Mesh/Mesh.hpp"
 
 DEFAULT_BODY(UBoxCollisionComponent);
 
 void UBoxCollisionComponent::Construct()
 {
 	Super::Construct();
-	Shape = new btBoxShape(btVector3{ BoundBox.x, BoundBox.y, BoundBox.z });
+
+	if (Parent)
+	{
+		AMesh* meshParent = Cast<AMesh*>(Parent);
+		if (meshParent)
+		{
+			const FVector boundBox = meshParent->GetBoundBox();
+			Shape = new btBoxShape(btVector3{ boundBox.x, boundBox.y, boundBox.z });
+		}
+		else
+			Shape = new btBoxShape(btVector3{ 1, 1, 1 });
+	}
+	else
+		Shape = new btBoxShape(btVector3{ 1, 1, 1 });
+
 
 	/*GetPhysicsSystem()->RegisterComponent(this);*/
 }
@@ -46,12 +61,12 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	return Body;
 }
 
-FVector UBoxCollisionComponent::GetComponentLocation()
-{
-	btVector3 scalLocation = Shape->getLocalScaling();
+// FVector UBoxCollisionComponent::GetComponentLocation()
+// {
+// 	btVector3 scalLocation = Shape->getLocalScaling();
 
-	return GetLocationCalculated(scalLocation);
-}
+// 	return GetLocationCalculated(scalLocation);
+// }
 //
 //void UBoxCollisionComponent::SetOrigin(FVector& location)
 //{

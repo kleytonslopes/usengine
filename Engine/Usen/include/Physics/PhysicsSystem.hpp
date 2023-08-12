@@ -41,7 +41,7 @@ private:
 
 	int SavedState;
 
-	btVector3 gravity{ 0.f, 0.f, -10.f };
+	btVector3 gravity{ 0.f, 0.f, -2.f };
 
 	void CreateEmptyDynamicsWorld();
 };

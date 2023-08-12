@@ -15,7 +15,11 @@ DEFAULT_BODY(UStaticMesh)
 
 void UStaticMesh::Construct()
 {
+	SetBoundBox(FVector{ 2.f, 2.f, 2.f });//parametrize
+
 	Super::Construct();
 
 	CollisionComponent->SetIsDynamic(false);
+	
+	
 }

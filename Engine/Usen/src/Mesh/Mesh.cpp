@@ -126,6 +126,13 @@ void AMesh::SetLocation(FVector& location)
 	//}
 }
 
+void AMesh::SetBoundBox(const FVector& boundBox)
+{
+	BoundBox.x = boundBox.x;
+	BoundBox.y = boundBox.y;
+	BoundBox.z = boundBox.z;
+}
+
 void AMesh::Draw(float deltaTime)
 {
 	Model->Draw(deltaTime);

@@ -26,12 +26,11 @@ public:
 
 	void CalculeLocalInertia() override;
 	btRigidBody* CreateRigidBody() override;
-	FVector GetComponentLocation() override;
+	//FVector GetComponentLocation() override;
 
 	//void SetOrigin(FVector& location) override;
 
 private:
-	FVector BoundBox{ 1.f, 1.f, 1.f };
 	btBoxShape* Shape = nullptr;
 
 	friend class UPhysicsSystem;

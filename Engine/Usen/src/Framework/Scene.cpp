@@ -113,6 +113,7 @@ void UScene::Initialize()
 
 			UStaticMesh* FloorMesh = CreateEntity<UStaticMesh>();
 			FloorMesh->SetMeshParameters(floorMeshParameters);
+			FloorMesh->SetIsDynamic(false);
 			FloorMesh->Initialize();
 		}
 		{ // Gizmo
@@ -122,7 +123,7 @@ void UScene::Initialize()
 			FMeshParameters gizmoMeshParameters{};
 			gizmoMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
 			AMesh* GizmoMesh = CreateEntity<AMesh>();
-			GizmoMesh->SetIsDynamic(false);
+			GizmoMesh->SetIsDynamic(true);
 			GizmoMesh->SetTransform(trasform);
 			GizmoMesh->SetMeshParameters(gizmoMeshParameters);
 			GizmoMesh->Initialize();
@@ -130,19 +131,10 @@ void UScene::Initialize()
 
 		{ // Pawn
 			APawn* Pawn = GetController()->GetPawn();
-			Pawn->SetLocation(FVector{ 0.f,0.f,2.f });
+			Pawn->SetLocation(FVector{ 1.f,3.f,1.f });
 			FAttachmentSettings pawnCameraAttachmentSettings{};
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
 			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
-
-			///FTransform trasformCamera;
-			///trasformCamera.Location = { 0.f,0.f,0.f };
-			///trasformCamera.Origin = { -25.f,0.f,5.f };
-			///trasformCamera.Rotation = { 0.f,0.f,0.f };
-			///Camera = CreateEntity<ACamera>();
-			///Camera->SetTransform(trasformCamera);
-			///Camera->Initialize();
-			///Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
 
 			FMeshParameters pawnMeshParameters{};
 			FAttachmentSettings pawnMeshAttachmentSettings{};
@@ -156,7 +148,7 @@ void UScene::Initialize()
 		{ // Box
 
 			FTransform transformBox;
-			transformBox.Location = { 0.f,5.f,5.f };
+			transformBox.Location = { 0.f,0.f,0.f };
 			transformBox.Origin   = { 0.f,0.f,0.f };
 			transformBox.Rotation = { 0.f,0.f,0.f };
 			FMeshParameters boxMeshParameters{};

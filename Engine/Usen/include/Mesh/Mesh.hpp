@@ -42,9 +42,13 @@ public:
 
 	void SetLocation(FVector& location) override;
 
+	FVector GetBoundBox() const { return BoundBox; }
+	void SetBoundBox(const FVector& boundBox);
+
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
+	FVector BoundBox{ 1.f, 1.f, 1.f };
 
 	UCollisionComponent* CollisionComponent = nullptr;
 	URenderComponent* RenderComponent = nullptr;

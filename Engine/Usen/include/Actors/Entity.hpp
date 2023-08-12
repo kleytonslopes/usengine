@@ -46,7 +46,7 @@ public:
 	FString GetParentId();
 
 	template<typename T>
-	inline T* GetParent()
+	T* GetParent()
 	{
 		return Cast<T*>(Parent);
 	}
