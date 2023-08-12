@@ -11,12 +11,4 @@
 #include "Framework/GameInstance.hpp"
 
 DEFAULT_BODY(UGameInstance);
-//UGameInstance::UGameInstance()
-//{
-//	ULOG(ELogLevel::ELL_INFORMATION, FText::Format("%s Created!", Identity.c_str()));
-//}
-//
-//UGameInstance::~UGameInstance()
-//{
-//	ULOG(ELogLevel::ELL_WARNING, FText::Format("%s Destroyed!", Identity.c_str()));
-//}
+

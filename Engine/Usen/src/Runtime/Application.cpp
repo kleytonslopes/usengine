@@ -65,7 +65,6 @@ void UApplication::Loop()
 		us::env::Environment::TickComponent->Tick(delta);
 	};
 
-	//while (!Window->ShouldClose())
 	while (!Window->ShouldClose())
 	{
 		Window->MakeCurrent();
@@ -74,15 +73,13 @@ void UApplication::Loop()
 		Window->PollEvents();
 		CalculeDeltaTime(currentTime, deltaTime);
 
-
-		Window->Update(deltaTime);
-		GameInstance->Update(deltaTime);
-
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
 		OnUpdateEvent.Broadcast(deltaTime);
-
+		OnDrawEvent.Broadcast(deltaTime);
+		
 		ThreadTickEvent->join();
+
 
 		Window->StopLoop();
 		Window->SwapWindow();

@@ -29,6 +29,23 @@ BClass::~BClass()
 {
 }
 
+void BClass::Construct()
+{
+	Super::Construct();
+
+	bCanUpdate = false;
+
+
+}
+
+void BClass::PostConstruct()
+{
+	Super::PostConstruct();
+
+	if(bCanUpdate)
+		Application->OnUpdateEvent.Add(this, &This::Update);
+}
+
 
 UWindow* BClass::GetWindow()
 {

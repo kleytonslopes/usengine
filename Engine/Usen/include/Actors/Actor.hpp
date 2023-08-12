@@ -67,8 +67,6 @@ protected:
 	{
 		T* component = FConstructorHelper::CreateObject<T>();// new T();
 		components[typeid(T).name()] = component;
-		//component->Construct();
-		//component->Create();
 
 		return component;
 	}

@@ -22,7 +22,10 @@ class UController : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 public:
+	void Construct() override;
+
 	void SetPawn(APawn* pawn);
+
 	APawn* GetPawn();
 
 protected:

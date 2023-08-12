@@ -33,7 +33,7 @@ void IWeakClass::Construct()
 }
 void IWeakClass::PostConstruct()
 {
-	if (bTick)
+	if (bCanTick)
 		us::env::Environment::TickComponent->Register(this, &IWeakClass::Tick);
 
 	bIsConstructed = true;

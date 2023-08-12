@@ -39,9 +39,15 @@ protected:
 public:
 	BClass();
 	virtual ~BClass();
+	
+	void Construct() override;
+	void PostConstruct() override;
+
 	virtual void Update(float deltaTime) { /* override */ };
 
 protected:
+	bool bCanUpdate = false;
+
 	UWindow* GetWindow();
 	UGameInstance* GetGameInstance();
 	UScene* GetScene();

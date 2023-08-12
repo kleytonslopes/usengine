@@ -14,15 +14,25 @@
 #include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
 #include "Pawns/Character.hpp"
+#include "Runtime/Application.hpp"
 
 DEFAULT_BODY(UGameModeBase)
 
 void UGameModeBase::Construct()
 {
-	FConstructorHelper::MakeClassOf<UPlayerController>(DefaultController);
-	//FConstructorHelper::MakeClassOf<ACharacter>(DefaultPlayerPawn);
-
 	Super::Construct();
+	
+	bCanTick = false;
+	bCanUpdate = true;
+
+	FConstructorHelper::MakeClassOf<UPlayerController>(DefaultController);
+}
+
+void UGameModeBase::PostConstruct()
+{
+	Super::PostConstruct();
+
+	//GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 }
 
 void UGameModeBase::Initialize()

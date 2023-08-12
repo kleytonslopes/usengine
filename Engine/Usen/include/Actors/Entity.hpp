@@ -37,6 +37,7 @@ class AEntity : public BSerializer
 
 public:
 	void Construct() override;
+	void PostConstruct() override;
 	void Update(float deltaTime) override;
 
 	void SetOwner(AEntity* owner);
@@ -56,8 +57,9 @@ protected:
 	FAttachmentSettings AttachmentSettings;
 
 	bool bIsAttached = false;
+	bool bIsDrawable = false;
 
-	virtual void Draw(float deltaTime) { /* */ };
+	virtual void Draw(float deltaTime);
 
 private:
 	friend class BRenderer;

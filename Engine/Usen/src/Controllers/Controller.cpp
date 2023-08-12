@@ -14,6 +14,13 @@
 
 DEFAULT_BODY(UController)
 
+void UController::Construct()
+{
+	Super::Construct();
+
+	bCanUpdate = false;
+}
+
 void UController::SetPawn(APawn* pawn)
 {
 	this->Pawn = pawn;

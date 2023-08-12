@@ -43,7 +43,10 @@ public:
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
+
 	UCollisionComponent* CollisionComponent = nullptr;
+	URenderComponent* RenderComponent = nullptr;
+	UMeshComponent* MeshComponent = nullptr;
 
 	void Draw(float deltaTime) override;
 

@@ -40,6 +40,7 @@ public:
 	void PostConstruct() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
+	void DrawScene(float deltaTime);
 
 	template<class T>
 	T* CreateEntity();

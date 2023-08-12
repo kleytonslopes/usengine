@@ -42,7 +42,7 @@ void AActor::Construct()
 {
 	Super::Construct();
 
-	bTick = true;
+	bCanTick = true;
 
 	Attachments = FConstructorHelper::CreateObject<UAttachment>();
 
@@ -135,7 +135,6 @@ void AActor::SetTransform(const FTransform& transform)
 void AActor::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
-
 }
 
 FVector AActor::GetLocation()
@@ -170,8 +169,6 @@ void AActor::SetLocation(const FVector& location)
 {
 	UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 
-	//TransformComponent->SetLocation(location);
-
 	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
 		TransformComponent->SetLocation(location);
@@ -187,14 +184,6 @@ void AActor::SetLocation(const FVector& location)
 		myTransform.Location = location + myTransform.Origin;
 		TransformComponent->SetLocation(myTransform.Location);
 	}
-
-	//if (Attachments.Get()->HasAttachments())
-	//{
-	//	for (auto& it : Attachments.Get()->Attachments)
-	//	{
-	//		it.second->SetTransform(transform);
-	//	}
-	//}
 }
 
 void AActor::Draw(float deltaTime)

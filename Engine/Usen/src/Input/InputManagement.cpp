@@ -19,12 +19,13 @@ DEFAULT_BODY(UInputManagement)
 void UInputManagement::Construct()
 {
 	Super::Construct();
+
+	bCanUpdate = true;
 }
 
 void UInputManagement::PostConstruct()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
 
 	FEngineConfig engineConfig{};
 

@@ -17,7 +17,7 @@ void ACamera::Construct()
 {
 	Super::Construct();
 
-	bTick = false;
+	bCanTick = false;
 
 	UCameraComponent* cameraComponent = AddComponent<UCameraComponent>();
 	cameraComponent->SetOwner(Owner);

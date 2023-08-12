@@ -21,6 +21,7 @@ int main()
 		us::env::Environment::Applicaiton->Destroy();
 
 		delete us::env::Environment::TickComponent;
+		delete us::env::Environment::RenderComponent;
 		delete us::env::Environment::Applicaiton;
 
 	}

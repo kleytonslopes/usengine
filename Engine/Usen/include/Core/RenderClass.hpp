@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: TickClass.hpp
+ *   File: RenderClass.hpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -9,48 +9,46 @@
  *********************************************************************/
 #pragma once
 
-#ifndef UK_TICK_CLASS_HPP
-#define	UK_TICK_CLASS_HPP
+#ifndef US_RENDER_CLASS_HPP
+#define	US_RENDER_CLASS_HPP
 
 #include "Core/MinimalCore.hpp"
 #include <functional>
 
-class UTickClass
+class URenderClass
 {
-	struct FFunctionRef 
+	struct FFunctionRef
 	{
 		std::function<void(float)> Func;
-	}; 
-using Functions = TMap<FString, FFunctionRef>; 
-public: 
-	virtual ~UTickClass() 
+	};
+	using Functions = TMap<FString, FFunctionRef>;
+public:
+	virtual ~URenderClass()
 	{
-		refs.clear();
-	} 
+		refs.empty();
+	}
 
-	template<class ClassType, class Fx> 
+	template<class ClassType, class Fx>
 	void Register(ClassType* InClass, Fx&& function)
 	{
 		FFunctionRef ref{};
-		ref.Func = std::bind(function, InClass, std::placeholders::_1); 
-		///ref.Ref = InClass; 
+		ref.Func = std::bind(function, InClass, std::placeholders::_1);
 		refs[InClass->GetId()] = ref;
-	} 
+	}
 	template<class ClassType>
 	void Remove(ClassType* OutClass)
 	{
 		refs.erase(OutClass->GetId());
-	} 
-	void Tick(float deltaTime)
+	}
+	void Draw(float deltaTime)
 	{
-		Functions::iterator it; for (it = refs.begin(); it != refs.end(); it++) 
+		Functions::iterator it; for (it = refs.begin(); it != refs.end(); it++)
 		{
 			it->second.Func(deltaTime);
 		}
-	} 
-private: 
+	}
+private:
 	Functions refs;
 };
 
-
-#endif // !UK_TICK_CLASS_HPP
+#endif // !US_RENDER_CLASS_HPP

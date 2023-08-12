@@ -43,6 +43,32 @@
 
 DEFAULT_BODY(UScene)
 
+void UScene::Construct()
+{
+	Super::Construct();
+
+	bCanTick = false;
+	bCanUpdate = true;
+
+	FConstructorHelper::MakeClassOf<UGameModeBase>(GameModeClass);
+}
+
+void UScene::PostConstruct()
+{
+	Super::PostConstruct();
+
+	GetApplication()->OnDrawEvent.Add(this, &This::DrawScene);
+
+	GameMode = FConstructorHelper::CreateObject<UGameModeBase>(GameModeClass);
+
+	Serializer = FConstructorHelper::CreateObject<FSceneSerializer>();
+	Serializer->SetScene(this);
+
+	CreateDefaultCamera();
+	CreateDefaultController();
+	CreateDefaultPawn();
+}
+
 void UScene::Destroy()
 {
 	if (bIsDestroyed)
@@ -136,13 +162,18 @@ void UScene::Initialize()
 
 void UScene::Update(float deltaTime)
 {
+	Super::Update(deltaTime);
+}
+
+void UScene::DrawScene(float deltaTime)
+{
 	TMap<FString, AEntity*>::iterator it;
 
 	Super::Application->GetRenderer()->StartFrame();
 
 	for (it = entities.begin(); it != entities.end(); it++)
 	{
-		it->second->Update(deltaTime);
+		it->second->Draw(deltaTime);
 	}
 
 	Super::Application->GetRenderer()->EndFrame();
@@ -161,7 +192,7 @@ UGameModeBase* UScene::GetGameMode()
 template<class T>
 T* UScene::CreateEntity()
 {
-	T* newEntity = FConstructorHelper::CreateObject<T>();// new T();
+	T* newEntity = FConstructorHelper::CreateObject<T>();
 
 	entities[newEntity->Id] = newEntity;
 
@@ -172,37 +203,12 @@ template<class T, class U>
 T* UScene::CreateEntity(U& entityClass)
 {
 	T* newEntity = FConstructorHelper::CreateObject<T>(entityClass);
-	//T* newEntity = std::move(entityClass.Class);//FConstructorHelper::CreateObject<U>(entityClass);//new U(*entityClass.Class);//entityClass.GetNew();
-	//newEntity->Construct();
-	//newEntity->PostConstruct();
 	entities[newEntity->Id] = newEntity;
 
 	return newEntity;
 }
 
-void UScene::PostConstruct()
-{
-	GameMode = FConstructorHelper::CreateObject<UGameModeBase>(GameModeClass);
 
-	Serializer = FConstructorHelper::CreateObject<FSceneSerializer>();
-	Serializer->SetScene(this);
-
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
-
-	CreateDefaultCamera();
-	CreateDefaultController();
-	CreateDefaultPawn();
-
-	Super::PostConstruct();
-}
-
-void UScene::Construct()
-{
-	FConstructorHelper::MakeClassOf<UGameModeBase>(GameModeClass);
-	//GameModeClass = FConstructorHelper::GetClassOf<UGameModeBase>(GameModeClass);
-
-	Super::Construct();
-}
 
 void UScene::SaveScene()
 {

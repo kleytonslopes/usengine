@@ -15,10 +15,15 @@
 
 DEFAULT_BODY(UPhysicsSystem)
 
+void UPhysicsSystem::Construct()
+{
+	Super::Construct();
+
+	bCanUpdate = true;
+}
+
 void UPhysicsSystem::PostConstruct()
 {
-	GetApplication()->OnUpdateEvent.Add(this, &This::Update);
-
 	CreateEmptyDynamicsWorld();
 
 	Super::PostConstruct();

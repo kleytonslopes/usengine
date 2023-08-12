@@ -55,7 +55,7 @@ protected:
 	bool bIsInitialized = false;
 	bool bIsDestroyed = false;
 
-	bool bTick = false;
+	bool bCanTick = false;
 
 	inline void SetIdentity(const FString& identity)
 	{

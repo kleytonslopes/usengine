@@ -23,14 +23,16 @@ void AMesh::Construct()
 {
 	Super::Construct();
 
-	Model = FConstructorHelper::CreateObject<UModelOpenGL>();//UUniquePtr<UModel>::MakeCast<UModelOpenGL>();
+	bIsDrawable = true;
+
+	Model = FConstructorHelper::CreateObject<UModelOpenGL>();
 	Model->SetMeshActor(this);
 
-	URenderComponent* RenderComponent = AddComponent<URenderComponent>();
+	RenderComponent = AddComponent<URenderComponent>();
 	RenderComponent->SetOwner(Owner);
 	RenderComponent->SetParent(this);
 
-	UMeshComponent* MeshComponent = AddComponent<UMeshComponent>();
+	MeshComponent = AddComponent<UMeshComponent>();
 	MeshComponent->SetOwner(Owner);
 	MeshComponent->SetParent(this);
 
@@ -66,32 +68,36 @@ void AMesh::Destroy()
 	if(Model) Model->Destroy();
 
 	delete Model;
+
+	Model              = nullptr;
+
+	RenderComponent    = nullptr;
+	MeshComponent      = nullptr;
+	CollisionComponent = nullptr;
 }
 
 UMeshComponent* AMesh::GetMeshComponent()
 {
-	return GetComponent<UMeshComponent>();
+	return MeshComponent;
 }
 
 URenderComponent* AMesh::GetRenderComponent()
 {
-	return GetComponent<URenderComponent>();
+	return RenderComponent;
 }
 
 UCollisionComponent* AMesh::GetCollisionComponent()
 {
-	return GetComponent<UCollisionComponent>();
+	return CollisionComponent;
 }
 
 void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 {
-	UMeshComponent* MeshComponent = GetMeshComponent();
 	MeshComponent->SetMeshParameters(parameters);
 
 	BRenderer* renderer = GetRenderer();
 	BShader* shader = renderer->GetShader(parameters.ShaderName);
 
-	URenderComponent* RenderComponent = GetRenderComponent();
 	RenderComponent->SetShader(shader);
 }
 
@@ -103,6 +109,5 @@ void AMesh::SetIsDynamic(const bool& isDynamic)
 
 void AMesh::Draw(float deltaTime)
 {
-
 	Model->Draw(deltaTime);
 }

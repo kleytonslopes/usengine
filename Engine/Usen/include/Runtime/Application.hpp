@@ -29,6 +29,7 @@ class UInputManagement;
 class UPhysicsSystem;
 
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
+DECLARE_FUNCTION_OneParam(FOnDrawSignature, float, deltaTime)
 
 class UApplication : public IWeakClass
 {
@@ -36,6 +37,7 @@ class UApplication : public IWeakClass
 
 public:
 	FOnUpdateSignature OnUpdateEvent;
+	FOnDrawSignature OnDrawEvent;
 
 	void Run();
 
@@ -56,6 +58,7 @@ protected:
 	TClassOf<BRenderer> DefaultRenderer;
 
 	TThread* ThreadTickEvent = nullptr;;
+	TThread* ThreadDrawEvent = nullptr;;
 
 	UWindow* Window                   = nullptr;
 	UGameInstance* GameInstance       = nullptr;
