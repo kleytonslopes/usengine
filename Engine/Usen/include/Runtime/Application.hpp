@@ -76,6 +76,7 @@ private:
 	void CalculeDeltaTime(FTime& currentTime, float& deltaTime);
 
 	friend class BClass;
+	friend class UPhysicsDebug;
 };
 
 #endif // !US_APPLICATION_HPP

@@ -1,6 +1,6 @@
 Scene: Unnamed
 Shaders:
-  name: [default]
+  name: [default, debug]
 Entities:
   - Entity: 2c8e842d-da8d-4bb9-8c96-0aa745606c88
     Identity: UController

@@ -15,7 +15,7 @@ DEFAULT_BODY(UStaticMesh)
 
 void UStaticMesh::Construct()
 {
-	SetBoundBox(FVector{ 2.f, 2.f, 2.f });//parametrize
+	SetBoundBox(FVector{ 10.f, 10.f, 10.f });//parametrize
 
 	Super::Construct();
 

@@ -9,16 +9,19 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Physics/PhysicsSystem.hpp"
+#include "Physics/PhysicsDebug.hpp"
 #include "Runtime/Application.hpp"
 #include "Components/CollisionComponent.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+
 
 DEFAULT_BODY(UPhysicsSystem)
 
 void UPhysicsSystem::Construct()
 {
 	Super::Construct();
-
+	PhysicsDebug = new UPhysicsDebug();
+	PhysicsDebug->Application = GetApplication();
 	bCanUpdate = false;
 }
 
@@ -26,6 +29,21 @@ void UPhysicsSystem::PostConstruct()
 {
 	CreateEmptyDynamicsWorld();
 
+	btBoxShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.0), btScalar(0.1)));
+	btVector3 localInertia(0, 0, 0);
+	CollisionShapes.push_back(groundShape);
+	btTransform groundTransform;
+	groundTransform.setIdentity();
+	groundTransform.setOrigin(btVector3(0, 0, -0.1));
+
+	groundShape->calculateLocalInertia(0.f, localInertia);
+	
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+	btRigidBody::btRigidBodyConstructionInfo cInfo(0.f, myMotionState, groundShape, localInertia);
+	btRigidBody* body = new btRigidBody(cInfo);
+	//body->setUserIndex(-1);
+	DiscreteDynamicsWorld->addRigidBody(body);
+	
 	Super::PostConstruct();
 }
 
@@ -34,11 +52,14 @@ void UPhysicsSystem::Update(float deltaTime)
 	if (DiscreteDynamicsWorld)
 	{
 		DiscreteDynamicsWorld->stepSimulation(deltaTime);
+		DiscreteDynamicsWorld->debugDrawWorld();
 	}
 }
 
 void UPhysicsSystem::Destroy()
 {
+	delete PhysicsDebug;
+
 	if (TypedConstraint)
 	{
 		RigidBody->forceActivationState(SavedState);
@@ -98,10 +119,12 @@ void UPhysicsSystem::RegisterComponent(UBoxCollisionComponent* collisionComponen
 	if (!collisionComponent)
 		return;
 
+	CollisionShapes.push_back(collisionComponent->Shape);
+
 	if (collisionComponent->bIsDynamic)
 		collisionComponent->CalculeLocalInertia();
 
-	CollisionShapes.push_back(collisionComponent->Shape);
+	/*CollisionShapes.push_back(collisionComponent->Shape);*/
 	btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
 
 	DiscreteDynamicsWorld->addRigidBody(rigidBody);
@@ -117,6 +140,7 @@ void UPhysicsSystem::CreateEmptyDynamicsWorld()
 	ConstraintSolver = sol;
 
 	DiscreteDynamicsWorld = new btDiscreteDynamicsWorld(CollisionDispatcher, BroadphaseInterface, ConstraintSolver, DefaultCollisionConfiguration);
-
+	DiscreteDynamicsWorld->setDebugDrawer(PhysicsDebug);
+	DiscreteDynamicsWorld->getDebugDrawer()->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	DiscreteDynamicsWorld->setGravity(gravity);
 }

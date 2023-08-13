@@ -17,6 +17,7 @@
 #include "PhysicsSystem-generated.hpp"
 
 class UBoxCollisionComponent;
+class UPhysicsDebug;
 
 class UPhysicsSystem : public BClass
 {
@@ -35,6 +36,7 @@ private:
 	btConstraintSolver* ConstraintSolver{ 0 };
 	btDiscreteDynamicsWorld* DiscreteDynamicsWorld{ 0 };
 	btAlignedObjectArray<btCollisionShape*> CollisionShapes;
+	UPhysicsDebug* PhysicsDebug = nullptr;
 
 	btTypedConstraint* TypedConstraint{ 0 };
 	btRigidBody* RigidBody{ 0 };

@@ -24,13 +24,13 @@ void UBoxCollisionComponent::Construct()
 		if (meshParent)
 		{
 			const FVector boundBox = meshParent->GetBoundBox();
-			Shape = new btBoxShape(btVector3{ boundBox.x, boundBox.y, boundBox.z });
+			Shape = CreateBoxShape(boundBox);// new btBoxShape(btVector3{ boundBox.x, boundBox.y, boundBox.z });
 		}
 		else
-			Shape = new btBoxShape(btVector3{ 1, 1, 1 });
+			Shape = CreateBoxShape(FVector{1.f, 1.f, 1.f});// new btBoxShape(btVector3{ 1, 1, 1 });
 	}
 	else
-		Shape = new btBoxShape(btVector3{ 1, 1, 1 });
+		Shape = CreateBoxShape(FVector{1.f, 1.f, 1.f});//new btBoxShape(btVector3{ 1, 1, 1 });
 
 
 	/*GetPhysicsSystem()->RegisterComponent(this);*/
@@ -59,6 +59,13 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, myMotionState, Shape, LocalInertia);
 	Body = new btRigidBody(rbInfo);
 	return Body;
+}
+
+btBoxShape* UBoxCollisionComponent::CreateBoxShape(const FVector& boxBound)
+{
+	btBoxShape* box = new btBoxShape(btVector3(btScalar(boxBound.x / 10), btScalar(boxBound.y / 10), btScalar(boxBound.z / 10)));
+
+	return box;
 }
 
 // FVector UBoxCollisionComponent::GetComponentLocation()

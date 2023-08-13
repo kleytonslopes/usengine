@@ -33,6 +33,7 @@ public:
 	virtual void StartFrame() { /* override */ };
 	virtual void EndFrame() { /* override */ };
 	virtual void OnWindowResize(uint32 width, uint32 height) { /* override */ };
+	virtual void DebugDrawLine(const FVector& from, const FVector& to) { /* override */ }
 
 
 	template<typename T>

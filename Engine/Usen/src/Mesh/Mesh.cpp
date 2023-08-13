@@ -21,6 +21,8 @@ DEFAULT_BODY(AMesh)
 
 void AMesh::Construct()
 {
+	SetBoundBox(FVector{ 10.f, 10.f, 10.f });//parametrize
+
 	Super::Construct();
 
 	bIsDrawable = true;
@@ -135,5 +137,6 @@ void AMesh::SetBoundBox(const FVector& boundBox)
 
 void AMesh::Draw(float deltaTime)
 {
-	Model->Draw(deltaTime);
+	if(bIsDrawable)
+		Model->Draw(deltaTime);
 }

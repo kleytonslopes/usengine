@@ -24,8 +24,10 @@ void UApplication::PostConstruct()
 	Super::PostConstruct();
 
 	Window = FConstructorHelper::CreateObject<UWindow>();
+	Window->Initialize();
 	GameInstance = FConstructorHelper::CreateObject<UGameInstance>();
 	Renderer = FConstructorHelper::CreateObject<URendererOpenGL>();
+	Renderer->Initialize();
 	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
 	Scene = FConstructorHelper::CreateObject<UScene>();
 	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
@@ -33,9 +35,9 @@ void UApplication::PostConstruct()
 
 void UApplication::Initialize()
 {
-	Window->Initialize();
+	/*Window->Initialize();*/
 	GameInstance->Initialize();
-	Renderer->Initialize();
+	/*Renderer->Initialize();*/
 	InputManagement->Initialize();
 	Scene->Initialize();
 	PhysicsSystem->Initialize();
@@ -75,11 +77,14 @@ void UApplication::Loop()
 
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
-		PhysicsSystem->Update(deltaTime);
+
 
 		OnUpdateEvent.Broadcast(deltaTime);
-		OnDrawEvent.Broadcast(deltaTime);
-		
+		Renderer->StartFrame();
+			OnDrawEvent.Broadcast(deltaTime);
+			PhysicsSystem->Update(deltaTime);
+		Renderer->EndFrame();
+
 		ThreadTickEvent->join();
 
 

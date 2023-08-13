@@ -25,6 +25,8 @@ public:
 protected:
 	AEntity* Parent = nullptr;
 
+	FVector GetParentLocation();
+
 	void BeginComponentSection(SeriFile& otherOut, const FString& identity);
 
 	friend class AActor;

@@ -30,6 +30,9 @@ public:
 
 	//void SetOrigin(FVector& location) override;
 
+protected:
+	btBoxShape* CreateBoxShape(const FVector& boxShape);
+
 private:
 	btBoxShape* Shape = nullptr;
 

@@ -24,6 +24,10 @@ public:
 	void StartFrame() override;
 	void EndFrame() override;
 	void OnWindowResize(uint32 width, uint32 height) override;
+	void DebugDrawLine(const FVector& from, const FVector& to) override;
+
+private:
+
 };
 
 #endif // !US_RENDERER_OPEN_GL_HPP
