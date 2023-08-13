@@ -72,8 +72,8 @@ protected:
 		
 		component->SetOwner(Owner);
 		component->SetParent(this);
-		component->Construct();
-		component->PostConstruct();
+		//component->Construct();
+		//component->PostConstruct();
 
 		components[typeid(T).name()] = component;
 
@@ -87,8 +87,8 @@ protected:
 		
 		component->SetOwner(Owner);
 		component->SetParent(this);
-		component->Construct();
-		component->PostConstruct();
+		//component->Construct();
+		//component->PostConstruct();
 		
 		components[typeid(T).name()] = component;
 		return component;

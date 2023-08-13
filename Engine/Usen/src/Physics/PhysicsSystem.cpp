@@ -29,21 +29,6 @@ void UPhysicsSystem::PostConstruct()
 {
 	CreateEmptyDynamicsWorld();
 
-	btBoxShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.0), btScalar(0.1)));
-	btVector3 localInertia(0, 0, 0);
-	CollisionShapes.push_back(groundShape);
-	btTransform groundTransform;
-	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(0, 0, -0.1));
-
-	groundShape->calculateLocalInertia(0.f, localInertia);
-	
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-	btRigidBody::btRigidBodyConstructionInfo cInfo(0.f, myMotionState, groundShape, localInertia);
-	btRigidBody* body = new btRigidBody(cInfo);
-	//body->setUserIndex(-1);
-	DiscreteDynamicsWorld->addRigidBody(body);
-	
 	Super::PostConstruct();
 }
 

@@ -63,7 +63,7 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 
 btBoxShape* UBoxCollisionComponent::CreateBoxShape(const FVector& boxBound)
 {
-	btBoxShape* box = new btBoxShape(btVector3(btScalar(boxBound.x / 10), btScalar(boxBound.y / 10), btScalar(boxBound.z / 10)));
+	btBoxShape* box = new btBoxShape(btVector3(btScalar(boxBound.x), btScalar(boxBound.y), btScalar(boxBound.z)));
 
 	return box;
 }

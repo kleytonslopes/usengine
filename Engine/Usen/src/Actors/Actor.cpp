@@ -63,6 +63,9 @@ void AActor::Initialize()
 		ComponentsMap::iterator it;
 		for (it = components.begin() ; it != components.end() ; it++)
 		{
+			it->second->Construct();
+			it->second->PostConstruct();
+
 			it->second->Initialize();
 			it->second->PostInitialize();
 		}

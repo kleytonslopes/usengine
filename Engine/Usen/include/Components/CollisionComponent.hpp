@@ -45,7 +45,7 @@ protected:
 	// FVector GetLocationCalculated(const btVector3& btLocation);
 
 private:
-	float DefaultMass = 0.f;
+	float DefaultMass = 100.f;
 
 	friend class UPhysicsSystem;
 };

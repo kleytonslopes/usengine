@@ -114,6 +114,7 @@ void UScene::Initialize()
 			trasform.Location = { 0.f,0.f,0.f };
 			trasform.Rotation = { 0.f,0.f,0.f };
 			UStaticMesh* FloorMesh = CreateEntity<UStaticMesh>();
+			FloorMesh->SetBoundBox(FVector{10.f, 10.f, 0.1f});
 			FloorMesh->SetTransform(trasform);
 			FloorMesh->SetMeshParameters(floorMeshParameters);
 			FloorMesh->SetIsDynamic(false);
@@ -157,6 +158,7 @@ void UScene::Initialize()
 			FMeshParameters boxMeshParameters{};
 			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
 			AMesh* boxMesh = CreateEntity<AMesh>();
+			boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
 			boxMesh->SetMeshParameters(boxMeshParameters);
 			boxMesh->SetIsDynamic(true);
 			boxMesh->SetLocation(transformBox.Location);
