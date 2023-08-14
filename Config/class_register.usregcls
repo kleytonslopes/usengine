@@ -1401,5 +1401,28 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "UMovementComponent",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UMovementComponent",
+      "ClassDefinition": "US_MOVEMENT_COMPONENT_HPP",
+      "HppFileName": "MovementComponent.hpp",
+      "CppFileName": "MovementComponent.cpp",
+      "GenFileName": "MovementComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "AComponent",
+      "BaseClassPathHpp": "Components/Component.hpp",
+      "BaseClassTemplate": " : public AComponent",
+      "BaseClassInclude": "\n#include \"Components/Component.hpp\"",
+      "ClassGenDefinition": "hpp_UMovementComponent_AComponent",
+      "ClassGenDefinitionVersion": "hpp_UMovementComponent_AComponent_def"
+    }
   }
 ]

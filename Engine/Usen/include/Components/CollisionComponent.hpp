@@ -17,10 +17,14 @@
 #include "Components/TransformComponent.hpp"
 #include "CollisionComponent-generated.hpp"
 
+DECLARE_FUNCTION_OneParam(FOnTransformUpdatedSignature, FTransform, newTransform);
+
 class UCollisionComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 public:
+	FOnTransformUpdatedSignature OnTransformUpdatedEvent;
+
 	virtual void CalculeLocalInertia() { /* override */ };
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
 	virtual btCollisionObject* CreateCollisionObject() { return nullptr; }

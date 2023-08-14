@@ -34,6 +34,7 @@ void AMesh::Construct()
 	RenderComponent = AddComponent<URenderComponent>();
 	MeshComponent = AddComponent<UMeshComponent>();
 	CollisionComponent = AddComponent<UBoxCollisionComponent>();
+	CollisionComponent->OnTransformUpdatedEvent.Add(this, &This::SetTransform);
 }
 
 void AMesh::PostConstruct()
@@ -52,7 +53,7 @@ void AMesh::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	if (CollisionComponent && CollisionComponent->IsDynamic() /*&& Parent == nullptr*/)
+	if (CollisionComponent /*&& CollisionComponent->IsDynamic() && Parent == nullptr*/)
 	{
 		FVector location = CollisionComponent->GetComponentLocation();
 		SetLocation(location);
@@ -84,10 +85,10 @@ URenderComponent* AMesh::GetRenderComponent()
 	return RenderComponent;
 }
 
-UCollisionComponent* AMesh::GetCollisionComponent()
-{
-	return CollisionComponent;
-}
+//UCollisionComponent* AMesh::GetCollisionComponent()
+//{
+//	return CollisionComponent;
+//}
 
 void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 {
@@ -121,20 +122,20 @@ void AMesh::SetTransform(FTransform& transform)
 {
 	Super::SetTransform(transform);
 
-	if (!CollisionComponent->IsDynamic())
+	/*if (!CollisionComponent->IsDynamic())
 	{
 		CollisionComponent->SetLocation(GetLocation());
-	}
+	}*/
 }
 
 void AMesh::SetLocation(FVector& location)
 {
 	Super::SetLocation(location);
 
-	if (!CollisionComponent->IsDynamic())
-	{
-		CollisionComponent->SetLocation(GetLocation());
-	}
+	//if (!CollisionComponent->IsDynamic())
+	//{
+	//	CollisionComponent->SetLocation(GetLocation());
+	//}
 }
 
 void AMesh::SetBoundBox(const FVector& boundBox)

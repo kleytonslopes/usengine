@@ -13,6 +13,7 @@
 #include "Components/InputComponent.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/CapsuleComponent.hpp"
+#include "Components/MovementComponent.hpp"
 #include "Runtime/Application.hpp"
 
 DEFAULT_BODY(APawn)
@@ -21,9 +22,12 @@ void APawn::Construct()
 {
 	Super::Construct();
 
-	UCameraComponent* CameraComponent = AddComponent<UCameraComponent>();
-	UInputComponent* InputComponent = AddComponent<UInputComponent>();
-	UCapsuleComponent* CapsuleComponent = AddComponent<UCapsuleComponent>();
+	CameraComponent = AddComponent<UCameraComponent>();
+	InputComponent = AddComponent<UInputComponent>();
+	CapsuleComponent = AddComponent<UCapsuleComponent>();
+	MovementComponent = AddComponent<UMovementComponent>();
+
+	CollisionComponent = CapsuleComponent;
 }
 
 void APawn::PostConstruct()
@@ -43,18 +47,24 @@ UCapsuleComponent* APawn::GetCapsuleComponent()
 
 void APawn::MoveForward(float scale)
 {
-	FTransform transform = GetTransform();
 	const float deltaTime = GetApplication()->GetDeltaTime();
-	transform.Location.x += scale * deltaTime * Speed;
+	float movementScale = scale * deltaTime;
 
-	SetTransform(transform);
+	MovementComponent->AddForwardMovement(movementScale);
 }
 
 void APawn::MoveRight(float scale)
 {
-	FTransform transform = GetTransform();
 	const float deltaTime = GetApplication()->GetDeltaTime();
-	transform.Location.y += scale * deltaTime * Speed;
+	float movementScale = scale * deltaTime;
+
+	MovementComponent->AddRightMovement(movementScale);
+
+	/*
+		FTransform transform = GetTransform();
+	const float deltaTime = GetApplication()->GetDeltaTime();
+	transform.Location.y += scale * deltaTime * 10.f;
 
 	SetTransform(transform);
+	*/
 }

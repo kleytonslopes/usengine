@@ -18,6 +18,7 @@
 #include "Actor-generated.hpp"
 
 class UAttachment;
+class UCollisionComponent;
 
 class AActor : public AEntity
 {
@@ -40,19 +41,23 @@ public:
 	virtual void SetRotation(FVector& vector);
 	virtual void SetScale(FVector& vector);
 	virtual void SetTransform(FTransform& transform);
-	
 
 	FVector GetLocation();
 	FVector GetRotation();
 	FVector GetScale();
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
+	FVector GetForwardVector();
+	FVector GetRightVector();
+
+	UCollisionComponent* GetCollisionComponent();
 
 protected:
 	UAttachment* Attachments = nullptr;
 	ComponentsMap components;
 
 	UTransformComponent* TransformComponent = nullptr;
+	UCollisionComponent* CollisionComponent = nullptr;
 
 	void Serialize(SeriFile& otherOut) override;
 

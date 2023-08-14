@@ -110,6 +110,18 @@ void UCollisionComponent::SetLocation(FVector& location)
 	{
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));
 	}
+	
+	FTransform newTransform{};
+
+	newTransform.Location.x = location.x;
+	newTransform.Location.y = location.y;
+	newTransform.Location.z = location.z;
+
+	newTransform.Rotation.x = Transform.getRotation().getX();
+	newTransform.Rotation.y = Transform.getRotation().getY();
+	newTransform.Rotation.z = Transform.getRotation().getZ();
+
+	OnTransformUpdatedEvent.Broadcast(newTransform);
 }
 
 void UCollisionComponent::SetTransform(FTransform& transform)

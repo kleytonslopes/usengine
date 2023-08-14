@@ -54,7 +54,7 @@ protected:
 	TVector<uint32> Indices;
 	FVector BoundBox{ 1.f, 1.f, 1.f };
 
-	UCollisionComponent* CollisionComponent = nullptr;
+	//UCollisionComponent* CollisionComponent = nullptr;
 	URenderComponent* RenderComponent = nullptr;
 	UMeshComponent* MeshComponent = nullptr;
 

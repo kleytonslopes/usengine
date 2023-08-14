@@ -16,26 +16,33 @@
 #include "Actors/Actor.hpp"
 #include "Pawn-generated.hpp"
 
+class UCameraComponent;
 class UInputComponent;
 class UCapsuleComponent;
+class UMovementComponent;
 
 class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
 public:
-
-	float Speed = 10.f; //temp
-
 	void Construct() override;
 	void PostConstruct() override;
 
 	void SetupInputComponent();
 
+	UCameraComponent* GetCameraComponent();
 	UInputComponent* GetInputComponent();
 	UCapsuleComponent* GetCapsuleComponent();
+	UMovementComponent* GetMovementComponent();
 
 	void MoveForward(float scale);
 	void MoveRight(float scale);
+
+private:
+	UCameraComponent* CameraComponent = nullptr;
+	UInputComponent* InputComponent = nullptr;
+	UCapsuleComponent* CapsuleComponent = nullptr;
+	UMovementComponent* MovementComponent = nullptr;
 };
 
 #endif // !US_PAWN_HPP
