@@ -18,11 +18,6 @@
 
 struct FTransform
 {
-	FTransform()
-	{
-
-	}
-
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };
@@ -59,11 +54,6 @@ protected:
 
 private:
 	FTransform Transform{};
-	//FVector Location{ 0.f, 0.f, 0.f };
-	//FVector Rotation{ 0.f, 0.f, 0.f };
-	//FVector Scale{ 1.f, 1.f, 1.f };
-	//FVector UpVector{ 0.f, 1.f, 0.f };
-	//FVector ForwardVector{ 0.f, 0.f, -1.f };
 };
 
 #endif // !US_TRANSFORM_COMPONENT_HPP

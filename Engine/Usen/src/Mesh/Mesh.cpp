@@ -52,7 +52,7 @@ void AMesh::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	if (CollisionComponent && CollisionComponent->IsDynamic() && Parent == nullptr)
+	if (CollisionComponent && CollisionComponent->IsDynamic() /*&& Parent == nullptr*/)
 	{
 		FVector location = CollisionComponent->GetComponentLocation();
 		SetLocation(location);

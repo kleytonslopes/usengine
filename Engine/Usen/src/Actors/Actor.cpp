@@ -194,7 +194,6 @@ void AActor::SetScale(FVector& vector)
 }
 void AActor::SetTransform(FTransform& transform)
 {
-	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
 		TransformComponent->SetTransform(transform);
@@ -221,8 +220,6 @@ void AActor::SetTransform(FTransform& transform)
 
 FVector AActor::GetLocation()
 {
-	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
-
 	return TransformComponent->GetLocation();
 }
 
@@ -238,7 +235,6 @@ FVector AActor::GetScale()
 
 FVector AActor::GetSceneLocation()
 {
-	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 	FVector location = TransformComponent->GetLocation();
 	if (bIsAttached)
 	{
@@ -254,7 +250,7 @@ FVector AActor::GetSceneLocation()
 
 FTransform& AActor::GetTransform()
 {
-	return TransformComponent->GetTransform();//GetComponent<UTransformComponent>()->GetTransform();
+	return TransformComponent->GetTransform();
 }
 
 void AActor::Draw(float deltaTime)

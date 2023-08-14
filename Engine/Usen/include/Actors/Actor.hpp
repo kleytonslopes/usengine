@@ -48,9 +48,6 @@ public:
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
 
-	
-	
-
 protected:
 	UAttachment* Attachments = nullptr;
 	ComponentsMap components;
@@ -104,10 +101,15 @@ protected:
 	template<typename T>
 	T* GetComponent()
 	{
-		return static_cast<T*>(components[typeid(T).name()]);
+		if(HasComponent<T>())
+			return static_cast<T*>(components[typeid(T).name()]);
+
+		return nullptr;
 	}
 
 	void Draw(float deltaTime) override;
+private:
+	
 
 	friend class FEntitySerializer;
 	friend class UScene;

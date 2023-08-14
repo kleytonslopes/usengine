@@ -41,8 +41,6 @@ void UCapsuleComponent::PostConstruct()
 void UCapsuleComponent::Initialize()
 {
 	Super::Initialize();
-
-
 }
 
 void UCapsuleComponent::Destroy()

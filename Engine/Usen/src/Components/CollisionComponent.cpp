@@ -46,7 +46,6 @@ void UCollisionComponent::Initialize()
 			btTransform transf;
 			transf.setOrigin(btVector3(transform.Location.x, transform.Location.y, transform.Location.z));
 			transf.setRotation(btQuaternion(transform.Rotation.x, transform.Rotation.y, transform.Rotation.z));
-			//Body->setWorldTransform(transf);
 		}
 	}
 }
