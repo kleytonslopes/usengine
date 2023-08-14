@@ -18,6 +18,11 @@
 
 struct FTransform
 {
+	FTransform()
+	{
+
+	}
+
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };

@@ -17,6 +17,7 @@
 #include "PhysicsSystem-generated.hpp"
 
 class UBoxCollisionComponent;
+class UCapsuleComponent;
 class UPhysicsDebug;
 
 class UPhysicsSystem : public BClass
@@ -28,6 +29,7 @@ public:
 	void Update(float deltaTime) override;
 	void Destroy() override;
 	void RegisterComponent(UBoxCollisionComponent* collisionComponent);
+	void RegisterComponent(UCapsuleComponent* collisionComponent);
 
 private:
 	btDefaultCollisionConfiguration* DefaultCollisionConfiguration{ 0 };

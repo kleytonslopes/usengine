@@ -16,16 +16,19 @@
 #include "Actors/Entity.hpp"
 #include "Component-generated.hpp"
 
+struct FTransform;
+
 class AComponent : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 public:
 	void SetParent(AEntity* parent);
 
+	FVector GetParentLocation();
+	FTransform GetParentTransform();
 protected:
 	AEntity* Parent = nullptr;
 
-	FVector GetParentLocation();
 
 	void BeginComponentSection(SeriFile& otherOut, const FString& identity);
 

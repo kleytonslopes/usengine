@@ -105,27 +105,36 @@ void AMesh::SetIsDynamic(const bool& isDynamic)
 		CollisionComponent->SetIsDynamic(isDynamic);
 }
 
+void AMesh::SetCollisionGroup(ECollisionGroup collisionGroup)
+{
+	if (CollisionComponent)
+		CollisionComponent->SetCollisionGroup(collisionGroup);
+}
+
+void AMesh::SetCollisionMask(ECollisionMask collisionMask)
+{
+	if (CollisionComponent)
+		CollisionComponent->SetCollisionMask(collisionMask);
+}
+
+void AMesh::SetTransform(FTransform& transform)
+{
+	Super::SetTransform(transform);
+
+	if (!CollisionComponent->IsDynamic())
+	{
+		CollisionComponent->SetLocation(GetLocation());
+	}
+}
+
 void AMesh::SetLocation(FVector& location)
 {
 	Super::SetLocation(location);
-	//CollisionComponent->SetOrigin(location);
 
-	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	//{
-	//	TransformComponent->SetLocation(location);
-	//}
-	//else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	//{
-	//	AActor* MyParent = GetParent<AActor>();
-	//	FVector location = MyParent->GetLocation();
-	//	FTransform myTransform = GetTransform();
-	//	FVector myLocation = GetLocation();
-	//	//FVector myOrigin =
-	//
-	//	myTransform.Location = location + myTransform.Origin;
-	//	CollisionComponent->SetOrigin(myTransform.Location);
-	//	TransformComponent->SetLocation(myTransform.Location);
-	//}
+	if (!CollisionComponent->IsDynamic())
+	{
+		CollisionComponent->SetLocation(GetLocation());
+	}
 }
 
 void AMesh::SetBoundBox(const FVector& boundBox)

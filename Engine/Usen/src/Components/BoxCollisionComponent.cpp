@@ -55,10 +55,31 @@ void UBoxCollisionComponent::CalculeLocalInertia()
 
 btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 {
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(StartTransform);
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(Transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, myMotionState, Shape, LocalInertia);
 	Body = new btRigidBody(rbInfo);
+	
+	if (IsDynamic())
+		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+	else
+		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+
 	return Body;
+}
+
+btCollisionObject* UBoxCollisionComponent::CreateCollisionObject()
+{
+	btCollisionObject* collisionObject = new btCollisionObject();
+
+	collisionObject->setWorldTransform(Transform);
+	collisionObject->setCollisionShape(Shape);
+
+	if(IsDynamic())
+		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+	else
+		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
+
+	return collisionObject;
 }
 
 btBoxShape* UBoxCollisionComponent::CreateBoxShape(const FVector& boxBound)

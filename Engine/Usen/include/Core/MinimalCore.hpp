@@ -12,6 +12,7 @@
 #ifndef US_MINIMAL_CORE_HPP
 #define	US_MINIMAL_CORE_HPP
 
+#include "btBulletDynamicsCommon.h"
 #include "Core/CommonTypes.hpp"
 #include "Core/SharedPtr.hpp"
 #include "Core/UniquePtr.hpp"
@@ -25,7 +26,8 @@
 #include "Core/FunctionClass.hpp"
 #include "Core/Exception.hpp"
 #include "Core/ConstructorHelper.hpp"
+#include "Core/CommonDefines.hpp"
 
-#include "btBulletDynamicsCommon.h"
+
 
 #endif // !US_MINIMAL_CORE_HPP

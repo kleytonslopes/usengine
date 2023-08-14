@@ -16,6 +16,7 @@
 #include "Components/CollisionComponent.hpp"
 #include "BoxCollisionComponent-generated.hpp"
 
+
 class UBoxCollisionComponent : public UCollisionComponent
 {
 	DEFAULT_BODY_GENERATED()
@@ -26,6 +27,8 @@ public:
 
 	void CalculeLocalInertia() override;
 	btRigidBody* CreateRigidBody() override;
+	btCollisionObject* CreateCollisionObject() override;
+	
 	//FVector GetComponentLocation() override;
 
 	//void SetOrigin(FVector& location) override;

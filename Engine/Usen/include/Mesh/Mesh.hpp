@@ -40,6 +40,10 @@ public:
 	void SetMeshParameters(const FMeshParameters& parameters);
 	void SetIsDynamic(const bool& isDynamic);
 
+	void SetCollisionGroup(ECollisionGroup collisionGroup);
+	void SetCollisionMask(ECollisionMask collisionMask);
+
+	void SetTransform(FTransform& transform) override;
 	void SetLocation(FVector& location) override;
 
 	FVector GetBoundBox() const { return BoundBox; }

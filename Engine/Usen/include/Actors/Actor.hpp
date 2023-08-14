@@ -27,27 +27,34 @@ class AActor : public AEntity
 
 public:
 	void Destroy() override;
-
 	void Construct() override;
-
 	void Initialize() override;
+	void Update(float deltaTime) override;
+
 	void AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings) override;
 	void DetachFromParent() override;
 	void Detach(AActor* entity);
 
-	void SetTransform(FTransform& transform);
-	void Update(float deltaTime) override;
+	virtual void SetOrigin(FVector& vector);
+	virtual void SetLocation(FVector& vector);
+	virtual void SetRotation(FVector& vector);
+	virtual void SetScale(FVector& vector);
+	virtual void SetTransform(FTransform& transform);
+	
 
 	FVector GetLocation();
+	FVector GetRotation();
+	FVector GetScale();
 	FVector GetSceneLocation();
 	FTransform& GetTransform();
 
-	virtual void SetLocation(FVector& location);
+	
 	
 
 protected:
 	UAttachment* Attachments = nullptr;
 	ComponentsMap components;
+
 	UTransformComponent* TransformComponent = nullptr;
 
 	void Serialize(SeriFile& otherOut) override;

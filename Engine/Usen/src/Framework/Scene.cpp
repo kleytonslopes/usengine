@@ -115,6 +115,8 @@ void UScene::Initialize()
 			trasform.Rotation = { 0.f,0.f,0.f };
 			UStaticMesh* FloorMesh = CreateEntity<UStaticMesh>();
 			FloorMesh->SetBoundBox(FVector{10.f, 10.f, 0.1f});
+			FloorMesh->SetCollisionGroup(ECG_None);
+			FloorMesh->SetCollisionMask(ECM_None);
 			FloorMesh->SetTransform(trasform);
 			FloorMesh->SetMeshParameters(floorMeshParameters);
 			FloorMesh->SetIsDynamic(false);
@@ -140,13 +142,15 @@ void UScene::Initialize()
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
 			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
 
-			//FMeshParameters pawnMeshParameters{};
-			//FAttachmentSettings pawnMeshAttachmentSettings{};
-			//pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-			//AMesh* pawnMesh = CreateEntity<AMesh>();
-			//pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
-			//pawnMesh->SetMeshParameters(pawnMeshParameters);
-			//pawnMesh->Initialize();
+			FMeshParameters pawnMeshParameters{};
+			FAttachmentSettings pawnMeshAttachmentSettings{};
+			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			AMesh* pawnMesh = CreateEntity<AMesh>();
+			pawnMesh->SetIsDynamic(false);
+			pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
+			pawnMesh->SetMeshParameters(pawnMeshParameters);
+			pawnMesh->Initialize();
 		}
 
 		{ // Box
@@ -161,6 +165,22 @@ void UScene::Initialize()
 			boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
 			boxMesh->SetMeshParameters(boxMeshParameters);
 			boxMesh->SetIsDynamic(true);
+			boxMesh->SetLocation(transformBox.Location);
+			boxMesh->Initialize();
+		}
+
+		{ // wall
+
+			FTransform transformBox;
+			transformBox.Location = { 0.f,10.f,0.f };
+			transformBox.Origin = { 0.f,0.f,0.f };
+			transformBox.Rotation = { 0.f,0.f,0.f };
+			FMeshParameters boxMeshParameters{};
+			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+			AMesh* boxMesh = CreateEntity<AMesh>();
+			boxMesh->SetBoundBox(FVector{ 3.f, 0.2f, 3.f });
+			boxMesh->SetMeshParameters(boxMeshParameters);
+			boxMesh->SetIsDynamic(false);
 			boxMesh->SetLocation(transformBox.Location);
 			boxMesh->Initialize();
 		}

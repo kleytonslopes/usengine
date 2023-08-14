@@ -22,11 +22,21 @@ class UCapsuleComponent : public UCollisionComponent
 public:
 	void Construct() override;
 	void PostConstruct() override;
-
 	void Initialize() override;
+	void Destroy() override;
+
+	void CalculeLocalInertia() override;
+
+	btRigidBody* CreateRigidBody() override;
+
+protected:
+	btCapsuleShape* CreateCapsuleShape();
 
 private:
+	btCapsuleShape* Shape = nullptr;
 
+	
+	friend class UPhysicsSystem;
 };
 
 #endif // !US_CAPSULE_COMPONENT_HPP

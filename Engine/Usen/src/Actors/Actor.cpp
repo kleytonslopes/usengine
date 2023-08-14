@@ -11,6 +11,7 @@
 #include "Actors/Actor.hpp"
 #include "Components/Component.hpp"
 #include "Components/RenderComponent.hpp"
+#include "Components/CollisionComponent.hpp"
 #include "Core/Attachment.hpp"
 
 DEFAULT_BODY(AActor)
@@ -72,6 +73,11 @@ void AActor::Initialize()
 	}
 }
 
+void AActor::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+}
+
 void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 {
 	if (!parent)
@@ -115,6 +121,77 @@ void AActor::DetachFromParent()
 	}
 }
 
+void AActor::SetOrigin(FVector& vector)
+{
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetOrigin(vector);
+	}
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* MyParent = GetParent<AActor>();
+		FVector location = MyParent->GetLocation();
+		FTransform myTransform = GetTransform();
+		//FVector myLocation = GetLocation();
+
+		myTransform.Location = location + myTransform.Origin;
+		TransformComponent->SetLocation(myTransform.Location);
+	}
+}
+void AActor::SetLocation(FVector& vector)
+{
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetLocation(vector);
+	}
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* pParent = GetParent<AActor>();
+		FVector pLocation = pParent->GetLocation();
+
+		FTransform myTransform = GetTransform();
+		//FVector myLocation = GetLocation();
+
+		myTransform.Location = pLocation + myTransform.Origin;
+		TransformComponent->SetLocation(myTransform.Location);
+	}
+}
+void AActor::SetRotation(FVector& vector)
+{
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetRotation(vector);
+	}
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* pParent = GetParent<AActor>();
+		FVector pRotation = pParent->GetRotation();
+
+		FTransform myTransform = GetTransform();
+		//FVector myRotation = GetRotation();
+
+		myTransform.Rotation = pRotation + myTransform.Rotation;
+		TransformComponent->SetRotation(myTransform.Rotation);
+	}
+}
+void AActor::SetScale(FVector& vector)
+{
+	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
+	{
+		TransformComponent->SetScale(vector);
+	}
+	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
+	{
+		AActor* pParent = GetParent<AActor>();
+		FVector pScale = pParent->GetScale();
+
+		FTransform myTransform = GetTransform();
+		//FVector myScale = GetScale();
+
+		myTransform.Scale = pScale + myTransform.Scale;
+		TransformComponent->SetScale(myTransform.Scale);
+	}
+}
 void AActor::SetTransform(FTransform& transform)
 {
 	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
@@ -142,16 +219,21 @@ void AActor::SetTransform(FTransform& transform)
 	}
 }
 
-void AActor::Update(float deltaTime)
-{
-	Super::Update(deltaTime);
-}
-
 FVector AActor::GetLocation()
 {
 	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
 
 	return TransformComponent->GetLocation();
+}
+
+FVector AActor::GetRotation()
+{
+	return TransformComponent->GetRotation();
+}
+
+FVector AActor::GetScale()
+{
+	return TransformComponent->GetScale();
 }
 
 FVector AActor::GetSceneLocation()
@@ -173,27 +255,6 @@ FVector AActor::GetSceneLocation()
 FTransform& AActor::GetTransform()
 {
 	return TransformComponent->GetTransform();//GetComponent<UTransformComponent>()->GetTransform();
-}
-
-void AActor::SetLocation(FVector& location)
-{
-	///UTransformComponent* TransformComponent = GetComponent<UTransformComponent>();
-
-	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	{
-		TransformComponent->SetLocation(location);
-	}
-	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	{
-		AActor* MyParent = GetParent<AActor>();
-		FVector location = MyParent->GetLocation();
-		FTransform myTransform = GetTransform();
-		FVector myLocation = GetLocation();
-		//FVector myOrigin =
-
-		myTransform.Location = location + myTransform.Origin;
-		TransformComponent->SetLocation(myTransform.Location);
-	}
 }
 
 void AActor::Draw(float deltaTime)

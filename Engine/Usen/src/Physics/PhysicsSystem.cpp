@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: PhysicsSystem.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: August 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Physics/PhysicsSystem.hpp"
@@ -13,6 +13,7 @@
 #include "Runtime/Application.hpp"
 #include "Components/CollisionComponent.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "Components/CapsuleComponent.hpp"
 
 
 DEFAULT_BODY(UPhysicsSystem)
@@ -107,12 +108,33 @@ void UPhysicsSystem::RegisterComponent(UBoxCollisionComponent* collisionComponen
 	CollisionShapes.push_back(collisionComponent->Shape);
 
 	if (collisionComponent->bIsDynamic)
+	{
 		collisionComponent->CalculeLocalInertia();
-
+		btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
+		//DiscreteDynamicsWorld->addRigidBody(rigidBody, (int32)collisionComponent->GetCollisionGroup(), (int32)collisionComponent->GetCollisionMask());
+		DiscreteDynamicsWorld->addRigidBody(rigidBody, 2, 3);
+	}
+	else
+	{
+		btCollisionObject* collisionObject = collisionComponent->CreateCollisionObject();
+		//DiscreteDynamicsWorld->addCollisionObject(collisionObject, (int32)collisionComponent->GetCollisionGroup(), (int32)collisionComponent->GetCollisionMask());
+		DiscreteDynamicsWorld->addCollisionObject(collisionObject, 2, 3);
+	}
 	/*CollisionShapes.push_back(collisionComponent->Shape);*/
-	btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
 
-	DiscreteDynamicsWorld->addRigidBody(rigidBody);
+
+}
+
+void UPhysicsSystem::RegisterComponent(UCapsuleComponent* collisionComponent)
+{
+	if (!collisionComponent)
+		return;
+
+	CollisionShapes.push_back(collisionComponent->Shape);
+
+	collisionComponent->CalculeLocalInertia();
+	btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
+	DiscreteDynamicsWorld->addRigidBody(rigidBody, 2, 3);
 }
 
 void UPhysicsSystem::CreateEmptyDynamicsWorld()

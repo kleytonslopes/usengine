@@ -23,7 +23,7 @@ void APawn::Construct()
 
 	UCameraComponent* CameraComponent = AddComponent<UCameraComponent>();
 	UInputComponent* InputComponent = AddComponent<UInputComponent>();
-	//UCapsuleComponent* CapsuleComponent = AddComponent<UCapsuleComponent>();
+	UCapsuleComponent* CapsuleComponent = AddComponent<UCapsuleComponent>();
 }
 
 void APawn::PostConstruct()

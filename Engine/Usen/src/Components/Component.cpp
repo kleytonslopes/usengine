@@ -31,6 +31,19 @@ FVector AComponent::GetParentLocation()
 	return FVector{0};
 }
 
+FTransform AComponent::GetParentTransform()
+{
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			return aParent->GetTransform();
+		}
+	}
+	return FTransform{};
+}
+
 void AComponent::BeginComponentSection(SeriFile& otherOut, const FString& identity)
 {
 	Key(otherOut, identity);
