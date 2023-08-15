@@ -105,6 +105,9 @@ void UPhysicsSystem::RegisterComponent(UBoxCollisionComponent* collisionComponen
 	if (!collisionComponent)
 		return;
 
+	if (!collisionComponent->CanCollider())
+		return;
+
 	CollisionShapes.push_back(collisionComponent->Shape);
 
 	if (collisionComponent->bIsDynamic)

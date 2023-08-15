@@ -23,7 +23,12 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 	AActor* aParant = Cast<AActor*>(Parent);
 	if (aParant)
 	{
-		UCollisionComponent* CollisionComponent = aParant->GetCollisionComponent();
+		FVector transform = aParant->GetLocation();
+		transform.x += scaleMovement * Speed;
+
+		aParant->SetLocation(transform);
+
+		/*UCollisionComponent* CollisionComponent = aParant->GetCollisionComponent();
 		if (CollisionComponent)
 		{
 			FVector location = CollisionComponent->GetComponentLocation();
@@ -38,7 +43,7 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 			transform.Location.x += scaleMovement * Speed;
 
 			aParant->SetTransform(transform);
-		}
+		}*/
 	}
 }
 

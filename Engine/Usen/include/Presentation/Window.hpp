@@ -22,6 +22,10 @@
 
 DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, float, height)
 DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
+DECLARE_FUNCTION_TwoParam(FOnMouseButtonEvent, uint32, keyCode, EKeyHandler, keyHandler)
+DECLARE_FUNCTION_TwoParam(FOnMouseWheelEvent, uint32, xOffset, uint32, yOffset)
+
+DECLARE_FUNCTION_FourParam(FOnMouseMovementEvent, uint32, xPos, uint32, yPos, uint32, xPosRel, uint32, yPosRel)
 
 class UWindow : public BClass
 {
@@ -30,6 +34,9 @@ class UWindow : public BClass
 public:
 	FOnWindowResizedSignature OnWindowResizedEvent;
 	FOnKeyEvent OnKeyEvent;
+	FOnMouseButtonEvent OnMouseButtonEvent;
+	FOnMouseWheelEvent OnMouseWheelEvent;
+	FOnMouseMovementEvent OnMouseMovementEvent;
 
 	void Construct() override;
 	void PostConstruct() override;

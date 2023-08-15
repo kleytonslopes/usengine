@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Window.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Presentation/Window.hpp"
@@ -54,11 +54,23 @@ void UWindow::PollEvents()
 	{
 		switch (sdlEvent.type)
 		{
+		case SDL_MOUSEMOTION:
+			OnMouseMovementEvent.Broadcast(sdlEvent.motion.x, sdlEvent.motion.y, sdlEvent.motion.xrel, sdlEvent.motion.yrel);
+			break;
 		case SDL_KEYDOWN:
 			OnKeyEvent.Broadcast(sdlEvent.key.keysym.sym, EKeyHandler::KEY_PRESSED);
 			break;
 		case SDL_KEYUP:
 			OnKeyEvent.Broadcast(sdlEvent.key.keysym.sym, EKeyHandler::KEY_RELEASED);
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			OnMouseButtonEvent.Broadcast(sdlEvent.button.button, EKeyHandler::KEY_PRESSED);
+			break;
+		case SDL_MOUSEBUTTONUP:
+			OnMouseButtonEvent.Broadcast(sdlEvent.button.button, EKeyHandler::KEY_RELEASED);
+			break;
+		case SDL_MOUSEWHEEL:
+			OnMouseWheelEvent.Broadcast(sdlEvent.wheel.x, sdlEvent.wheel.y);
 			break;
 		case SDL_QUIT:
 			SetShouldClose(true);
@@ -146,11 +158,24 @@ void UWindow::InitializeForOpenGL()
 
 void UWindow::CreateWindowInstance(FString title, uint32 width, uint32 height, int contextFlags)
 {
+	int displays = SDL_GetNumVideoDisplays();
+
+	TVector<SDL_Rect> displayBounds;
+	for (int i = 0; i < displays; i++) {
+		displayBounds.push_back(SDL_Rect());
+		SDL_GetDisplayBounds(i, &displayBounds.back());
+	}
+
+	int x = displayBounds[1].x + 50;
+	int y = displayBounds[1].y + 50;
+	int w = width;
+	int h = height;
+
 	sdlWindow = SDL_CreateWindow(title.c_str()
-		, SDL_WINDOWPOS_CENTERED
-		, SDL_WINDOWPOS_CENTERED
-		, width
-		, height
+		, x
+		, y
+		, w
+		, h
 		, contextFlags);
 }
 

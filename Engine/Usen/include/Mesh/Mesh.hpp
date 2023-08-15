@@ -39,12 +39,10 @@ public:
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 	void SetIsDynamic(const bool& isDynamic);
+	void SetCanCollider(const bool& canCollider);
 
 	void SetCollisionGroup(ECollisionGroup collisionGroup);
 	void SetCollisionMask(ECollisionMask collisionMask);
-
-	void SetTransform(FTransform& transform) override;
-	void SetLocation(FVector& location) override;
 
 	FVector GetBoundBox() const { return BoundBox; }
 	void SetBoundBox(const FVector& boundBox);
@@ -53,6 +51,7 @@ protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
 	FVector BoundBox{ 1.f, 1.f, 1.f };
+	
 
 	//UCollisionComponent* CollisionComponent = nullptr;
 	URenderComponent* RenderComponent = nullptr;

@@ -52,15 +52,19 @@ void URendererOpenGL::StartFrame()
 	ACamera* Camera = GetScene()->GetCamera();
 	FVector cameraPos = Camera->GetLocation();
 
+	float fov = Camera->GetFieldOfView();
+	float near = Camera->GetNear();
+	float far = Camera->GetFar();
+
 	UWindow* window = GetWindow();
-	FMatrix4 projection = glm::perspective(glm::radians(45.0f), (float)window->GetWidth() / (float)window->GetHeight(), 0.001f, 10000.0f);
+	FMatrix4 projection = glm::perspective(glm::radians(fov), (float)window->GetWidth() / (float)window->GetHeight(), near, far);
 	FMatrix4 view = Camera->GetView();
-	
+	//
 	FMatrix4 modelMatrix = FMatrix4{ 1.f };//veresse
-	glm::vec3 loc {0.0f, 0.0f, 0.0f};
-	glm::vec3 sca {1.0f, 1.0f, 1.0f};
-	modelMatrix = glm::translate(modelMatrix, loc);
-	modelMatrix = glm::scale(modelMatrix, sca);
+	//FVector location {0.0f, 0.0f, 10.0f};
+	//FVector scale {1.0f, 1.0f, 1.0f};
+	//modelMatrix = glm::translate(modelMatrix, location);
+	//modelMatrix = glm::scale(modelMatrix, scale);
 
 	TMap<FString, BShader*>::iterator shdIterator;
 

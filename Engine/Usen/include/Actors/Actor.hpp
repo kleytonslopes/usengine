@@ -36,11 +36,12 @@ public:
 	void DetachFromParent() override;
 	void Detach(AActor* entity);
 
-	virtual void SetOrigin(FVector& vector);
-	virtual void SetLocation(FVector& vector);
+	void SetOrigin(FVector& vector);
+	void SetLocation(FVector& vector);
 	virtual void SetRotation(FVector& vector);
-	virtual void SetScale(FVector& vector);
-	virtual void SetTransform(FTransform& transform);
+	void SetScale(FVector& vector);
+	void SetTransform(FTransform& transform);
+	void SetForwardVector(FVector& vector);
 
 	FVector GetLocation();
 	FVector GetRotation();

@@ -32,11 +32,15 @@ public:
 	void Construct() override;
 	void PostConstruct() override;
 	void Initialize() override;
+	void Update(float deltaTime) override;
 
 	void SetIsDynamic(const bool& isDynamic);
+	void SetCanCollider(const bool& canCollider);
 
 	bool IsDynamic() const { return bIsDynamic; }
+	bool CanCollider() const { return bCanCollider; }
 	virtual FVector GetComponentLocation();
+	virtual FVector GetComponentRotation();
 	
 	void SetLocation(FVector& location);
 	void SetTransform(FTransform& transform);
@@ -49,14 +53,19 @@ public:
 
 protected:
 	bool bIsDynamic = true;
+	bool bCanCollider = true;
+
 	float Mass = 10.f;
 	ECollisionGroup CollisionGroup = ECG_WorldStatic;
 	ECollisionMask CollisionMask = ECM_WorldStatic;
+	ECollisionObject CollisionObjectType = ECO_Static;
 
 	btVector3 LocalInertia{ 0.f, 0.f, 0.f };
 	btTransform Transform;
 
 	btRigidBody* Body = nullptr;
+
+	void UpdateParentTransform();
 
 private:
 	float DefaultMass = 100.f;

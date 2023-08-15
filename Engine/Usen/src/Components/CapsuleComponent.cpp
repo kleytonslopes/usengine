@@ -17,6 +17,9 @@ DEFAULT_BODY(UCapsuleComponent)
 void UCapsuleComponent::Construct()
 {
 	Super::Construct();
+
+	CollisionObjectType = ECO_Static;
+
 	if (Parent)
 	{
 		AMesh* meshParent = Cast<AMesh*>(Parent);
@@ -50,23 +53,34 @@ void UCapsuleComponent::Destroy()
 
 void UCapsuleComponent::CalculeLocalInertia()
 {
-	Shape->calculateLocalInertia(Mass, LocalInertia);
+	if(Shape)
+		Shape->calculateLocalInertia(Mass, LocalInertia);
 }
 
 btRigidBody* UCapsuleComponent::CreateRigidBody()
 {
+	if (!bCanCollider)
+		return nullptr;
+
 	btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, motionState, Shape, LocalInertia);
 	
 	Body = new btRigidBody(rbInfo);
-	Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+	Body->setCollisionFlags(Body->getCollisionFlags() | CollisionObjectType);// btCollisionObject::CF_KINEMATIC_OBJECT);
 	Body->setActivationState(DISABLE_DEACTIVATION);
 
+	btTransform transform;
+	Body->getMotionState()->getWorldTransform(transform);
+	transform.setRotation(btQuaternion(0, -90, 0));
+	Body->setWorldTransform(transform);
 	return Body;
 }
 
 btCapsuleShape* UCapsuleComponent::CreateCapsuleShape()
 {
-	Shape = new btCapsuleShape(1.f, 1.f);
+	if (!bCanCollider)
+		return nullptr;
+
+	Shape = new btCapsuleShape(Radius, Height);
 	return Shape;
 }

@@ -34,6 +34,8 @@ protected:
 
 private:
 	btCapsuleShape* Shape = nullptr;
+	float Radius = 1.f;
+	float Height = 1.f;
 
 	
 	friend class UPhysicsSystem;

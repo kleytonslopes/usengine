@@ -50,11 +50,15 @@ void UBoxCollisionComponent::Destroy()
 
 void UBoxCollisionComponent::CalculeLocalInertia()
 {
-	Shape->calculateLocalInertia(Mass, LocalInertia);
+	if(Shape)
+		Shape->calculateLocalInertia(Mass, LocalInertia);
 }
 
 btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 {
+	if (!bCanCollider)
+		return nullptr;
+
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(Transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, myMotionState, Shape, LocalInertia);
 	Body = new btRigidBody(rbInfo);
@@ -69,6 +73,9 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 
 btCollisionObject* UBoxCollisionComponent::CreateCollisionObject()
 {
+	if (!bCanCollider)
+		return nullptr;
+
 	btCollisionObject* collisionObject = new btCollisionObject();
 
 	collisionObject->setWorldTransform(Transform);
@@ -84,6 +91,9 @@ btCollisionObject* UBoxCollisionComponent::CreateCollisionObject()
 
 btBoxShape* UBoxCollisionComponent::CreateBoxShape(const FVector& boxBound)
 {
+	if (!bCanCollider)
+		return nullptr;
+
 	btBoxShape* box = new btBoxShape(btVector3(btScalar(boxBound.x), btScalar(boxBound.y), btScalar(boxBound.z)));
 
 	return box;

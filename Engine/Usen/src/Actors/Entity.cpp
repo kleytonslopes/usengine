@@ -33,8 +33,6 @@ void AEntity::Update(float deltaTime)
 {
 	if (!bCanUpdate)
 		return;
-
-	//GetApplication()->GetRenderer()->Draw(this, deltaTime);
 }
 
 void AEntity::SetOwner(AEntity* owner)

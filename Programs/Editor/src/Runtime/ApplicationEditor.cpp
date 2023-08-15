@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Runtime/ApplicationEditor.hpp"
 #include "Framework/EditorGameInstance.hpp"
+#include "UI/EditorUI.hpp"
 
 DEFAULT_BODY(UApplicationEditor)
 
@@ -26,4 +27,13 @@ void UApplicationEditor::PostConstruct()
 	Super::PostConstruct();
 
 	GameInstance = FConstructorHelper::CreateObject<UEditorGameInstance>();
+
+	UIEditor = FConstructorHelper::CreateObject<UEditorUI>();
+}
+
+void UApplicationEditor::Initialize()
+{
+	Super::Initialize();
+
+	UIEditor->Initialize();
 }

@@ -67,7 +67,7 @@ enum class ECollisionMask : int32
 	ECM_CollisionMask_4 = 4,
 };
 
-enum class ECollisionObject : int32
+enum ECollisionObject
 {
 	ECO_Dynamic   = btCollisionObject::CF_DYNAMIC_OBJECT,
 	ECO_Static    = btCollisionObject::CF_STATIC_OBJECT,

@@ -10,6 +10,7 @@ project "Editor"
     files
     {
         "include/**.hpp",
+        "include/**.h",
         "generated/**.hpp",
         "src/**.cpp"
     }
@@ -30,6 +31,7 @@ project "Editor"
         "%{include_dir.STB}",
         "%{include_dir.MINI}",
         "%{include_dir.BULLET}",
+        "%{include_dir.IMGUI}",
     }
 
     libdirs
@@ -44,6 +46,7 @@ project "Editor"
         "opengl32.lib",
         "Usen",
         "GLAD",
+        "IMGUI",
         "YAML",
         "SDL2.lib",
         "SDL2main.lib",

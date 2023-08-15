@@ -1424,5 +1424,28 @@
       "ClassGenDefinition": "hpp_UMovementComponent_AComponent",
       "ClassGenDefinitionVersion": "hpp_UMovementComponent_AComponent_def"
     }
+  },
+  {
+    "ClassName": "UEditorUI",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UEditorUI",
+      "ClassDefinition": "US_EDITOR_UI_HPP",
+      "HppFileName": "EditorUI.hpp",
+      "CppFileName": "EditorUI.cpp",
+      "GenFileName": "EditorUI-generated.hpp",
+      "FolderHpp": "include/UI",
+      "FolderCpp": "src/UI",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "BClass",
+      "BaseClassPathHpp": "Base/Class.hpp",
+      "BaseClassTemplate": " : public BClass",
+      "BaseClassInclude": "\n#include \"Base/Class.hpp\"",
+      "ClassGenDefinition": "hpp_UEditorUI_BClass",
+      "ClassGenDefinitionVersion": "hpp_UEditorUI_BClass_def"
+    }
   }
 ]

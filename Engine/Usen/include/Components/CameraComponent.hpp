@@ -20,8 +20,20 @@ class UCameraComponent : public AComponent
 {
 	DEFAULT_BODY_GENERATED()
 
+public:
+	void Construct() override;
+
+	void SetYaw(float value);
+	void SetPitch(float value);
+	void SetRoll(float value);
+
+	float GetFieldOfView() const { return Fov; }
+	float GetNear() const { return Near; };
+	float GetFar() const { return Far; };
 protected:
 	void Serialize(SeriFile& otherOut) override;
+
+	void UpdateView();
 
 private:
 	float Near{ 0.0001f };
@@ -35,6 +47,8 @@ private:
 	FVector YawAxis{ 0.0f, 1.0f, 0.0f };
 	FVector PitchAxis{ 1.0f, 0.0f, 0.0f };
 	FVector RollAxis{ 0.0f, 0.0f, 1.0f };
+
+	FVector ViewPoint{ 0.0f, 0.0f, 0.0f };
 };
 
 #endif // !US_CAMERA_COMPONENT_HPP

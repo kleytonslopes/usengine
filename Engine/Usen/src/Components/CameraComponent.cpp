@@ -9,8 +9,33 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Components/CameraComponent.hpp"
+#include "Actors/Actor.hpp"
 
 DEFAULT_BODY(UCameraComponent);
+
+void UCameraComponent::Construct()
+{
+	Super::Construct();
+}
+
+void UCameraComponent::SetYaw(float value)
+{
+	Yaw = value;
+
+	UpdateView();
+}
+
+void UCameraComponent::SetPitch(float value)
+{
+	Pitch = value;
+	UpdateView();
+}
+
+void UCameraComponent::SetRoll(float value)
+{
+	Roll = value;
+	UpdateView();
+}
 
 void UCameraComponent::Serialize(SeriFile& otherOut)
 {
@@ -27,4 +52,27 @@ void UCameraComponent::Serialize(SeriFile& otherOut)
 	Key(otherOut, "rollAxis", RollAxis);
 
 	EndSection(otherOut);
+}
+
+void UCameraComponent::UpdateView()
+{
+	float yallRadians = glm::radians(Yaw);
+	float pitchRadians = glm::radians(Pitch);
+
+	FVector targetView;
+
+	targetView.x = -sin(yallRadians) * cos(pitchRadians);
+	targetView.y = sin(pitchRadians);
+	targetView.z = -cos(yallRadians) * cos(pitchRadians);
+
+	ViewPoint.x = targetView.x;
+	ViewPoint.y = targetView.y;
+	ViewPoint.z = targetView.z;
+
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if(aParent)
+			aParent->SetForwardVector(ViewPoint);
+	}
 }

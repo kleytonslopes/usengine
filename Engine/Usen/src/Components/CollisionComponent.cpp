@@ -17,6 +17,7 @@ void UCollisionComponent::Construct()
 {
 	Super::Construct();
 
+	bCanUpdate = true;
 	DefaultMass = Mass;
 }
 
@@ -50,6 +51,13 @@ void UCollisionComponent::Initialize()
 	}
 }
 
+void UCollisionComponent::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+	UpdateParentTransform();
+}
+
 void UCollisionComponent::SetIsDynamic(const bool& isDynamic)
 {
 	if (isDynamic)
@@ -64,6 +72,11 @@ void UCollisionComponent::SetIsDynamic(const bool& isDynamic)
 	}
 }
 
+void UCollisionComponent::SetCanCollider(const bool& canCollider)
+{
+	bCanCollider = canCollider;
+}
+
 FVector UCollisionComponent::GetComponentLocation()
 {
 	float x = 0.f;
@@ -72,13 +85,13 @@ FVector UCollisionComponent::GetComponentLocation()
 
 	if (Body && bIsDynamic)
 	{
-		btTransform trans;
+		btTransform transform;
 
-		Body->getMotionState()->getWorldTransform(trans);
+		Body->getMotionState()->getWorldTransform(transform);
 
-		x = float(trans.getOrigin().getX());
-		y = float(trans.getOrigin().getY());
-		z = float(trans.getOrigin().getZ());
+		x = float(Transform.getOrigin().getX());
+		y = float(Transform.getOrigin().getY());
+		z = float(Transform.getOrigin().getZ());
 	}
 	else
 	{
@@ -96,6 +109,38 @@ FVector UCollisionComponent::GetComponentLocation()
 	return FVector{ x, y, z };
 }
 
+FVector UCollisionComponent::GetComponentRotation()
+{
+	float x = 0.f;
+	float y = 0.f;
+	float z = 0.f;
+
+	if (Body && bIsDynamic)
+	{
+		btTransform transform;
+
+		Body->getMotionState()->getWorldTransform(transform);
+
+		x = float(transform.getRotation().getX());
+		y = float(transform.getRotation().getY());
+		z = float(transform.getRotation().getZ());
+	}
+	else
+	{
+		AActor* parentActor = GetParent<AActor>();
+		if (parentActor)
+		{
+			const FVector rotation = parentActor->GetRotation();
+
+			x = rotation.x;
+			y = rotation.y;
+			z = rotation.z;
+		}
+	}
+
+	return FVector{ x, -y, z };
+}
+
 void UCollisionComponent::SetLocation(FVector& location)
 {
 	if (Body)
@@ -110,6 +155,7 @@ void UCollisionComponent::SetLocation(FVector& location)
 	{
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));
 	}
+	/*
 	
 	FTransform newTransform{};
 
@@ -121,12 +167,12 @@ void UCollisionComponent::SetLocation(FVector& location)
 	newTransform.Rotation.y = Transform.getRotation().getY();
 	newTransform.Rotation.z = Transform.getRotation().getZ();
 
-	OnTransformUpdatedEvent.Broadcast(newTransform);
+	OnTransformUpdatedEvent.Broadcast(newTransform);*/
 }
 
 void UCollisionComponent::SetTransform(FTransform& transform)
 {
-	if (Body)
+	/*if (Body)
 	{
 		Body->getMotionState()->getWorldTransform(Transform);
 
@@ -139,7 +185,7 @@ void UCollisionComponent::SetTransform(FTransform& transform)
 	{
 		Transform.setOrigin(btVector3(transform.Location.x, transform.Location.y, transform.Location.z));
 		Transform.setRotation(btQuaternion(transform.Rotation.x, transform.Rotation.y, transform.Rotation.z));
-	}
+	}*/
 }
 
 void UCollisionComponent::SetCollisionGroup(ECollisionGroup collisionGroup)
@@ -150,4 +196,14 @@ void UCollisionComponent::SetCollisionGroup(ECollisionGroup collisionGroup)
 void UCollisionComponent::SetCollisionMask(ECollisionMask collisionMask)
 {
 	CollisionMask = collisionMask;
+}
+
+void UCollisionComponent::UpdateParentTransform()
+{
+	AActor* aParent = Cast<AActor*>(Parent);
+	if (aParent)
+	{
+		aParent->SetLocation(GetComponentLocation());
+		aParent->SetRotation(GetComponentRotation());
+	}
 }
