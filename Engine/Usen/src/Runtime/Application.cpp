@@ -57,6 +57,16 @@ void UApplication::Destroy()
 	Super::Destroy();
 }
 
+void UApplication::Draw(float deltaTime)
+{
+	
+}
+
+void UApplication::DrawScene(float deltaTime)
+{
+	OnDrawEvent.Broadcast(deltaTime);
+}
+
 void UApplication::Loop()
 {
 	float deltaTime = 0.f;
@@ -81,7 +91,7 @@ void UApplication::Loop()
 
 		OnUpdateEvent.Broadcast(deltaTime);
 		Renderer->StartFrame();
-			OnDrawEvent.Broadcast(deltaTime);
+			Draw(deltaTime);
 			PhysicsSystem->Update(deltaTime);
 		Renderer->EndFrame();
 

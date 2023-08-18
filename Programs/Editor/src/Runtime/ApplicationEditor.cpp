@@ -29,6 +29,7 @@ void UApplicationEditor::PostConstruct()
 	GameInstance = FConstructorHelper::CreateObject<UEditorGameInstance>();
 
 	UIEditor = FConstructorHelper::CreateObject<UEditorUI>();
+	UIEditor->OnDrawSceneEvent.Add(this, &This::DrawScene);
 }
 
 void UApplicationEditor::Initialize()
@@ -36,4 +37,18 @@ void UApplicationEditor::Initialize()
 	Super::Initialize();
 
 	UIEditor->Initialize();
+}
+
+void UApplicationEditor::Destroy()
+{
+	Super::Destroy();
+
+	delete UIEditor; UIEditor = nullptr;
+}
+
+void UApplicationEditor::Draw(float deltaTime)
+{
+	Super::Draw(deltaTime);
+	//DrawScene(deltaTime);
+	UIEditor->Draw(deltaTime);
 }

@@ -8,6 +8,7 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
+
 #include "Presentation/Window.hpp"
 #include "Runtime/Application.hpp"
 
@@ -22,9 +23,9 @@ void UWindow::Construct()
 
 void UWindow::PostConstruct()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) < 0)
 	{
-		UASSERT(false, "Failed to Initialize window!");
+		FException::RuntimeError(FText::Format("Failed to Initialize window! %s", SDL_GetError()));
 	}
 
 	Super::PostConstruct();
@@ -52,6 +53,7 @@ void UWindow::PollEvents()
 {
 	while (SDL_PollEvent(&sdlEvent) != 0)
 	{
+		OnPollEventsEvent.Broadcast(&sdlEvent);
 		switch (sdlEvent.type)
 		{
 		case SDL_MOUSEMOTION:
@@ -130,7 +132,7 @@ uint32 UWindow::GetTicks() const
 
 void UWindow::InitializeForOpenGL()
 {
-	uint32 windowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
+	uint32 windowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
 	int context_flags = SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG;
 #ifdef _DEBUG
 	context_flags |= SDL_GL_CONTEXT_DEBUG_FLAG;
@@ -158,7 +160,7 @@ void UWindow::InitializeForOpenGL()
 
 void UWindow::CreateWindowInstance(FString title, uint32 width, uint32 height, int contextFlags)
 {
-	int displays = SDL_GetNumVideoDisplays();
+	/*int displays = SDL_GetNumVideoDisplays();
 
 	TVector<SDL_Rect> displayBounds;
 	for (int i = 0; i < displays; i++) {
@@ -169,14 +171,15 @@ void UWindow::CreateWindowInstance(FString title, uint32 width, uint32 height, i
 	int x = displayBounds[1].x + 50;
 	int y = displayBounds[1].y + 50;
 	int w = width;
-	int h = height;
+	int h = height;*/
 
 	sdlWindow = SDL_CreateWindow(title.c_str()
-		, x
-		, y
-		, w
-		, h
+		, SDL_WINDOWPOS_CENTERED
+		, SDL_WINDOWPOS_CENTERED
+		, width
+		, height
 		, contextFlags);
+
 }
 
 void UWindow::CreateWindowRendererInstance()
@@ -202,4 +205,8 @@ void UWindow::CreateWindowContextOpenGL()
 	{
 		UASSERT(false, "Failed to initialize GLAD");
 	}
+
+	SDL_GL_MakeCurrent(sdlWindow, sdlGLContext);
+	SDL_GL_SetSwapInterval(1); // Enable vsync
 }
+

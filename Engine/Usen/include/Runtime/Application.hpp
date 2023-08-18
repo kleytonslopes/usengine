@@ -70,6 +70,9 @@ protected:
 
 	UController* Controller           = nullptr;
 
+	virtual void Draw(float deltaTime);
+	virtual void DrawScene(float deltaTime);
+
 private:
 	float DeltaTime = 0.f;
 	void Loop();

@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: Window.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
@@ -14,12 +14,16 @@
 
 
 #include "Base/Class.hpp"
+#include "imgui.h"
+#include "backends/imgui_impl_sdl2.h"
+#include "backends/imgui_impl_opengl3.h"
 #include <SDL.h>
 #undef main
 #include "glad/glad.h"
 #include "Input/KeyHandler.hpp"
 #include "Window-generated.hpp"
 
+DECLARE_FUNCTION_OneParam(FOnPollEventsSignature, SDL_Event*, sEvent)
 DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, float, height)
 DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
 DECLARE_FUNCTION_TwoParam(FOnMouseButtonEvent, uint32, keyCode, EKeyHandler, keyHandler)
@@ -32,6 +36,7 @@ class UWindow : public BClass
 	DEFAULT_BODY_GENERATED()
 
 public:
+	FOnPollEventsSignature OnPollEventsEvent;
 	FOnWindowResizedSignature OnWindowResizedEvent;
 	FOnKeyEvent OnKeyEvent;
 	FOnMouseButtonEvent OnMouseButtonEvent;
@@ -56,6 +61,8 @@ public:
 
 	uint32& GetWidth() { return width; }
 	uint32& GetHeight() { return height; }
+	SDL_Window* GetSDLWIndow() { return sdlWindow; }
+	SDL_GLContext* GetSDLContext() { return &sdlGLContext; }
 
 protected:
 	void InitializeForOpenGL();

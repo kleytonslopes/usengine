@@ -26,6 +26,8 @@ public:
 	void Construct() override;
 	void PostConstruct() override;
 	void Initialize() override;
+	void Destroy() override;
+	void Draw(float deltaTime) override;
 	
 protected:
 	UEditorUI* UIEditor;

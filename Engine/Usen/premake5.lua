@@ -31,6 +31,7 @@ project "Usen"
         "%{include_dir.STB}",
         "%{include_dir.MINI}",
         "%{include_dir.BULLET}",
+        "%{include_dir.IMGUI}",
     }
 
     links
