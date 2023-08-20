@@ -130,7 +130,7 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			FTransform trasform;
-			trasform.Location = { 0.f,-1.f,0.f };
+			trasform.Location = { 0.f,0.f,-5.f };
 			trasform.Rotation = { 0.f,0.f,0.f };
 			Floor = CreateEntity<UStaticMesh>();
 			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.1f });
@@ -156,24 +156,24 @@ void UScene::Initialize()
 		//	gizmomesh->Initialize();
 		//}
 
-		//{ // Pawn
+		{ // Pawn
 
-		//	APawn* Pawn = GetController()->GetPawn();
-		//	Pawn->SetLocation(FVector{ 0.f, 0.f, 10.f });
+			APawn* Pawn = GetController()->GetPawn();
+			Pawn->SetLocation(FVector{ 0.f, 0.f, 0.f });
 
-		//	FAttachmentSettings pawnCameraAttachmentSettings{};
-		//	pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
+			FAttachmentSettings pawnCameraAttachmentSettings{};
+			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
 
-		//	FMeshParameters pawnMeshParameters{};
-		//	FAttachmentSettings pawnMeshAttachmentSettings{};
-		//	pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-		//	//AMesh* pawnMesh = CreateEntity<AMesh>();
-		//	//pawnMesh->SetIsDynamic(false);
-		//	//pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
-		//	//pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
-		//	//pawnMesh->SetMeshParameters(pawnMeshParameters);
-		//	//pawnMesh->Initialize();
-		//}
+			FMeshParameters pawnMeshParameters{};
+			FAttachmentSettings pawnMeshAttachmentSettings{};
+			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			//AMesh* pawnMesh = CreateEntity<AMesh>();
+			//pawnMesh->SetIsDynamic(false);
+			//pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			//pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
+			//pawnMesh->SetMeshParameters(pawnMeshParameters);
+			//pawnMesh->Initialize();
+		}
 
 		{ // Box
 

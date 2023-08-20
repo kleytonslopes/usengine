@@ -152,6 +152,12 @@ void UCollisionComponent::SetLocation(FVector location)
 
 		Body->setWorldTransform(Transform);
 	}
+	else if (CollisionObject)
+	{
+		Transform = CollisionObject->getWorldTransform();
+		Transform.setOrigin(btVector3(location.x, location.y, location.z));
+		CollisionObject->setWorldTransform(Transform);
+	}
 	else
 	{
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));

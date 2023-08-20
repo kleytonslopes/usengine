@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Runtime/ApplicationEditor.hpp"
 #include "Framework/EditorGameInstance.hpp"
+#include "Physics/PhysicsSystem.hpp"
 #include "UI/EditorUI.hpp"
 
 DEFAULT_BODY(UApplicationEditor)
@@ -48,8 +49,13 @@ void UApplicationEditor::Destroy()
 
 void UApplicationEditor::Draw(float deltaTime)
 {
-	Super::Draw(deltaTime);
-	//DrawScene(deltaTime);
-	/*Renderer->DrawScreenQuad();*/
+	Renderer->StartFrame();
+		OnDrawEvent.Broadcast(deltaTime);
+		PhysicsSystem->Update(deltaTime);
+#if defined (APP_EDITOR_MODE)
+	DrawScreenQuad();
+#endif
+	Renderer->EndFrame();
 	UIEditor->Draw(deltaTime);
+	//Renderer->EndFrame();
 }

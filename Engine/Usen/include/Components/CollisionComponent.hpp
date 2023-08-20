@@ -66,6 +66,7 @@ protected:
 	btTransform Transform;
 
 	btRigidBody* Body = nullptr;
+	btCollisionObject* CollisionObject = nullptr;
 
 	void UpdateParentTransform();
 

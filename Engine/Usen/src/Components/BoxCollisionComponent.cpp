@@ -73,7 +73,7 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	Body = new btRigidBody(rbInfo);
 
 	if (IsDynamic())
-		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_DYNAMIC_OBJECT);
 	else
 		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
 
@@ -85,17 +85,17 @@ btCollisionObject* UBoxCollisionComponent::CreateCollisionObject()
 	if (!bCanCollider)
 		return nullptr;
 
-	btCollisionObject* collisionObject = new btCollisionObject();
+	CollisionObject = new btCollisionObject();
 
-	collisionObject->setWorldTransform(Transform);
-	collisionObject->setCollisionShape(Shape);
+	CollisionObject->setWorldTransform(Transform);
+	CollisionObject->setCollisionShape(Shape);
 
 	if (IsDynamic())
-		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+		CollisionObject->setCollisionFlags(CollisionObject->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
 	else
-		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
+		CollisionObject->setCollisionFlags(CollisionObject->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
 
-	return collisionObject;
+	return CollisionObject;
 }
 
 btBoxShape* UBoxCollisionComponent::CreateBoxShape(const FVector& boxBound)

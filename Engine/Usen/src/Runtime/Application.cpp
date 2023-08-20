@@ -60,14 +60,15 @@ void UApplication::Destroy()
 void UApplication::Draw(float deltaTime)
 {
 	Renderer->StartFrame();
+#if defined (APP_EDITOR_MODE)
+	DrawScreenQuad();
+#endif
 		OnDrawEvent.Broadcast(deltaTime);
 		PhysicsSystem->Update(deltaTime);
-
-#if defined (APP_EDITOR_MODE)
-		Renderer->DrawScreenQuad();
-#endif
-
 	Renderer->EndFrame();
+
+
+	
 }
 
 void UApplication::DrawScene(float deltaTime)

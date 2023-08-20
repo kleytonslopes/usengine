@@ -46,6 +46,11 @@ void AMesh::Initialize()
 {
 	Super::Initialize();
 
+	if (CollisionComponent)
+	{
+		CollisionComponent->SetLocation(GetLocation());
+	}
+
 	Model->Initialize();
 }
 

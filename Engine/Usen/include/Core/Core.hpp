@@ -73,6 +73,7 @@ namespace Content
 	const UCharPtr ModelPath{ "../../Content/Models/%s" };
 	const UCharPtr SceneFilePath{ "../../Content/Scene/%s.usscn" };
 	const UCharPtr ConfigsPath{ "../../Content/Configs/%s.ini" };
+	const UCharPtr FontPath{ "../../Content/Fonts/%s/%s.ttf" };
 }
 
 namespace TextureSlot

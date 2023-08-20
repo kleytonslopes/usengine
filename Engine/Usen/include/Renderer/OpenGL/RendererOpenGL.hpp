@@ -38,6 +38,7 @@ private:
 	uint32 screenVAO;
 	uint32 screenVBO;
 	uint32 screenFBO;
+	uint32 screenRBO;
 	uint32 screenTex;
 
 };

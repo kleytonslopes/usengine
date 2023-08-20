@@ -46,13 +46,18 @@ void UEditorUI::PostConstruct()
 	ImGui::StyleColorsDark();
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-	io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-	io.BackendFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	io.BackendFlags |= ImGuiConfigFlags_NavEnableGamepad;
+	//io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+	//io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+	//io.BackendFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	//io.BackendFlags |= ImGuiConfigFlags_NavEnableGamepad;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+	float fontSize = 18.0f;// *2.0f;
+	io.Fonts->AddFontFromFileTTF(FText::Format(Content::FontPath, "Kanit", "Kanit-Regular").c_str(), fontSize);
+	io.FontDefault = io.Fonts->AddFontFromFileTTF(FText::Format(Content::FontPath, "Kanit", "Kanit-SemiBold").c_str(), fontSize);
+	
 	//io.KeyMap[ImGuiKey_Tab] = SDL_KeyCode::SDLK_TAB;
 	//io.KeyMap[ImGuiKey_MouseLeft] = SDL_BUTTON_LEFT;
 	//io.KeyMap[ImGuiKey_MouseRight] = SDL_BUTTON_RIGHT;
@@ -66,11 +71,13 @@ void UEditorUI::PostConstruct()
 	}
 
 	ImGui_ImplSDL2_InitForOpenGL(GetWindow()->GetSDLWIndow(), GetWindow()->GetSDLContext());
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 void UEditorUI::Draw(float deltaTime)
 {
+	
+
 	int width = GetWindow()->GetWidth();
 	int height = GetWindow()->GetHeight();
 	ImGuiIO& io = ImGui::GetIO();
@@ -158,10 +165,21 @@ void UEditorUI::Draw(float deltaTime)
 			GetScene()->GetCamera()->SetViewSize((int)viewportSize.x, (int)viewportSize.y);
 			GetRenderer()->OnViewportResize((int)viewportSize.x, (int)viewportSize.y);
 		}
+
 		uint32 textureId = GetRenderer<URendererOpenGL>()->GetScreenTex();
-		ImGui::Image((void*)textureId, ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{0, 1}, ImVec2{ 1, 0 });
+
+			ImGui::GetWindowDrawList()->AddImage(
+				(void*)textureId, ImVec2(ImGui::GetCursorScreenPos()),
+				ImVec2(ImGui::GetCursorScreenPos().x + viewportSize.x, ImGui::GetCursorScreenPos().y + viewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+
 		ImGui::PopStyleVar();
 		ImGui::End();
+
+		//ImGui::Image((void*)textureId, ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{0, 1}, ImVec2{ 1, 0 });
+		/*
+		ImGui::PopStyleVar();
+		ImGui::End();
+		*/
 
 	}
 
@@ -284,18 +302,19 @@ void UEditorUI::Draw(float deltaTime)
 
 	//static bool show = false;
 	//ImGui::ShowDemoWindow(&show);
-
 	ImGui::Render();
 	glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
 
 
-	//OnDrawSceneEvent.Broadcast(deltaTime);
+	
 
 	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//OnDrawSceneEvent.Broadcast(deltaTime);
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	
 	//glEnable(GL_DEPTH_TEST);
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{

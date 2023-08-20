@@ -81,7 +81,8 @@ void UFrameBufferOpenGL::Invalidate()
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	/*if (RendererId)
+	/*
+	if (RendererId)
 	{
 		glDeleteFramebuffers(1, &RendererId);
 		glDeleteTextures(1, &DepthAttachment);
@@ -107,6 +108,7 @@ void UFrameBufferOpenGL::Invalidate()
 		FException::RuntimeError("Invalid Framebuffer!");
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);*/
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	*/
 
 }
