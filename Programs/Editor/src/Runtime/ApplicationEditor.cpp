@@ -50,5 +50,6 @@ void UApplicationEditor::Draw(float deltaTime)
 {
 	Super::Draw(deltaTime);
 	//DrawScene(deltaTime);
+	/*Renderer->DrawScreenQuad();*/
 	UIEditor->Draw(deltaTime);
 }

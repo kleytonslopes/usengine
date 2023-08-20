@@ -35,7 +35,6 @@ public:
 
 	UMeshComponent* GetMeshComponent();
 	URenderComponent* GetRenderComponent();
-	UCollisionComponent* GetCollisionComponent();
 
 	void SetMeshParameters(const FMeshParameters& parameters);
 	void SetIsDynamic(const bool& isDynamic);
@@ -52,8 +51,6 @@ protected:
 	TVector<uint32> Indices;
 	FVector BoundBox{ 1.f, 1.f, 1.f };
 	
-
-	//UCollisionComponent* CollisionComponent = nullptr;
 	URenderComponent* RenderComponent = nullptr;
 	UMeshComponent* MeshComponent = nullptr;
 

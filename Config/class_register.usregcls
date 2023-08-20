@@ -1447,5 +1447,51 @@
       "ClassGenDefinition": "hpp_UEditorUI_BClass",
       "ClassGenDefinitionVersion": "hpp_UEditorUI_BClass_def"
     }
+  },
+  {
+    "ClassName": "UFrameBuffer",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UFrameBuffer",
+      "ClassDefinition": "US_FRAME_BUFFER_HPP",
+      "HppFileName": "FrameBuffer.hpp",
+      "CppFileName": "FrameBuffer.cpp",
+      "GenFileName": "FrameBuffer-generated.hpp",
+      "FolderHpp": "include/Renderer",
+      "FolderCpp": "src/Renderer",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "BClass",
+      "BaseClassPathHpp": "Base/Class.hpp",
+      "BaseClassTemplate": " : public BClass",
+      "BaseClassInclude": "\n#include \"Base/Class.hpp\"",
+      "ClassGenDefinition": "hpp_UFrameBuffer_BClass",
+      "ClassGenDefinitionVersion": "hpp_UFrameBuffer_BClass_def"
+    }
+  },
+  {
+    "ClassName": "UFrameBufferOpenGL",
+    "Data": {
+      "CanInherit": true,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UFrameBufferOpenGL",
+      "ClassDefinition": "US_FRAME_BUFFER_OPEN_GL_HPP",
+      "HppFileName": "FrameBufferOpenGL.hpp",
+      "CppFileName": "FrameBufferOpenGL.cpp",
+      "GenFileName": "FrameBufferOpenGL-generated.hpp",
+      "FolderHpp": "include/Renderer/OpenGL",
+      "FolderCpp": "src/Renderer/OpenGL",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "UFrameBuffer",
+      "BaseClassPathHpp": "Renderer/FrameBuffer.hpp",
+      "BaseClassTemplate": " : public UFrameBuffer",
+      "BaseClassInclude": "\n#include \"Renderer/FrameBuffer.hpp\"",
+      "ClassGenDefinition": "hpp_UFrameBufferOpenGL_UFrameBuffer",
+      "ClassGenDefinitionVersion": "hpp_UFrameBufferOpenGL_UFrameBuffer_def"
+    }
   }
 ]

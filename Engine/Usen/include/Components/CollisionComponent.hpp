@@ -42,7 +42,7 @@ public:
 	virtual FVector GetComponentLocation();
 	virtual FVector GetComponentRotation();
 	
-	void SetLocation(FVector& location);
+	void SetLocation(FVector location);
 	void SetTransform(FTransform& transform);
 	
 	void SetCollisionGroup(ECollisionGroup collisionGroup);

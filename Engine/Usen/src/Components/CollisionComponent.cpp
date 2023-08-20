@@ -141,9 +141,10 @@ FVector UCollisionComponent::GetComponentRotation()
 	return FVector{ x, -y, z };
 }
 
-void UCollisionComponent::SetLocation(FVector& location)
+void UCollisionComponent::SetLocation(FVector location)
 {
-	if (Body)
+
+	/*if (Body)
 	{
 		Body->getMotionState()->getWorldTransform(Transform);
 
@@ -154,9 +155,19 @@ void UCollisionComponent::SetLocation(FVector& location)
 	else
 	{
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));
-	}
+
+	}*/
+
+	//if (Parent)
+	//{
+
+	//	AActor* aParent = Cast<AActor*>(Parent);
+	//	if (aParent)
+	//		aParent->SetLocation(FVector{ location.x, location.y, location.z });
+	//}
+
 	/*
-	
+
 	FTransform newTransform{};
 
 	newTransform.Location.x = location.x;

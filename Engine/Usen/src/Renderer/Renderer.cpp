@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Actors/Entity.hpp"
+#include "Renderer/FrameBuffer.hpp"
 
 DEFAULT_BODY(BRenderer)
 

@@ -72,7 +72,7 @@ protected:
 
 	virtual void Draw(float deltaTime);
 	virtual void DrawScene(float deltaTime);
-
+	void DrawScreenQuad();
 private:
 	float DeltaTime = 0.f;
 	void Loop();

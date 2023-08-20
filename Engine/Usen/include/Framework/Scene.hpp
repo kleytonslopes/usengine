@@ -21,6 +21,7 @@ class ACamera;
 class APawn;
 class FSceneSerializer;
 class UGameModeBase;
+class UStaticMesh;
 
 struct FShaderParameters;
 
@@ -34,6 +35,7 @@ class UScene : public BClass
 {
 	DEFAULT_BODY_GENERATED()
 public:
+	UStaticMesh* Floor = nullptr;
 	void Destroy() final;
 
 	void Construct() override;
@@ -51,6 +53,8 @@ public:
 	ACamera* GetCamera();
 
 	UGameModeBase* GetGameMode();
+
+	void SaveScene();
 private:
 	TClassOf<UGameModeBase> GameModeClass;
 	FSceneSettings Settings{};
@@ -61,7 +65,7 @@ private:
 
 	TMap<FString, AEntity*> entities;
 
-	void SaveScene();
+	
 	bool LoadScene(const FString& sceneName);
 
 	void CreateDefaultCamera();

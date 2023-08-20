@@ -9,6 +9,7 @@
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
+#include "Renderer/OpenGL/FrameBufferOpenGL.hpp"
 
 #include "Framework/GameInstance.hpp"
 #include "Framework/Scene.hpp"
@@ -20,9 +21,38 @@
 
 DEFAULT_BODY(URendererOpenGL)
 
+void URendererOpenGL::Construct()
+{
+	Super::Construct();
+
+	//FrameBuffer = FConstructorHelper::CreateObject<UFrameBufferOpenGL>();
+}
+
+void URendererOpenGL::PostConstruct()
+{
+	Super::PostConstruct();
+
+	//FFrameBufferSettings FrameBufferSettings{};
+	//FrameBufferSettings.Width = GetWindow()->GetWidth();
+	//FrameBufferSettings.Height = GetWindow()->GetHeight();
+	//
+	//FrameBuffer->SetFrameBufferSettings(FrameBufferSettings);
+
+
+}
+
+void URendererOpenGL::Destroy()
+{
+	Super::Destroy();
+	glDeleteVertexArrays(1, &screenVAO);
+	glDeleteBuffers(1, &screenVBO);
+	glDeleteFramebuffers(1, &screenFBO);
+}
+
 void URendererOpenGL::Initialize()
 {
 	GetWindow()->OnWindowResizedEvent.Add(this, &This::OnWindowResize);
+
 	glViewport(0, 0, GetWindow()->GetWidth(), GetWindow()->GetHeight());
 
 	glEnable(GL_MULTISAMPLE);
@@ -41,6 +71,43 @@ void URendererOpenGL::Initialize()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
+	/* Screen Quad */
+	float screenVertices[] = {
+		// vertices   // uv
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f,  1.0f, 1.0f
+	};
+
+	glGenVertexArrays(1, &screenVAO);
+	glGenBuffers(1, &screenVBO);
+	glBindVertexArray(screenVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, screenVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(screenVertices), &screenVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+	// framebuffer configuration
+	glGenFramebuffers(1, &screenFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
+	// create a color attachment texture
+	
+	glGenTextures(1, &screenTex);
+	glBindTexture(GL_TEXTURE_2D, screenTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, GetWindow()->GetWidth(), GetWindow()->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenTex, 0);
+	/* Screen Quad */
+
+	//FrameBuffer->Initialize();
+
 	Super::Initialize();
 }
 
@@ -55,16 +122,13 @@ void URendererOpenGL::StartFrame()
 	float fov = Camera->GetFieldOfView();
 	float near = Camera->GetNear();
 	float far = Camera->GetFar();
+	float aspect = Camera->GetAspectRatio();
 
 	UWindow* window = GetWindow();
-	FMatrix4 projection = glm::perspective(glm::radians(fov), (float)window->GetWidth() / (float)window->GetHeight(), near, far);
+	FMatrix4 projection = glm::perspective(glm::radians(fov), aspect, near, far);
 	FMatrix4 view = Camera->GetView();
-	//
+
 	FMatrix4 modelMatrix = FMatrix4{ 1.f };//veresse
-	//FVector location {0.0f, 0.0f, 10.0f};
-	//FVector scale {1.0f, 1.0f, 1.0f};
-	//modelMatrix = glm::translate(modelMatrix, location);
-	//modelMatrix = glm::scale(modelMatrix, scale);
 
 	TMap<FString, BShader*>::iterator shdIterator;
 
@@ -80,11 +144,10 @@ void URendererOpenGL::StartFrame()
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilMask(0xFF);
 
-	//FVector fromVec2 = FVector{ 0.f };
-	//FVector toVec2 = FVector{ 7.f,0.f,10.f };
-	//DebugDrawLine(fromVec2, toVec2);
-
-	//DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, FVector{ 0.f, 0.f, 10.f });
+	glBindFramebuffer(GL_FRAMEBUFFER, screenVBO);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void URendererOpenGL::EndFrame()
@@ -94,6 +157,50 @@ void URendererOpenGL::EndFrame()
 
 void URendererOpenGL::OnWindowResize(uint32 width, uint32 height)
 {
+	glViewport(0, 0, width, height);
+}
+
+void URendererOpenGL::OnViewportResize(uint32 width, uint32 height)
+{
+	glDeleteVertexArrays(1, &screenVAO);
+	glDeleteBuffers(1, &screenVBO);
+	glDeleteFramebuffers(1, &screenFBO);
+
+	/* Screen Quad */
+	float screenVertices[] = {
+		// vertices   // uv
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f,  1.0f, 1.0f
+	};
+
+	glGenVertexArrays(1, &screenVAO);
+	glGenBuffers(1, &screenVBO);
+	glBindVertexArray(screenVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, screenVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(screenVertices), &screenVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+	// framebuffer configuration
+	glGenFramebuffers(1, &screenFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
+	// create a color attachment texture
+
+	glGenTextures(1, &screenTex);
+	glBindTexture(GL_TEXTURE_2D, screenTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, GetWindow()->GetWidth(), GetWindow()->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenTex, 0);
+	/* Screen Quad */
+
 	glViewport(0, 0, width, height);
 }
 
@@ -162,4 +269,17 @@ void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
 	glDeleteBuffers(1, &CVBO);
 	glDeleteVertexArrays(1, &VAO);
 	Shaders["debug"]->Deactive();
+}
+
+void URendererOpenGL::DrawScreenQuad()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+	glDisable(GL_DEPTH_TEST);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	Shaders["screen"]->Active();
+	//glBindVertexArray(screenVAO);
+	//glBindTexture(GL_TEXTURE_2D, screenTex);
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
 }

@@ -22,6 +22,7 @@
 class BShader;
 class AEntity;
 class UShaderOpenGL;
+class UFrameBuffer;
 
 class BRenderer : public BClass
 {
@@ -30,10 +31,14 @@ public:
 	void Destroy() override;
 
 	void Draw(AEntity* entity, float deltaTime);
+
 	virtual void StartFrame() { /* override */ };
 	virtual void EndFrame() { /* override */ };
 	virtual void OnWindowResize(uint32 width, uint32 height) { /* override */ };
+	virtual void OnViewportResize(uint32 width, uint32 height) { /* override */ };
 	virtual void DebugDrawLine(const FVector& from, const FVector& to) { /* override */ }
+	virtual void DrawScreenQuad() { /* override */ }
+	
 
 
 	template<typename T>
@@ -51,6 +56,8 @@ public:
 
 protected:
 	TMap<FString, BShader*> Shaders;
+
+	//U FrameBuffer* FrameBuffer = nullptr;
 };
 
 #endif // !US_RENDERER_HPP

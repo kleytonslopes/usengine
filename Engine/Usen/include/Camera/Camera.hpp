@@ -26,12 +26,17 @@ public:
 	FMatrix4 GetView();
 
 	void SetRotation(FVector& vector) override;
+	void SetViewSize(int width, int height);
+	void SetFieldOfView(float fov);
 	
 	float GetFieldOfView() const;
 	float GetNear() const;
 	float GetFar() const;
+	float GetAspectRatio();
 private:
 	UCameraComponent* CameraComponent = nullptr;
+
+	FVector2 ViewSize;
 };
 
 #endif // !US_CAMERA_HPP

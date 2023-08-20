@@ -37,6 +37,11 @@ void UCameraComponent::SetRoll(float value)
 	UpdateView();
 }
 
+void UCameraComponent::SetFieldOfView(float fov)
+{
+	Fov = fov;
+}
+
 void UCameraComponent::Serialize(SeriFile& otherOut)
 {
 	BeginComponentSection(otherOut, Identity);

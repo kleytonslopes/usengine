@@ -35,6 +35,9 @@ public:
 	void OnMouseWheelEvent(uint32 xOffset, uint32 yOffset);
 	void OnMouseMovementEvent(uint32 xPos, uint32 yPos, uint32 xPosRel, uint32 yPosRel);
 	void OnPollEventsEvent(SDL_Event* sEvent);
+
+private:
+	FVector2 viewportSize;
 };
 
 #endif // !US_EDITOR_UI_HPP

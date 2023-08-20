@@ -26,6 +26,7 @@ public:
 	void SetYaw(float value);
 	void SetPitch(float value);
 	void SetRoll(float value);
+	void SetFieldOfView(float fov);
 
 	float GetFieldOfView() const { return Fov; }
 	float GetNear() const { return Near; };

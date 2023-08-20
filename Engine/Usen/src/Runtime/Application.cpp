@@ -59,12 +59,20 @@ void UApplication::Destroy()
 
 void UApplication::Draw(float deltaTime)
 {
-	
+	Renderer->StartFrame();
+		OnDrawEvent.Broadcast(deltaTime);
+		Renderer->DrawScreenQuad();
+	Renderer->EndFrame();
 }
 
 void UApplication::DrawScene(float deltaTime)
 {
 	OnDrawEvent.Broadcast(deltaTime);
+}
+
+void UApplication::DrawScreenQuad()
+{
+	Renderer->DrawScreenQuad();
 }
 
 void UApplication::Loop()
@@ -87,13 +95,10 @@ void UApplication::Loop()
 
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
-
-
 		OnUpdateEvent.Broadcast(deltaTime);
-		Renderer->StartFrame();
-			Draw(deltaTime);
-			PhysicsSystem->Update(deltaTime);
-		Renderer->EndFrame();
+		PhysicsSystem->Update(deltaTime);
+
+		Draw(deltaTime);
 
 		ThreadTickEvent->join();
 

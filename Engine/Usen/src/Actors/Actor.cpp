@@ -158,7 +158,7 @@ void AActor::SetLocation(FVector& vector)
 {
 	if (CollisionComponent)
 	{
-		CollisionComponent->SetLocation(vector);
+		//CollisionComponent->SetLocation(vector);
 		TransformComponent->SetLocation(vector);
 	}
 	else
@@ -211,6 +211,17 @@ void AActor::SetLocation(FVector& vector)
 }
 void AActor::SetRotation(FVector& vector)
 {
+	//if (CollisionComponent)//veresse
+	//{
+	//	TransformComponent->SetRotation(vector);
+	//}
+	//else
+	//{
+	TransformComponent->SetRotation(vector);
+
+	//}
+
+
 	//TransformComponent->SetRotation(vector);
 
 	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
@@ -231,6 +242,7 @@ void AActor::SetRotation(FVector& vector)
 }
 void AActor::SetScale(FVector& vector)
 {
+	TransformComponent->SetScale(vector);
 	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	//{
 	//	TransformComponent->SetScale(vector);
@@ -249,10 +261,10 @@ void AActor::SetScale(FVector& vector)
 }
 void AActor::SetTransform(FTransform& transform)
 {
-	if (CollisionComponent)
-	{
-		CollisionComponent->SetLocation(transform.Location);
-	}
+	//if (CollisionComponent)
+	//{
+	//	CollisionComponent->SetLocation(transform.Location);
+	//}
 	TransformComponent->SetLocation(transform.Location);
 	//if (CollisionComponent)
 	//{
@@ -293,11 +305,10 @@ void AActor::SetForwardVector(FVector& vector)
 
 FVector AActor::GetLocation()
 {
-	if (CollisionComponent)
-	{
-		return CollisionComponent->GetComponentLocation();
-
-	}
+	//if (CollisionComponent)
+	//{
+	//	return CollisionComponent->GetComponentLocation();
+	//}
 	return TransformComponent->GetLocation();
 }
 FVector AActor::GetRotation()
@@ -359,7 +370,10 @@ void AActor::Serialize(SeriFile& otherOut)
 	TMap<FString, AComponent*>::iterator it;
 	for (it = components.begin(); it != components.end(); it++)
 	{
-		it->second->Serialize(otherOut);
+		if (it->second)
+			it->second->Serialize(otherOut);
+		else
+			ULOG_Error(FText::Format("Failed to Save %s of %s", it->first.c_str(), Identity.c_str()));
 	}
 
 	EndSection(otherOut);
