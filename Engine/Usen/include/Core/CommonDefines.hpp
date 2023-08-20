@@ -14,8 +14,6 @@
 
 #include "Core/MinimalCore.hpp"
 
-#define APP_EDITOR_MODE
-
 enum class ECollisionGroup : int32
 {
 	/// <summary>

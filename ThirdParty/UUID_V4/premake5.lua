@@ -14,6 +14,15 @@ project "UUID"
         runtime "Debug"
         symbols "on"
 
+        
+    filter "configurations:EditorDebug"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:GameDebug"
+        runtime "Debug"
+        symbols "on"
+
     filter "configurations:Release"
         runtime "Release"
         optimize "on"

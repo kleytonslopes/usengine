@@ -38,7 +38,9 @@ void UPhysicsSystem::Update(float deltaTime)
 	if (DiscreteDynamicsWorld)
 	{
 		DiscreteDynamicsWorld->stepSimulation(deltaTime);
+#if defined (APP_EDITOR_MODE)
 		DiscreteDynamicsWorld->debugDrawWorld();
+#endif
 	}
 }
 
@@ -150,7 +152,9 @@ void UPhysicsSystem::CreateEmptyDynamicsWorld()
 	ConstraintSolver = sol;
 
 	DiscreteDynamicsWorld = new btDiscreteDynamicsWorld(CollisionDispatcher, BroadphaseInterface, ConstraintSolver, DefaultCollisionConfiguration);
+#if defined (APP_EDITOR_MODE)
 	DiscreteDynamicsWorld->setDebugDrawer(PhysicsDebug);
 	DiscreteDynamicsWorld->getDebugDrawer()->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+#endif
 	DiscreteDynamicsWorld->setGravity(gravity);
 }

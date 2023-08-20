@@ -21,7 +21,7 @@ workspace "UsEngine"
     architecture "x64"
     startproject "Editor"
 
-    configurations{ "Debug", "Release" }
+    configurations{ "Debug", "EditorDebug", "GameDebug", "Release" }
 
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 

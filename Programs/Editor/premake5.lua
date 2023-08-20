@@ -88,7 +88,35 @@ project "Editor"
             }
             buildoptions "/MDd"
             symbols "on"
-        
+
+        filter "configurations:EditorDebug"
+            defines 
+            {
+                "DEBUG",
+                "LOG_WARNING",
+                "LOG_INFORMATION",
+                "LOG_DEBUG",
+                "LOG_TRACE",
+                "LOG_DEFAULT",
+                "APP_EDITOR_MODE"
+            }
+            buildoptions "/MDd"
+            symbols "on"
+
+        filter "configurations:GameDebug"
+            defines 
+            {
+                "DEBUG",
+                "LOG_WARNING",
+                "LOG_INFORMATION",
+                "LOG_DEBUG",
+                "LOG_TRACE",
+                "LOG_DEFAULT",
+                "APP_GAME_MODE"
+            }
+            buildoptions "/MDd"
+            symbols "on"
+
         filter "configurations:Release"
             defines 
             {
