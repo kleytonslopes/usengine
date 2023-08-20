@@ -21,7 +21,7 @@ DEFAULT_BODY(AMesh)
 
 void AMesh::Construct()
 {
-	SetBoundBox(FVector{ 10.f, 10.f, 10.f });//parametrize
+	SetBoundBox(FVector{ 1.f, 1.f, 1.f });
 
 	Super::Construct();
 
@@ -128,6 +128,11 @@ void AMesh::SetBoundBox(const FVector& boundBox)
 	BoundBox.x = boundBox.x;
 	BoundBox.y = boundBox.y;
 	BoundBox.z = boundBox.z;
+
+	if (CollisionComponent)
+	{
+		CollisionComponent->SetBoundBox(boundBox);
+	}
 }
 
 void AMesh::Draw(float deltaTime)

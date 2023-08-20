@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: StaticMesh.cpp
+ *   File: TestGameInstance.cpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -8,18 +8,16 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
 #include "upch.hpp"
-#include "Mesh/StaticMesh.hpp"
-#include "Components/CollisionComponent.hpp"
+#include "Framework/TestGameInstance.hpp"
 
-DEFAULT_BODY(UStaticMesh)
+DEFAULT_BODY(UTestGameInstance)
 
-void UStaticMesh::Construct()
+void UTestGameInstance::Construct()
 {
-	SetBoundBox(FVector{ 2.f, 2.f, 2.f });//parametrize
-
 	Super::Construct();
+}
 
-	CollisionComponent->SetIsDynamic(false);
-	
-	
+void UTestGameInstance::PostConstruct()
+{
+	Super::PostConstruct();
 }

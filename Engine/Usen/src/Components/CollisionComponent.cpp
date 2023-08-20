@@ -55,7 +55,7 @@ void UCollisionComponent::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	UpdateParentTransform();
+	//UpdateParentTransform();
 }
 
 void UCollisionComponent::SetIsDynamic(const bool& isDynamic)
@@ -144,7 +144,7 @@ FVector UCollisionComponent::GetComponentRotation()
 void UCollisionComponent::SetLocation(FVector location)
 {
 
-	/*if (Body)
+	if (Body)
 	{
 		Body->getMotionState()->getWorldTransform(Transform);
 
@@ -156,7 +156,8 @@ void UCollisionComponent::SetLocation(FVector location)
 	{
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));
 
-	}*/
+	}
+		//Transform.setOrigin(btVector3(location.x, location.y, location.z));
 
 	//if (Parent)
 	//{

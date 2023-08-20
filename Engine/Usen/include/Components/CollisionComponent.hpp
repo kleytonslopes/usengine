@@ -26,6 +26,7 @@ public:
 	FOnTransformUpdatedSignature OnTransformUpdatedEvent;
 
 	virtual void CalculeLocalInertia() { /* override */ };
+	virtual void SetBoundBox(const FVector& boundBox) { /* override */ }
 	virtual btRigidBody* CreateRigidBody() { return nullptr; }
 	virtual btCollisionObject* CreateCollisionObject() { return nullptr; }
 	
@@ -44,6 +45,7 @@ public:
 	
 	void SetLocation(FVector location);
 	void SetTransform(FTransform& transform);
+	
 	
 	void SetCollisionGroup(ECollisionGroup collisionGroup);
 	void SetCollisionMask(ECollisionMask collisionMask);

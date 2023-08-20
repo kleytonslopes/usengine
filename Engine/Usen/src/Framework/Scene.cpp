@@ -102,8 +102,10 @@ void UScene::Initialize()
 	{
 		Renderer->CreateShader<UShaderOpenGL>(shader);
 	}
-	Camera->SetLocation(FVector{ 0.f, 23.0f, 10.f });
-	Camera->SetRotation(FVector{ -64.f, 0.f, 0.f });
+	//Camera->SetLocation(FVector{ 0.f, 23.0f, 10.f });
+	//Camera->SetRotation(FVector{ -64.f, 0.f, 0.f });
+	Camera->SetLocation(FVector{ 0.f, -20.0f, 20.f });
+	Camera->SetRotation(FVector{ 45.f, 0.f, 0.f });
 
 	/* */
 
@@ -128,10 +130,10 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			FTransform trasform;
-			trasform.Location = { 0.f,-5.f,0.f };
+			trasform.Location = { 0.f,-1.f,0.f };
 			trasform.Rotation = { 0.f,0.f,0.f };
 			Floor = CreateEntity<UStaticMesh>();
-			Floor->SetBoundBox(FVector{ 0.f, -0.1f, 0.0f });
+			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.1f });
 			Floor->SetCollisionGroup(ECG_None);
 			Floor->SetCollisionMask(ECM_None);
 			Floor->SetLocation(trasform.Location);
@@ -173,21 +175,21 @@ void UScene::Initialize()
 		//	//pawnMesh->Initialize();
 		//}
 
-		//{ // Box
+		{ // Box
 
-		//	FTransform transformBox;
-		//	transformBox.Location = { 0.f,0.f,10.f };
-		//	transformBox.Origin   = { 0.f,0.f,0.f };
-		//	transformBox.Rotation = { 0.f,0.f,0.f };
-		//	FMeshParameters boxMeshParameters{};
-		//	boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-		//	AMesh* boxMesh = CreateEntity<AMesh>();
-		//	boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
-		//	boxMesh->SetMeshParameters(boxMeshParameters);
-		//	boxMesh->SetIsDynamic(true);
-		//	boxMesh->SetLocation(transformBox.Location);
-		//	boxMesh->Initialize();
-		//}
+			FTransform transformBox;
+			transformBox.Location = { 0.f,0.f,0.f };
+			transformBox.Origin   = { 0.f,0.f,0.f };
+			transformBox.Rotation = { 0.f,0.f,0.f };
+			FMeshParameters boxMeshParameters{};
+			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			AMesh* boxMesh = CreateEntity<AMesh>();
+			boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			boxMesh->SetMeshParameters(boxMeshParameters);
+			boxMesh->SetIsDynamic(true);
+			boxMesh->SetLocation(transformBox.Location);
+			boxMesh->Initialize();
+		}
 
 		//{ // wall
 
@@ -224,6 +226,15 @@ void UScene::DrawScene(float deltaTime)
 	{
 		it->second->Draw(deltaTime);
 	}
+
+	/*
+	TMap<FString, AEntity*>::reverse_iterator it;
+
+	for (it = entities.rbegin(); it != entities.rend(); it++)
+	{
+		it->second->Draw(deltaTime);
+	}
+	*/
 }
 
 ACamera* UScene::GetCamera()

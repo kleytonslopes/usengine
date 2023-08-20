@@ -71,6 +71,8 @@ void URendererOpenGL::Initialize()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
+#if defined (APP_EDITOR_MODE)
+	/* Editor */
 	/* Screen Quad */
 	float screenVertices[] = {
 		// vertices   // uv
@@ -105,16 +107,24 @@ void URendererOpenGL::Initialize()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenTex, 0);
 	/* Screen Quad */
-
-	//FrameBuffer->Initialize();
+	/* Editor */
+#endif
 
 	Super::Initialize();
 }
 
 void URendererOpenGL::StartFrame()
 {
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+#if defined (APP_EDITOR_MODE)
+	glBindFramebuffer(GL_FRAMEBUFFER, screenVBO);
+#endif
+
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+	/*glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);*/
 	
 	ACamera* Camera = GetScene()->GetCamera();
 	FVector cameraPos = Camera->GetLocation();
@@ -144,10 +154,7 @@ void URendererOpenGL::StartFrame()
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilMask(0xFF);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, screenVBO);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 }
 
 void URendererOpenGL::EndFrame()
@@ -273,13 +280,13 @@ void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
 
 void URendererOpenGL::DrawScreenQuad()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDisable(GL_DEPTH_TEST);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	Shaders["screen"]->Active();
-	//glBindVertexArray(screenVAO);
-	//glBindTexture(GL_TEXTURE_2D, screenTex);
-	//glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(screenVAO);
+	glBindTexture(GL_TEXTURE_2D, screenTex);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }

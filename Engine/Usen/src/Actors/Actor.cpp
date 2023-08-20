@@ -158,7 +158,8 @@ void AActor::SetLocation(FVector& vector)
 {
 	if (CollisionComponent)
 	{
-		//CollisionComponent->SetLocation(vector);
+		CollisionComponent->SetLocation(vector);
+
 		TransformComponent->SetLocation(vector);
 	}
 	else

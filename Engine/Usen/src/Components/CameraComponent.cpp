@@ -63,6 +63,7 @@ void UCameraComponent::UpdateView()
 {
 	float yallRadians = glm::radians(Yaw);
 	float pitchRadians = glm::radians(Pitch);
+	float rollRadians = glm::radians(Roll);
 
 	FVector targetView;
 

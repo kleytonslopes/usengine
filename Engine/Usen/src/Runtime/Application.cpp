@@ -61,7 +61,12 @@ void UApplication::Draw(float deltaTime)
 {
 	Renderer->StartFrame();
 		OnDrawEvent.Broadcast(deltaTime);
+		PhysicsSystem->Update(deltaTime);
+
+#if defined (APP_EDITOR_MODE)
 		Renderer->DrawScreenQuad();
+#endif
+
 	Renderer->EndFrame();
 }
 
@@ -96,7 +101,7 @@ void UApplication::Loop()
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
 		OnUpdateEvent.Broadcast(deltaTime);
-		PhysicsSystem->Update(deltaTime);
+		/*PhysicsSystem->Update(deltaTime);*/
 
 		Draw(deltaTime);
 

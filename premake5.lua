@@ -42,6 +42,7 @@ group ""
 
 group "Programs"
    include "Programs/Editor"
+   include "Programs/GameTest"
 group ""
 
 group "Generated"

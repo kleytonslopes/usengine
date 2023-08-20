@@ -27,10 +27,10 @@ void UBoxCollisionComponent::Construct()
 			Shape = CreateBoxShape(boundBox);// new btBoxShape(btVector3{ boundBox.x, boundBox.y, boundBox.z });
 		}
 		else
-			Shape = CreateBoxShape(FVector{1.f, 1.f, 1.f});// new btBoxShape(btVector3{ 1, 1, 1 });
+			Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });// new btBoxShape(btVector3{ 1, 1, 1 });
 	}
 	else
-		Shape = CreateBoxShape(FVector{1.f, 1.f, 1.f});//new btBoxShape(btVector3{ 1, 1, 1 });
+		Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });//new btBoxShape(btVector3{ 1, 1, 1 });
 
 
 	/*GetPhysicsSystem()->RegisterComponent(this);*/
@@ -50,8 +50,17 @@ void UBoxCollisionComponent::Destroy()
 
 void UBoxCollisionComponent::CalculeLocalInertia()
 {
-	if(Shape)
+	if (Shape)
 		Shape->calculateLocalInertia(Mass, LocalInertia);
+}
+
+void UBoxCollisionComponent::SetBoundBox(const FVector& boundBox)
+{
+	if (Shape)
+	{
+		Shape->setImplicitShapeDimensions(btVector3{ boundBox.x, boundBox.y, boundBox.z});
+		
+	}
 }
 
 btRigidBody* UBoxCollisionComponent::CreateRigidBody()
@@ -62,11 +71,11 @@ btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(Transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(Mass, myMotionState, Shape, LocalInertia);
 	Body = new btRigidBody(rbInfo);
-	
+
 	if (IsDynamic())
 		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
 	else
-		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
+		Body->setCollisionFlags(Body->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
 
 	return Body;
 }
@@ -81,7 +90,7 @@ btCollisionObject* UBoxCollisionComponent::CreateCollisionObject()
 	collisionObject->setWorldTransform(Transform);
 	collisionObject->setCollisionShape(Shape);
 
-	if(IsDynamic())
+	if (IsDynamic())
 		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_CHARACTER_OBJECT);
 	else
 		collisionObject->setCollisionFlags(collisionObject->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);

@@ -21,6 +21,7 @@
 DEFAULT_BODY(UEditorUI)
 
 static float zero{ 0.f };
+static float minBoundBox{ 0.1f };
 static float maxFov{ 150.f };
 static float min{ -999999.f };
 static float max{ 999999.f };
@@ -158,7 +159,7 @@ void UEditorUI::Draw(float deltaTime)
 			GetRenderer()->OnViewportResize((int)viewportSize.x, (int)viewportSize.y);
 		}
 		uint32 textureId = GetRenderer<URendererOpenGL>()->GetScreenTex();
-		ImGui::Image((void*)textureId, ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{1, 0}, ImVec2{ 0, 1 });
+		ImGui::Image((void*)textureId, ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{0, 1}, ImVec2{ 1, 0 });
 		ImGui::PopStyleVar();
 		ImGui::End();
 
@@ -195,7 +196,7 @@ void UEditorUI::Draw(float deltaTime)
 			}
 		}
 		{
-			if (ImGui::TreeNode("m00003", "Settings"))
+			if (ImGui::TreeNode("m00004", "Settings"))
 			{
 				FVector& rotation = GetScene()->GetCamera()->GetRotation();
 				ACamera* camera = GetScene()->GetCamera();
@@ -250,6 +251,17 @@ void UEditorUI::Draw(float deltaTime)
 				Floor->SetScale(scale);
 				ImGui::TreePop();
 			}
+			if (ImGui::TreeNode("m00007", "Bounds"))
+			{
+				FVector scale = Floor->GetBoundBox();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("X", ImGuiDataType_Float, &scale.x, 0.05f, &minBoundBox, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Y", ImGuiDataType_Float, &scale.y, 0.05f, &minBoundBox, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Z", ImGuiDataType_Float, &scale.z, 0.05f, &minBoundBox, &max, "%f");
+				ImGui::PopItemWidth();
+				Floor->SetBoundBox(scale);
+				ImGui::TreePop();
+			}
 		}
 		{
 			//if (ImGui::TreeNode("m00003", "Settings"))
@@ -281,9 +293,10 @@ void UEditorUI::Draw(float deltaTime)
 
 	//OnDrawSceneEvent.Broadcast(deltaTime);
 
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//glEnable(GL_DEPTH_TEST);
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
