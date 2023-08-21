@@ -20,6 +20,8 @@
 class UAttachment;
 class UCollisionComponent;
 
+DECLARE_FUNCTION_OneParam(FOnLocationChangedSignature, FVector, newLocation);
+
 class AActor : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
@@ -27,6 +29,8 @@ class AActor : public AEntity
 	using ComponentsMap = TMap<FString, AComponent*>;
 
 public:
+	FOnLocationChangedSignature OnLocationChangedEvent;
+
 	void Destroy() override;
 	void Construct() override;
 	void Initialize() override;
@@ -82,8 +86,6 @@ protected:
 		
 		component->SetOwner(Owner);
 		component->SetParent(this);
-		//component->Construct();
-		//component->PostConstruct();
 
 		components[typeid(T).name()] = component;
 
@@ -97,9 +99,7 @@ protected:
 		
 		component->SetOwner(Owner);
 		component->SetParent(this);
-		//component->Construct();
-		//component->PostConstruct();
-		
+
 		components[typeid(T).name()] = component;
 		return component;
 	}
@@ -113,7 +113,25 @@ protected:
 		return nullptr;
 	}
 
+	template<typename T>
+	bool RemoveComponent()
+	{
+		if (components.size() <= 0)
+			return false;
+
+		auto& comp = components[typeid(T).name()];
+		if (comp) 
+		{
+			components.erase(typeid(T).name());
+			return true;
+		}
+
+		return false;
+	}
+
 	void Draw(float deltaTime) override;
+
+	void SetLocationFromParent(FVector newLocation);
 private:
 	
 

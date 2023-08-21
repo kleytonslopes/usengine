@@ -125,7 +125,6 @@ void UPhysicsSystem::RegisterComponent(UBoxCollisionComponent* collisionComponen
 		//DiscreteDynamicsWorld->addCollisionObject(collisionObject, (int32)collisionComponent->GetCollisionGroup(), (int32)collisionComponent->GetCollisionMask());
 		DiscreteDynamicsWorld->addCollisionObject(collisionObject, 2, 3);
 	}
-	/*CollisionShapes.push_back(collisionComponent->Shape);*/
 
 
 }
@@ -136,10 +135,24 @@ void UPhysicsSystem::RegisterComponent(UCapsuleComponent* collisionComponent)
 		return;
 
 	CollisionShapes.push_back(collisionComponent->Shape);
+	
+	if (collisionComponent->bIsDynamic)
+	{
+		collisionComponent->CalculeLocalInertia();
+		btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
+		//DiscreteDynamicsWorld->addRigidBody(rigidBody, (int32)collisionComponent->GetCollisionGroup(), (int32)collisionComponent->GetCollisionMask());
+		DiscreteDynamicsWorld->addRigidBody(rigidBody, 2, 3);
+	}
+	else
+	{
+		btCollisionObject* collisionObject = collisionComponent->CreateCollisionObject();
+		//DiscreteDynamicsWorld->addCollisionObject(collisionObject, (int32)collisionComponent->GetCollisionGroup(), (int32)collisionComponent->GetCollisionMask());
+		DiscreteDynamicsWorld->addCollisionObject(collisionObject, 2, 3);
+	}
 
-	collisionComponent->CalculeLocalInertia();
-	btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
-	DiscreteDynamicsWorld->addRigidBody(rigidBody, 2, 3);
+	//collisionComponent->CalculeLocalInertia();
+	//btRigidBody* rigidBody = collisionComponent->CreateRigidBody();
+	//DiscreteDynamicsWorld->addRigidBody(rigidBody, 2, 3);
 }
 
 void UPhysicsSystem::CreateEmptyDynamicsWorld()

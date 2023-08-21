@@ -90,11 +90,6 @@ URenderComponent* AMesh::GetRenderComponent()
 	return RenderComponent;
 }
 
-//UCollisionComponent* AMesh::GetCollisionComponent()
-//{
-//	return CollisionComponent;
-//}
-
 void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 {
 	MeshComponent->SetMeshParameters(parameters);
@@ -114,6 +109,19 @@ void AMesh::SetIsDynamic(const bool& isDynamic)
 void AMesh::SetCanCollider(const bool& canCollider)
 {
 	CollisionComponent->SetCanCollider(canCollider);
+}
+
+void AMesh::RemoveCollisionComponent()
+{
+	if (CollisionComponent)
+	{
+		bool hasRemoved = RemoveComponent<UBoxCollisionComponent>();
+		if (hasRemoved)
+		{
+			delete CollisionComponent;
+			CollisionComponent = nullptr;
+		}
+	}
 }
 
 void AMesh::SetCollisionGroup(ECollisionGroup collisionGroup)

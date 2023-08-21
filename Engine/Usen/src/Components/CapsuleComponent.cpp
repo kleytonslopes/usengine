@@ -18,8 +18,9 @@ void UCapsuleComponent::Construct()
 {
 	Super::Construct();
 
-	CollisionObjectType = ECO_Static;
-
+	CollisionObjectType = ECO_Character;
+	bIsDynamic = true;
+	bCanUpdate = true;
 	if (Parent)
 	{
 		AMesh* meshParent = Cast<AMesh*>(Parent);
@@ -51,6 +52,24 @@ void UCapsuleComponent::Destroy()
 	Super::Destroy();
 }
 
+void UCapsuleComponent::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+	if (Body)
+	{
+		//Body->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+		//btTransform transform = Body->getWorldTransform();
+		//btQuaternion quat = transform.getRotation();
+		//quat.setZ(90.f);
+		//quat.setY(90.f);
+
+
+		//transform.setRotation(quat);
+		//Body->setWorldTransform(transform);
+	}
+}
+
 void UCapsuleComponent::CalculeLocalInertia()
 {
 	if(Shape)
@@ -68,6 +87,7 @@ btRigidBody* UCapsuleComponent::CreateRigidBody()
 	Body = new btRigidBody(rbInfo);
 	Body->setCollisionFlags(Body->getCollisionFlags() | CollisionObjectType);// btCollisionObject::CF_KINEMATIC_OBJECT);
 	Body->setActivationState(DISABLE_DEACTIVATION);
+	Body->setAngularFactor(btVector3(0.0f, 0.0f, 0.0f));
 
 	btTransform transform;
 	Body->getMotionState()->getWorldTransform(transform);

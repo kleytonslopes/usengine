@@ -24,7 +24,7 @@ public:
 	void PostConstruct() override;
 	void Initialize() override;
 	void Destroy() override;
-
+	void Update(float deltaTime) override;
 	void CalculeLocalInertia() override;
 
 	btRigidBody* CreateRigidBody() override;

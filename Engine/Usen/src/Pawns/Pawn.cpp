@@ -22,6 +22,8 @@ void APawn::Construct()
 {
 	Super::Construct();
 
+	bCanUpdate = true;
+
 	CameraComponent = AddComponent<UCameraComponent>();
 	InputComponent = AddComponent<UInputComponent>();
 	CapsuleComponent = AddComponent<UCapsuleComponent>();
@@ -33,6 +35,18 @@ void APawn::Construct()
 void APawn::PostConstruct()
 {
 	Super::PostConstruct();
+}
+
+void APawn::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
+
+	if (CollisionComponent)
+	{
+		FVector location = CollisionComponent->GetComponentLocation();
+		TransformComponent->SetLocation(location);
+		OnLocationChangedEvent.Broadcast(location);
+	}
 }
 
 UInputComponent* APawn::GetInputComponent()

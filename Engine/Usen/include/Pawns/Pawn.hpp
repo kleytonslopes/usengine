@@ -27,6 +27,7 @@ class APawn : public AActor
 public:
 	void Construct() override;
 	void PostConstruct() override;
+	void Update(float deltaTime) override;
 
 	void SetupInputComponent();
 

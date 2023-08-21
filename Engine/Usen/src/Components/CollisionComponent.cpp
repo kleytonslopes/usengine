@@ -89,9 +89,9 @@ FVector UCollisionComponent::GetComponentLocation()
 
 		Body->getMotionState()->getWorldTransform(transform);
 
-		x = float(Transform.getOrigin().getX());
-		y = float(Transform.getOrigin().getY());
-		z = float(Transform.getOrigin().getZ());
+		x = float(transform.getOrigin().getX());
+		y = float(transform.getOrigin().getY());
+		z = float(transform.getOrigin().getZ());
 	}
 	else
 	{
@@ -146,11 +146,22 @@ void UCollisionComponent::SetLocation(FVector location)
 
 	if (Body)
 	{
-		Body->getMotionState()->getWorldTransform(Transform);
+		//Body->getMotionState()->getWorldTransform(Transform);
+		//Transform.setOrigin(btVector3(location.x, location.y, location.z));
+		//Body->setWorldTransform(Transform);
 
-		Transform.setOrigin(btVector3(location.x, location.y, location.z));
+		btTransform transform;
+		transform.setIdentity();
 
-		Body->setWorldTransform(Transform);
+		transform.setOrigin(btVector3(
+			btScalar(location.x),
+			btScalar(location.y),
+			btScalar(location.z)));
+
+		//Body->getMotionState()->getWorldTransform(Transform);
+	/*	Transform.setIdentity();*/
+		Transform.setOrigin(transform.getOrigin());
+		Body->setWorldTransform(transform);
 	}
 	else if (CollisionObject)
 	{
@@ -163,7 +174,8 @@ void UCollisionComponent::SetLocation(FVector location)
 		Transform.setOrigin(btVector3(location.x, location.y, location.z));
 
 	}
-		//Transform.setOrigin(btVector3(location.x, location.y, location.z));
+
+	//Transform.setOrigin(btVector3(location.x, location.y, location.z));
 
 	//if (Parent)
 	//{

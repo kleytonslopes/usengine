@@ -95,6 +95,8 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	if (!actorParent)
 		return;
 
+	actorParent->OnLocationChangedEvent.Add(this, &This::SetLocationFromParent);
+
 	actorParent->Attachments->Attatch(this);
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
@@ -169,6 +171,8 @@ void AActor::SetLocation(FVector& vector)
 	{
 		TransformComponent->SetLocation(vector);
 	}
+
+	OnLocationChangedEvent.Broadcast(vector);
 
 	/*FVector newLocation = vector;
 
@@ -361,6 +365,11 @@ void AActor::Draw(float deltaTime)
 	{
 		RenderComponent->Draw(deltaTime);
 	}
+}
+
+void AActor::SetLocationFromParent(FVector newLocation)
+{
+	SetLocation(newLocation);
 }
 
 void AActor::Serialize(SeriFile& otherOut)

@@ -104,8 +104,14 @@ void UScene::Initialize()
 	}
 	//Camera->SetLocation(FVector{ 0.f, 23.0f, 10.f });
 	//Camera->SetRotation(FVector{ -64.f, 0.f, 0.f });
-	Camera->SetLocation(FVector{ 0.f, -20.0f, 20.f });
-	Camera->SetRotation(FVector{ 45.f, 0.f, 0.f });
+
+	//Camera->SetLocation(FVector{ 0.f, -20.0f, 20.f });
+	//Camera->SetRotation(FVector{ 45.f, 0.f, 0.f });
+
+	Camera->SetLocation(FVector{ 0.f, -20.0f, -0.5f });
+	Camera->SetRotation(FVector{ 89.9f, 0.f, 0.f });
+
+
 
 	/* */
 
@@ -166,29 +172,30 @@ void UScene::Initialize()
 
 			FMeshParameters pawnMeshParameters{};
 			FAttachmentSettings pawnMeshAttachmentSettings{};
-			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-			//AMesh* pawnMesh = CreateEntity<AMesh>();
-			//pawnMesh->SetIsDynamic(false);
-			//pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
-			//pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
-			//pawnMesh->SetMeshParameters(pawnMeshParameters);
-			//pawnMesh->Initialize();
+			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "Pawn.obj");
+			AMesh* pawnMesh = CreateEntity<AMesh>();
+			pawnMesh->SetIsDynamic(false);
+			pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
+			pawnMesh->SetMeshParameters(pawnMeshParameters);
+			pawnMesh->RemoveCollisionComponent();
+			pawnMesh->Initialize();
 		}
 
 		{ // Box
 
-			FTransform transformBox;
-			transformBox.Location = { 0.f,0.f,0.f };
-			transformBox.Origin   = { 0.f,0.f,0.f };
-			transformBox.Rotation = { 0.f,0.f,0.f };
-			FMeshParameters boxMeshParameters{};
-			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
-			AMesh* boxMesh = CreateEntity<AMesh>();
-			boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
-			boxMesh->SetMeshParameters(boxMeshParameters);
-			boxMesh->SetIsDynamic(true);
-			boxMesh->SetLocation(transformBox.Location);
-			boxMesh->Initialize();
+			//FTransform transformBox;
+			//transformBox.Location = { 0.f,0.f,0.f };
+			//transformBox.Origin   = { 0.f,0.f,0.f };
+			//transformBox.Rotation = { 0.f,0.f,0.f };
+			//FMeshParameters boxMeshParameters{};
+			//boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "cube.obj");
+			//AMesh* boxMesh = CreateEntity<AMesh>();
+			//boxMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			//boxMesh->SetMeshParameters(boxMeshParameters);
+			//boxMesh->SetIsDynamic(true);
+			//boxMesh->SetLocation(transformBox.Location);
+			//boxMesh->Initialize();
 		}
 
 		//{ // wall

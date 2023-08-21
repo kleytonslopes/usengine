@@ -39,6 +39,7 @@ public:
 	void SetMeshParameters(const FMeshParameters& parameters);
 	void SetIsDynamic(const bool& isDynamic);
 	void SetCanCollider(const bool& canCollider);
+	void RemoveCollisionComponent();
 
 	void SetCollisionGroup(ECollisionGroup collisionGroup);
 	void SetCollisionMask(ECollisionMask collisionMask);

@@ -72,6 +72,7 @@ enum ECollisionObject
 	ECO_Dynamic   = btCollisionObject::CF_DYNAMIC_OBJECT,
 	ECO_Static    = btCollisionObject::CF_STATIC_OBJECT,
 	ECO_Kinematic = btCollisionObject::CF_KINEMATIC_OBJECT,
+	ECO_Character = btCollisionObject::CF_CHARACTER_OBJECT,
 };
 
 #define EnumAsInt(A) (int32)A
@@ -90,6 +91,7 @@ enum ECollisionObject
 #define ECO_Dynamic    ECollisionObject::ECO_Dynamic
 #define ECO_Static     ECollisionObject::ECO_Static
 #define ECO_Kinematic  ECollisionObject::ECO_Kinematic
+#define ECO_Character  ECollisionObject::ECO_Character
 
 
 #endif // !US_COMMON_DEFINES_HPP
