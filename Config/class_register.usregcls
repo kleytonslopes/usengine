@@ -1516,5 +1516,51 @@
       "ClassGenDefinition": "hpp_UPhysicsSystemPhysX_BClass",
       "ClassGenDefinitionVersion": "hpp_UPhysicsSystemPhysX_BClass_def"
     }
+  },
+  {
+    "ClassName": "FTransform",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FTransform",
+      "ClassDefinition": "US_TRANSFORM_HPP",
+      "HppFileName": "Transform.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Core",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
+  },
+  {
+    "ClassName": "FPhysicsShapeInitialize",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": false,
+      "HasCpp": false,
+      "ClassName": "FPhysicsShapeInitialize",
+      "ClassDefinition": "US_PHYSICS_SHAPE_INITIALIZE_HPP",
+      "HppFileName": "PhysicsShapeInitialize.hpp",
+      "CppFileName": null,
+      "GenFileName": null,
+      "FolderHpp": "include/Physics",
+      "FolderCpp": null,
+      "FolderGen": null,
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": null,
+      "ClassGenDefinitionVersion": null
+    }
   }
 ]

@@ -26,7 +26,7 @@ public:
 	void Destroy() override;
 
 	void CalculeLocalInertia() override;
-	void SetBoundBox(const FVector& boundBox) override;
+	//void SetBoundBox(const FVector& boundBox) override;
 	btRigidBody* CreateRigidBody() override;
 	btCollisionObject* CreateCollisionObject() override;
 	

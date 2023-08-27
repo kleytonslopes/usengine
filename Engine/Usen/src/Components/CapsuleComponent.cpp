@@ -18,6 +18,7 @@ void UCapsuleComponent::Construct()
 {
 	Super::Construct();
 
+	BodyType = EBodyType::EBT_Dynamic;
 	CollisionObjectType = ECO_Character;
 	bIsDynamic = true;
 	bCanUpdate = true;

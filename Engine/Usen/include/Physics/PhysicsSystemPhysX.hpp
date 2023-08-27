@@ -14,6 +14,7 @@
 
 
 #include "Base/Class.hpp"
+#include "Physics/PhysicsShapeInitialize.hpp"
 #include "PhysicsSystemPhysX-generated.hpp"
 
 class UPhysicsSystemPhysX : public BClass
@@ -34,7 +35,17 @@ public:
 	void Construct() override;
 	void Update(float deltaTime) override;
 
+	physx::PxRigidDynamic* CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform);
+	physx::PxRigidStatic* CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform);
+
 	void Destroy() override;
+
+private:
+	physx::PxShape* CreateShape(physx::PxRigidDynamic* body, FPhysicsShapeInitialize physicsShapeInitialize);
+	physx::PxShape* CreateShapeStatic(FPhysicsShapeInitialize physicsShapeInitialize);
+
+	physx::PxShape* CreateShapeBox(physx::PxRigidDynamic* body, FPhysicsShapeInitialize physicsShapeInitialize);
+	physx::PxShape* CreateShapeBox(FPhysicsShapeInitialize physicsShapeInitialize);
 };
 
 #endif // !US_PHYSICS_SYSTEM_PHYS_X_HPP

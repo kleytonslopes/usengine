@@ -44,13 +44,13 @@ public:
 	void SetCollisionGroup(ECollisionGroup collisionGroup);
 	void SetCollisionMask(ECollisionMask collisionMask);
 
-	FVector GetBoundBox() const { return BoundBox; }
+	FVector GetBoundBox() const;
 	void SetBoundBox(const FVector& boundBox);
 
 protected:
 	TVector<FVector> Vertices;
 	TVector<uint32> Indices;
-	FVector BoundBox{ 1.f, 1.f, 1.f };
+	//FVector BoundBox{ 1.f, 1.f, 1.f };
 	
 	URenderComponent* RenderComponent = nullptr;
 	UMeshComponent* MeshComponent = nullptr;

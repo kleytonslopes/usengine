@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 #include "Physics/PhysicsSystem.hpp"
+#include "Physics/PhysicsSystemPhysX.hpp"
 #include "Mesh/Mesh.hpp"
 
 DEFAULT_BODY(UBoxCollisionComponent);
@@ -24,23 +25,24 @@ void UBoxCollisionComponent::Construct()
 		if (meshParent)
 		{
 			const FVector boundBox = meshParent->GetBoundBox();
-			Shape = CreateBoxShape(boundBox);// new btBoxShape(btVector3{ boundBox.x, boundBox.y, boundBox.z });
+			Shape = CreateBoxShape(boundBox);
 		}
 		else
-			Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });// new btBoxShape(btVector3{ 1, 1, 1 });
+			Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });
 	}
 	else
-		Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });//new btBoxShape(btVector3{ 1, 1, 1 });
-
-
-	/*GetPhysicsSystem()->RegisterComponent(this);*/
+		Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });
 }
 
 void UBoxCollisionComponent::PostConstruct()
 {
+	PhysicsShapeInitialize.InitializeBox(BoundBox.x, BoundBox.y, BoundBox.z);
+	PhysicsShapeInitialize.Mass = Mass;
+
 	Super::PostConstruct();
 
 	GetPhysicsSystem()->RegisterComponent(this);
+	/*ShapeX = GetPhysicsSystemPhysX()->CreateShape(BodyDynamic, physicsShapeInitialize);*/
 }
 
 void UBoxCollisionComponent::Destroy()
@@ -54,14 +56,13 @@ void UBoxCollisionComponent::CalculeLocalInertia()
 		Shape->calculateLocalInertia(Mass, LocalInertia);
 }
 
-void UBoxCollisionComponent::SetBoundBox(const FVector& boundBox)
-{
-	if (Shape)
-	{
-		Shape->setImplicitShapeDimensions(btVector3{ boundBox.x, boundBox.y, boundBox.z});
-		
-	}
-}
+//void UBoxCollisionComponent::SetBoundBox(const FVector& boundBox)
+//{
+//	if (Shape)
+//	{
+//		Shape->setImplicitShapeDimensions(btVector3{ boundBox.x, boundBox.y, boundBox.z});
+//	}
+//}
 
 btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 {

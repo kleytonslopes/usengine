@@ -136,7 +136,7 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			FTransform trasform;
-			trasform.Location = { 0.f,0.f,-5.f };
+			trasform.Location = { 0.f,-10.f,0.f };
 			trasform.Rotation = { 0.f,0.f,0.f };
 			Floor = CreateEntity<UStaticMesh>();
 			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.1f });
@@ -149,17 +149,17 @@ void UScene::Initialize()
 		}
 
 		//{ // Gizmo
-		//	FTransform trasform;
-		//	trasform.Location = { 0.f,0.f,0.f };
-		//	trasform.Rotation = { 0.f,0.f,0.f };
-		//	FMeshParameters gizmomeshparameters{};
-		//	gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
-		//	AMesh* gizmomesh = CreateEntity<AMesh>();
-		//	gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
-		//	gizmomesh->SetIsDynamic(false);
-		//	gizmomesh->SetTransform(trasform);
-		//	gizmomesh->SetMeshParameters(gizmomeshparameters);
-		//	gizmomesh->Initialize();
+			FTransform trasform;
+			trasform.Location = { 0.f,0.f,0.f };
+			trasform.Rotation = { 0.f,0.f,0.f };
+			FMeshParameters gizmomeshparameters{};
+			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
+			AMesh* gizmomesh = CreateEntity<AMesh>();
+			gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
+			gizmomesh->SetIsDynamic(false);
+			gizmomesh->SetTransform(trasform);
+			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->Initialize();
 		//}
 
 		{ // Pawn

@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: PhysicsSystemPhysX.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: August 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
@@ -45,38 +45,55 @@ void UPhysicsSystemPhysX::Construct()
 	}
 
 	// Create Simulation
-	Material = Physics->createMaterial(0.5f, 0.5f, 0.6f);
-	physx::PxRigidStatic* groundPlane = PxCreatePlane(*Physics, physx::PxPlane(0, 1, 0, 99), *Material);
-	Scene->addActor(*groundPlane);
+	Material = Physics->createMaterial(0.0f, 0.0f, 0.0f);
 
-	float halfExtent = 0.5f;
-	physx::PxU32 size = 30;
+	physx::PxTransform centerTransform(physx::PxVec3(0));
+	physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);//physx::PxSphereGeometry(1.f);
+	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
+	Scene->addActor(*center);
+
+	//float halfExtent = 1.5f;
+	//physx::PxU32 size = 50;
+	//physx::PxTransform t(physx::PxVec3(0));
+
+	//physx::PxShape* shape = Physics->createShape(physx::PxBoxGeometry(halfExtent, halfExtent, halfExtent), *Material);
+	//for (physx::PxU32 i = 0; i < size; i++)
+	//{
+	//	for (physx::PxU32 j = 0; j < size; j++)
+	//	{
+	//		physx::PxTransform local(physx::PxVec3(physx::PxReal(j * 2) - physx::PxReal(size - i), physx::PxReal(i * 2), 0) * halfExtent);
+	//		physx::PxRigidDynamic* body = Physics->createRigidDynamic(t.transform(local));
+	//		body->attachShape(*shape);
+	//		physx::PxRigidBodyExt::updateMassAndInertia(*body, 10.0f);
+	//		Scene->addActor(*body);
+	//	}
+	//}
+	//shape->release();
+
+
 	physx::PxTransform t(physx::PxVec3(0));
-	/** 
-	physx::PxShape* shape = Physics->createShape(physx::PxBoxGeometry(halfExtent, halfExtent, halfExtent), *Material);
-	for (physx::PxU32 i = 0; i < size; i++)
-	{
-		for (physx::PxU32 j = 0; j < size; j++)
-		{
-			physx::PxTransform local(physx::PxVec3(physx::PxReal(j * 2) - physx::PxReal(size - i), physx::PxReal(i * 2), 0) * halfExtent);
-			physx::PxRigidDynamic* body = Physics->createRigidDynamic(t.transform(local));
-			body->attachShape(*shape);
-			physx::PxRigidBodyExt::updateMassAndInertia(*body, 10.0f);
-			Scene->addActor(*body);
-		}
-	}
-	shape->release();
-	*/
-
 	physx::PxTransform relativePose(physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0, 0, 1)));
-	physx::PxTransform local(physx::PxVec3(physx::PxReal(2) - physx::PxReal(size), physx::PxReal(2), 2) * halfExtent);
+	physx::PxTransform local(physx::PxVec3(physx::PxReal(0), physx::PxReal(10), physx::PxReal(0)));
 	physx::PxRigidDynamic* body = Physics->createRigidDynamic(t.transform(local));
-	physx::PxShape* aCapsuleShape = physx::PxRigidActorExt::createExclusiveShape(*body,	physx::PxCapsuleGeometry(physx::PxReal(2), physx::PxReal(4)), *Material);
+	physx::PxShape* aCapsuleShape = physx::PxRigidActorExt::createExclusiveShape(*body, physx::PxCapsuleGeometry(physx::PxReal(2), physx::PxReal(2)), *Material);
 	aCapsuleShape->setLocalPose(relativePose);
 	Scene->addActor(*body);
 
 	aCapsuleShape->release();
 
+}
+
+
+void UPhysicsSystemPhysX::Destroy()
+{
+	Super::Destroy();
+
+	///Pvd->release();
+	///Material->release();
+	///Scene->release();
+	///Dispatcher->release();
+	Physics->release();
+	Foundation->release();
 }
 
 void UPhysicsSystemPhysX::Update(float deltaTime)
@@ -87,14 +104,63 @@ void UPhysicsSystemPhysX::Update(float deltaTime)
 	Scene->fetchResults(true);
 }
 
-void UPhysicsSystemPhysX::Destroy()
+physx::PxRigidDynamic* UPhysicsSystemPhysX::CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform)
 {
-	Super::Destroy();
+	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.Location.x), physx::PxReal(transform.Location.y), transform.Location.z));
+	physx::PxTransform zeroTransform(physx::PxVec3(0));
+	return Physics->createRigidDynamic(zeroTransform.transform(local));
+}
 
-	//Pvd->release();
-	//Material->release();
-	//Scene->release();
-	//Dispatcher->release();
-	Physics->release();
-	Foundation->release();
+physx::PxRigidStatic* UPhysicsSystemPhysX::CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform)
+{
+	physx::PxShape* shape = CreateShapeStatic(physicsShapeInitialize);
+
+	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.Location.x), physx::PxReal(transform.Location.y), transform.Location.z));
+	physx::PxTransform zeroTransform(physx::PxVec3(0));
+	physx::PxRigidStatic* body = physx::PxCreateStatic(*Physics, zeroTransform.transform(local), *shape);
+	Scene->addActor(*body);
+
+	return body;
+}
+
+physx::PxShape* UPhysicsSystemPhysX::CreateShape(physx::PxRigidDynamic* body, FPhysicsShapeInitialize physicsShapeInitialize)
+{
+	switch (physicsShapeInitialize.Shape)
+	{
+	case EShapeForm::ESF_Box:
+		return CreateShapeBox(body, physicsShapeInitialize);
+	default:
+		return nullptr;
+	}
+}
+
+physx::PxShape* UPhysicsSystemPhysX::CreateShapeStatic(FPhysicsShapeInitialize physicsShapeInitialize)
+{
+	switch (physicsShapeInitialize.Shape)
+	{
+	case EShapeForm::ESF_Box:
+		return CreateShapeBox(physicsShapeInitialize);
+	default:
+		return nullptr;
+	}
+}
+
+
+physx::PxShape* UPhysicsSystemPhysX::CreateShapeBox(physx::PxRigidDynamic* body, FPhysicsShapeInitialize physicsShapeInitialize)
+{
+	physx::PxShape* shape = Physics->createShape(physx::PxBoxGeometry(physx::PxReal(physicsShapeInitialize.HalfHeightY), physx::PxReal(physicsShapeInitialize.HalfHeightZ), physx::PxReal(physicsShapeInitialize.HalfHeightX)), *Material);
+
+	body->attachShape(*shape);
+	if (physicsShapeInitialize.Mass <= 0.f)
+		physicsShapeInitialize.Mass = 1.f;
+	physx::PxRigidBodyExt::updateMassAndInertia(*body, physx::PxReal(physicsShapeInitialize.Mass));
+	Scene->addActor(*body);
+
+	shape->release();
+	return shape;
+}
+
+physx::PxShape* UPhysicsSystemPhysX::CreateShapeBox(FPhysicsShapeInitialize physicsShapeInitialize)
+{
+	return Physics->createShape(physx::PxBoxGeometry(physx::PxReal(physicsShapeInitialize.HalfHeightY), physx::PxReal(physicsShapeInitialize.HalfHeightZ), physx::PxReal(physicsShapeInitialize.HalfHeightX)), *Material);
 }

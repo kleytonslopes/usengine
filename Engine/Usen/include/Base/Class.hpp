@@ -26,6 +26,7 @@ class UInputManagement;
 class URendererOpenGL;
 class UGameModeBase;
 class UPhysicsSystem;
+class UPhysicsSystemPhysX;
 
 class BClass : public IWeakClass
 {
@@ -57,6 +58,7 @@ protected:
 	BRenderer* GetRenderer();
 	UGameModeBase* GetGameMode();
 	UPhysicsSystem* GetPhysicsSystem();
+	UPhysicsSystemPhysX* GetPhysicsSystemPhysX();
 
 	template<typename R>
 	R* GetRenderer()

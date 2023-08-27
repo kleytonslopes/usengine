@@ -30,7 +30,7 @@
 #include "Core/Exception.hpp"
 #include "Core/ConstructorHelper.hpp"
 #include "Core/CommonDefines.hpp"
-
+#include "Core/Transform.hpp"
 
 
 #endif // !US_MINIMAL_CORE_HPP

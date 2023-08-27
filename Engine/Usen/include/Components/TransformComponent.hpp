@@ -16,15 +16,15 @@
 #include "Components/Component.hpp"
 #include "TransformComponent-generated.hpp"
 
-struct FTransform
-{
-	FVector Location{ 0.f, 0.f, 0.f };
-	FVector Origin{ 0.f, 0.f, 0.f };
-	FVector Rotation{ 0.f, 0.f, 0.f };
-	FVector Scale{ 1.f, 1.f, 1.f };
-	FVector UpVector{ 0.f, 1.f, 0.f };
-	FVector ForwardVector{ 0.f, 0.f, -1.f };
-};
+//struct FTransform
+//{
+//	FVector Location{ 0.f, 0.f, 0.f };
+//	FVector Origin{ 0.f, 0.f, 0.f };
+//	FVector Rotation{ 0.f, 0.f, 0.f };
+//	FVector Scale{ 1.f, 1.f, 1.f };
+//	FVector UpVector{ 0.f, 1.f, 0.f };
+//	FVector ForwardVector{ 0.f, 0.f, -1.f };
+//};
 
 class UTransformComponent : public AComponent
 {

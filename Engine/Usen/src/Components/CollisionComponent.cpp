@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Components/CollisionComponent.hpp"
 #include "Actors/Actor.hpp"
+#include "Physics/PhysicsSystemPhysX.hpp"
 
 DEFAULT_BODY(UCollisionComponent)
 
@@ -32,6 +33,19 @@ void UCollisionComponent::PostConstruct()
 
 	Transform.setIdentity();
 	SetTransform(trasnform);
+
+	switch (BodyType)
+	{
+	case EBodyType::EBT_Static:
+		//ShapeX = GetPhysicsSystemPhysX()->CreateShape(BodyDynamic, physicsShapeInitialize);
+		BodyStatic = GetPhysicsSystemPhysX()->CreateRigidStatic(PhysicsShapeInitialize, trasnform);
+		break;
+	case EBodyType::EBT_Dynamic:
+		BodyDynamic = GetPhysicsSystemPhysX()->CreateRigidDynamic(PhysicsShapeInitialize, trasnform);
+		break;
+	default:
+		break;
+	}
 }
 
 void UCollisionComponent::Initialize()
@@ -58,6 +72,13 @@ void UCollisionComponent::Update(float deltaTime)
 	//UpdateParentTransform();
 }
 
+void UCollisionComponent::SetBoundBox(const FVector& boundBox)
+{
+	BoundBox.x = boundBox.x;
+	BoundBox.y = boundBox.y;
+	BoundBox.z = boundBox.z;
+}
+
 void UCollisionComponent::SetIsDynamic(const bool& isDynamic)
 {
 	if (isDynamic)
@@ -82,6 +103,8 @@ FVector UCollisionComponent::GetComponentLocation()
 	float x = 0.f;
 	float y = 0.f;
 	float z = 0.f;
+
+	BodyDynamic->getGlobalPose();
 
 	if (Body && bIsDynamic)
 	{
@@ -216,6 +239,21 @@ void UCollisionComponent::SetTransform(FTransform& transform)
 		Transform.setOrigin(btVector3(transform.Location.x, transform.Location.y, transform.Location.z));
 		Transform.setRotation(btQuaternion(transform.Rotation.x, transform.Rotation.y, transform.Rotation.z));
 	}*/
+}
+
+void UCollisionComponent::SetBodyType(EBodyType bodyType)
+{
+	BodyType = bodyType;
+}
+
+void UCollisionComponent::SetPhysicsShapeInitialize(const FPhysicsShapeInitialize& physicsShapeInitialize)
+{
+	PhysicsShapeInitialize = physicsShapeInitialize;
+}
+
+FVector UCollisionComponent::GetBoundBox()
+{
+	return BoundBox;
 }
 
 void UCollisionComponent::SetCollisionGroup(ECollisionGroup collisionGroup)

@@ -103,7 +103,10 @@ void AMesh::SetMeshParameters(const FMeshParameters& parameters)
 void AMesh::SetIsDynamic(const bool& isDynamic)
 {
 	if (CollisionComponent)
+	{
 		CollisionComponent->SetIsDynamic(isDynamic);
+		CollisionComponent->SetBodyType(EBodyType::EBT_Static);
+	}
 }
 
 void AMesh::SetCanCollider(const bool& canCollider)
@@ -136,11 +139,20 @@ void AMesh::SetCollisionMask(ECollisionMask collisionMask)
 		CollisionComponent->SetCollisionMask(collisionMask);
 }
 
+FVector AMesh::GetBoundBox() const
+{
+	if (CollisionComponent)
+	{
+		return CollisionComponent->GetBoundBox();
+	}
+	return FVector(0.f);
+}
+
 void AMesh::SetBoundBox(const FVector& boundBox)
 {
-	BoundBox.x = boundBox.x;
-	BoundBox.y = boundBox.y;
-	BoundBox.z = boundBox.z;
+	//BoundBox.x = boundBox.x;
+	//BoundBox.y = boundBox.y;
+	//BoundBox.z = boundBox.z;
 
 	if (CollisionComponent)
 	{
