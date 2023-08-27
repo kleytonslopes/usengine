@@ -13,6 +13,9 @@
 #define	US_MINIMAL_CORE_HPP
 
 #include "btBulletDynamicsCommon.h"
+#include "PxPhysics.h"
+#include "PxPhysicsAPI.h"
+
 #include "Core/CommonTypes.hpp"
 #include "Core/SharedPtr.hpp"
 #include "Core/UniquePtr.hpp"

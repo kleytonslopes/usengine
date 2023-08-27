@@ -32,6 +32,7 @@ project "Usen"
         "%{include_dir.MINI}",
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
+        "%{include_dir.PHYSX}",
     }
 
     links
@@ -60,7 +61,7 @@ project "Usen"
                 "LOG_TRACE",
                 "LOG_DEFAULT",
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:EditorDebug"
@@ -74,7 +75,7 @@ project "Usen"
                 "LOG_DEFAULT",
                 "APP_EDITOR_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:GameDebug"
@@ -88,7 +89,7 @@ project "Usen"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
             
         filter "configurations:Release"

@@ -32,6 +32,7 @@ project "GameTest"
         "%{include_dir.MINI}",
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
+        "%{include_dir.PHYSX}",
     }
 
     libdirs
@@ -39,6 +40,7 @@ project "GameTest"
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
         "%{extern_lib_dir.BULLET}",
+        "%{extern_lib_dir.PHYSX}",
     }
 
     links
@@ -57,6 +59,15 @@ project "GameTest"
         "BulletCollision_Debug.lib",
         "BulletDynamics_Debug.lib",
         "LinearMath_Debug.lib",
+        "PhysX_64.lib",
+        "PhysXCommon_64.lib",
+        "PhysXCooking_64.lib",
+        "PhysXExtensions_static_64.lib",
+        "PhysXFoundation_64.lib",
+        "PhysXPvdSDK_static_64.lib",
+        "PhysXVehicle_static_64.lib",
+        "PhysXVehicle2_static_64.lib",
+        "PhysXCharacterKinematic_static_64.lib",
     }
 
     postbuildcommands

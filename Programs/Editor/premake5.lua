@@ -32,6 +32,7 @@ project "Editor"
         "%{include_dir.MINI}",
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
+        "%{include_dir.PHYSX}",
     }
 
     libdirs
@@ -39,6 +40,7 @@ project "Editor"
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
         "%{extern_lib_dir.BULLET}",
+        "%{extern_lib_dir.PHYSX}",
     }
 
     links
@@ -57,6 +59,24 @@ project "Editor"
         "BulletCollision_Debug.lib",
         "BulletDynamics_Debug.lib",
         "LinearMath_Debug.lib",
+        "LowLevel_static_64.lib",
+        "LowLevelAABB_static_64.lib",
+        "LowLevelDynamics_static_64.lib",
+        "PhysX_64.lib",
+        "PhysXCharacterKinematic_static_64.lib",
+        "PhysXCommon_64.lib",
+        "PhysXCooking_64.lib",
+        "PhysXExtensions_static_64.lib",
+        "PhysXFoundation_64.lib",
+        "PhysXPvdSDK_static_64.lib",
+        "PhysXTask_static_64.lib",
+        "PhysXVehicle_static_64.lib",
+        "PhysXVehicle2_static_64.lib",
+        "PVDRuntime_64.lib",
+        "SceneQuery_static_64.lib",
+        "SimulationController_static_64.lib",
+        "SnippetRender_static_64.lib",
+        "SnippetUtils_static_64.lib",
     }
 
     postbuildcommands
@@ -68,31 +88,40 @@ project "Editor"
     filter "system:windows"
         systemversion "latest"
 
-        defines
-        {
-            "PLATFORM_WINDOWS",
-            "WIN32_LEAN_AND_MEAN",
-            "_CRT_SECURE_NO_WARNINGS",
-            "YAML_CPP_STATIC_DEFINE"
-        }
+        --defines
+        --{
+        --    "PLATFORM_WINDOWS",
+        --    "WIN32_LEAN_AND_MEAN",
+        --    "_CRT_SECURE_NO_WARNINGS",
+        --    "YAML_CPP_STATIC_DEFINE",
+        --    "_DEBUG",
+        --}
 
         filter "configurations:Debug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
                 "LOG_TRACE",
                 "LOG_DEFAULT",
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd" --MDd
             symbols "on"
 
         filter "configurations:EditorDebug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -100,13 +129,17 @@ project "Editor"
                 "LOG_DEFAULT",
                 "APP_EDITOR_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:GameDebug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -120,7 +153,11 @@ project "Editor"
         filter "configurations:Release"
             defines 
             {
-                "RELEASE",
+                "NDEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
             }
-            buildoptions "/MD"
+            buildoptions "/MT"
             optimize "on"

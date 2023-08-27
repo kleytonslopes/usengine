@@ -16,6 +16,7 @@
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
 #include "Physics/PhysicsSystem.hpp"
+#include "Physics/PhysicsSystemPhysX.hpp"
 
 DEFAULT_BODY(UApplication);
 
@@ -31,6 +32,7 @@ void UApplication::PostConstruct()
 	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
 	Scene = FConstructorHelper::CreateObject<UScene>();
 	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
+	PhysicsSystemPhysX = FConstructorHelper::CreateObject<UPhysicsSystemPhysX>();
 }
 
 void UApplication::Initialize()
@@ -41,18 +43,20 @@ void UApplication::Initialize()
 	InputManagement->Initialize();
 	Scene->Initialize();
 	PhysicsSystem->Initialize();
+	PhysicsSystemPhysX->Initialize();
 
 	Super::Initialize();
 }
 
 void UApplication::Destroy()
 {
-	delete PhysicsSystem;	PhysicsSystem = nullptr;
-	delete Scene;           Scene = nullptr;
-	delete InputManagement; InputManagement = nullptr;
-	delete GameInstance;    GameInstance = nullptr;
-	delete Renderer;        Renderer = nullptr;
-	delete Window;          Window = nullptr;
+	delete PhysicsSystemPhysX; PhysicsSystemPhysX = nullptr;
+	delete PhysicsSystem;	   PhysicsSystem = nullptr;
+	delete Scene;              Scene = nullptr;
+	delete InputManagement;    InputManagement = nullptr;
+	delete GameInstance;       GameInstance = nullptr;
+	delete Renderer;           Renderer = nullptr;
+	delete Window;             Window = nullptr;
 
 	Super::Destroy();
 }
@@ -65,6 +69,7 @@ void UApplication::Draw(float deltaTime)
 #endif
 		OnDrawEvent.Broadcast(deltaTime);
 		PhysicsSystem->Update(deltaTime);
+		PhysicsSystemPhysX->Update(deltaTime);
 	Renderer->EndFrame();
 
 

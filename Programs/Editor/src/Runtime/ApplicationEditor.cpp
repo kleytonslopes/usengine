@@ -11,6 +11,7 @@
 #include "Runtime/ApplicationEditor.hpp"
 #include "Framework/EditorGameInstance.hpp"
 #include "Physics/PhysicsSystem.hpp"
+#include "Physics/PhysicsSystemPhysX.hpp"
 #include "UI/EditorUI.hpp"
 
 DEFAULT_BODY(UApplicationEditor)
@@ -52,6 +53,7 @@ void UApplicationEditor::Draw(float deltaTime)
 	Renderer->StartFrame();
 		OnDrawEvent.Broadcast(deltaTime);
 		PhysicsSystem->Update(deltaTime);
+		PhysicsSystemPhysX->Update(deltaTime);
 #if defined (APP_EDITOR_MODE)
 	DrawScreenQuad();
 #endif

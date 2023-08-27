@@ -8,9 +8,15 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 
+//#define _ITERATOR_DEBUG_LEVEL 2
+
+
 #include "Environment/Environment.hpp"
 #include "Runtime/ApplicationEditor.hpp"
 #include "Pawns/Pawn.hpp"
+
+#undef DEBUG 
+#undef _DEBUG
 
 int main()
 {

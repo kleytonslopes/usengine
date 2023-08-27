@@ -27,6 +27,7 @@ class UScene;
 class UController;
 class UInputManagement;
 class UPhysicsSystem;
+class UPhysicsSystemPhysX;
 
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
 DECLARE_FUNCTION_OneParam(FOnDrawSignature, float, deltaTime)
@@ -61,12 +62,13 @@ protected:
 	TThread* ThreadTickEvent = nullptr;;
 	TThread* ThreadDrawEvent = nullptr;;
 
-	UWindow* Window                   = nullptr;
-	UGameInstance* GameInstance       = nullptr;
-	BRenderer* Renderer               = nullptr;
-	UScene* Scene                     = nullptr;
-	UInputManagement* InputManagement = nullptr;
-	UPhysicsSystem* PhysicsSystem     = nullptr;
+	UWindow* Window                         = nullptr;
+	UGameInstance* GameInstance             = nullptr;
+	BRenderer* Renderer                     = nullptr;
+	UScene* Scene                           = nullptr;
+	UInputManagement* InputManagement       = nullptr;
+	UPhysicsSystem* PhysicsSystem           = nullptr;
+	UPhysicsSystemPhysX* PhysicsSystemPhysX = nullptr;
 
 	UController* Controller           = nullptr;
 

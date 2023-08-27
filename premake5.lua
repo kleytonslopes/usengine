@@ -2,6 +2,7 @@ include_dir = {}
 include_dir["SDL2"]         = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
 include_dir["GLM"]          = "F:/Dependencies/glm"
 include_dir["BULLET"]       = "F:/Dependencies/bullet3/src"
+include_dir["PHYSX"]        = "F:/Dependencies/PhysX/physx/include"
 include_dir["GLAD"]         = "%{wks.location}/ThirdParty/GLAD/include"
 include_dir["UUID"]         = "%{wks.location}/ThirdParty/UUID_V4"
 include_dir["YAML"]         = "%{wks.location}/ThirdParty/YAML/include"
@@ -14,6 +15,7 @@ include_dir["MINI"]         = "%{wks.location}/ThirdParty/MINI/src"
 extern_lib_dir = {}
 extern_lib_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"
 extern_lib_dir["BULLET"] = "F:/Dependencies/bullet3/build/lib/Debug"
+extern_lib_dir["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/debug"
 extern_lib_dir["ASSIMP"] = "%{wks.location}/ThirdParty/ASSIMP/build/lib/Debug"
 
 

@@ -1493,5 +1493,28 @@
       "ClassGenDefinition": "hpp_UFrameBufferOpenGL_UFrameBuffer",
       "ClassGenDefinitionVersion": "hpp_UFrameBufferOpenGL_UFrameBuffer_def"
     }
+  },
+  {
+    "ClassName": "UPhysicsSystemPhysX",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UPhysicsSystemPhysX",
+      "ClassDefinition": "US_PHYSICS_SYSTEM_PHYS_X_HPP",
+      "HppFileName": "PhysicsSystemPhysX.hpp",
+      "CppFileName": "PhysicsSystemPhysX.cpp",
+      "GenFileName": "PhysicsSystemPhysX-generated.hpp",
+      "FolderHpp": "include/Physics",
+      "FolderCpp": "src/Physics",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "BClass",
+      "BaseClassPathHpp": "Base/Class.hpp",
+      "BaseClassTemplate": " : public BClass",
+      "BaseClassInclude": "\n#include \"Base/Class.hpp\"",
+      "ClassGenDefinition": "hpp_UPhysicsSystemPhysX_BClass",
+      "ClassGenDefinitionVersion": "hpp_UPhysicsSystemPhysX_BClass_def"
+    }
   }
 ]
