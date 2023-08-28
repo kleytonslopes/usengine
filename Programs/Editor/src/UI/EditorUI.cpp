@@ -17,6 +17,8 @@
 #include <backends/imgui_impl_sdl2.h>
 
 #include "Mesh/StaticMesh.hpp"
+#include "Mesh/Mesh.hpp"
+#include "Pawns/Pawn.hpp"//remove this
 
 DEFAULT_BODY(UEditorUI)
 
@@ -183,7 +185,6 @@ void UEditorUI::Draw(float deltaTime)
 
 	}
 
-
 	{ // Camera
 
 		ImGui::Begin("Camera");
@@ -281,6 +282,9 @@ void UEditorUI::Draw(float deltaTime)
 				ImGui::TreePop();
 			}
 		}
+
+		
+
 		{
 			//if (ImGui::TreeNode("m00003", "Settings"))
 			//{
@@ -297,7 +301,36 @@ void UEditorUI::Draw(float deltaTime)
 		ImGui::End();
 	}
 
+	{//Pawn
+		APawn* Pawn = GetScene()->Pawn;
+		ImGui::Begin("Pawn");
+		{
+			if (ImGui::TreeNode("m0008", "Position"))
+			{
+				FVector location = Pawn->GetLocation();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("X", ImGuiDataType_Float, &location.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Y", ImGuiDataType_Float, &location.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+				Pawn->SetLocation(location);
+				ImGui::TreePop();
+			}
 
+			if (ImGui::TreeNode("m0009", "Capsule Position"))
+			{
+				FVector location = Pawn->GetCapsuleLocation();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("X", ImGuiDataType_Float, &location.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Y", ImGuiDataType_Float, &location.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+				Pawn->SetLocation(location);
+				ImGui::TreePop();
+			}
+		}
+		ImGui::End();
+	}
 	ImGui::End();
 
 	//static bool show = false;

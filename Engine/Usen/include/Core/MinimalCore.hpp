@@ -32,6 +32,6 @@
 #include "Core/ConstructorHelper.hpp"
 #include "Core/CommonDefines.hpp"
 #include "Core/Transform.hpp"
-
+#include "Core/Color.hpp"
 
 #endif // !US_MINIMAL_CORE_HPP

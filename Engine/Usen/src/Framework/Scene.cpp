@@ -175,11 +175,24 @@ void UScene::Initialize()
 			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "Pawn.obj");
 			AMesh* pawnMesh = CreateEntity<AMesh>();
 			pawnMesh->SetIsDynamic(false);
-			pawnMesh->SetOrigin(FVector{ 0.f, -1.f, 10.f });
+			//pawnMesh->SetOrigin(FVector{ 0.f, -1.f, 10.f });
 			pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
 			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
 			pawnMesh->SetMeshParameters(pawnMeshParameters);
 			pawnMesh->RemoveCollisionComponent();
+			pawnMesh->Initialize();
+		}
+
+		{ // arrowDirection
+			FMeshParameters arrowMeshParameters{};
+			arrowMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "arrow.obj");
+			AMesh* pawnMesh = CreateEntity<AMesh>();
+			pawnMesh->SetIsDynamic(false);
+			pawnMesh->SetLocation(FVector{ 0.f, 0.f, 0.f });
+			pawnMesh->SetOrigin(FVector{ 0.f, 0.f, 0.f });
+			pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
+			pawnMesh->RemoveCollisionComponent();
+			pawnMesh->SetMeshParameters(arrowMeshParameters);
 			pawnMesh->Initialize();
 		}
 
@@ -290,7 +303,7 @@ void UScene::CreateDefaultPawn()
 {
 	TClassOf<APawn> DefaultPlayerPawnClass = GameMode->GetDefaultPlayerPawn();
 	APawn* PlayerPawn = CreateEntity<APawn>(DefaultPlayerPawnClass);
-
+	Pawn = PlayerPawn; // remove this
 	GameMode->SetPlayerPawn(PlayerPawn);
 	GameMode->Controller->SetPawn(PlayerPawn);
 }

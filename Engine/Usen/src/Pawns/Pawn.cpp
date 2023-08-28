@@ -43,7 +43,7 @@ void APawn::Update(float deltaTime)
 
 	if (CollisionComponent)
 	{
-		FVector location = CollisionComponent->GetComponentLocation();
+		FVector location = CollisionComponent->GetWorldPosition();
 		TransformComponent->SetLocation(location);
 		OnLocationChangedEvent.Broadcast(location);
 	}
@@ -82,3 +82,14 @@ void APawn::MoveRight(float scale)
 	SetTransform(transform);
 	*/
 }
+
+FVector APawn::GetCapsuleLocation()
+{
+	if (CollisionComponent)
+	{
+		return CollisionComponent->GetWorldPosition();
+	}
+
+	return FVector{ 0.f };
+}
+

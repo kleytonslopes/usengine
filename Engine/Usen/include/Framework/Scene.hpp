@@ -36,6 +36,7 @@ class UScene : public BClass
 	DEFAULT_BODY_GENERATED()
 public:
 	UStaticMesh* Floor = nullptr;
+	APawn* Pawn = nullptr; // remove this
 	void Destroy() final;
 
 	void Construct() override;

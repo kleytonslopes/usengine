@@ -161,7 +161,7 @@ FVector UCollisionComponent::GetComponentRotation()
 	}
 	//}
 
-	return FVector{ x, -y, z };
+	return FVector{ x, y, z };
 }
 
 FVector UCollisionComponent::GetWorldPosition()

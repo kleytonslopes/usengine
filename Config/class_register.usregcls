@@ -1562,5 +1562,51 @@
       "ClassGenDefinition": null,
       "ClassGenDefinitionVersion": null
     }
+  },
+  {
+    "ClassName": "UArrowComponent",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UArrowComponent",
+      "ClassDefinition": "US_ARROW_COMPONENT_HPP",
+      "HppFileName": "ArrowComponent.hpp",
+      "CppFileName": "ArrowComponent.cpp",
+      "GenFileName": "ArrowComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "AComponent",
+      "BaseClassPathHpp": "Components/Component.hpp",
+      "BaseClassTemplate": " : public AComponent",
+      "BaseClassInclude": "\n#include \"Components/Component.hpp\"",
+      "ClassGenDefinition": "hpp_UArrowComponent_AComponent",
+      "ClassGenDefinitionVersion": "hpp_UArrowComponent_AComponent_def"
+    }
+  },
+  {
+    "ClassName": "FColor",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FColor",
+      "ClassDefinition": "US_COLOR_HPP",
+      "HppFileName": "Color.hpp",
+      "CppFileName": "Color.cpp",
+      "GenFileName": "Color-generated.hpp",
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_FColor",
+      "ClassGenDefinitionVersion": "hpp_FColor_def"
+    }
   }
 ]

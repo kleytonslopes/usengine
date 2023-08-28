@@ -47,10 +47,27 @@ void UPhysicsSystemPhysX::Construct()
 	// Create Simulation
 	Material = Physics->createMaterial(0.0f, 0.0f, 0.0f);
 
-	physx::PxTransform centerTransform(physx::PxVec3(0));
-	physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);//physx::PxSphereGeometry(1.f);
-	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
-	Scene->addActor(*center);
+	{ //center Sphere
+
+		physx::PxTransform centerTransform(physx::PxVec3(0));
+		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
+		Scene->addActor(*center);
+	}
+
+	{ // Up Sphere
+		physx::PxTransform upLocation(physx::PxVec3(0, 10, 0));
+		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
+		Scene->addActor(*center);
+	}
+
+	{ // Fwd Sphere
+		physx::PxTransform upLocation(physx::PxVec3(0, 0, -10));
+		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
+		Scene->addActor(*center);
+	}
 
 
 
@@ -96,7 +113,7 @@ void UPhysicsSystemPhysX::Construct()
 	desc.stepOffset = 0.01f;
 	desc.material = Material;
 
-	
+
 	//Controller = ControllerManager->createController(desc);
 }
 
@@ -116,7 +133,7 @@ void UPhysicsSystemPhysX::Destroy()
 	///Material->release();
 	///Scene->release();
 	///Dispatcher->release();
-	
+
 	ControllerManager->release();
 	Physics->release();
 

@@ -31,19 +31,17 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 	APawn* aParant = Cast<APawn*>(Parent);
 	if (aParant)
 	{
-
-
 		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			CollisionComponent->AddMovement(scaleMovement, Speed, EAxis::X);
+			CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::X);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
 		}
 		else
 		{
 			FTransform transform = aParant->GetTransform();
-			transform.GetLocation().x += scaleMovement * Speed;
+			transform.GetLocation().x += -scaleMovement * Speed;
 			aParant->SetTransform(transform);
 		}
 	}
@@ -60,14 +58,14 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			CollisionComponent->AddMovement(scaleMovement, Speed, EAxis::Z);
+			CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::Z);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
 		}
 		else
 		{
 			FTransform transform = aParant->GetTransform();
-			transform.GetLocation().y += scaleMovement * Speed;
+			transform.GetLocation().z += -scaleMovement * Speed;
 			aParant->SetTransform(transform);
 		}
 	}

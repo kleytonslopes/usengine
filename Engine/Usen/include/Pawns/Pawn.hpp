@@ -39,6 +39,7 @@ public:
 	void MoveForward(float scale);
 	void MoveRight(float scale);
 
+	FVector GetCapsuleLocation();
 private:
 	UCameraComponent* CameraComponent = nullptr;
 	UInputComponent* InputComponent = nullptr;

@@ -59,3 +59,26 @@ private:
 };
 
 #endif // !US_TRANSFORM_HPP
+
+
+/*
+
+
+     (Y+) up
+      |
+      |
+      |
+      |
+      O--------- (X+) left
+     /
+    /
+   /
+ (Z-) forward
+
+
+*/
+
+
+
+
+
