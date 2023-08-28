@@ -31,8 +31,11 @@ public:
 	physx::PxScene* Scene = NULL;
 	physx::PxMaterial* Material = NULL;
 	physx::PxPvd* Pvd = NULL;
+	physx::PxControllerManager* ControllerManager = NULL;
+	
 
 	void Construct() override;
+	void PostConstruct() override;
 	void Update(float deltaTime) override;
 
 	physx::PxRigidDynamic* CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform);

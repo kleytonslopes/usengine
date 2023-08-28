@@ -136,13 +136,13 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			FTransform trasform;
-			trasform.Location = { 0.f,-10.f,0.f };
-			trasform.Rotation = { 0.f,0.f,0.f };
+			trasform.SetLocation({0.f,0.f,0.f});
+			trasform.SetRotation({ 0.f,0.f,0.f });
 			Floor = CreateEntity<UStaticMesh>();
-			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.1f });
+			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.01f });
 			Floor->SetCollisionGroup(ECG_None);
 			Floor->SetCollisionMask(ECM_None);
-			Floor->SetLocation(trasform.Location);
+			Floor->SetLocation(trasform.GetLocation());
 			Floor->SetMeshParameters(floorMeshParameters);
 			Floor->SetIsDynamic(false);
 			Floor->Initialize();
@@ -150,8 +150,8 @@ void UScene::Initialize()
 
 		//{ // Gizmo
 			FTransform trasform;
-			trasform.Location = { 0.f,0.f,0.f };
-			trasform.Rotation = { 0.f,0.f,0.f };
+			trasform.SetLocation({ 0.f,0.f,0.f });
+			trasform.SetRotation({ 0.f,0.f,0.f });
 			FMeshParameters gizmomeshparameters{};
 			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "gizmo.obj");
 			AMesh* gizmomesh = CreateEntity<AMesh>();
@@ -175,6 +175,7 @@ void UScene::Initialize()
 			pawnMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "Pawn.obj");
 			AMesh* pawnMesh = CreateEntity<AMesh>();
 			pawnMesh->SetIsDynamic(false);
+			pawnMesh->SetOrigin(FVector{ 0.f, -1.f, 10.f });
 			pawnMesh->SetBoundBox(FVector{ 1.f, 1.f, 1.f });
 			pawnMesh->AttatchTo(Pawn, pawnMeshAttachmentSettings);
 			pawnMesh->SetMeshParameters(pawnMeshParameters);
@@ -305,9 +306,9 @@ void UScene::CreateDefaultController()
 void UScene::CreateDefaultCamera()
 {
 	FTransform trasformCamera;
-	trasformCamera.Location = { 0.f,0.f,0.f };
-	trasformCamera.Origin = { -25.f,0.f,5.f };
-	trasformCamera.Rotation = { 0.f,0.f,0.f };
+	trasformCamera.SetLocation({0.f,0.f,0.f});
+	trasformCamera.SetOrigin({ -25.f,0.f,5.f });
+	trasformCamera.SetRotation({ 0.f,0.f,0.f });
 	Camera = CreateEntity<ACamera>();
 	Camera->SetTransform(trasformCamera);
 	Camera->Initialize();

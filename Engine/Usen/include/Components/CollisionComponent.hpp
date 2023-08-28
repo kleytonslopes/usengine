@@ -49,6 +49,7 @@ public:
 	bool CanCollider() const { return bCanCollider; }
 	virtual FVector GetComponentLocation();
 	virtual FVector GetComponentRotation();
+	virtual FVector GetWorldPosition();
 	
 	void SetBoundBox(const FVector& boundBox);
 	void SetLocation(FVector location);

@@ -52,6 +52,9 @@ void UPhysicsSystemPhysX::Construct()
 	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
 	Scene->addActor(*center);
 
+
+
+
 	//float halfExtent = 1.5f;
 	//physx::PxU32 size = 50;
 	//physx::PxTransform t(physx::PxVec3(0));
@@ -71,16 +74,37 @@ void UPhysicsSystemPhysX::Construct()
 	//shape->release();
 
 
-	physx::PxTransform t(physx::PxVec3(0));
-	physx::PxTransform relativePose(physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0, 0, 1)));
-	physx::PxTransform local(physx::PxVec3(physx::PxReal(0), physx::PxReal(10), physx::PxReal(0)));
-	physx::PxRigidDynamic* body = Physics->createRigidDynamic(t.transform(local));
-	physx::PxShape* aCapsuleShape = physx::PxRigidActorExt::createExclusiveShape(*body, physx::PxCapsuleGeometry(physx::PxReal(2), physx::PxReal(2)), *Material);
-	aCapsuleShape->setLocalPose(relativePose);
-	Scene->addActor(*body);
+	//physx::PxTransform t(physx::PxVec3(0));
+	//physx::PxTransform relativePose(physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0, 0, 1)));
+	//physx::PxTransform local(physx::PxVec3(physx::PxReal(0), physx::PxReal(10), physx::PxReal(0)));
+	//physx::PxRigidDynamic* body = Physics->createRigidDynamic(t.transform(local));
+	//physx::PxShape* aCapsuleShape = physx::PxRigidActorExt::createExclusiveShape(*body, physx::PxCapsuleGeometry(physx::PxReal(2), physx::PxReal(2)), *Material);
+	//aCapsuleShape->setLocalPose(relativePose);
+	//Scene->addActor(*body);
 
-	aCapsuleShape->release();
+	//aCapsuleShape->release();
 
+	/*Controller*/
+	ControllerManager = PxCreateControllerManager(*Scene);
+	physx::PxCapsuleControllerDesc desc;
+	desc.height = 2.f;
+	desc.scaleCoeff = 1.f;
+	desc.volumeGrowth = 1.9f;
+	desc.nonWalkableMode = physx::PxControllerNonWalkableMode::ePREVENT_CLIMBING;
+	desc.radius = 2.f;
+	desc.contactOffset = 0.05f;
+	desc.stepOffset = 0.01f;
+	desc.material = Material;
+
+	
+	//Controller = ControllerManager->createController(desc);
+}
+
+void UPhysicsSystemPhysX::PostConstruct()
+{
+	Super::PostConstruct();
+
+	//Controller = ControllerManager->getController(0);
 }
 
 
@@ -92,7 +116,10 @@ void UPhysicsSystemPhysX::Destroy()
 	///Material->release();
 	///Scene->release();
 	///Dispatcher->release();
+	
+	ControllerManager->release();
 	Physics->release();
+
 	Foundation->release();
 }
 
@@ -106,7 +133,7 @@ void UPhysicsSystemPhysX::Update(float deltaTime)
 
 physx::PxRigidDynamic* UPhysicsSystemPhysX::CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform)
 {
-	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.Location.x), physx::PxReal(transform.Location.y), transform.Location.z));
+	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.GetLocation().x), physx::PxReal(transform.GetLocation().y), transform.GetLocation().z));
 	physx::PxTransform zeroTransform(physx::PxVec3(0));
 	return Physics->createRigidDynamic(zeroTransform.transform(local));
 }
@@ -115,7 +142,7 @@ physx::PxRigidStatic* UPhysicsSystemPhysX::CreateRigidStatic(const FPhysicsShape
 {
 	physx::PxShape* shape = CreateShapeStatic(physicsShapeInitialize);
 
-	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.Location.x), physx::PxReal(transform.Location.y), transform.Location.z));
+	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.GetLocation().x), physx::PxReal(transform.GetLocation().y), transform.GetLocation().z));
 	physx::PxTransform zeroTransform(physx::PxVec3(0));
 	physx::PxRigidStatic* body = physx::PxCreateStatic(*Physics, zeroTransform.transform(local), *shape);
 	Scene->addActor(*body);

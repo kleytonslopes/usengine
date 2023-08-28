@@ -31,9 +31,9 @@ void ACamera::Construct()
 
 FMatrix4 ACamera::GetView()
 {
-	const FTransform& transform = GetTransform();
+	FTransform& transform = GetTransform();
 
-	return glm::lookAt(transform.Location, transform.Location + transform.ForwardVector, transform.UpVector);
+	return glm::lookAt(transform.GetLocation(), transform.GetLocation() + transform.GetForwardVector(), transform.GetUpVector());
 }
 
 void ACamera::SetRotation(FVector& vector)

@@ -14,6 +14,7 @@
 
 
 #include "Components/CollisionComponent.hpp"
+#include "Components/MovementComponent.hpp"
 #include "CapsuleComponent-generated.hpp"
 
 class UCapsuleComponent : public UCollisionComponent
@@ -26,6 +27,10 @@ public:
 	void Destroy() override;
 	void Update(float deltaTime) override;
 	void CalculeLocalInertia() override;
+	void AddForwardMovement(float scaleMovement);
+	void AddRightMovement(float scaleMovement);
+	void AddMovement(float scaleMovement, float speed, EAxis axis);
+	virtual FVector GetWorldPosition() override;
 
 	btRigidBody* CreateRigidBody() override;
 
@@ -33,10 +38,13 @@ protected:
 	btCapsuleShape* CreateCapsuleShape();
 
 private:
+
 	btCapsuleShape* Shape = nullptr;
 	float Radius = 1.f;
 	float Height = 1.f;
 
+
+	physx::PxController* CapsuleController = NULL;
 	
 	friend class UPhysicsSystem;
 };

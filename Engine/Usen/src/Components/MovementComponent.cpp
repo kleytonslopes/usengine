@@ -10,40 +10,42 @@
 #include "upch.hpp"
 #include "Components/MovementComponent.hpp"
 #include "Components/CollisionComponent.hpp"
+#include "Components/CapsuleComponent.hpp"
 #include "Actors/Actor.hpp"
-
+#include "Pawns/Pawn.hpp"
 
 DEFAULT_BODY(UMovementComponent)
+
+void UMovementComponent::Construct()
+{
+	Super::Construct();
+
+	bCanUpdate = true;
+}
 
 void UMovementComponent::AddForwardMovement(float scaleMovement)
 {
 	if (!Parent)
 		return;
 
-	AActor* aParant = Cast<AActor*>(Parent);
+	APawn* aParant = Cast<APawn*>(Parent);
 	if (aParant)
 	{
-		FVector transform = aParant->GetLocation();
-		transform.y += scaleMovement * Speed;
 
-		aParant->SetLocation(transform);
 
-		/*UCollisionComponent* CollisionComponent = aParant->GetCollisionComponent();
+		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			FVector location = CollisionComponent->GetComponentLocation();
-			location.x += scaleMovement * Speed;
-
-			CollisionComponent->SetLocation(location);
+			CollisionComponent->AddMovement(scaleMovement, Speed, EAxis::X);
+			FVector newLocation = CollisionComponent->GetWorldPosition();
+			aParant->SetLocation(newLocation);
 		}
 		else
 		{
-
 			FTransform transform = aParant->GetTransform();
-			transform.Location.x += scaleMovement * Speed;
-
+			transform.GetLocation().x += scaleMovement * Speed;
 			aParant->SetTransform(transform);
-		}*/
+		}
 	}
 }
 
@@ -52,30 +54,41 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 	if (!Parent)
 		return;
 
-	AActor* aParant = Cast<AActor*>(Parent);
+	APawn* aParant = Cast<APawn*>(Parent);
 	if (aParant)
 	{
-		FVector transform = aParant->GetLocation();
-		transform.x -= scaleMovement * Speed;
+		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
+		if (CollisionComponent)
+		{
+			CollisionComponent->AddMovement(scaleMovement, Speed, EAxis::Z);
+			FVector newLocation = CollisionComponent->GetWorldPosition();
+			aParant->SetLocation(newLocation);
+		}
+		else
+		{
+			FTransform transform = aParant->GetTransform();
+			transform.GetLocation().y += scaleMovement * Speed;
+			aParant->SetTransform(transform);
+		}
+	}
+}
 
-		aParant->SetLocation(transform);
+void UMovementComponent::Update(float deltaTime)
+{
+	Super::Update(deltaTime);
 
-
-		//UCollisionComponent* CollisionComponent = aParant->GetCollisionComponent();
-		//if (CollisionComponent)
-		//{
-		//	FVector location = CollisionComponent->GetComponentLocation();
-		//	location.x += scaleMovement * Speed;
-
-		//	CollisionComponent->SetLocation(location);
-		//}
-		//else
-		//{
-
-		//	FTransform transform = aParant->GetTransform();
-		//	transform.Location.x += scaleMovement * Speed;
-
-		//	aParant->SetLocation(transform.Location);
-		//}
+	if (bUseGravity)
+	{
+		APawn* aParant = Cast<APawn*>(Parent);
+		if (aParant)
+		{
+			UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
+			if (CollisionComponent)
+			{
+				CollisionComponent->AddMovement(deltaTime, -10.f, EAxis::Y);
+				FVector newLocation = CollisionComponent->GetWorldPosition();
+				aParant->SetLocation(newLocation);
+			}
+		}
 	}
 }

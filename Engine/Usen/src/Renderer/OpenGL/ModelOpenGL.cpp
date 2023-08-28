@@ -56,12 +56,12 @@ void UModelOpenGL::LoadModel()
 
 void UModelOpenGL::Draw(float deltaTime)
 {
-	const FTransform TransformComponent = MeshActor->GetTransform();
+	FTransform& TransformComponent = MeshActor->GetTransform();
 
 	//render meshs
 	for (uint32 i = 0; i < Meshes.size(); i++)
 	{
-		Meshes[i].Draw(TransformComponent.Location, TransformComponent.Rotation, TransformComponent.Scale);
+		Meshes[i].Draw(TransformComponent.GetLocation(), TransformComponent.GetRotation(), TransformComponent.GetScale());
 	}
 }
 

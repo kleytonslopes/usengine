@@ -68,7 +68,7 @@ void UApplication::Draw(float deltaTime)
 	DrawScreenQuad();
 #endif
 		OnDrawEvent.Broadcast(deltaTime);
-		PhysicsSystem->Update(deltaTime);
+		//PhysicsSystem->Update(deltaTime);
 		PhysicsSystemPhysX->Update(deltaTime);
 	Renderer->EndFrame();
 

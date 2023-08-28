@@ -17,6 +17,39 @@
 class FTransform
 {
 public:
+	FVector& GetLocation() { return Location; }
+	FVector& GetOrigin() { return Origin; }
+	FVector& GetRotation() { return Rotation; }
+	FVector& GetScale() { return Scale; }
+	FVector& GetUpVector() { return UpVector; }
+	FVector& GetForwardVector() { return ForwardVector; }
+
+	void SetLocation(const FVector& vector) 
+	{ 
+		Location = vector;
+	}
+	void SetOrigin(const FVector& vector)
+	{
+		Origin = vector;
+	}
+	void SetRotation(const FVector& vector)
+	{
+		Rotation = vector;
+	}
+	void SetScale(const FVector& vector)
+	{
+		Scale = vector;
+	}
+	void SetUpVector(const FVector& vector)
+	{
+		UpVector = vector;
+	}
+	void SetForwardVector(const FVector& vector)
+	{
+		ForwardVector = vector;
+	}
+
+private:
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };

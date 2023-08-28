@@ -106,9 +106,10 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	else if (attachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
 	{
 		FTransform parentTransform = actorParent->GetTransform();
-		FVector location = parentTransform.Location;
+		FVector location = parentTransform.GetLocation();
 		FTransform myTransform = GetTransform();
-		myTransform.Location = location + myTransform.Origin;
+		myTransform.SetLocation(location + myTransform.GetOrigin());
+		//myTransform.Location = location + myTransform.Origin;
 		SetTransform(myTransform);
 	}
 
@@ -133,176 +134,22 @@ void AActor::DetachFromParent()
 void AActor::SetOrigin(FVector& vector)
 {
 	TransformComponent->SetOrigin(vector);
-
-	//if (CollisionComponent)
-	//{
-	//	FVector location = CollisionComponent->GetComponentLocation();
-	//	TransformComponent->SetOrigin(location);
-	//}
-	//else
-	//{
-	//	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	//	{
-	//		TransformComponent->SetOrigin(vector);
-	//	}
-	//	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	//	{
-	//		AActor* MyParent = GetParent<AActor>();
-	//		FVector location = MyParent->GetLocation();
-	//		FTransform myTransform = GetTransform();
-	//
-	//		myTransform.Location = location + myTransform.Origin;
-	//		TransformComponent->SetLocation(myTransform.Location);
-	//	}
-	//}
 }
 void AActor::SetLocation(FVector& vector)
 {
-	if (CollisionComponent)
-	{
-		FVector lastLocation = TransformComponent->GetLocation();
-		if (lastLocation != vector)
-		{
-			CollisionComponent->SetLocation(vector);
-			TransformComponent->SetLocation(vector);
-		}
-	}
-	else
-	{
-		TransformComponent->SetLocation(vector);
-	}
-
-	OnLocationChangedEvent.Broadcast(vector);
-
-	/*FVector newLocation = vector;
-
-	if (CollisionComponent)
-	{
-		CollisionComponent->SetLocation(vector);
-		newLocation = CollisionComponent->GetComponentLocation();
-		TransformComponent->SetLocation(newLocation);
-
-	}
-	else
-	{
-		if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-		{
-			if (CollisionComponent)
-				CollisionComponent->SetLocation(vector);
-
-			newLocation = CollisionComponent ? CollisionComponent->GetComponentLocation() : vector;
-			TransformComponent->SetLocation(newLocation);
-		}
-		else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-		{
-			AActor* pParent = GetParent<AActor>();
-			FVector pLocation = pParent->GetLocation();
-
-			FTransform myTransform = GetTransform();
-
-			myTransform.Location = pLocation + myTransform.Origin;
-			if (CollisionComponent)
-				CollisionComponent->SetLocation(myTransform.Location);
-
-			TransformComponent->SetLocation(myTransform.Location);
-		}
-
-		if (Attachments->HasAttachments())
-		{
-			for (auto& it : Attachments->Attachments)
-			{
-				it.second->SetLocation(newLocation);
-			}
-		}
-	}*/
+	TransformComponent->SetLocation(vector);
 }
 void AActor::SetRotation(FVector& vector)
 {
-	//if (CollisionComponent)//veresse
-	//{
-	//	TransformComponent->SetRotation(vector);
-	//}
-	//else
-	//{
 	TransformComponent->SetRotation(vector);
-
-	//}
-
-
-	//TransformComponent->SetRotation(vector);
-
-	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	//{
-	//	TransformComponent->SetRotation(vector);
-	//}
-	//else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	//{
-	//	AActor* pParent = GetParent<AActor>();
-	//	FVector pRotation = pParent->GetRotation();
-
-	//	FTransform myTransform = GetTransform();
-	//	//FVector myRotation = GetRotation();
-
-	//	myTransform.Rotation = pRotation + myTransform.Rotation;
-	//	TransformComponent->SetRotation(myTransform.Rotation);
-	//}
 }
 void AActor::SetScale(FVector& vector)
 {
 	TransformComponent->SetScale(vector);
-	//if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	//{
-	//	TransformComponent->SetScale(vector);
-	//}
-	//else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	//{
-	//	AActor* pParent = GetParent<AActor>();
-	//	FVector pScale = pParent->GetScale();
-
-	//	FTransform myTransform = GetTransform();
-	//	//FVector myScale = GetScale();
-
-	//	myTransform.Scale = pScale + myTransform.Scale;
-	//	TransformComponent->SetScale(myTransform.Scale);
-	//}
 }
 void AActor::SetTransform(FTransform& transform)
 {
-	//if (CollisionComponent)
-	//{
-	//	CollisionComponent->SetLocation(transform.Location);
-	//}
-	TransformComponent->SetLocation(transform.Location);
-	//if (CollisionComponent)
-	//{
-	//	FVector location = CollisionComponent->GetComponentLocation();
-	//	TransformComponent->SetLocation(location);
-	//}
-	//else
-	//{
-	//	if (AttachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
-	//	{
-	//		TransformComponent->SetTransform(transform);
-	//	}
-	//	else if (AttachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
-	//	{
-	//		AActor* MyParent = GetParent<AActor>();
-	//		FTransform parentTransform = MyParent->GetTransform();
-	//		FVector location = parentTransform.Location;
-	//		FTransform myTransform = GetTransform();
-
-	//		myTransform.Location = location + myTransform.Origin;
-	//		TransformComponent->SetTransform(myTransform);
-	//	}
-	//}
-
-	//if (Attachments->HasAttachments())
-	//{
-	//	for (auto& it : Attachments->Attachments)
-	//	{
-	//		it.second->SetTransform(transform);
-	//	}
-	//}
+	TransformComponent->SetTransform(transform);
 }
 
 void AActor::SetForwardVector(FVector& vector)
@@ -312,10 +159,6 @@ void AActor::SetForwardVector(FVector& vector)
 
 FVector AActor::GetLocation()
 {
-	//if (CollisionComponent)
-	//{
-	//	return CollisionComponent->GetComponentLocation();
-	//}
 	return TransformComponent->GetLocation();
 }
 FVector AActor::GetRotation()

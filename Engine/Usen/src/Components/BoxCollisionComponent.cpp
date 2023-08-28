@@ -19,7 +19,7 @@ void UBoxCollisionComponent::Construct()
 {
 	Super::Construct();
 
-	if (Parent)
+	/*if (Parent)
 	{
 		AMesh* meshParent = Cast<AMesh*>(Parent);
 		if (meshParent)
@@ -31,7 +31,7 @@ void UBoxCollisionComponent::Construct()
 			Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });
 	}
 	else
-		Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });
+		Shape = CreateBoxShape(FVector{ 1.f, 1.f, 1.f });*/
 }
 
 void UBoxCollisionComponent::PostConstruct()
@@ -41,7 +41,7 @@ void UBoxCollisionComponent::PostConstruct()
 
 	Super::PostConstruct();
 
-	GetPhysicsSystem()->RegisterComponent(this);
+	//GetPhysicsSystem()->RegisterComponent(this);
 	/*ShapeX = GetPhysicsSystemPhysX()->CreateShape(BodyDynamic, physicsShapeInitialize);*/
 }
 

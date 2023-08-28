@@ -52,7 +52,7 @@ void UApplicationEditor::Draw(float deltaTime)
 {
 	Renderer->StartFrame();
 		OnDrawEvent.Broadcast(deltaTime);
-		PhysicsSystem->Update(deltaTime);
+		//PhysicsSystem->Update(deltaTime);
 		PhysicsSystemPhysX->Update(deltaTime);
 #if defined (APP_EDITOR_MODE)
 	DrawScreenQuad();
