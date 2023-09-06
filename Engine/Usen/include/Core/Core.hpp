@@ -17,6 +17,8 @@
 #include "Core/String.hpp"
 #include "Core/Logger.hpp"
 
+# define M_PI 3.14159265358979323846
+
 inline void ULOG(ELogLevel level, const FString& message)
 {
 	switch (level)

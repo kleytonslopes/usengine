@@ -34,7 +34,6 @@ void AMesh::Construct()
 	RenderComponent = AddComponent<URenderComponent>();
 	MeshComponent = AddComponent<UMeshComponent>();
 	CollisionComponent = AddComponent<UBoxCollisionComponent>();
-	//CollisionComponent->OnTransformUpdatedEvent.Add(this, &This::SetTransform);
 }
 
 void AMesh::PostConstruct()
@@ -57,12 +56,6 @@ void AMesh::Initialize()
 void AMesh::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
-
-	//if (CollisionComponent /*&& CollisionComponent->IsDynamic() && Parent == nullptr*/)
-	//{
-	//	FVector location = CollisionComponent->GetComponentLocation();
-	//	SetLocation(location);
-	//}
 }
 
 void AMesh::Destroy()
@@ -150,10 +143,6 @@ FVector AMesh::GetBoundBox() const
 
 void AMesh::SetBoundBox(const FVector& boundBox)
 {
-	//BoundBox.x = boundBox.x;
-	//BoundBox.y = boundBox.y;
-	//BoundBox.z = boundBox.z;
-
 	if (CollisionComponent)
 	{
 		CollisionComponent->SetBoundBox(boundBox);

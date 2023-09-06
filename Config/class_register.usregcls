@@ -1608,5 +1608,28 @@
       "ClassGenDefinition": "hpp_FColor",
       "ClassGenDefinitionVersion": "hpp_FColor_def"
     }
+  },
+  {
+    "ClassName": "FRotator",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "FRotator",
+      "ClassDefinition": "US_ROTATOR_HPP",
+      "HppFileName": "Rotator.hpp",
+      "CppFileName": "Rotator.cpp",
+      "GenFileName": "Rotator-generated.hpp",
+      "FolderHpp": "include/Core",
+      "FolderCpp": "src/Core",
+      "FolderGen": "generated",
+      "DateCreation": "August 2023",
+      "BaseClassName": "",
+      "BaseClassPathHpp": "",
+      "BaseClassTemplate": "",
+      "BaseClassInclude": "#include \"Core/MinimalCore.hpp\"",
+      "ClassGenDefinition": "hpp_FRotator",
+      "ClassGenDefinitionVersion": "hpp_FRotator_def"
+    }
   }
 ]

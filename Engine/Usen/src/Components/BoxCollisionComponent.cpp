@@ -56,14 +56,6 @@ void UBoxCollisionComponent::CalculeLocalInertia()
 		Shape->calculateLocalInertia(Mass, LocalInertia);
 }
 
-//void UBoxCollisionComponent::SetBoundBox(const FVector& boundBox)
-//{
-//	if (Shape)
-//	{
-//		Shape->setImplicitShapeDimensions(btVector3{ boundBox.x, boundBox.y, boundBox.z});
-//	}
-//}
-
 btRigidBody* UBoxCollisionComponent::CreateRigidBody()
 {
 	if (!bCanCollider)

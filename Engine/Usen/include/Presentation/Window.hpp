@@ -24,7 +24,7 @@
 #include "Window-generated.hpp"
 
 DECLARE_FUNCTION_OneParam(FOnPollEventsSignature, SDL_Event*, sEvent)
-DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, float, height)
+DECLARE_FUNCTION_TwoParam(FOnWindowResizedSignature, uint32, width, uint32, height)
 DECLARE_FUNCTION_TwoParam(FOnKeyEvent, uint32, keyCode, EKeyHandler, keyHandler)
 DECLARE_FUNCTION_TwoParam(FOnMouseButtonEvent, uint32, keyCode, EKeyHandler, keyHandler)
 DECLARE_FUNCTION_TwoParam(FOnMouseWheelEvent, uint32, xOffset, uint32, yOffset)
@@ -55,8 +55,10 @@ public:
 	void SetShouldClose(bool wantClose);
 	void SwapWindow();
 	void MakeCurrent();
+	void SetMouseLocked(bool mouseLock);
 
 	bool ShouldClose() const;
+	bool IsMouseLocked() const;
 	uint32 GetTicks() const;
 
 	uint32& GetWidth() { return width; }
@@ -75,6 +77,7 @@ private:
 	uint32 fpsLimit = 60;
 	uint32 desiredFps = 0;
 	bool bWantClose = false;
+	bool bIsMouseLocked = false;
 
 	SDL_Event sdlEvent;
 	SDL_Window* sdlWindow = nullptr;

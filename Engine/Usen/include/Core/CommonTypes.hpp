@@ -24,12 +24,12 @@ namespace us::types
 {
 	struct FCommonTypes
 	{
-		using UUtint8 = unsigned char;
+		using UUtint8  = unsigned char;
 		using UUtint16 = unsigned short int;
 		using UUtint32 = unsigned int;
 		using UUtint64 = unsigned long long;
 
-		using StInt8 = signed char;
+		using StInt8  = signed char;
 		using StInt16 = signed short int;
 		using StInt32 = signed int;
 		using StInt64 = signed long long;

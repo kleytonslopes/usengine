@@ -39,7 +39,7 @@ void UPhysicsDebug::drawLine(const btVector3& from, const btVector3& to, const b
 {
 	FVector fromVec = FVector{ from.getX(), from.getY() , from.getZ() };
 	FVector toVec = FVector{ to.getX(), to.getY() , to.getZ() };
-	Application->GetRenderer()->DebugDrawLine(fromVec, toVec);
+	Application->GetRenderer()->DebugDrawLine(fromVec, toVec, FColor::Blue);
 }
 
 void UPhysicsDebug::reportErrorWarning(const char* warningString)

@@ -33,6 +33,7 @@ project "Editor"
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
+        "%{include_dir.KyrnnessMath}",
     }
 
     libdirs
@@ -50,6 +51,7 @@ project "Editor"
         "GLAD",
         "IMGUI",
         "YAML",
+        "KyrnnessMath",
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",

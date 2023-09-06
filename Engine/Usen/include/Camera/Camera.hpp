@@ -33,6 +33,30 @@ public:
 	float GetNear() const;
 	float GetFar() const;
 	float GetAspectRatio();
+
+	/// <summary>
+	/// Get Pitch axis from CameraComponent
+	/// </summary>
+	/// <returns></returns>
+	float GetPitch() const;
+	/// <summary>
+	/// Get Yaw axis from CameraComponent
+	/// </summary>
+	/// <returns></returns>
+	float GetYaw() const;
+	/// <summary>
+	/// Get Roll axis from CameraComponent
+	/// </summary>
+	/// <returns></returns>
+	float GetRoll() const;
+
+	void SetPitch(const float& value);
+	void SetYaw(const float& value);
+	void SetRoll(const float& value);
+
+	void AddPitch(float& value);
+	void AddYaw(float& value);
+	void AddRoll(float& value);
 private:
 	UCameraComponent* CameraComponent = nullptr;
 

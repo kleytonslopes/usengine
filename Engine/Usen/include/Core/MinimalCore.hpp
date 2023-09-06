@@ -33,5 +33,6 @@
 #include "Core/CommonDefines.hpp"
 #include "Core/Transform.hpp"
 #include "Core/Color.hpp"
+#include "Core/Rotator.hpp"
 
 #endif // !US_MINIMAL_CORE_HPP

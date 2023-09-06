@@ -36,12 +36,12 @@ public:
 	FVector GetScale();
 	FVector GetUpVector();
 	FVector GetForwardVector();
-	FTransform GetTransform();
+	AFTransform GetTransform();
 
 	FVector GetRightVector();
 	FVector GetDirection();
 
-	void SetTransform(FTransform transform);
+	void SetTransform(AFTransform transform);
 	void SetOrigin(const FVector& transform);
 	void SetLocation(FVector& vector);
 	void SetRotation(const FVector& vector);
@@ -49,11 +49,13 @@ public:
 	void SetUpVector(const FVector& vector);
 	void SetForwardVector(const FVector& vector);
 
+	FVector GetWorldLocation();
+
 protected:
 	void Serialize(SeriFile& otherOut) override;
 
 private:
-	FTransform Transform{};
+	AFTransform Transform{};
 };
 
 #endif // !US_TRANSFORM_COMPONENT_HPP

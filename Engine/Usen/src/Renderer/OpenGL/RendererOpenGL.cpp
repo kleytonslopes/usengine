@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: RendererOpenGL.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
@@ -92,14 +92,14 @@ void URendererOpenGL::Initialize()
 	//glGenFramebuffers(1, &screenFBO);
 	//glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
 	// create a color attachment texture
-	
+
 	glGenTextures(1, &screenTex);
 	glBindTexture(GL_TEXTURE_2D, screenTex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, GetWindow()->GetWidth(), GetWindow()->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenTex, 0);
-	
+
 	glGenRenderbuffers(1, &screenRBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, screenRBO);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, GetWindow()->GetWidth(), GetWindow()->GetHeight());
@@ -128,7 +128,7 @@ void URendererOpenGL::StartFrame()
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	
+
 	ACamera* Camera = GetScene()->GetCamera();
 
 	float fov = Camera->GetFieldOfView();
@@ -149,11 +149,34 @@ void URendererOpenGL::StartFrame()
 		shdIterator->second->SetMatrix4("model", FMatrix4{ 1.f });
 		shdIterator->second->Deactive();
 	}
-	
+
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilMask(0xFF);
 
 	//DrawScreenQuad();
+
+
+	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldRightVector * 100.f, FColor::Blue);
+	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldUpVector * 100.f, FColor::Green);
+	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldForwardVector * 100.f, FColor::Red);
+	//
+	float xPos = 0.f;
+	float yPos = 0.f;
+	//
+	float size = 4;
+	//
+	for (size_t x = 0; x < size; x++)
+	{
+		xPos = (x + 4.f);
+		DebugDrawLine(FVector{ -20.f, 0.f, xPos }, FVector{ 20.f, 0.f, xPos }, FColor::Cyan);
+		DebugDrawLine(FVector{ -20.f, 0.f, -xPos }, FVector{ 20.f, 0.f, -xPos }, FColor::Cyan);
+		for (size_t y = 0; y < size; y++)
+		{
+			yPos = (y + 4.f);
+			DebugDrawLine(FVector{ yPos , 0.f, -20.f }, FVector{ yPos, 0.f, 20.f }, FColor::Pink);
+			DebugDrawLine(FVector{ -yPos , 0.f, -20.f }, FVector{ -yPos, 0.f, 20.f }, FColor::Pink);
+		}
+	}
 }
 
 void URendererOpenGL::EndFrame()
@@ -210,7 +233,7 @@ void URendererOpenGL::OnViewportResize(uint32 width, uint32 height)
 	glViewport(0, 0, width, height);
 }
 
-void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
+void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to, const FColor& color)
 {
 	unsigned int VBO, VAO, CVBO;
 	GLfloat points[6];
@@ -222,13 +245,13 @@ void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
 	points[4] = to.y;
 	points[5] = to.z;
 
-	GLfloat color[6];
-	color[0] = 1.f;
-	color[1] = 0.f;
-	color[2] = 0.f;
-	color[3] = 1.0f;
-	color[4] = 0.0f;
-	color[5] = 0.0f;
+	GLfloat sColor[6];
+	sColor[0] = color.R;
+	sColor[1] = color.G;
+	sColor[2] = color.B;
+	sColor[3] = color.R;
+	sColor[4] = color.G;
+	sColor[5] = color.B;
 
 	ACamera* Camera = GetScene()->GetCamera();
 	FVector cameraPos = Camera->GetLocation();
@@ -262,7 +285,7 @@ void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, CVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(color), &color, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sColor), &sColor, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
 
@@ -280,7 +303,7 @@ void URendererOpenGL::DebugDrawLine(const FVector& from, const FVector& to)
 void URendererOpenGL::DrawScreenQuad()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	
+
 	//glDisable(GL_DEPTH_TEST);
 	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

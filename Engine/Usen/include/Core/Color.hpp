@@ -19,6 +19,20 @@ public:
 	float G { 0.f };
 	float B { 0.f };
 	float A { 1.f };
+
+	FColor() = default;
+	FColor(float r, float g, float b, float a);
+
+	static FColor White;
+	static FColor Black;
+	static FColor Red;
+	static FColor Green;
+	static FColor Blue;
+	static FColor Cyan;
+	static FColor Pink;
+	static FColor Yellow;
+	static FColor Orange;
+	static FColor Purple;
 };
 
 #endif // !US_COLOR_HPP

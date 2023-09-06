@@ -23,7 +23,7 @@ public:
 
 private:
 	FColor Color;
-	FTransform Transform;
+	AFTransform Transform;
 };
 
 #endif // !US_ARROW_COMPONENT_HPP

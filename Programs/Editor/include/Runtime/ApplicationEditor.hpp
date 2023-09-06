@@ -14,6 +14,7 @@
 
 
 #include "Runtime/Application.hpp"
+#include "Input/KeyHandler.hpp"
 #include "ApplicationEditor-generated.hpp"
 
 class UEditorUI;
@@ -21,6 +22,7 @@ class UEditorUI;
 class UApplicationEditor : public UApplication
 {
 	DEFAULT_BODY_GENERATED()
+
 public:
 
 	void Construct() override;
@@ -28,7 +30,8 @@ public:
 	void Initialize() override;
 	void Destroy() override;
 	void Draw(float deltaTime) override;
-	
+
+	void OnMouseButtonEvent(uint32 keyCode, EKeyHandler keyHandler);
 protected:
 	UEditorUI* UIEditor;
 };

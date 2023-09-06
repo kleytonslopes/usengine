@@ -44,16 +44,20 @@ public:
 	void SetLocation(FVector& vector);
 	virtual void SetRotation(FVector& vector);
 	void SetScale(FVector& vector);
-	void SetTransform(FTransform& transform);
+	void SetTransform(AFTransform& transform);
 	void SetForwardVector(FVector& vector);
+	void SetUpVector(FVector& vector);
 
+	FVector GetOrigin();
 	FVector GetLocation();
+	FVector GetWorldLocation();
 	FVector GetRotation();
 	FVector GetScale();
 	FVector GetSceneLocation();
-	FTransform& GetTransform();
+	AFTransform& GetTransform();
 	FVector GetForwardVector();
 	FVector GetRightVector();
+	FVector GetUpVector();
 
 	UCollisionComponent* GetCollisionComponent();
 
@@ -63,6 +67,8 @@ protected:
 
 	UTransformComponent* TransformComponent = nullptr;
 	UCollisionComponent* CollisionComponent = nullptr;
+
+	bool bDrawDebug = true;
 
 	void Serialize(SeriFile& otherOut) override;
 

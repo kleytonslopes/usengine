@@ -16,12 +16,12 @@
 #include "Components/Component.hpp"
 #include "MovementComponent-generated.hpp"
 
-enum class EAxis : uint8
-{
-	X,
-	Y,
-	Z,
-};
+//enum class EAxis : uint8
+//{
+//	X,
+//	Y,
+//	Z,
+//};
 
 class UMovementComponent : public AComponent
 {

@@ -156,6 +156,8 @@ void UWindow::InitializeForOpenGL()
 	CreateWindowRendererInstance();
 	CreateWindowSurfaceInstance();
 	CreateWindowContextOpenGL();
+
+
 }
 
 void UWindow::CreateWindowInstance(FString title, uint32 width, uint32 height, int contextFlags)
@@ -210,3 +212,17 @@ void UWindow::CreateWindowContextOpenGL()
 	SDL_GL_SetSwapInterval(1); // Enable vsync
 }
 
+void UWindow::SetMouseLocked(bool mouseLock)
+{
+	bIsMouseLocked = mouseLock;
+
+	if (mouseLock)
+		SDL_SetRelativeMouseMode(SDL_TRUE);
+	else
+		SDL_SetRelativeMouseMode(SDL_FALSE);
+}
+
+bool UWindow::IsMouseLocked() const
+{
+	return bIsMouseLocked;
+}

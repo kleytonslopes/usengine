@@ -21,6 +21,8 @@ class UInputComponent;
 class UCapsuleComponent;
 class UMovementComponent;
 
+class AMesh;
+
 class APawn : public AActor
 {
 	DEFAULT_BODY_GENERATED()
@@ -40,11 +42,17 @@ public:
 	void MoveRight(float scale);
 
 	FVector GetCapsuleLocation();
+
+	void SetMesh(AMesh* mesh);
+	AMesh* GetMesh();
+
 private:
 	UCameraComponent* CameraComponent = nullptr;
 	UInputComponent* InputComponent = nullptr;
 	UCapsuleComponent* CapsuleComponent = nullptr;
 	UMovementComponent* MovementComponent = nullptr;
+
+	AMesh* Mesh = nullptr;
 };
 
 #endif // !US_PAWN_HPP

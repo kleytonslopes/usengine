@@ -13,6 +13,8 @@
 #include "Components/InputComponent.hpp"
 #include "Runtime/Application.hpp"
 #include "Configs/EngineConfig.hpp"
+#include "Framework/Scene.hpp"
+#include "Camera/Camera.hpp"
 
 DEFAULT_BODY(UInputManagement)
 
@@ -26,6 +28,7 @@ void UInputManagement::Construct()
 void UInputManagement::PostConstruct()
 {
 	GetWindow()->OnKeyEvent.Add(this, &This::OnKeyEvent);
+	GetWindow()->OnMouseMovementEvent.Add(this, &This::OnMouseMovementEvent);
 
 	FEngineConfig engineConfig{};
 
@@ -77,8 +80,76 @@ void UInputManagement::OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler)
 	
 	if (it != RegisteredKeys.end())
 	{
-
 		it->second.bIsPressed = keyHandler == EKeyHandler::KEY_PRESSED ? true : false;
+	}
+}
+
+void UInputManagement::OnMouseMovementEvent(uint32 xpos, uint32 ypos, uint32 xPosRel, uint32 yPosRel)
+{
+	UScene* scene = GetScene();
+	if (scene)
+	{
+		UWindow* window = GetWindow();
+		ACamera* camera = scene->GetCamera();
+		if ((camera && window) && window->IsMouseLocked())
+		{
+		//	//float yaw = camera->GetYaw() + xPosRel;
+		//	//ULOG(ELogLevel::ELL_TRACE, FText::Format("x: %i, xr: %i, y: %i, yr: %i", yaw, xPosRel, yPos, yPosRel));
+		//	////ULOG(ELogLevel::ELL_TRACE, FText::Format("x: %i, xr: %i, y: %i, yr: %i", xPos, xPosRel, yPos, yPosRel));
+		//	//static float lastX = yaw;
+		//	//static float lastY = yPos;
+		//	//float sensitivity = 0.3f;
+
+		//	//float xoffset = (xPos - lastX) * sensitivity;
+		//	//float yoffset = (lastY - yPos) * sensitivity;
+
+		//	//lastX = xPos;
+		//	//lastY = yPos;
+		//	////camera->SetRotation(FVector{ xoffset , 0.0f, yoffset });
+		//	
+		//	/*
+		////	static float lastX = camera->GetPitch();
+		//	static float lastY = camera->GetYaw();
+		//	float sensitivity = 0.01f;
+
+		//	float xoffset = (camera->GetPitch() - lastX) * sensitivity;
+		//	float yoffset = (lastY - camera->GetYaw()) * sensitivity;
+
+		//	lastX = camera->GetPitch();
+		//	lastY = camera->GetYaw();
+
+		//	camera->SetRoll(0.f);
+		//	camera->SetYaw(yoffset);
+		//	camera->SetPitch(xoffset);
+		//	*/
+
+		//	float deltaTIme = GetApplication()->GetDeltaTime();
+		//	float yaw = (camera->GetYaw() + xPosRel) * deltaTIme * 0.001f;
+		//	float pitch = (camera->GetPitch() + yPosRel) * deltaTIme * 0.001f;
+
+		//	if (pitch > 89.0f) pitch = 89.0f;
+		//	if (pitch < -89.0f) pitch = -89.0f;
+
+		//	camera->SetYaw(yaw);
+		//	camera->SetPitch(pitch);
+
+
+
+			static float lastX = xPosRel;
+			static float lastY = yPosRel;
+			//float sensitivity = 0.1f;
+
+			//float xoffset = (xpos - lastX) * sensitivity;
+			//float yoffset = (lastY - ypos) * sensitivity;
+
+			//lastX = xpos;
+			//lastY = ypos;
+
+			/*camera.rotate(xoffset, yoffset, 0.0f);*/
+			camera->AddYaw(lastX);
+			camera->AddPitch(lastX);
+			camera->SetRoll(0.f);
+		}
 	}
 }
 

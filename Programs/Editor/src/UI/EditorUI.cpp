@@ -189,7 +189,7 @@ void UEditorUI::Draw(float deltaTime)
 
 		ImGui::Begin("Camera");
 		{
-			if (ImGui::TreeNode("m0001", "Position"))
+			if (ImGui::TreeNode("m1001", "Position"))
 			{
 				FVector& location = GetScene()->GetCamera()->GetLocation();
 				ImGui::PushItemWidth(80);
@@ -200,9 +200,8 @@ void UEditorUI::Draw(float deltaTime)
 				GetScene()->GetCamera()->SetLocation(location);
 				ImGui::TreePop();
 			}
-		}
-		{
-			if (ImGui::TreeNode("m00002","Rotation"))
+
+			if (ImGui::TreeNode("m10002","Rotation"))
 			{
 				FVector& rotation = GetScene()->GetCamera()->GetRotation();
 				ImGui::PushItemWidth(80);
@@ -210,12 +209,28 @@ void UEditorUI::Draw(float deltaTime)
 				ImGui::DragScalar("Y", ImGuiDataType_Float, &rotation.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
 				ImGui::DragScalar("Z", ImGuiDataType_Float, &rotation.z, 0.05f, &min, &max, "%f");
 				ImGui::PopItemWidth();
-				GetScene()->GetCamera()->SetRotation(rotation);
+				//GetScene()->GetCamera()->SetRotation(rotation);
 				ImGui::TreePop();
 			}
-		}
-		{
-			if (ImGui::TreeNode("m00004", "Settings"))
+
+			if (ImGui::TreeNode("m10003", "Axis"))
+			{
+				float pitch = GetScene()->GetCamera()->GetPitch();
+				float yaw = GetScene()->GetCamera()->GetYaw();
+				float roll = GetScene()->GetCamera()->GetRoll();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("Pitch", ImGuiDataType_Float, &pitch, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Yaw", ImGuiDataType_Float, &yaw, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Roll", ImGuiDataType_Float, &roll, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+
+				//GetScene()->GetCamera()->SetPitch(pitch);
+				//GetScene()->GetCamera()->SetYaw(yaw);
+				//GetScene()->GetCamera()->SetRoll(roll);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("m10004", "Settings"))
 			{
 				FVector& rotation = GetScene()->GetCamera()->GetRotation();
 				ACamera* camera = GetScene()->GetCamera();
@@ -244,6 +259,17 @@ void UEditorUI::Draw(float deltaTime)
 				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
 				ImGui::PopItemWidth();
 				Floor->SetLocation(location);
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNode("m0004B", "Origin"))
+			{
+				FVector location = Floor->GetOrigin();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("X", ImGuiDataType_Float, &location.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Y", ImGuiDataType_Float, &location.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+				Floor->SetOrigin(location);
 				ImGui::TreePop();
 			}
 		}
@@ -316,8 +342,19 @@ void UEditorUI::Draw(float deltaTime)
 				Pawn->SetLocation(location);
 				ImGui::TreePop();
 			}
+			if (ImGui::TreeNode("m0009", "Origin"))
+			{
+				FVector location = Pawn->GetMesh()->GetOrigin();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("X", ImGuiDataType_Float, &location.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Y", ImGuiDataType_Float, &location.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+				Pawn->GetMesh()->SetOrigin(location);
+				ImGui::TreePop();
+			}
 
-			if (ImGui::TreeNode("m0009", "Capsule Position"))
+			if (ImGui::TreeNode("m0010", "Capsule Position"))
 			{
 				FVector location = Pawn->GetCapsuleLocation();
 				ImGui::PushItemWidth(80);

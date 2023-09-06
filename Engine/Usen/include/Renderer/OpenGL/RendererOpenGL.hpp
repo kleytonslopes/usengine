@@ -29,7 +29,7 @@ public:
 	void EndFrame() override;
 	void OnWindowResize(uint32 width, uint32 height) override;
 	void OnViewportResize(uint32 width, uint32 height) override;
-	void DebugDrawLine(const FVector& from, const FVector& to) override;
+	void DebugDrawLine(const FVector& from, const FVector& to, const FColor& color) override;
 	void DrawScreenQuad() override;
 
 	uint32 GetScreenTex() { return screenTex; }

@@ -24,4 +24,6 @@ using FMatrix2 = glm::mat2;
 using FMatrix3 = glm::mat3;
 using FMatrix4 = glm::mat4;
 
+//using FQuaternion = glm::quat;
+
 #endif // !US_VECTOR_HPP

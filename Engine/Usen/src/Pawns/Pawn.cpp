@@ -73,14 +73,6 @@ void APawn::MoveRight(float scale)
 	float movementScale = scale * deltaTime;
 
 	MovementComponent->AddRightMovement(movementScale);
-
-	/*
-		FTransform transform = GetTransform();
-	const float deltaTime = GetApplication()->GetDeltaTime();
-	transform.Location.y += scale * deltaTime * 10.f;
-
-	SetTransform(transform);
-	*/
 }
 
 FVector APawn::GetCapsuleLocation()
@@ -91,5 +83,15 @@ FVector APawn::GetCapsuleLocation()
 	}
 
 	return FVector{ 0.f };
+}
+
+void APawn::SetMesh(AMesh* mesh)
+{
+	Mesh = mesh;
+}
+
+AMesh* APawn::GetMesh()
+{
+	return Mesh;
 }
 

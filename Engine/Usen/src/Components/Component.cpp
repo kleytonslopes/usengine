@@ -31,7 +31,7 @@ FVector AComponent::GetParentLocation()
 	return FVector{0};
 }
 
-FTransform AComponent::GetParentTransform()
+AFTransform AComponent::GetParentTransform()
 {
 	if (Parent)
 	{
@@ -41,7 +41,59 @@ FTransform AComponent::GetParentTransform()
 			return aParent->GetTransform();
 		}
 	}
-	return FTransform{};
+	return TrasnformComponent;
+}
+
+FVector AComponent::GetLocation()
+{
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			return aParent->GetLocation();
+		}
+	}
+	return TrasnformComponent.GetLocation();
+}
+
+FVector AComponent::GetUpVector()
+{
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			return aParent->GetUpVector();
+		}
+	}
+	return TrasnformComponent.GetUpVector();
+}
+
+FVector AComponent::GetForwardVector()
+{
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			return aParent->GetForwardVector();
+		}
+	}
+	return TrasnformComponent.GetForwardVector();
+}
+
+FVector AComponent::GetRightVector()
+{
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			return aParent->GetRightVector();
+		}
+	}
+	return TrasnformComponent.GetRightVector();
 }
 
 void AComponent::BeginComponentSection(SeriFile& otherOut, const FString& identity)

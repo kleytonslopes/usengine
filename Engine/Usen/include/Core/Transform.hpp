@@ -13,19 +13,26 @@
 #define	US_TRANSFORM_HPP
 
 #include "Core/CommonTypes.hpp"
+#include "Core/Vector.hpp"
+#include "Axis.hpp"
 
-class FTransform
+class AFTransform
 {
 public:
 	FVector& GetLocation() { return Location; }
+	FVector& GetWorldLocation() { return Location + Origin; }
 	FVector& GetOrigin() { return Origin; }
 	FVector& GetRotation() { return Rotation; }
 	FVector& GetScale() { return Scale; }
 	FVector& GetUpVector() { return UpVector; }
 	FVector& GetForwardVector() { return ForwardVector; }
+	FVector GetRightVector()
+	{
+		return glm::normalize(glm::cross(ForwardVector, UpVector));
+	}
 
-	void SetLocation(const FVector& vector) 
-	{ 
+	void SetLocation(const FVector& vector)
+	{
 		Location = vector;
 	}
 	void SetOrigin(const FVector& vector)
@@ -49,13 +56,25 @@ public:
 		ForwardVector = vector;
 	}
 
+	static FVector WorldUpVector;
+	static FVector WorldForwardVector;
+	static FVector WorldRightVector;
+
+	//static FQuaternion LookAt(FVector direction, FVector upVector);
+	//static FQuaternion Rotate(FVector from, FVector to);
+	//static FQuaternion Rotate(FVector from, FVector to, EAxis axis);
+
 private:
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };
 	FVector Scale{ 1.f, 1.f, 1.f };
-	FVector UpVector{ 0.f, 1.f, 0.f };
-	FVector ForwardVector{ 0.f, 0.f, -1.f };
+	FVector UpVector = AFTransform::WorldUpVector;//{ 0.f, 0.f, 1.f };       /// Y+
+	FVector ForwardVector = AFTransform::WorldForwardVector;//{ 1.f, 0.f, 0.f }; /// Z-
+
+	FVector AxisX{ 1.f, 0.f, 0.f };
+	FVector AxisY{ 0.f, 1.f, 0.f };
+	FVector AxisZ{ 0.f, 0.f, 1.f };
 };
 
 #endif // !US_TRANSFORM_HPP
@@ -64,14 +83,14 @@ private:
 /*
 
 
-     (Y+) up
-      |
-      |
-      |
-      |
-      O--------- (X+) left
-     /
-    /
+	 (Y+) up
+	  |
+	  |
+	  |
+	  |
+	  O--------- (X+) left
+	 /
+	/
    /
  (Z-) forward
 

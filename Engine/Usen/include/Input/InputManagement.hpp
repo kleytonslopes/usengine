@@ -48,6 +48,7 @@ public:
 	void Update(float deltaTime) override;
 	void SetInputComponent(UInputComponent* inputComponent);
 	void OnKeyEvent(uint32 keyCode, EKeyHandler keyHandler);
+	void OnMouseMovementEvent(uint32 xPos, uint32 yPos, uint32 xPosRel, uint32 yPosRel);
 
 	template<class TObject, class Fx>
 	void AddAction(const FString& action, TObject* target, EKeyHandler keyHandler, Fx&& function)

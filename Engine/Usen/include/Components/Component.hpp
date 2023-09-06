@@ -16,7 +16,7 @@
 #include "Actors/Entity.hpp"
 #include "Component-generated.hpp"
 
-struct FTransform;
+struct AFTransform;
 
 class AComponent : public AEntity
 {
@@ -25,9 +25,16 @@ public:
 	void SetParent(AEntity* parent);
 
 	FVector GetParentLocation();
-	FTransform GetParentTransform();
+	AFTransform GetParentTransform();
+
+	FVector GetLocation();
+	FVector GetUpVector();
+	FVector GetForwardVector();
+	FVector GetRightVector();
+
 protected:
 	AEntity* Parent = nullptr;
+	AFTransform TrasnformComponent;
 
 
 	void BeginComponentSection(SeriFile& otherOut, const FString& identity);

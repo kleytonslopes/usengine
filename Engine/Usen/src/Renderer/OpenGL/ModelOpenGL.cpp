@@ -56,7 +56,7 @@ void UModelOpenGL::LoadModel()
 
 void UModelOpenGL::Draw(float deltaTime)
 {
-	FTransform& TransformComponent = MeshActor->GetTransform();
+	AFTransform& TransformComponent = MeshActor->GetTransform();
 
 	//render meshs
 	for (uint32 i = 0; i < Meshes.size(); i++)

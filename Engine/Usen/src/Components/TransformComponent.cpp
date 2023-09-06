@@ -42,7 +42,7 @@ FVector UTransformComponent::GetForwardVector()
 	return Transform.GetForwardVector();
 }
 
-FTransform UTransformComponent::GetTransform()
+AFTransform UTransformComponent::GetTransform()
 {
 	return Transform;
 }
@@ -57,7 +57,7 @@ FVector UTransformComponent::GetDirection()
 	return glm::normalize(Transform.GetLocation() - Transform.GetForwardVector());
 }
 
-void UTransformComponent::SetTransform(FTransform transform)
+void UTransformComponent::SetTransform(AFTransform transform)
 {
 	SetLocation(transform.GetLocation());
 	SetOrigin(transform.GetOrigin());
@@ -107,6 +107,11 @@ void UTransformComponent::SetForwardVector(const FVector& vector)
 	Transform.GetForwardVector().x = vector.x;
 	Transform.GetForwardVector().y = vector.y;
 	Transform.GetForwardVector().z = vector.z;
+}
+
+FVector UTransformComponent::GetWorldLocation()
+{
+	return Transform.GetWorldLocation();
 }
 
 void UTransformComponent::Serialize(SeriFile& otherOut)

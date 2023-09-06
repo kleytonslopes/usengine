@@ -36,7 +36,7 @@ public:
 	virtual void EndFrame() { /* override */ };
 	virtual void OnWindowResize(uint32 width, uint32 height) { /* override */ };
 	virtual void OnViewportResize(uint32 width, uint32 height) { /* override */ };
-	virtual void DebugDrawLine(const FVector& from, const FVector& to) { /* override */ }
+	virtual void DebugDrawLine(const FVector& from, const FVector& to, const FColor& color) { /* override */ }
 	virtual void DrawScreenQuad() { /* override */ }
 	
 

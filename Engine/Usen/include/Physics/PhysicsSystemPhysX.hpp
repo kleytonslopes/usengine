@@ -38,8 +38,8 @@ public:
 	void PostConstruct() override;
 	void Update(float deltaTime) override;
 
-	physx::PxRigidDynamic* CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform);
-	physx::PxRigidStatic* CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform);
+	physx::PxRigidDynamic* CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, AFTransform transform);
+	physx::PxRigidStatic* CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, AFTransform transform);
 
 	void Destroy() override;
 
