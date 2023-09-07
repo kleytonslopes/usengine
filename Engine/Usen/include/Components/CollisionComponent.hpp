@@ -53,6 +53,7 @@ public:
 	
 	void SetBoundBox(const FVector& boundBox);
 	void SetLocation(FVector location);
+	void SetRotation(FVector vector);
 	//void SetUpVector(FVector vector);
 	void SetTransform(AFTransform& transform);
 	void SetBodyType(EBodyType bodyType);

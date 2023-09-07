@@ -10,6 +10,6 @@ out vec4 fragColor;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
+    gl_Position = projection * view * model * vec4(position, 1.0);
 	fragColor = vec4(color_in, 1.0f);
 } 

@@ -26,7 +26,7 @@ class FPhysicsShapeInitialize
 {
 	
 public:
-	EShapeForm Shape = EShapeForm::ESF_None;
+	EShapeForm Shape = EShapeForm::ESF_Box;
 
 	float Radius = 1.f;
 	float HalfHeight = 1.f;

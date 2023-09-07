@@ -22,6 +22,8 @@ class UCameraComponent : public AComponent
 	DEFAULT_BODY_GENERATED()
 
 public:
+	AFTransform CameraTrasnsform{};
+
 	void Construct() override;
 	void PostConstruct() override;
 
@@ -32,6 +34,8 @@ public:
 
 	void SetLocation(const FVector& location);
 	void SetRotation(const FQuaternion& quaternion);
+	void SetForwardVector(const FVector& vector);
+	void SetUpVector(const FVector& vector);
 	void LookAt(const FVector& eye, const FVector& target, const FVector& upVector);
 
 	float GetFieldOfView() const { return Fov; }
@@ -41,16 +45,22 @@ public:
 	float GetYaw() const { return Yaw; };
 	float GetRoll() const { return Roll; };
 	FMatrix4 GetViewProjection();
+	FMatrix4 GetView();
+
+	void AddMovementForward(FVector direction);
+	void AddMovementRight(FVector direction);
+	void AddMovementYaw(float value);
+	void AddMovementPitch(float value);
+	void AddMouseMovement(float deltaTime, int xrel, int yrel);
 protected:
 	void Serialize(SeriFile& otherOut) override;
 
 	void UpdateView();
-	void UpdatePitch(double& y, double& z, double angle);
-	void UpdateYaw(double& x, double& z, double angle);
-	void UpdateRoll(double angle);
+	
 	void OnWindowResizedEvent(uint32 width, uint32 height);
 
 private:
+	//AFTransform CameraTrasnsform{};
 	float Near{ 0.0001f };
 	float Far{ 100000.f };
 	float Fov{ 45.f };
@@ -64,17 +74,22 @@ private:
 	float AngleH;
 	float AngleV;
 
-	//--
-	FQuaternion Rotator{};
-	FVector Position{};
 
-	//--
 
-	FVector YawAxis{ 0.0f, 1.0f, 0.0f };
-	FVector PitchAxis{ 1.0f, 0.0f, 0.0f };
-	FVector RollAxis{ 0.0f, 0.0f, 1.0f };
+	////--
+	//FQuaternion Rotator{};
+	//FVector Position{ 0.0f, 0.0f, 3.0f };
+	////--
+
+	//FVector YawAxis{ 0.0f, 1.0f, 0.0f };
+	//FVector PitchAxis{ 1.0f, 0.0f, 0.0f };
+	//FVector RollAxis{ 0.0f, 0.0f, 1.0f };
 
 	FVector ViewPoint{ 0.0f, 0.0f, 0.0f };
+	
+	FVector CameraDirection;
+	float LastX;
+	float LastY;
 };
 
 #endif // !US_CAMERA_COMPONENT_HPP

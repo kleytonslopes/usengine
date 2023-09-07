@@ -138,18 +138,23 @@ FVector UCollisionComponent::GetComponentRotation()
 
 FVector UCollisionComponent::GetWorldPosition()
 {
-	physx::PxTransform transform;
-	switch (BodyType)
+	if (BodyStatic || BodyDynamic)
 	{
-	case EBodyType::EBT_Static:
-		transform = BodyStatic->getGlobalPose();
-		break;
-	case EBodyType::EBT_Dynamic:
-		transform = BodyDynamic->getGlobalPose();
-		break;
-	}
+		physx::PxTransform transform;
+		switch (BodyType)
+		{
+		case EBodyType::EBT_Static:
+			transform = BodyStatic->getGlobalPose();
+			break;
+		case EBodyType::EBT_Dynamic:
+			transform = BodyDynamic->getGlobalPose();
+			break;
+		}
 
-	return FVector(transform.p.x, transform.p.y, transform.p.z);
+		return FVector(transform.p.x, transform.p.y, transform.p.z);
+	}
+	else
+		return FVector(0.f, 0.f, 0.f);
 }
 
 void UCollisionComponent::SetLocation(FVector location)
@@ -171,6 +176,46 @@ void UCollisionComponent::SetLocation(FVector location)
 		{
 			physx::PxTransform transform(physx::PxVec3(location.x, location.y, location.z));
 			BodyDynamic->setGlobalPose(transform);
+		}
+		break;
+	}
+	}
+}
+
+void UCollisionComponent::SetRotation(FVector vector)
+{
+	switch (BodyType)
+	{
+	case EBodyType::EBT_Static:
+	{
+		if (BodyStatic)
+		{
+			physx::PxTransform currentTransform = BodyStatic->getGlobalPose();
+			physx::PxVec3 currentPosition = currentTransform.p;
+			physx::PxTransform newTransform(currentPosition);
+
+			physx::PxQuat rotationQuaternion(physx::PxPi / 2.0f, physx::PxVec3(vector.x, vector.y, vector.z));
+			newTransform.q = rotationQuaternion;
+			//physx::PxTransform transform(physx::PxVec3(location.x, location.y, location.z));
+			BodyStatic->setGlobalPose(newTransform);
+		}
+		break;
+	}
+	case EBodyType::EBT_Dynamic:
+	{
+		if (BodyDynamic)
+		{
+			physx::PxTransform currentTransform = BodyDynamic->getGlobalPose();
+			physx::PxVec3 currentPosition = currentTransform.p;
+			physx::PxTransform newTransform(currentPosition);
+
+			physx::PxQuat rotationQuaternion(physx::PxPi / 2.0f, physx::PxVec3(vector.x, vector.y, vector.z));
+			newTransform.q = rotationQuaternion;
+			//physx::PxTransform transform(physx::PxVec3(location.x, location.y, location.z));
+			BodyDynamic->setGlobalPose(newTransform);
+
+			//physx::PxTransform transform(physx::PxVec3(location.x, location.y, location.z));
+			//BodyDynamic->setGlobalPose(transform);
 		}
 		break;
 	}

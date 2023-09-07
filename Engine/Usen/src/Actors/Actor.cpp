@@ -170,7 +170,10 @@ void AActor::SetLocation(FVector& vector)
 }
 void AActor::SetRotation(FVector& vector)
 {
-	TransformComponent->SetRotation(vector);
+	if (CollisionComponent)
+		CollisionComponent->SetRotation(vector);
+	else
+		TransformComponent->SetRotation(vector);
 }
 void AActor::SetScale(FVector& vector)
 {

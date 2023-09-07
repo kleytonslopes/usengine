@@ -13,6 +13,7 @@
 #include "Components/CapsuleComponent.hpp"
 #include "Actors/Actor.hpp"
 #include "Pawns/Pawn.hpp"
+#include "Physics/PhysicsSystemPhysX.hpp"
 
 DEFAULT_BODY(UMovementComponent)
 
@@ -83,7 +84,7 @@ void UMovementComponent::Update(float deltaTime)
 			UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 			if (CollisionComponent)
 			{
-				CollisionComponent->AddMovement(deltaTime, -10.f, EAxis::Y);
+				CollisionComponent->AddMovement(deltaTime, GetPhysicsSystemPhysX()->GravityScale, EAxis::Y);
 				FVector newLocation = CollisionComponent->GetWorldPosition();
 				aParant->SetLocation(newLocation);
 			}

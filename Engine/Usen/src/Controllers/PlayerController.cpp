@@ -11,6 +11,9 @@
 #include "Controllers/PlayerController.hpp"
 #include "Input/InputManagement.hpp"
 #include "Pawns/Pawn.hpp"
+#include "Framework/Scene.hpp"
+#include "Camera/Camera.hpp"
+#include "Components/CameraComponent.hpp"
 
 DEFAULT_BODY(UPlayerController)
 
@@ -42,7 +45,14 @@ void UPlayerController::MoveForward(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveForward(scale);
+	//Pawn->MoveForward(scale);
+
+	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	FVector Direction = camera->GetLocation();
+	FVector Forward = camera->GetForwardVector();
+
+	Direction += 2.f * scale * Forward;
+	camera->AddMovementForward(Direction);
 }
 
 void UPlayerController::MoveBackward(float scale)
@@ -50,7 +60,13 @@ void UPlayerController::MoveBackward(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveForward(-scale);
+	//Pawn->MoveForward(-scale);
+	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	FVector Direction = camera->GetLocation();
+	FVector Forward = camera->GetForwardVector();
+
+	Direction -= 2.f * scale * Forward;
+	camera->AddMovementForward(Direction);
 }
 
 void UPlayerController::MoveRight(float scale)
@@ -58,7 +74,14 @@ void UPlayerController::MoveRight(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveRight(-scale);
+	//Pawn->MoveRight(-scale);
+	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	FVector Direction = camera->GetLocation();
+	FVector Forward = camera->GetForwardVector();
+	FVector Up = camera->GetUpVector();
+
+	Direction += glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+	camera->AddMovementRight(Direction);
 }
 
 void UPlayerController::MoveLeft(float scale)
@@ -66,5 +89,12 @@ void UPlayerController::MoveLeft(float scale)
 	if (!Pawn)
 		return;
 
-	Pawn->MoveRight(scale);
+	//Pawn->MoveRight(scale);
+	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	FVector Direction = camera->GetLocation();
+	FVector Forward = camera->GetForwardVector();
+	FVector Up = camera->GetUpVector();
+
+	Direction -= glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+	camera->AddMovementRight(Direction);
 }

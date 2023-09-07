@@ -108,7 +108,7 @@ void UScene::Initialize()
 	//Camera->SetLocation(FVector{ 0.f, -20.0f, 20.f });
 	//Camera->SetRotation(FVector{ 45.f, 0.f, 0.f });
 
-	Camera->SetLocation(FVector{ 0.f, 0.0f, 3.0f });
+	Camera->SetLocation(FVector{ 0.f, 0.0f, 0.0f });
 	Camera->SetRotation(FVector{ 0.f, 0.f, 0.f });
 
 
@@ -136,19 +136,19 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			AFTransform trasform;
-			trasform.SetLocation({0.f,0.f,0.f});
-			trasform.SetRotation({ 0.f,0.f,0.f });
+			trasform.SetLocation({0.f,-10.f,0.f});
+			trasform.SetRotation({ 90.f,0.f,0.f });
 			Floor = CreateEntity<UStaticMesh>();
 			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.01f });
 			Floor->SetCollisionGroup(ECG_None);
 			Floor->SetCollisionMask(ECM_None);
-			Floor->SetLocation(trasform.GetLocation());
+			Floor->SetTransform(trasform);
 			Floor->SetMeshParameters(floorMeshParameters);
 			Floor->SetIsDynamic(false);
 			Floor->Initialize();
 		}
 
-		//{ // Gizmo
+		{ // Gizmo
 			AFTransform trasform;
 			trasform.SetLocation({ 0.f,0.f,0.f });
 			trasform.SetRotation({ 0.f,0.f,0.f });
@@ -159,13 +159,54 @@ void UScene::Initialize()
 			gizmomesh->SetIsDynamic(false);
 			gizmomesh->SetTransform(trasform);
 			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->RemoveCollisionComponent();
 			gizmomesh->Initialize();
-		//}
+		}
+
+		{ // forward vector
+			AFTransform trasform;
+			trasform.SetLocation({ 0.f,0.f,-10.f });
+			trasform.SetRotation({ 90.f,0.f,0.f });
+			FMeshParameters gizmomeshparameters{};
+			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "arrowFwd.obj");
+			AMesh* gizmomesh = CreateEntity<AMesh>();
+			gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
+			gizmomesh->SetIsDynamic(false);
+			gizmomesh->SetTransform(trasform);
+			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->Initialize();
+		}
+		{ // up vector
+			AFTransform trasform;
+			trasform.SetLocation(AFTransform::WorldUpVector * 10.f);
+			trasform.SetRotation({ 180.f,0.f,0.f });
+			FMeshParameters gizmomeshparameters{};
+			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "arrowUp.obj");
+			AMesh* gizmomesh = CreateEntity<AMesh>();
+			gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
+			gizmomesh->SetIsDynamic(false);
+			gizmomesh->SetTransform(trasform);
+			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->Initialize();
+		}
+		{ // right vector
+			AFTransform trasform;
+			trasform.SetLocation({ 10.f,0.f,0.f });
+			trasform.SetRotation({ 0.f,0.f,90.f });
+			FMeshParameters gizmomeshparameters{};
+			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "arrowRht.obj");
+			AMesh* gizmomesh = CreateEntity<AMesh>();
+			gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
+			gizmomesh->SetIsDynamic(false);
+			gizmomesh->SetTransform(trasform);
+			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->Initialize();
+		}
 
 		{ // Pawn
 
 			APawn* Pawn = GetController()->GetPawn();
-			Pawn->SetLocation(FVector{ 0.f, 0.f, 5.f });
+			Pawn->SetLocation(FVector{ 0.f, 4.f, 5.f });
 
 			FAttachmentSettings pawnCameraAttachmentSettings{};
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;

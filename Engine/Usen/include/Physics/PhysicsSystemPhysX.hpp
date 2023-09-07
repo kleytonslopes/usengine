@@ -34,6 +34,8 @@ public:
 	physx::PxControllerManager* ControllerManager = NULL;
 	
 
+	float GravityScale = -10.f;
+
 	void Construct() override;
 	void PostConstruct() override;
 	void Update(float deltaTime) override;

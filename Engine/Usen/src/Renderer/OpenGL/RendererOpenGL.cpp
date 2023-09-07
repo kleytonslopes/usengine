@@ -156,27 +156,27 @@ void URendererOpenGL::StartFrame()
 	//DrawScreenQuad();
 
 
-	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldRightVector * 100.f, FColor::Blue);
-	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldUpVector * 100.f, FColor::Green);
-	DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldForwardVector * 100.f, FColor::Red);
-	//
-	float xPos = 0.f;
-	float yPos = 0.f;
-	//
-	float size = 4;
-	//
-	for (size_t x = 0; x < size; x++)
-	{
-		xPos = (x + 4.f);
-		DebugDrawLine(FVector{ -20.f, 0.f, xPos }, FVector{ 20.f, 0.f, xPos }, FColor::Cyan);
-		DebugDrawLine(FVector{ -20.f, 0.f, -xPos }, FVector{ 20.f, 0.f, -xPos }, FColor::Cyan);
-		for (size_t y = 0; y < size; y++)
-		{
-			yPos = (y + 4.f);
-			DebugDrawLine(FVector{ yPos , 0.f, -20.f }, FVector{ yPos, 0.f, 20.f }, FColor::Pink);
-			DebugDrawLine(FVector{ -yPos , 0.f, -20.f }, FVector{ -yPos, 0.f, 20.f }, FColor::Pink);
-		}
-	}
+	//DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldRightVector * 100.f, FColor::Blue);
+	//DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldUpVector * 100.f, FColor::Green);
+	//DebugDrawLine(FVector{ 0.f, 0.f, 0.f }, AFTransform::WorldForwardVector * 100.f, FColor::Red);
+	////
+	//float xPos = 0.f;
+	//float yPos = 0.f;
+	////
+	//float size = 4;
+	////
+	//for (size_t x = 0; x < size; x++)
+	//{
+	//	xPos = (x + 4.f);
+	//	DebugDrawLine(FVector{ -20.f, 0.f, xPos }, FVector{ 20.f, 0.f, xPos }, FColor::Cyan);
+	//	DebugDrawLine(FVector{ -20.f, 0.f, -xPos }, FVector{ 20.f, 0.f, -xPos }, FColor::Cyan);
+	//	for (size_t y = 0; y < size; y++)
+	//	{
+	//		yPos = (y + 4.f);
+	//		DebugDrawLine(FVector{ yPos , 0.f, -20.f }, FVector{ yPos, 0.f, 20.f }, FColor::Pink);
+	//		DebugDrawLine(FVector{ -yPos , 0.f, -20.f }, FVector{ -yPos, 0.f, 20.f }, FColor::Pink);
+	//	}
+	//}
 }
 
 void URendererOpenGL::EndFrame()

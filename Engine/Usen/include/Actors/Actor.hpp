@@ -41,7 +41,7 @@ public:
 	void Detach(AActor* entity);
 
 	void SetOrigin(FVector& vector);
-	void SetLocation(FVector& vector);
+	virtual void SetLocation(FVector& vector);
 	virtual void SetRotation(FVector& vector);
 	void SetScale(FVector& vector);
 	void SetTransform(AFTransform& transform);
@@ -49,7 +49,7 @@ public:
 	void SetUpVector(FVector& vector);
 
 	FVector GetOrigin();
-	FVector GetLocation();
+	virtual FVector GetLocation();
 	FVector GetWorldLocation();
 	FVector GetRotation();
 	FVector GetScale();

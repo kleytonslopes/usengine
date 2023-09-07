@@ -110,13 +110,16 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, EAxis axis
 		switch (axis)
 		{
 		case EAxis::X:
-			disp = physx::PxVec3(0.f, 0.f, scaleMovement * speed);
+			//disp = physx::PxVec3(0.f, 0.f, scaleMovement * speed);
+			disp = physx::PxVec3(scaleMovement * speed, 0.f, 0.f);
 			break;
 		case EAxis::Y:
 			disp = physx::PxVec3(0.f, scaleMovement * speed, 0.f);
+			//disp = physx::PxVec3(0.f, scaleMovement * speed, 0.f);
 			break;
 		case EAxis::Z:
-			disp = physx::PxVec3(scaleMovement * speed, 0.f, 0.f);
+			disp = physx::PxVec3(0.f, 0.f, scaleMovement * speed);
+			//disp = physx::PxVec3(scaleMovement * speed, 0.f, 0.f);
 			break;
 		}
 
@@ -127,8 +130,13 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, EAxis axis
 
 FVector UCapsuleComponent::GetWorldPosition()
 {
-	physx::PxExtendedVec3 newLocation = CapsuleController->getPosition();
-	return FVector(-newLocation.x, newLocation.z, newLocation.y);
+	if (CapsuleController)
+	{
+
+		physx::PxExtendedVec3 newLocation = CapsuleController->getPosition();
+		return FVector(-newLocation.x, newLocation.y, newLocation.z);
+	}
+	return FVector(0.f, 0.f, 0.f);
 }
 
 btRigidBody* UCapsuleComponent::CreateRigidBody()

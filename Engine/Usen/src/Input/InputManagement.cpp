@@ -135,8 +135,8 @@ void UInputManagement::OnMouseMovementEvent(uint32 xpos, uint32 ypos, uint32 xPo
 
 
 
-			static float lastX = xPosRel;
-			static float lastY = yPosRel;
+			//static float lastX = xPosRel;
+			//static float lastY = yPosRel;
 			//float sensitivity = 0.1f;
 
 			//float xoffset = (xpos - lastX) * sensitivity;
@@ -146,9 +146,13 @@ void UInputManagement::OnMouseMovementEvent(uint32 xpos, uint32 ypos, uint32 xPo
 			//lastY = ypos;
 
 			/*camera.rotate(xoffset, yoffset, 0.0f);*/
-			camera->AddYaw(lastX);
-			camera->AddPitch(lastX);
-			camera->SetRoll(0.f);
+			//float x = xPosRel * 0.001f;
+			//float y = yPosRel * 0.001f;
+			//camera->AddYaw(x);
+			//camera->AddPitch(y);
+			//camera->SetRoll(0.f);
+
+			camera->AddMouseMovement(GetApplication()->GetDeltaTime(), xPosRel, yPosRel);
 		}
 	}
 }

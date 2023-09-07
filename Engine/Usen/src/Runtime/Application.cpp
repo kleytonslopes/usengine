@@ -30,9 +30,9 @@ void UApplication::PostConstruct()
 	Renderer = FConstructorHelper::CreateObject<URendererOpenGL>();
 	Renderer->Initialize();
 	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
-	Scene = FConstructorHelper::CreateObject<UScene>();
 	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
 	PhysicsSystemPhysX = FConstructorHelper::CreateObject<UPhysicsSystemPhysX>();
+	Scene = FConstructorHelper::CreateObject<UScene>();
 }
 
 void UApplication::Initialize()

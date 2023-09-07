@@ -10,7 +10,9 @@
 #include "upch.hpp"
 #include "Camera/Camera.hpp"
 #include "Components/CameraComponent.hpp"
+#include "Components/BoxCollisionComponent.hpp"
 #include "Presentation/Window.hpp"
+#include "Runtime/Application.hpp"
 
 DEFAULT_BODY(ACamera);
 
@@ -21,6 +23,10 @@ void ACamera::Construct()
 	bCanTick = false;
 
 	CameraComponent = AddComponent<UCameraComponent>();
+	CollisionComponent = AddComponent<UBoxCollisionComponent>();
+
+	CollisionComponent->SetIsDynamic(false);
+
 	UWindow* window = GetWindow();
 	ViewSize.x = window->GetWidth();
 	ViewSize.y = window->GetHeight();
@@ -29,20 +35,21 @@ void ACamera::Construct()
 	//cameraComponent->SetParent(this);
 }
 
-FMatrix4 ACamera::GetView()
+void ACamera::Initialize()
 {
-	
-	AFTransform& transform = GetTransform();
+	Super::Initialize();
 
-	return glm::lookAt(transform.GetLocation(), transform.GetLocation() + transform.GetForwardVector(), transform.GetUpVector());
+	if (CollisionComponent)
+	{
+		CollisionComponent->SetLocation(GetLocation());
+	}
 }
 
-void ACamera::SetRotation(FVector& vector)
+FMatrix4 ACamera::GetView()
 {
-	Super::SetRotation(vector);
-	//CameraComponent->SetPitch(vector.x);
-	//CameraComponent->SetYaw(vector.y);
-	//CameraComponent->SetRoll(vector.z);
+	return CameraComponent->GetView();
+	//AFTransform& transform = GetTransform();
+	//return glm::lookAt(transform.GetLocation(), transform.GetLocation() + transform.GetForwardVector(), transform.GetUpVector());
 }
 
 void ACamera::SetViewSize(int width, int height)
@@ -74,6 +81,11 @@ float ACamera::GetFar() const
 float ACamera::GetAspectRatio()
 {
 	return (float)ViewSize.x / (float)ViewSize.y;
+}
+
+UCameraComponent* ACamera::GetCameraComponent()
+{
+	return CameraComponent;
 }
 
 float ACamera::GetPitch() const
@@ -115,29 +127,46 @@ void ACamera::SetRoll(const float& value)
 		CameraComponent->SetRoll(value);
 }
 
-void ACamera::AddPitch(float& value)
+void ACamera::AddPitch(float value)
 {
 	if (CameraComponent)
 	{
-		value += CameraComponent->GetPitch();
+		ULOG_Trace(FText::Format("Add Pitch: %f", value));
+		value += CameraComponent->GetPitch() * GetApplication()->GetDeltaTime();
 		CameraComponent->SetPitch(value);
 	}
 }
 
-void ACamera::AddYaw(float& value)
+void ACamera::AddYaw(float value)
 {
 	if (CameraComponent) 
 	{
-		value += CameraComponent->GetYaw();
+		value += CameraComponent->GetYaw() * GetApplication()->GetDeltaTime();
 		CameraComponent->SetYaw(value);
 	}
 }
 
-void ACamera::AddRoll(float& value)
+void ACamera::AddRoll(float value)
 {
 	if (CameraComponent) 
 	{
-		value += CameraComponent->GetRoll();
+		value += CameraComponent->GetRoll() * GetApplication()->GetDeltaTime();
 		CameraComponent->SetRoll(value);
+	}
+}
+
+void ACamera::AddMouseMovement(float deltaTime, int xrel, int yrel)
+{
+	if (CameraComponent)
+	{
+		CameraComponent->AddMouseMovement(deltaTime, xrel, yrel);
+	}
+}
+
+void ACamera::AddMovementForward(FVector direction)
+{
+	if (CameraComponent)
+	{
+		CameraComponent->AddMovementForward(direction);
 	}
 }

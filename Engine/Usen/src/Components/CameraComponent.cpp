@@ -23,64 +23,37 @@ void UCameraComponent::Construct()
 	GetWindow()->OnWindowResizedEvent.Add(this, &This::OnWindowResizedEvent);
 
 	AspectRatio = GetWindow()->GetWidth() / GetWindow()->GetHeight();
-	//Fov = FMath::Radians(Fov);
+
+	SetLocation(FVector{ 0.f, 0.f, 0.f });
 }
 
 void UCameraComponent::PostConstruct()
 {
 	Super::PostConstruct();
 
-	FVector target(ViewPoint.x, 0.f, ViewPoint.z);
+	/* Initialize camera View */
+	SetForwardVector(AFTransform::WorldForwardVector);
+	CameraDirection = glm::normalize(CameraTrasnsform.GetLocation() - CameraTrasnsform.GetForwardVector());
 
-	float angle = FMath::Degrees(asin(abs(target.z)));
+	SetUpVector(glm::cross(CameraDirection, CameraTrasnsform.GetRightVector()));
 
-	if (target.z >= 0.f)
-	{
-		if (target.x >= 0.0f)
-		{
-			AngleH = 360.0f - angle;
-		}
-		else
-		{
-			AngleH = 180.0f + angle;
-		}
-	}
-	else
-	{
-		if (target.x >= 0.0f)
-		{
-			AngleH = angle;
-		}
-		else
-		{
-			AngleH = 180.0f - angle;
-		}
-	}
-
-	AngleV = -FMath::Degrees(asin(target.y));
-
+	LastX = GetWindow()->GetWidth() / 2.f;
+	LastY = GetWindow()->GetHeight() / 2.f;
+	AddMovementYaw(90.f);
+	FVector location = CameraTrasnsform.GetLocation();
+	location.y = 3.f;
+	SetLocation(location);
 }
 
 void UCameraComponent::SetYaw(float value)
 {
-	ULOG_Trace(FText::Format("Yaw: %f", Yaw));
 	Yaw = value;
 	UpdateView();
 }
 
 void UCameraComponent::SetPitch(float value)
 {
-	ULOG_Trace(FText::Format("Pitch: %f", Pitch));
 	Pitch = value;
-	//if (Pitch > 0.f)
-	//	Pitch = 0.f;
-	//if (Pitch < -179.f)
-	//	Pitch = -179.f;
-	//if (Pitch > 89.f)
-	//	Pitch = 89.f;
-	//if (Pitch < -89.f)
-	//	Pitch = -89.f;
-
 	UpdateView();
 }
 
@@ -97,7 +70,15 @@ void UCameraComponent::SetFieldOfView(float fov)
 
 void UCameraComponent::SetLocation(const FVector& location)
 {
-	Position = location;
+	CameraTrasnsform.SetLocation(location);
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if(aParent)
+		{
+			aParent->SetLocation(CameraTrasnsform.GetLocation());
+		}
+	}
 }
 
 void UCameraComponent::SetRotation(const FQuaternion& quaternion)
@@ -105,17 +86,107 @@ void UCameraComponent::SetRotation(const FQuaternion& quaternion)
 	//Rotation = quaternion;
 }
 
+void UCameraComponent::SetForwardVector(const FVector& vector)
+{
+	CameraTrasnsform.SetForwardVector(vector);
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			aParent->SetForwardVector(CameraTrasnsform.GetForwardVector());
+		}
+	}
+}
+
+void UCameraComponent::SetUpVector(const FVector& vector)
+{
+	CameraTrasnsform.SetUpVector(vector);
+	if (Parent)
+	{
+		AActor* aParent = Cast<AActor*>(Parent);
+		if (aParent)
+		{
+			aParent->SetUpVector(CameraTrasnsform.GetUpVector());
+		}
+	}
+}
+
 void UCameraComponent::LookAt(const FVector& eye, const FVector& target, const FVector& upVector)
 {
-	Position = eye;
+
 	//Rotation = AFTransform::LookAt()
 }
 
 FMatrix4 UCameraComponent::GetViewProjection()
 {
-	FMatrix4 view = glm::lookAt(GetLocation(), GetLocation() + GetForwardVector(), GetUpVector());
+	FMatrix4 view = glm::lookAt(CameraTrasnsform.GetLocation(), CameraTrasnsform.GetLocation() + ViewPoint, CameraTrasnsform.GetUpVector());
 	FMatrix4 projection = glm::perspective(Fov, AspectRatio, Near, Far);
-	return view * projection;
+	return view;
+}
+
+FMatrix4 UCameraComponent::GetView()
+{
+	return glm::lookAt(CameraTrasnsform.GetLocation(), CameraTrasnsform.GetLocation() + CameraTrasnsform.GetForwardVector(), CameraTrasnsform.GetUpVector());
+}
+
+void UCameraComponent::AddMovementForward(FVector direction)
+{
+	SetLocation(direction);
+	//CameraTrasnsform.SetLocation(direction);
+}
+
+void UCameraComponent::AddMovementRight(FVector direction)
+{
+	SetLocation(direction);
+	//CameraTrasnsform.SetLocation(direction);
+}
+
+void UCameraComponent::AddMovementYaw(float value)
+{
+	Yaw -= value;
+}
+
+void UCameraComponent::AddMovementPitch(float value)
+{
+	Pitch -= value;
+
+	if (Pitch > 89.f)
+		Pitch = 89.f;
+	if (Pitch < -89.f)
+		Pitch = -89.f;
+}
+
+void UCameraComponent::AddMouseMovement(float deltaTime, int xrel, int yrel)
+{
+	Yaw -= xrel * Sensitivity * deltaTime;
+	Pitch -= yrel * Sensitivity * deltaTime;
+
+	if (Pitch > 89.f)
+		Pitch = 89.f;
+	if (Pitch < -89.f)
+		Pitch = -89.f;
+
+	float yRadians = glm::radians(Yaw);
+	float pRadians = glm::radians(Pitch);
+
+	glm::vec3 front;
+
+	front.x = -sin(yRadians) * cos(pRadians);
+	front.y = sin(pRadians);
+	front.z = -cos(yRadians) * cos(pRadians);
+	SetForwardVector(glm::normalize(front));
+	
+	FVector right = glm::normalize(glm::cross(CameraTrasnsform.GetForwardVector(), AFTransform::WorldUpVector));
+	CameraTrasnsform.SetUpVector(glm::normalize(glm::cross(right, CameraTrasnsform.GetForwardVector())));
+
+	//ViewPoint.x = targ.x;
+	//ViewPoint.y = targ.y;
+	//ViewPoint.z = targ.z;
+
+
+
+	//CameraTrasnsform.SetForwardVector(glm::normalize(front));
 }
 
 void UCameraComponent::Serialize(SeriFile& otherOut)
@@ -128,16 +199,16 @@ void UCameraComponent::Serialize(SeriFile& otherOut)
 	Key(otherOut, "yaw", Yaw);
 	Key(otherOut, "pitch", Pitch);
 	Key(otherOut, "roll", Roll);
-	Key(otherOut, "yawAxis", YawAxis);
-	Key(otherOut, "pitchAxis", PitchAxis);
-	Key(otherOut, "rollAxis", RollAxis);
+	//Key(otherOut, "yawAxis", YawAxis);
+	//Key(otherOut, "pitchAxis", PitchAxis);
+	//Key(otherOut, "rollAxis", RollAxis);
 
 	EndSection(otherOut);
 }
 
 void UCameraComponent::UpdateView()
 {
-	/*
+
 	double x = ViewPoint.x;//1.0; // Initial X component
 	double y = ViewPoint.y; // Initial Y component
 	double z = ViewPoint.z; // Initial Z component
@@ -168,13 +239,14 @@ void UCameraComponent::UpdateView()
 	ViewPoint.y = y;//rotationQuaternionY.GetY();
 	ViewPoint.z = z;//rotationQuaternionZ.GetZ();
 
-	if (Parent)
-	{
-		AActor* aParent = Cast<AActor*>(Parent);
-		if (aParent)
-			aParent->SetForwardVector(ViewPoint);
-	}
-	*/
+	//if (Parent)
+	//{
+	//	AActor* aParent = Cast<AActor*>(Parent);
+	//	if (aParent)
+	//		aParent->SetForwardVector(ViewPoint);
+	//}
+
+
 
 	//if (Pitch > 89.f)
 	//	Pitch = 89.f;
@@ -278,7 +350,7 @@ void UCameraComponent::UpdateView()
 	//ViewPosition = glm::vec4(Position, 0.0f) * glm::vec4(-1.0f, 1.0f, -1.0f, 1.0f);
 
 	//updated = true;
-
+/*
 	double yaw = glm::radians(Yaw);
 	double pitch = glm::radians(Pitch);
 	double roll = glm::radians(Roll);
@@ -288,18 +360,6 @@ void UCameraComponent::UpdateView()
 	FQuaternion quatRoll{ roll , 0.0, 0.0 , 1.0 };
 
 	FVector3 vec3{ 1.0, 1.0, 0.0 };
-	//if (Parent)
-	//{
-	//	AActor* aParent = Cast<AActor*>(Parent);
-	//	if (aParent)
-	//	{
-
-	//		FVector fwrd = aParent->GetForwardVector();
-	//		vec3.X = fwrd.x;
-	//		vec3.Y = fwrd.y;
-	//		vec3.Z = fwrd.z;
-	//	}
-	//}
 
 	FVector3 rotatedvec = quatPitch.Rotate(vec3);
 	rotatedvec = quatYaw.Rotate(rotatedvec);
@@ -310,53 +370,7 @@ void UCameraComponent::UpdateView()
 		if (aParent)
 			aParent->SetForwardVector(FVector{ rotatedvec.X, rotatedvec.Y, rotatedvec.Z });
 	}
-}
-
-void UCameraComponent::UpdatePitch(double& y, double& z, double angle)
-{
-	double cosA = cos(angle);
-	double sinA = sin(angle);
-
-	///double tempX = x;
-	double tempY = y;
-	double tempZ = z;
-
-	y = cosA * tempY - sinA * tempZ;
-	z = sinA * tempY + cosA * tempZ;
-}
-
-void UCameraComponent::UpdateYaw(double& x, double& z, double angle)
-{
-	double cosA = cos(angle);
-	double sinA = sin(angle);
-
-	double tempX = x;
-	//double tempY = y;
-	double tempZ = z;
-
-	//if (axis == 'X' || axis == 'x') {
-	//	y = cosA * tempY - sinA * tempZ;
-	//	z = sinA * tempY + cosA * tempZ;
-	//}
-	//else if (axis == 'Y' || axis == 'y') {
-	x = cosA * tempX + sinA * tempZ;
-	z = -sinA * tempX + cosA * tempZ;
-	//}
-	//else if (axis == 'Z' || axis == 'z') {
-	//	x = cosA * tempX - sinA * tempY;
-	//	y = sinA * tempX + cosA * tempY;
-	//}
-	//else {
-	//	//std::cerr << "Invalid axis specified." << std::endl;
-	//}
-
-	//ViewPoint.x = targetView.x;
-	//ViewPoint.y = targetView.y;
-	//ViewPoint.z = targetView.z;
-}
-
-void UCameraComponent::UpdateRoll(double angle)
-{
+	*/
 }
 
 void UCameraComponent::OnWindowResizedEvent(uint32 width, uint32 height)

@@ -23,16 +23,19 @@ class ACamera : public AActor
 	DEFAULT_BODY_GENERATED()
 public:
 	void Construct() override;
+	void Initialize() override;
+
 	FMatrix4 GetView();
 
-	void SetRotation(FVector& vector) override;
 	void SetViewSize(int width, int height);
 	void SetFieldOfView(float fov);
-	
+
 	float GetFieldOfView() const;
 	float GetNear() const;
 	float GetFar() const;
 	float GetAspectRatio();
+
+	UCameraComponent* GetCameraComponent();
 
 	/// <summary>
 	/// Get Pitch axis from CameraComponent
@@ -54,9 +57,12 @@ public:
 	void SetYaw(const float& value);
 	void SetRoll(const float& value);
 
-	void AddPitch(float& value);
-	void AddYaw(float& value);
-	void AddRoll(float& value);
+	void AddPitch(float value);
+	void AddYaw(float value);
+	void AddRoll(float value);
+
+	void AddMouseMovement(float deltaTime, int xrel, int yrel);
+	void AddMovementForward(FVector direction);
 private:
 	UCameraComponent* CameraComponent = nullptr;
 

@@ -30,11 +30,13 @@ void UPhysicsSystemPhysX::Construct()
 
 	Physics = PxCreatePhysics(PX_PHYSICS_VERSION, *Foundation, TolerancesScale, true, Pvd);
 	physx::PxSceneDesc sceneDesc(Physics->getTolerancesScale());
-	sceneDesc.gravity = physx::PxVec3(0.f, -10.f, 0.f);
+	//sceneDesc.gravity = physx::PxVec3(0.f, -10.f, 0.f);
+	//sceneDesc.gravity = physx::PxVec3(0.f, -10.f, 0.f);
 	Dispatcher = physx::PxDefaultCpuDispatcherCreate(2);// 2 Thread
 	sceneDesc.cpuDispatcher = Dispatcher;
 	sceneDesc.filterShader = physx::PxDefaultSimulationFilterShader;
 	Scene = Physics->createScene(sceneDesc);
+	Scene->setGravity(physx::PxVec3(0.f, GravityScale, 0.f ));
 
 	physx::PxPvdSceneClient* pvdClient = Scene->getScenePvdClient();
 	if (pvdClient)
@@ -47,27 +49,27 @@ void UPhysicsSystemPhysX::Construct()
 	// Create Simulation
 	Material = Physics->createMaterial(0.0f, 0.0f, 0.0f);
 	
-	{ //center Sphere
+	//{ //center Sphere
 
-		physx::PxTransform centerTransform(physx::PxVec3(0));
-		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
-		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
-		Scene->addActor(*center);
-	}
+	//	physx::PxTransform centerTransform(physx::PxVec3(0));
+	//	physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+	//	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, centerTransform, *shapeSphere);
+	//	Scene->addActor(*center);
+	//}
 
-	{ // Up Sphere
-		physx::PxTransform upLocation(physx::PxVec3(0, 10, 0));
-		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
-		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
-		Scene->addActor(*center);
-	}
+	//{ // Up Sphere
+	//	physx::PxTransform upLocation(physx::PxVec3(0, 10, 0));
+	//	physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+	//	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
+	//	Scene->addActor(*center);
+	//}
 
-	{ // Fwd Sphere
-		physx::PxTransform upLocation(physx::PxVec3(0, 0, -10));
-		physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
-		physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
-		Scene->addActor(*center);
-	}
+	//{ // Fwd Sphere
+	//	physx::PxTransform upLocation(physx::PxVec3(0, 0, -5));
+	//	physx::PxShape* shapeSphere = Physics->createShape(physx::PxSphereGeometry(1.0f), *Material);
+	//	physx::PxRigidStatic* center = physx::PxCreateStatic(*Physics, upLocation, *shapeSphere);
+	//	Scene->addActor(*center);
+	//}
 
 
 
@@ -135,6 +137,7 @@ void UPhysicsSystemPhysX::Destroy()
 	///Dispatcher->release();
 
 	ControllerManager->release();
+	Scene->release();
 	Physics->release();
 
 	Foundation->release();

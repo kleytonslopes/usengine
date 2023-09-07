@@ -28,7 +28,11 @@ public:
 	FVector& GetForwardVector() { return ForwardVector; }
 	FVector GetRightVector()
 	{
-		return glm::normalize(glm::cross(ForwardVector, UpVector));
+		return glm::normalize(glm::cross(UpVector, GetDirection()));
+	}
+	FVector GetDirection()
+	{
+		return glm::normalize(Location - ForwardVector);
 	}
 
 	void SetLocation(const FVector& vector)
@@ -56,6 +60,7 @@ public:
 		ForwardVector = vector;
 	}
 
+	static FVector ZeroVector;
 	static FVector WorldUpVector;
 	static FVector WorldForwardVector;
 	static FVector WorldRightVector;

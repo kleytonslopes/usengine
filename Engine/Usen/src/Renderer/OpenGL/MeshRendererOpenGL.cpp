@@ -58,6 +58,7 @@ void UMeshRendererOpenGL::Draw(FVector location, FVector rotation, FVector scale
 	matrix = glm::rotate(matrix, glm::radians(rotation.x), FVector{ 1.f, 0.f, 0.f });
 	matrix = glm::rotate(matrix, glm::radians(rotation.y), FVector{ 0.f, 1.f, 0.f });
 	matrix = glm::rotate(matrix, glm::radians(rotation.z), FVector{ 0.f, 0.f, 1.f });
+	//matrix = glm::rotate(matrix, 0.f, rotation);
 	matrix = glm::scale(matrix, scale);
 
 	Shader->Active();

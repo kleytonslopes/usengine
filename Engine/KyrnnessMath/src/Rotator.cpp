@@ -25,15 +25,6 @@ FRotator::FRotator(double x, double y, double z, double w)
 	, W{ (float)w }
 { }
 
-//FRotator& FRotator::operator=(const FRotator& right)
-//{
-//	this->X = right.X;
-//	this->Y = right.Y;
-//	this->Z = right.Z;
-//	this->W = right.W;
-//
-//	return *this;
-//}
 FRotator& FRotator::operator+(const FRotator& right)
 {
 	this->X += right.X;

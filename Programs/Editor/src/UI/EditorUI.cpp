@@ -12,6 +12,7 @@
 #include "Runtime/Application.hpp"
 #include "Presentation/Window.hpp"
 #include "Camera/Camera.hpp"
+#include "Components/CameraComponent.hpp"
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include <backends/imgui_impl_sdl2.h>
@@ -191,13 +192,15 @@ void UEditorUI::Draw(float deltaTime)
 		{
 			if (ImGui::TreeNode("m1001", "Position"))
 			{
-				FVector& location = GetScene()->GetCamera()->GetLocation();
+				//FVector& location = GetScene()->GetCamera()->GetLocation();
+				FVector& location = GetScene()->GetCamera()->GetCameraComponent()->CameraTrasnsform.GetLocation();
 				ImGui::PushItemWidth(80);
 				ImGui::DragScalar("X", ImGuiDataType_Float, &location.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
 				ImGui::DragScalar("Y", ImGuiDataType_Float, &location.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
 				ImGui::DragScalar("Z", ImGuiDataType_Float, &location.z, 0.05f, &min, &max, "%f");
 				ImGui::PopItemWidth();
-				GetScene()->GetCamera()->SetLocation(location);
+				//GetScene()->GetCamera()->SetLocation(location);
+				GetScene()->GetCamera()->GetCameraComponent()->SetLocation(location);
 				ImGui::TreePop();
 			}
 
@@ -230,7 +233,23 @@ void UEditorUI::Draw(float deltaTime)
 				ImGui::TreePop();
 			}
 
-			if (ImGui::TreeNode("m10004", "Settings"))
+
+			if (ImGui::TreeNode("m10004", "UpVector"))
+			{
+				FVector& vector = GetScene()->GetCamera()->GetCameraComponent()->CameraTrasnsform.GetUpVector();
+				ImGui::PushItemWidth(80);
+				ImGui::DragScalar("Pitch", ImGuiDataType_Float, &vector.x, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Yaw", ImGuiDataType_Float, &vector.y, 0.05f, &min, &max, "%f"); ImGui::SameLine();
+				ImGui::DragScalar("Roll", ImGuiDataType_Float, &vector.z, 0.05f, &min, &max, "%f");
+				ImGui::PopItemWidth();
+				GetScene()->GetCamera()->GetCameraComponent()->CameraTrasnsform.SetUpVector(vector);
+				//GetScene()->GetCamera()->SetPitch(pitch);
+				//GetScene()->GetCamera()->SetYaw(yaw);
+				//GetScene()->GetCamera()->SetRoll(roll);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("m10009", "Settings"))
 			{
 				FVector& rotation = GetScene()->GetCamera()->GetRotation();
 				ACamera* camera = GetScene()->GetCamera();
