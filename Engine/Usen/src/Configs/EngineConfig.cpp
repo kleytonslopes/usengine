@@ -35,7 +35,7 @@ void FEngineConfig::LoadConfig()
 			auto const& value = pit.second;
 
 			ParamList[std::make_pair(section, key)] = value;
-			if (section == "ActionBinds")
+			if (section == "AxisActionBinds")
 			{
 				KeysParamList[stoi(value)] = key;
 			}
@@ -50,7 +50,7 @@ void FEngineConfig::RegisterActionKey(uint32 keyCode, const FString& actionName)
 	mINI::INIStructure ini;
 	initFile.read(ini);
 
-	ini["ActionBinds"][actionName.c_str()] = std::to_string(keyCode);
+	ini["AxisActionBinds"][actionName.c_str()] = std::to_string(keyCode);
 
 	initFile.write(ini, true);
 }

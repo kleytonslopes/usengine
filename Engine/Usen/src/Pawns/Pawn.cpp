@@ -75,6 +75,12 @@ void APawn::MoveRight(float scale)
 	MovementComponent->AddRightMovement(movementScale);
 }
 
+void APawn::Jump()
+{
+	const float jumpZ = MovementComponent->JumpScale;
+	CapsuleComponent->HandleJump(jumpZ);
+}
+
 FVector APawn::GetCapsuleLocation()
 {
 	if (CollisionComponent)

@@ -149,7 +149,7 @@ project "Editor"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:Release"

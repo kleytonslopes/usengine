@@ -30,6 +30,7 @@ public:
 	void AddForwardMovement(float scaleMovement);
 	void AddRightMovement(float scaleMovement);
 	void AddMovement(float scaleMovement, float speed, EAxis axis);
+	void HandleJump(float jumpZ);
 	virtual FVector GetWorldPosition() override;
 
 	btRigidBody* CreateRigidBody() override;

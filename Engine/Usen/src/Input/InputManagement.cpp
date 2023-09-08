@@ -50,12 +50,15 @@ void UInputManagement::PostConstruct()
 void UInputManagement::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
-
+	bool executed = false;
 	for (auto& it : RegisteredKeys)
 	{
 		if (it.second.bIsPressed)
 		{
-			InputComponent->ExecuteAction(it.second.ActionName.c_str(), EKeyHandler::KEY_PRESSED);
+			executed = InputComponent->ExecuteAxisAction(it.second.ActionName.c_str(), EKeyHandler::KEY_PRESSED);
+
+			if (!executed)
+				InputComponent->ExecuteVoidAction(it.second.ActionName.c_str(), EKeyHandler::KEY_PRESSED);
 		}
 	}
 }
@@ -159,9 +162,9 @@ void UInputManagement::OnMouseMovementEvent(uint32 xpos, uint32 ypos, uint32 xPo
 
 void UInputManagement::RegisterAction(uint32 keyCode, const FString& actionName)
 {
-	ActionMap::iterator it = Actions.find(actionName);
+	AxisActionMap::iterator it = AxisActions.find(actionName);
 
-	if (it != Actions.end())
+	if (it != AxisActions.end())
 	{
 		it->second.AddInput(keyCode, actionName);
 		return;
@@ -169,5 +172,5 @@ void UInputManagement::RegisterAction(uint32 keyCode, const FString& actionName)
 	
 	FAction newAction{};
 	newAction.AddInput(keyCode, actionName);
-	Actions[actionName] = newAction;
+	AxisActions[actionName] = newAction;
 }

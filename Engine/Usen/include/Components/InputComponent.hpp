@@ -18,16 +18,26 @@
 #include "InputComponent-generated.hpp"
 
 DECLARE_FUNCTION_OneParam(FOnActionHandleSignature, float, scale);
-struct InputAction
+DECLARE_FUNCTION(FOnVoidActionHandleSignature);
+
+struct InputAxisAction
 {
 	void* Target = nullptr;
 	FString Action;
 	FOnActionHandleSignature Execute;
 };
 
+struct InputVoidAction
+{
+	void* Target = nullptr;
+	FString Action;
+	FOnVoidActionHandleSignature Execute;
+};
+
 class UInputComponent : public AComponent
 {
-	using ActionMap = TMap<FString, InputAction>;
+	using AxisActionMap = TMap<FString, InputAxisAction>;
+	using VoidActionMap = TMap<FString, InputVoidAction>;
 	DEFAULT_BODY_GENERATED()
 public:
 	void Construct() override;
@@ -35,9 +45,9 @@ public:
 	bool IsActive() const { return true; }
 
 	template<class TObject, class Fx>
-	void AddAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)
+	void AddAxisAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)
 	{
-		InputAction inputAction{};
+		InputAxisAction inputAxisAction{};
 		FString localAction = action;
 		switch (keyHandle)
 		{
@@ -49,16 +59,38 @@ public:
 			break;
 		}
 		
-		inputAction.Action = localAction;
-		inputAction.Target = target;
-		inputAction.Execute.Add(target, function);
-		Actions[localAction] = inputAction;
+		inputAxisAction.Action = localAction;
+		inputAxisAction.Target = target;
+		inputAxisAction.Execute.Add(target, function);
+		AxisActions[localAction] = inputAxisAction;
 	}
-	
-	void ExecuteAction(const FString& action, EKeyHandler keyHandler);
+	bool ExecuteAxisAction(const FString& action, EKeyHandler keyHandler);
+
+	template<class TObject, class Fx>
+	void AddVoidAction(const FString& action, TObject* target, EKeyHandler keyHandle, Fx&& function)
+	{
+		InputVoidAction inputVoidAction{};
+		FString localAction = action;
+		switch (keyHandle)
+		{
+		case KEY_RELEASED:
+			localAction = action + "_Released";
+			break;
+		default:
+			localAction = action + "_Pressed";
+			break;
+		}
+
+		inputVoidAction.Action = localAction;
+		inputVoidAction.Target = target;
+		inputVoidAction.Execute.Add(target, function);
+		VoidActions[localAction] = inputVoidAction;
+	}
+	bool ExecuteVoidAction(const FString& action, EKeyHandler keyHandler);
 private:
 	bool bIsActive = false;
-	ActionMap Actions;
+	AxisActionMap AxisActions;
+	VoidActionMap VoidActions;
 
 	void Active();
 	void Deactive();

@@ -33,6 +33,7 @@ project "GameTest"
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
+        "%{include_dir.KyrnnessMath}",
     }
 
     libdirs
@@ -50,6 +51,7 @@ project "GameTest"
         "GLAD",
         "IMGUI",
         "YAML",
+        "KyrnnessMath",
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",
@@ -79,19 +81,23 @@ project "GameTest"
     filter "system:windows"
         systemversion "latest"
 
-        defines
-        {
-            "PLATFORM_WINDOWS",
-            "WIN32_LEAN_AND_MEAN",
-            "_CRT_SECURE_NO_WARNINGS",
-            "YAML_CPP_STATIC_DEFINE",
-            "APP_GAME_MODE"
-        }
+        --defines
+        --{
+        --    "PLATFORM_WINDOWS",
+        --    "WIN32_LEAN_AND_MEAN",
+        --    "_CRT_SECURE_NO_WARNINGS",
+        --    "YAML_CPP_STATIC_DEFINE",
+        --    "APP_GAME_MODE"
+        --}
 
         filter "configurations:Debug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -99,13 +105,17 @@ project "GameTest"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:EditorDebug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -113,13 +123,17 @@ project "GameTest"
                 "LOG_DEFAULT",
                 "APP_EDITOR_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:GameDebug"
             defines 
             {
                 "DEBUG",
+                "PLATFORM_WINDOWS",
+                "WIN32_LEAN_AND_MEAN",
+                "_CRT_SECURE_NO_WARNINGS",
+                "YAML_CPP_STATIC_DEFINE",
                 "LOG_WARNING",
                 "LOG_INFORMATION",
                 "LOG_DEBUG",
@@ -127,7 +141,7 @@ project "GameTest"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
-            buildoptions "/MDd"
+            buildoptions "/MTd"
             symbols "on"
 
         filter "configurations:Release"

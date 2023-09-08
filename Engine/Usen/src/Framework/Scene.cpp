@@ -137,7 +137,7 @@ void UScene::Initialize()
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			AFTransform trasform;
 			trasform.SetLocation({0.f,-10.f,0.f});
-			trasform.SetRotation({ 90.f,0.f,0.f });
+			trasform.SetRotation({ 0.f,0.f,0.f });
 			Floor = CreateEntity<UStaticMesh>();
 			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.01f });
 			Floor->SetCollisionGroup(ECG_None);

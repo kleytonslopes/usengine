@@ -18,16 +18,32 @@ void UInputComponent::Construct()
 	Super::Construct();
 }
 
-void UInputComponent::ExecuteAction(const FString& action, EKeyHandler keyHandler)
+bool UInputComponent::ExecuteAxisAction(const FString& action, EKeyHandler keyHandler)
 {
 	FString localAction = keyHandler == EKeyHandler::KEY_PRESSED ? action + "_Pressed" : action + "_Released";
 	
-	ActionMap::iterator it;
-	it = Actions.find(localAction);
-	if (it != Actions.end())
+	AxisActionMap::iterator it;
+	it = AxisActions.find(localAction);
+	if (it != AxisActions.end())
 	{
 		it->second.Execute.Broadcast(1.f);
+		return true;
 	}
+	return false;
+}
+
+bool UInputComponent::ExecuteVoidAction(const FString& action, EKeyHandler keyHandler)
+{
+	FString localAction = keyHandler == EKeyHandler::KEY_PRESSED ? action + "_Pressed" : action + "_Released";
+
+	VoidActionMap::iterator it;
+	it = VoidActions.find(localAction);
+	if (it != VoidActions.end())
+	{
+		it->second.Execute.Broadcast();
+		return true;
+	}
+	return false;
 }
 
 void UInputComponent::Active()

@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Runtime/ApplicationGame.hpp"
 #include "Framework/TestGameInstance.hpp"
+#include "Presentation/Window.hpp"
 
 DEFAULT_BODY(UApplicationGame)
 
@@ -26,6 +27,8 @@ void UApplicationGame::PostConstruct()
 	Super::PostConstruct();
 
 	GameInstance = FConstructorHelper::CreateObject<UTestGameInstance>();
+
+	Window->OnMouseButtonEvent.Add(this, &This::OnMouseButtonEvent);
 }
 
 void UApplicationGame::Initialize()
@@ -41,4 +44,24 @@ void UApplicationGame::Destroy()
 void UApplicationGame::Draw(float deltaTime)
 {
 	Super::Draw(deltaTime);
+}
+
+void UApplicationGame::OnMouseButtonEvent(uint32 keyCode, EKeyHandler keyHandler)
+{
+	if (keyCode == 3)
+	{
+		switch (keyHandler)
+		{
+		case KEY_NONE:
+			break;
+		case KEY_PRESSED:
+			Window->SetMouseLocked(true);
+			break;
+		case KEY_RELEASED:
+			Window->SetMouseLocked(false);
+			break;
+		default:
+			break;
+		}
+	}
 }

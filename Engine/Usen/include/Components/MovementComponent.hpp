@@ -28,6 +28,7 @@ class UMovementComponent : public AComponent
 	DEFAULT_BODY_GENERATED()
 public:
 	float Speed = 10.f;
+	float JumpScale = 100.f;
 	bool bUseGravity = true;
 
 	void Construct() override;

@@ -30,6 +30,12 @@ public:
 	void MoveRight(float scale);
 	void MoveLeft(float scale);
 
+	void StartJump();
+	void ToggleMoveCharacter();
+
 	friend class UInputManagement;
+
+private:
+	bool bMoveCharacter = false;
 };
 #endif // !US_PLAYER_CONTROLLER_HPP

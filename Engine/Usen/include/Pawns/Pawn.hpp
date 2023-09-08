@@ -41,6 +41,8 @@ public:
 	void MoveForward(float scale);
 	void MoveRight(float scale);
 
+	void Jump();
+
 	FVector GetCapsuleLocation();
 
 	void SetMesh(AMesh* mesh);

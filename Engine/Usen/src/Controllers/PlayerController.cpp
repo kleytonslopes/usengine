@@ -1,11 +1,11 @@
 /*********************************************************************
  *   File: PlayerController.cpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: August 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #include "upch.hpp"
 #include "Controllers/PlayerController.hpp"
@@ -28,11 +28,13 @@ void UPlayerController::SetupInputComponent()
 {
 	UInputManagement* InputManagement = GetInputManagement();
 
-	InputManagement->AddAction("Exit", this, EKeyHandler::KEY_PRESSED, &This::ExitAction);
-	InputManagement->AddAction("MoveForward", this, EKeyHandler::KEY_PRESSED, &This::MoveForward);
-	InputManagement->AddAction("MoveBackward", this, EKeyHandler::KEY_PRESSED, &This::MoveBackward);
-	InputManagement->AddAction("MoveRight", this, EKeyHandler::KEY_PRESSED, &This::MoveRight);
-	InputManagement->AddAction("MoveLeft", this, EKeyHandler::KEY_PRESSED, &This::MoveLeft);
+	InputManagement->AddAxisAction("Exit", this, EKeyHandler::KEY_PRESSED, &This::ExitAction);
+	InputManagement->AddAxisAction("MoveForward", this, EKeyHandler::KEY_PRESSED, &This::MoveForward);
+	InputManagement->AddAxisAction("MoveBackward", this, EKeyHandler::KEY_PRESSED, &This::MoveBackward);
+	InputManagement->AddAxisAction("MoveRight", this, EKeyHandler::KEY_PRESSED, &This::MoveRight);
+	InputManagement->AddAxisAction("MoveLeft", this, EKeyHandler::KEY_PRESSED, &This::MoveLeft);
+	InputManagement->AddVoidAction("ToggleMoveCharacter", this, EKeyHandler::KEY_PRESSED, &This::ToggleMoveCharacter);
+	InputManagement->AddVoidAction("Jump", this, EKeyHandler::KEY_PRESSED, &This::StartJump);
 }
 
 void UPlayerController::ExitAction(float scale)
@@ -45,14 +47,21 @@ void UPlayerController::MoveForward(float scale)
 	if (!Pawn)
 		return;
 
-	//Pawn->MoveForward(scale);
 
-	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-	FVector Direction = camera->GetLocation();
-	FVector Forward = camera->GetForwardVector();
 
-	Direction += 2.f * scale * Forward;
-	camera->AddMovementForward(Direction);
+	if (!bMoveCharacter)
+	{
+		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+		FVector Direction = camera->GetLocation();
+		FVector Forward = camera->GetForwardVector();
+
+		Direction += 2.f * scale * Forward;
+		camera->AddMovementForward(Direction);
+	}
+	else
+	{
+		Pawn->MoveForward(scale);
+	}
 }
 
 void UPlayerController::MoveBackward(float scale)
@@ -60,13 +69,19 @@ void UPlayerController::MoveBackward(float scale)
 	if (!Pawn)
 		return;
 
-	//Pawn->MoveForward(-scale);
-	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-	FVector Direction = camera->GetLocation();
-	FVector Forward = camera->GetForwardVector();
+	if (!bMoveCharacter)
+	{
+		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+		FVector Direction = camera->GetLocation();
+		FVector Forward = camera->GetForwardVector();
 
-	Direction -= 2.f * scale * Forward;
-	camera->AddMovementForward(Direction);
+		Direction -= 2.f * scale * Forward;
+		camera->AddMovementForward(Direction);
+	}
+	else
+	{
+		Pawn->MoveForward(-scale);
+	}
 }
 
 void UPlayerController::MoveRight(float scale)
@@ -74,14 +89,20 @@ void UPlayerController::MoveRight(float scale)
 	if (!Pawn)
 		return;
 
-	//Pawn->MoveRight(-scale);
-	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-	FVector Direction = camera->GetLocation();
-	FVector Forward = camera->GetForwardVector();
-	FVector Up = camera->GetUpVector();
+	if (!bMoveCharacter)
+	{
+		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+		FVector Direction = camera->GetLocation();
+		FVector Forward = camera->GetForwardVector();
+		FVector Up = camera->GetUpVector();
 
-	Direction += glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
-	camera->AddMovementRight(Direction);
+		Direction += glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+		camera->AddMovementRight(Direction);
+	}
+	else
+	{
+		Pawn->MoveRight(-scale);
+	}
 }
 
 void UPlayerController::MoveLeft(float scale)
@@ -89,12 +110,31 @@ void UPlayerController::MoveLeft(float scale)
 	if (!Pawn)
 		return;
 
-	//Pawn->MoveRight(scale);
-	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-	FVector Direction = camera->GetLocation();
-	FVector Forward = camera->GetForwardVector();
-	FVector Up = camera->GetUpVector();
+	if (!bMoveCharacter)
+	{
+		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+		FVector Direction = camera->GetLocation();
+		FVector Forward = camera->GetForwardVector();
+		FVector Up = camera->GetUpVector();
 
-	Direction -= glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
-	camera->AddMovementRight(Direction);
+		Direction -= glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+		camera->AddMovementRight(Direction);
+	}
+	else
+	{
+		Pawn->MoveRight(scale);
+	}
+}
+
+void UPlayerController::StartJump()
+{
+	if (!Pawn)
+		return;
+
+	Pawn->Jump();
+}
+
+void UPlayerController::ToggleMoveCharacter()
+{
+	bMoveCharacter = !bMoveCharacter;
 }

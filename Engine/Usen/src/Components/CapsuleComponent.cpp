@@ -13,6 +13,7 @@
 #include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 #include "Mesh/Mesh.hpp"
+#include "Runtime/Application.hpp"
 
 DEFAULT_BODY(UCapsuleComponent)
 
@@ -24,6 +25,7 @@ void UCapsuleComponent::Construct()
 	CollisionObjectType = ECO_Character;
 	bIsDynamic = true;
 	bCanUpdate = true;
+	Mass = 70.f;
 }
 
 void UCapsuleComponent::PostConstruct()
@@ -95,6 +97,7 @@ void UCapsuleComponent::AddRightMovement(float scaleMovement)
 		physx::PxVec3 disp = physx::PxVec3(0.f, 0.f, scaleMovement);
 		physx::PxF32 dispMin = 0.001f;
 		CapsuleController->move(disp, dispMin, scaleMovement, filters);
+		
 	}
 }
 
@@ -126,6 +129,15 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, EAxis axis
 		physx::PxF32 dispMin = 0.001f;
 		CapsuleController->move(disp, dispMin, scaleMovement, filters);
 	}
+}
+
+void UCapsuleComponent::HandleJump(float jumpZ)
+{
+	//physx::PxControllerState controlState;
+	//CapsuleController->getState(controlState);
+	
+	physx::PxControllerFilters filters;
+	CapsuleController->move(physx::PxVec3{0.f, jumpZ, 0.f}, 0.f, GetApplication()->GetDeltaTime(), filters);
 }
 
 FVector UCapsuleComponent::GetWorldPosition()
