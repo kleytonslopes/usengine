@@ -34,6 +34,9 @@ project "GameTest"
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.KyrnnessMath}",
+        "%{include_dir.KyrnnessAsset}",
+        "%{include_dir.KyrnnessCore}",
+        "%{include_dir.FBXSDK}",
     }
 
     libdirs
@@ -42,6 +45,7 @@ project "GameTest"
         "%{extern_lib_dir.ASSIMP}",
         "%{extern_lib_dir.BULLET}",
         "%{extern_lib_dir.PHYSX}",
+        "%{extern_lib_dir.FBXSDK}",
     }
 
     links
@@ -52,6 +56,8 @@ project "GameTest"
         "IMGUI",
         "YAML",
         "KyrnnessMath",
+        "KyrnnessAsset",
+        "KyrnnessCore",
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",
@@ -70,12 +76,14 @@ project "GameTest"
         "PhysXVehicle_static_64.lib",
         "PhysXVehicle2_static_64.lib",
         "PhysXCharacterKinematic_static_64.lib",
+        "libfbxsdk.lib",
     }
 
     postbuildcommands
     {
         "copy F:\\Dependencies\\SDL2\\SDL2-2.26.5\\lib\\x64\\SDL2.dll $(SolutionDir)Programs\\GameTest\\SDL2.dll",
         "copy %{wks.location}\\ThirdParty\\ASSIMP\\build\\bin\\Debug\\assimp-vc143-mtd.dll $(SolutionDir)Programs\\GameTest\\assimp-vc143-mtd.dll",
+        --"copy C:\\Program Files\\Autodesk\\FBX\\FBX SDK\\2020.3.4\\lib\\vs2022\\x64\\release\\libfbxsdk.dll $(SolutionDir)Programs\\GameTest\\libfbxsdk.dll",
     }
 
     filter "system:windows"

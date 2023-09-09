@@ -1,16 +1,16 @@
 /*********************************************************************
  *   File: CommonTypes.hpp
- *  Brief: 
- * 
+ *  Brief:
+ *
  * Author: Kleyton Lopes
  *   Date: July 2023
- * 
- * Copyright (c) 2023 Kyrnness. All rights reserved. 
+ *
+ * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 #pragma once
 
-#ifndef US_COMMON_TYPES_HPP
-#define	US_COMMON_TYPES_HPP
+#ifndef KC_COMMON_TYPES_HPP
+#define	KC_COMMON_TYPES_HPP
 
 #include <list>
 #include <vector>
@@ -24,12 +24,12 @@ namespace us::types
 {
 	struct FCommonTypes
 	{
-		using UUtint8  = unsigned char;
+		using UUtint8 = unsigned char;
 		using UUtint16 = unsigned short int;
 		using UUtint32 = unsigned int;
 		using UUtint64 = unsigned long long;
 
-		using StInt8  = signed char;
+		using StInt8 = signed char;
 		using StInt16 = signed short int;
 		using StInt32 = signed int;
 		using StInt64 = signed long long;
@@ -77,4 +77,4 @@ using TPair = std::pair<R, L>;
 
 using TThread = us::types::FCommonTypes::SThread;
 
-#endif // !US_COMMON_TYPES_HPP
+#endif // !KC_COMMON_TYPES_HPP

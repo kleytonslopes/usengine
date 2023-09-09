@@ -7,8 +7,8 @@
  *
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
-#include "Rotator.hpp"
-#include "Math.hpp"
+#include "Core/Rotator.hpp"
+#include "Core/Math.hpp"
 #include <cmath>
 #include <array>
 
@@ -143,7 +143,7 @@ FRotator FRotator::ZeroRotator()
 	return FRotator();
 }
 
-void FRotator::Rotate(FRotator& rotator, const FVector3& vector)
+void FRotator::Rotate(FRotator& rotator, const Vector3& vector)
 {
 	RotateInAxisX(rotator, FMath::Radians(vector.GetX()));
 	RotateInAxisY(rotator, FMath::Radians(vector.GetY()));

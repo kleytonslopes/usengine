@@ -1,11 +1,10 @@
 /*********************************************************************
- *   File: CommonTypes.cpp
+ *   File: AssetManager.cpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
- *   Date: July 2023
+ *   Date: September 2023
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
-#include "upch.hpp"
-#include "Core/CommonTypes.hpp"
+#include "AssetManager.hpp"

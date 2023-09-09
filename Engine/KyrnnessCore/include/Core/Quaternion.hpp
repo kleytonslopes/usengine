@@ -9,7 +9,7 @@
  *********************************************************************/
 #pragma once
 
-#include "Vector3.hpp"
+#include "Core/Vectors/Vector3.hpp"
 
 class FQuaternion
 {
@@ -30,7 +30,7 @@ public:
 	FQuaternion Conjugate() const;
 
 	static FQuaternion FromAxisAngle(T angle, T axisX, T axisY, T axisZ);
-	FVector3 Rotate(const FVector3& vector) const;
+	Vector3 Rotate(const Vector3& vector) const;
 
 private:
 	T W;

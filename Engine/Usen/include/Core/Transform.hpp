@@ -14,7 +14,7 @@
 
 #include "Core/CommonTypes.hpp"
 #include "Core/Vector.hpp"
-#include "Axis.hpp"
+#include "Core/Axis.hpp"
 
 class AFTransform
 {

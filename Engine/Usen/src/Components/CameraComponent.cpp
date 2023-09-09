@@ -10,8 +10,8 @@
 #include "upch.hpp"
 #include "Components/CameraComponent.hpp"
 #include "Actors/Actor.hpp"
-#include <Rotator.hpp>
-#include <Math.hpp>
+#include <Core/Rotator.hpp>
+#include <Core/Math.hpp>
 #include "Presentation/Window.hpp"
 #include "Runtime/Application.hpp"
 

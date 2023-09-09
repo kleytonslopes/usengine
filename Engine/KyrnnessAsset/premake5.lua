@@ -1,11 +1,8 @@
-project "Usen"
+project "KyrnnessAsset"
     kind "StaticLib"
     language "C++"
     cppdialect "c++17"
     staticruntime "on"
-
-    pchheader "upch.hpp"
-    pchsource "src/upch.cpp"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
     objdir ("%{wks.location}/obj/" .. outputdir .. "/%{prj.name}")
@@ -21,27 +18,7 @@ project "Usen"
     {
         "include",
         "generated",
-        "%{include_dir.SDL2}",
-        "%{include_dir.GLAD}",
-        "%{include_dir.UUID}",
-        "%{include_dir.GLM}",
-        "%{include_dir.YAML}",
-        "%{include_dir.ASSIMP}",
-        "%{include_dir.ASSIMP_BUILD}",
-        "%{include_dir.STB}",
-        "%{include_dir.MINI}",
-        "%{include_dir.BULLET}",
-        "%{include_dir.IMGUI}",
-        "%{include_dir.PHYSX}",
-        "%{include_dir.KyrnnessMath}",
-        "%{include_dir.KyrnnessAsset}",
         "%{include_dir.KyrnnessCore}",
-        "%{include_dir.FBXSDK}",
-    }
-
-    links
-    {
-        "YAML",
     }
 
     filter "system:windows"
@@ -50,20 +27,12 @@ project "Usen"
         defines
         {
             "PLATFORM_WINDOWS",
-            "WIN32_LEAN_AND_MEAN",
-            "_CRT_SECURE_NO_WARNINGS",
-            "YAML_CPP_STATIC_DEFINE"
         }
 
         filter "configurations:Debug"
             defines 
             {
                 "DEBUG",
-                "LOG_WARNING",
-                "LOG_INFORMATION",
-                "LOG_DEBUG",
-                "LOG_TRACE",
-                "LOG_DEFAULT",
             }
             buildoptions "/MTd"
             symbols "on"
@@ -72,12 +41,6 @@ project "Usen"
             defines 
             {
                 "DEBUG",
-                "LOG_WARNING",
-                "LOG_INFORMATION",
-                "LOG_DEBUG",
-                "LOG_TRACE",
-                "LOG_DEFAULT",
-                "APP_EDITOR_MODE"
             }
             buildoptions "/MTd"
             symbols "on"
@@ -86,12 +49,6 @@ project "Usen"
             defines 
             {
                 "DEBUG",
-                "LOG_WARNING",
-                "LOG_INFORMATION",
-                "LOG_DEBUG",
-                "LOG_TRACE",
-                "LOG_DEFAULT",
-                "APP_GAME_MODE"
             }
             buildoptions "/MTd"
             symbols "on"
@@ -100,6 +57,7 @@ project "Usen"
             defines 
             {
                 "RELEASE",
+                "NDEBUG",
             }
             buildoptions "/MD"
             optimize "on"

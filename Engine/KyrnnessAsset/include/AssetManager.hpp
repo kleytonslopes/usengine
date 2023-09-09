@@ -1,10 +1,16 @@
 /*********************************************************************
- *   File: Math.cpp
+ *   File: AssetManager.hpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
- *   Date: August 2023
+ *   Date: September 2023
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
-#include "Math.hpp"
+#pragma once
+
+class UAssetManager
+{
+
+};
+

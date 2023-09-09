@@ -3,6 +3,7 @@ include_dir["SDL2"]         = "F:/Dependencies/SDL2/SDL2-2.26.5/include"
 include_dir["GLM"]          = "F:/Dependencies/glm"
 include_dir["BULLET"]       = "F:/Dependencies/bullet3/src"
 include_dir["PHYSX"]        = "F:/Dependencies/PhysX/physx/include"
+include_dir["FBXSDK"]       = "C:/Program Files/Autodesk/FBX/FBX SDK/2020.3.4/include"
 include_dir["GLAD"]         = "%{wks.location}/ThirdParty/GLAD/include"
 include_dir["UUID"]         = "%{wks.location}/ThirdParty/UUID_V4"
 include_dir["YAML"]         = "%{wks.location}/ThirdParty/YAML/include"
@@ -12,12 +13,16 @@ include_dir["ASSIMP_BUILD"] = "%{wks.location}/ThirdParty/ASSIMP/build/include"
 include_dir["STB"]          = "%{wks.location}/ThirdParty/STB"
 include_dir["MINI"]         = "%{wks.location}/ThirdParty/MINI/src"
 include_dir["KyrnnessMath"] = "%{wks.location}/Engine/KyrnnessMath/include"
+include_dir["KyrnnessAsset"] = "%{wks.location}/Engine/KyrnnessAsset/include"
+include_dir["KyrnnessCore"] = "%{wks.location}/Engine/KyrnnessCore/include"
+
 
 extern_lib_dir = {}
 extern_lib_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"
 extern_lib_dir["BULLET"] = "F:/Dependencies/bullet3/build/lib/Debug"
 extern_lib_dir["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/debug"
 extern_lib_dir["ASSIMP"] = "%{wks.location}/ThirdParty/ASSIMP/build/lib/Debug"
+extern_lib_dir["FBXSDK"] = "C:/Program Files/Autodesk/FBX/FBX SDK/2020.3.4/lib/vs2022/x64/release"
 
 
 workspace "UsEngine"
@@ -49,5 +54,7 @@ group "Programs"
 group ""
 
 group "Libs"
+   include "Engine/KyrnnessCore"
    include "Engine/KyrnnessMath"
+   include "Engine/KyrnnessAsset"
 group ""

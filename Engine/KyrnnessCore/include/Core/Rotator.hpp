@@ -12,7 +12,7 @@
 #ifndef KNM_ROTATOR_HPP
 #define	KNM_ROTATOR_HPP
 
-#include "Vector3.hpp"
+#include "Core/Vectors/Vector3.hpp"
 #include "Axis.hpp"
 
 class FRotator
@@ -52,8 +52,8 @@ public:
 	bool IsZero() const;
 
 	static FRotator ZeroRotator();
-	static void Rotate(FRotator& rotator, const FVector3& vector);
-	static void RatateWithQuartenions(FRotator& rotator, const FVector3& vector);
+	static void Rotate(FRotator& rotator, const Vector3& vector);
+	static void RatateWithQuartenions(FRotator& rotator, const Vector3& vector);
 	static void Rotate(double& x, double& y, double& z, const FRotator& rotator);
 
 	static FRotator Normalize(const FRotator& rotator);

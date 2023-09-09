@@ -7,7 +7,7 @@
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
-#include "Quaternion.hpp"
+#include "Core/Quaternion.hpp"
 #include <math.h>
 
 FQuaternion::FQuaternion()
@@ -68,9 +68,9 @@ FQuaternion FQuaternion::FromAxisAngle(T angle, T axisX, T axisY, T axisZ)
 	return FQuaternion(cos(halfAngle), axisX * sinHalfAngle, axisY * sinHalfAngle, axisZ * sinHalfAngle);
 }
 
-FVector3 FQuaternion::Rotate(const FVector3& vector) const
+Vector3 FQuaternion::Rotate(const Vector3& vector) const
 {
-	FQuaternion v{ 0.0, vector.X, vector.Y, vector.Z };
+	FQuaternion v{ 0.0, vector[0], vector[1], vector[2]};
 	FQuaternion rotated = (*this) * v * this->Conjugate();
-	return FVector3{ rotated.X, rotated.Y, rotated.Z };
+	return Vector3{ rotated.X, rotated.Y, rotated.Z };
 }

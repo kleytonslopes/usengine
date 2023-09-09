@@ -1,4 +1,4 @@
-project "KyrnnessMath"
+project "KyrnnessCore"
     kind "StaticLib"
     language "C++"
     cppdialect "c++17"
@@ -18,8 +18,6 @@ project "KyrnnessMath"
     {
         "include",
         "generated",
-        "%{include_dir.FBXSDK}",
-        "%{include_dir.KyrnnessCore}",
     }
 
     filter "system:windows"

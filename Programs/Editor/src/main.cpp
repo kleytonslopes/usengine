@@ -14,8 +14,8 @@
 #include "Environment/Environment.hpp"
 #include "Runtime/ApplicationEditor.hpp"
 #include "Pawns/Pawn.hpp"
-#include "Transform.hpp"
-#include "Math.hpp"
+#include "Core/Transform.hpp"
+#include "Core/Math.hpp"
 #include "glm/glm.hpp"
 
 #undef DEBUG 

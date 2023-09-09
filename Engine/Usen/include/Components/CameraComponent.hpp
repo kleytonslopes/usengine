@@ -15,7 +15,7 @@
 
 #include "Components/Component.hpp"
 #include "CameraComponent-generated.hpp"
-#include <Quaternion.hpp>
+#include "Core/Quaternion.hpp"
 
 class UCameraComponent : public AComponent
 {
