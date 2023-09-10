@@ -12,9 +12,6 @@ include_dir["ASSIMP"]       = "%{wks.location}/ThirdParty/ASSIMP/include"
 include_dir["ASSIMP_BUILD"] = "%{wks.location}/ThirdParty/ASSIMP/build/include"
 include_dir["STB"]          = "%{wks.location}/ThirdParty/STB"
 include_dir["MINI"]         = "%{wks.location}/ThirdParty/MINI/src"
-include_dir["KyrnnessMath"] = "%{wks.location}/Engine/KyrnnessMath/include"
-include_dir["KyrnnessAsset"] = "%{wks.location}/Engine/KyrnnessAsset/include"
-include_dir["KyrnnessCore"] = "%{wks.location}/Engine/KyrnnessCore/include"
 
 
 extern_lib_dir = {}
@@ -54,7 +51,4 @@ group "Programs"
 group ""
 
 group "Libs"
-   include "Engine/KyrnnessCore"
-   include "Engine/KyrnnessMath"
-   include "Engine/KyrnnessAsset"
 group ""

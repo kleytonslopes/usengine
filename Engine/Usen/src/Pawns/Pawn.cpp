@@ -15,6 +15,7 @@
 #include "Components/CapsuleComponent.hpp"
 #include "Components/MovementComponent.hpp"
 #include "Runtime/Application.hpp"
+#include "Core/Attachment.hpp"
 
 DEFAULT_BODY(APawn)
 
@@ -46,6 +47,10 @@ void APawn::Update(float deltaTime)
 		FVector location = CollisionComponent->GetWorldPosition();
 		TransformComponent->SetLocation(location);
 		OnLocationChangedEvent.Broadcast(location);
+	}
+	if (Attachments)
+	{
+		Attachments->UpdateLocation();
 	}
 }
 

@@ -49,19 +49,19 @@ void UPlayerController::MoveForward(float scale)
 
 
 
-	if (!bMoveCharacter)
-	{
-		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-		FVector Direction = camera->GetLocation();
-		FVector Forward = camera->GetForwardVector();
+	//if (!bMoveCharacter)
+	//{
+	//	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	//	FVector Direction = camera->GetLocation();
+	//	FVector Forward = camera->GetForwardVector();
 
-		Direction += 2.f * scale * Forward;
-		camera->AddMovementForward(Direction);
-	}
-	else
-	{
+	//	Direction += 2.f * scale * Forward;
+	//	camera->AddMovementForward(Direction);
+	//}
+	//else
+	//{
 		Pawn->MoveForward(scale);
-	}
+	//}
 }
 
 void UPlayerController::MoveBackward(float scale)
@@ -69,19 +69,19 @@ void UPlayerController::MoveBackward(float scale)
 	if (!Pawn)
 		return;
 
-	if (!bMoveCharacter)
-	{
-		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-		FVector Direction = camera->GetLocation();
-		FVector Forward = camera->GetForwardVector();
+	//if (!bMoveCharacter)
+	//{
+	//	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	//	FVector Direction = camera->GetLocation();
+	//	FVector Forward = camera->GetForwardVector();
 
-		Direction -= 2.f * scale * Forward;
-		camera->AddMovementForward(Direction);
-	}
-	else
-	{
+	//	Direction -= 2.f * scale * Forward;
+	//	camera->AddMovementForward(Direction);
+	//}
+	//else
+	//{
 		Pawn->MoveForward(-scale);
-	}
+	//}
 }
 
 void UPlayerController::MoveRight(float scale)
@@ -89,20 +89,20 @@ void UPlayerController::MoveRight(float scale)
 	if (!Pawn)
 		return;
 
-	if (!bMoveCharacter)
-	{
-		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-		FVector Direction = camera->GetLocation();
-		FVector Forward = camera->GetForwardVector();
-		FVector Up = camera->GetUpVector();
+	//if (!bMoveCharacter)
+	//{
+	//	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	//	FVector Direction = camera->GetLocation();
+	//	FVector Forward = camera->GetForwardVector();
+	//	FVector Up = camera->GetUpVector();
 
-		Direction += glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
-		camera->AddMovementRight(Direction);
-	}
-	else
-	{
+	//	Direction += glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+	//	camera->AddMovementRight(Direction);
+	//}
+	//else
+	//{
 		Pawn->MoveRight(-scale);
-	}
+	//}
 }
 
 void UPlayerController::MoveLeft(float scale)
@@ -110,20 +110,20 @@ void UPlayerController::MoveLeft(float scale)
 	if (!Pawn)
 		return;
 
-	if (!bMoveCharacter)
-	{
-		UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
-		FVector Direction = camera->GetLocation();
-		FVector Forward = camera->GetForwardVector();
-		FVector Up = camera->GetUpVector();
+	//if (!bMoveCharacter)
+	//{
+	//	UCameraComponent* camera = GetScene()->GetCamera()->GetCameraComponent();
+	//	FVector Direction = camera->GetLocation();
+	//	FVector Forward = camera->GetForwardVector();
+	//	FVector Up = camera->GetUpVector();
 
-		Direction -= glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
-		camera->AddMovementRight(Direction);
-	}
-	else
-	{
+	//	Direction -= glm::normalize(glm::cross(Forward, Up)) * 2.f * scale;///glm::normalize(glm::cross(Forward.ToGLM(), Up.ToGLM())) * 5.f * deltaTime;
+	//	camera->AddMovementRight(Direction);
+	//}
+	//else
+	//{
 		Pawn->MoveRight(scale);
-	}
+	//}
 }
 
 void UPlayerController::StartJump()

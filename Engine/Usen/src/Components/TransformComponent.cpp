@@ -69,44 +69,32 @@ void UTransformComponent::SetTransform(AFTransform transform)
 
 void UTransformComponent::SetOrigin(const FVector& vector)
 {
-	Transform.GetOrigin().x = vector.x;
-	Transform.GetOrigin().y = vector.y;
-	Transform.GetOrigin().z = vector.z;
+	Transform.SetOrigin(vector);
 }
 
-void UTransformComponent::SetLocation(FVector& vector)
+void UTransformComponent::SetLocation(const FVector& vector)
 {
-	Transform.GetLocation().x = vector.x;
-	Transform.GetLocation().y = vector.y;
-	Transform.GetLocation().z = vector.z;
+	Transform.SetLocation(vector);
 }
 
 void UTransformComponent::SetRotation(const FVector& vector)
 {
-	Transform.GetRotation().x = vector.x;
-	Transform.GetRotation().y = vector.y;
-	Transform.GetRotation().z = vector.z;
+	Transform.SetRotation(vector);
 }
 
 void UTransformComponent::SetScale(const FVector& vector)
 {
-	Transform.GetScale().x = vector.x;
-	Transform.GetScale().y = vector.y;
-	Transform.GetScale().z = vector.z;
+	Transform.SetScale(vector);
 }
 
 void UTransformComponent::SetUpVector(const FVector& vector)
 {
-	Transform.GetUpVector().x = vector.x;
-	Transform.GetUpVector().y = vector.y;
-	Transform.GetUpVector().z = vector.z;
+	Transform.SetUpVector(vector);
 }
 
 void UTransformComponent::SetForwardVector(const FVector& vector)
 {
-	Transform.GetForwardVector().x = vector.x;
-	Transform.GetForwardVector().y = vector.y;
-	Transform.GetForwardVector().z = vector.z;
+	Transform.SetForwardVector(vector);
 }
 
 FVector UTransformComponent::GetWorldLocation()

@@ -25,6 +25,8 @@ public:
 	void Construct() override;
 	void Initialize() override;
 
+	//void SetLocation(FVector& vector) override;
+
 	FMatrix4 GetView();
 
 	void SetViewSize(int width, int height);

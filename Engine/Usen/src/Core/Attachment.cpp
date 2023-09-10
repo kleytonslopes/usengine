@@ -10,6 +10,7 @@
 #include "upch.hpp"
 #include "Core/Attachment.hpp"
 #include "Actors/Actor.hpp"
+#include "Actors/Entity.hpp"
 
 DEFAULT_BODY(UAttachment)
 
@@ -28,6 +29,27 @@ void UAttachment::Initialize()
 	for (it = Attachments.begin(); it != Attachments.end(); it++)
 	{
 		it->second->Initialize();
+	}
+}
+
+void UAttachment::SetOwner(AActor* owner)
+{
+	Owner = owner;
+}
+
+void UAttachment::UpdateLocation()
+{
+	if (!Owner)
+		return;
+
+	TMap<FString, AActor*>::iterator it;
+
+	for (it = Attachments.begin(); it != Attachments.end(); it++)
+	{
+		if (it->second)
+			it->second->SetLocation(Owner->GetLocation() + it->second->GetOrigin());
+		else
+			ULOG(ELogLevel::ELL_ERROR, FText::Format("Failed to update Attachment of actor: %s", Owner->GetIdentity().c_str()));
 	}
 }
 

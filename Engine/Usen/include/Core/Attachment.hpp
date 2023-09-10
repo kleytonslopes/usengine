@@ -25,7 +25,10 @@ public:
 	bool HasAttachments() const;
 	void Initialize() override;
 
+	void SetOwner(AActor* owner);
+	void UpdateLocation();
 private:
+	AActor* Owner = nullptr;
 	TMap<FString, AActor*> Attachments;
 
 	void Attatch(AActor* actor);

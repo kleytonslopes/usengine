@@ -43,7 +43,7 @@ public:
 
 	void SetTransform(AFTransform transform);
 	void SetOrigin(const FVector& transform);
-	void SetLocation(FVector& vector);
+	void SetLocation(const FVector& vector);
 	void SetRotation(const FVector& vector);
 	void SetScale(const FVector& vector);
 	void SetUpVector(const FVector& vector);

@@ -223,7 +223,7 @@ void UScene::Initialize()
 			pawnMesh->SetMeshParameters(pawnMeshParameters);
 			pawnMesh->RemoveCollisionComponent();
 			pawnMesh->Initialize();
-			//Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
+			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
 		}
 
 		{ // arrowDirection

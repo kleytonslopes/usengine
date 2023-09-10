@@ -1,5 +1,5 @@
 /*********************************************************************
- *   File: AssetManager.hpp
+ *   File: AssetManager.cpp
  *  Brief: 
  * 
  * Author: Kleyton Lopes
@@ -7,10 +7,4 @@
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
-#pragma once
-
-class UAssetManager
-{
-
-};
-
+#include "upch.hpp"

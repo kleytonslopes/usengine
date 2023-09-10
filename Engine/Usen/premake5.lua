@@ -33,9 +33,6 @@ project "Usen"
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
-        "%{include_dir.KyrnnessMath}",
-        "%{include_dir.KyrnnessAsset}",
-        "%{include_dir.KyrnnessCore}",
         "%{include_dir.FBXSDK}",
     }
 

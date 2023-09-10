@@ -23,9 +23,9 @@ void ACamera::Construct()
 	bCanTick = false;
 
 	CameraComponent = AddComponent<UCameraComponent>();
-	CollisionComponent = AddComponent<UBoxCollisionComponent>();
+	//CollisionComponent = AddComponent<UBoxCollisionComponent>();
 
-	CollisionComponent->SetIsDynamic(false);
+	//CollisionComponent->SetIsDynamic(false);
 
 	UWindow* window = GetWindow();
 	ViewSize.x = window->GetWidth();
@@ -44,6 +44,16 @@ void ACamera::Initialize()
 		CollisionComponent->SetLocation(GetLocation());
 	}
 }
+
+//void ACamera::SetLocation(FVector& vector)
+//{
+//	Super::SetLocation(vector);
+//
+//	//if (CameraComponent)
+//	//{
+//	//	CameraComponent->SetLocation(vector);
+//	//}
+//}
 
 FMatrix4 ACamera::GetView()
 {

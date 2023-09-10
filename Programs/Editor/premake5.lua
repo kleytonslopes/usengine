@@ -33,9 +33,6 @@ project "Editor"
         "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
-        "%{include_dir.KyrnnessMath}",
-        "%{include_dir.KyrnnessAsset}",
-        "%{include_dir.KyrnnessCore}",
         "%{include_dir.FBXSDK}",
     }
 
@@ -55,9 +52,6 @@ project "Editor"
         "GLAD",
         "IMGUI",
         "YAML",
-        "KyrnnessMath",
-        "KyrnnessAsset",
-        "KyrnnessCore",
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",

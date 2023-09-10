@@ -47,6 +47,7 @@ void AActor::Construct()
 	bCanTick = true;
 
 	Attachments = FConstructorHelper::CreateObject<UAttachment>();
+	Attachments->SetOwner(this);
 
 	TransformComponent = AddComponent<UTransformComponent>();
 }

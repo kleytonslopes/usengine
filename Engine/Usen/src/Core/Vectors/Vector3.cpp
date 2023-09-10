@@ -7,6 +7,7 @@
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
+#include "upch.hpp"
 #include "Core/Vectors/Vector3.hpp"
 
 Vector3& Vector3::operator=(const Vector3& right)

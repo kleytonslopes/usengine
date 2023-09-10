@@ -7,6 +7,7 @@
  * 
  * Copyright (c) 2023 Kyrnness. All rights reserved. 
  *********************************************************************/
+#include "upch.hpp"
 #include "Core/Quaternion.hpp"
 #include <math.h>
 
