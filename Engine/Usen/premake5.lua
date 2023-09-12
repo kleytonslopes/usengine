@@ -34,6 +34,7 @@ project "Usen"
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.FBXSDK}",
+        "%{include_dir.ENTT}",
     }
 
     links
@@ -97,6 +98,7 @@ project "Usen"
             defines 
             {
                 "RELEASE",
+                "NDEBUG",
             }
-            buildoptions "/MD"
+            buildoptions "/MT"
             optimize "on"

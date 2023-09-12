@@ -20,6 +20,8 @@
 #include <map>
 #include <thread>
 
+#include "entt/entt.hpp"
+
 namespace us::types
 {
 	struct FCommonTypes
@@ -39,6 +41,9 @@ namespace us::types
 		using Seconds = std::chrono::seconds;
 
 		using SThread = std::thread;
+
+		using FCT_Entity = entt::entity;
+		using FCT_EntityRegistry = entt::registry;
 	};
 }
 
@@ -76,5 +81,8 @@ template<typename R, typename L>
 using TPair = std::pair<R, L>;
 
 using TThread = us::types::FCommonTypes::SThread;
+
+using TEntityECS = us::types::FCommonTypes::FCT_Entity;
+using TRegistryECS = us::types::FCommonTypes::FCT_EntityRegistry;
 
 #endif // !KC_COMMON_TYPES_HPP

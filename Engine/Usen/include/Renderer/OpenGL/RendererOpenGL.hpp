@@ -26,6 +26,8 @@ public:
 
 	void Initialize() override;
 	void StartFrame() override;
+	void StartFrame(int xPos, int yPos, int width, int height, bool clear /*= true*/) override;
+
 	void EndFrame() override;
 	void OnWindowResize(uint32 width, uint32 height) override;
 	void OnViewportResize(uint32 width, uint32 height) override;

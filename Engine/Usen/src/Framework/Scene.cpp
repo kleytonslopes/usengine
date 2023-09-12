@@ -65,6 +65,7 @@ void UScene::PostConstruct()
 	Serializer->SetScene(this);
 
 	CreateDefaultCamera();
+	CreateDebugCamera();
 	CreateDefaultController();
 	CreateDefaultPawn();
 }
@@ -210,6 +211,7 @@ void UScene::Initialize()
 
 			FAttachmentSettings pawnCameraAttachmentSettings{};
 			pawnCameraAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
+			pawnCameraAttachmentSettings.bControlParentRotation = true;
 
 			FMeshParameters pawnMeshParameters{};
 			FAttachmentSettings pawnMeshAttachmentSettings{};
@@ -255,21 +257,21 @@ void UScene::Initialize()
 			//boxMesh->Initialize();
 		}
 
-		//{ // wall
+		{ // wall
 
-		//	FTransform transformBox;
-		//	transformBox.Location = { 0.f,10.f,0.f };
-		//	transformBox.Origin = { 0.f,0.f,0.f };
-		//	transformBox.Rotation = { 0.f,0.f,0.f };
-		//	FMeshParameters boxMeshParameters{};
-		//	boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
-		//	AMesh* boxMesh = CreateEntity<AMesh>();
-		//	boxMesh->SetBoundBox(FVector{ 3.f, 0.2f, 3.f });
-		//	boxMesh->SetMeshParameters(boxMeshParameters);
-		//	boxMesh->SetIsDynamic(false);
-		//	boxMesh->SetLocation(transformBox.Location);
-		//	boxMesh->Initialize();
-		//}
+			AFTransform transformBox;
+			transformBox.SetLocation({ -10.f,-10.f,-5.f });
+			transformBox.SetOrigin({ 0.f,0.f,0.f });
+			transformBox.SetRotation({ 00.f,0.f,90.f });
+			FMeshParameters boxMeshParameters{};
+			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+			AMesh* boxMesh = CreateEntity<AMesh>();
+			boxMesh->SetBoundBox(FVector{ 3.f, 0.2f, 3.f });
+			boxMesh->SetMeshParameters(boxMeshParameters);
+			boxMesh->SetIsDynamic(false);
+			boxMesh->SetTransform(transformBox);
+			boxMesh->Initialize();
+		}
 	}
 
 	//SaveScene();
@@ -290,20 +292,16 @@ void UScene::DrawScene(float deltaTime)
 	{
 		it->second->Draw(deltaTime);
 	}
-
-	/*
-	TMap<FString, AEntity*>::reverse_iterator it;
-
-	for (it = entities.rbegin(); it != entities.rend(); it++)
-	{
-		it->second->Draw(deltaTime);
-	}
-	*/
 }
 
 ACamera* UScene::GetCamera()
 {
 	return Camera;
+}
+
+ACamera* UScene::GetDebugCamera()
+{
+	return DebugCamera;
 }
 
 UGameModeBase* UScene::GetGameMode()
@@ -359,11 +357,22 @@ void UScene::CreateDefaultController()
 	GameMode->SetController(Controller);
 }
 
+void UScene::CreateDebugCamera()
+{
+	AFTransform trasformCamera;
+	trasformCamera.SetLocation({ 0.f,1.f,30.f });
+	trasformCamera.SetOrigin({ 0.f,1.f,0.f });
+	trasformCamera.SetRotation({ 0.f,0.f,0.f });
+	DebugCamera = CreateEntity<ACamera>();
+	DebugCamera->SetTransform(trasformCamera);
+	DebugCamera->Initialize();
+}
+
 void UScene::CreateDefaultCamera()
 {
 	AFTransform trasformCamera;
 	trasformCamera.SetLocation({0.f,0.f,0.f});
-	trasformCamera.SetOrigin({ -25.f,0.f,5.f });
+	trasformCamera.SetOrigin({ 0.f,1.f,0.f });
 	trasformCamera.SetRotation({ 0.f,0.f,0.f });
 	Camera = CreateEntity<ACamera>();
 	Camera->SetTransform(trasformCamera);

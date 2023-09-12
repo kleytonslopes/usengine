@@ -45,15 +45,15 @@ void ACamera::Initialize()
 	}
 }
 
-//void ACamera::SetLocation(FVector& vector)
-//{
-//	Super::SetLocation(vector);
-//
-//	//if (CameraComponent)
-//	//{
-//	//	CameraComponent->SetLocation(vector);
-//	//}
-//}
+void ACamera::SetLocation(FVector& vector)
+{
+	Super::SetLocation(vector);
+
+	if (CameraComponent)
+	{
+		CameraComponent->SetLocation(vector);
+	}
+}
 
 FMatrix4 ACamera::GetView()
 {

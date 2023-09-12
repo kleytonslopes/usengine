@@ -52,6 +52,7 @@ public:
 	T* CreateEntity(U& entityClass);
 
 	ACamera* GetCamera();
+	ACamera* GetDebugCamera();
 
 	UGameModeBase* GetGameMode();
 
@@ -61,6 +62,7 @@ private:
 	FSceneSettings Settings{};
 
 	ACamera* Camera = nullptr;
+	ACamera* DebugCamera = nullptr;
 	FSceneSerializer* Serializer = nullptr;
 	UGameModeBase* GameMode = nullptr;
 
@@ -72,6 +74,7 @@ private:
 	void CreateDefaultCamera();
 	void CreateDefaultPawn();
 	void CreateDefaultController();
+	void CreateDebugCamera();
 
 	friend class FSceneSerializer;
 	friend class UApplication;

@@ -18,6 +18,8 @@
 #include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 
+#include "Components/UpdateComponent.hpp"
+
 DEFAULT_BODY(UApplication);
 
 void UApplication::PostConstruct()
@@ -63,13 +65,24 @@ void UApplication::Destroy()
 
 void UApplication::Draw(float deltaTime)
 {
-	Renderer->StartFrame();
+	PhysicsSystemPhysX->Update(deltaTime);
+
+	Renderer->StartFrame(0, 0, Window->GetWidth(), Window->GetHeight(), true);
 #if defined (APP_EDITOR_MODE)
 	DrawScreenQuad();
 #endif
 		OnDrawEvent.Broadcast(deltaTime);
 		//PhysicsSystem->Update(deltaTime);
-		PhysicsSystemPhysX->Update(deltaTime);
+		/*PhysicsSystemPhysX->Update(deltaTime);*/
+	//Renderer->EndFrame();
+
+	Renderer->StartFrame(Window->GetWidth() / 2, 0, Window->GetWidth() / 2, Window->GetHeight() / 2, false);
+#if defined (APP_EDITOR_MODE)
+	DrawScreenQuad();
+#endif
+	OnDrawEvent.Broadcast(deltaTime);
+	//PhysicsSystem->Update(deltaTime);
+	//PhysicsSystemPhysX->Update(deltaTime);
 	Renderer->EndFrame();
 
 
@@ -106,7 +119,15 @@ void UApplication::Loop()
 
 		ThreadTickEvent = new TThread(TickFunction, deltaTime);
 
-		OnUpdateEvent.Broadcast(deltaTime);
+		auto view = ECS.view<UUpdateComponent>();
+
+		for (auto entity : view) 
+		{
+			auto& vel = view.get<UUpdateComponent>(entity);
+			vel.OnUpdateCalledEvent.Broadcast(deltaTime);
+		}
+
+		//OnUpdateEvent.Broadcast(deltaTime);
 		/*PhysicsSystem->Update(deltaTime);*/
 
 		Draw(deltaTime);

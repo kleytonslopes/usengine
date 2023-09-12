@@ -28,13 +28,15 @@ class UMovementComponent : public AComponent
 	DEFAULT_BODY_GENERATED()
 public:
 	float Speed = 10.f;
-	float JumpScale = 100.f;
+	float JumpScale = 2.0f;
 	bool bUseGravity = true;
 
 	void Construct() override;
 
 	void AddForwardMovement(float scaleMovement);
 	void AddRightMovement(float scaleMovement);
+	void StartJump();
+	void EndJump();
 
 	void Update(float deltaTime) override;
 };

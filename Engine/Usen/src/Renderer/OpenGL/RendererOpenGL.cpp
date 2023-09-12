@@ -125,6 +125,7 @@ void URendererOpenGL::StartFrame()
 	glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
 #endif
 
+	glViewport(0, 0, GetWindow()->GetWidth() / 2, GetWindow()->GetHeight());
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -177,6 +178,51 @@ void URendererOpenGL::StartFrame()
 	//		DebugDrawLine(FVector{ -yPos , 0.f, -20.f }, FVector{ -yPos, 0.f, 20.f }, FColor::Pink);
 	//	}
 	//}
+}
+
+void URendererOpenGL::StartFrame(int xPos, int yPos, int width, int height, bool clear /*= true*/)
+{
+	glViewport(xPos, yPos, width, height);
+	if (clear)
+	{
+		glEnable(GL_DEPTH_TEST);
+		glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	}
+	else
+	{
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	ACamera* Camera = nullptr;//GetScene()->GetCamera();
+
+	if (!clear)
+		Camera = GetScene()->GetDebugCamera();
+	else
+		Camera = GetScene()->GetCamera();
+
+	float fov = Camera->GetFieldOfView();
+	float near = Camera->GetNear();
+	float far = Camera->GetFar();
+	float aspect = Camera->GetAspectRatio();
+
+	FMatrix4 projection = glm::perspective(glm::radians(fov), aspect, near, far);
+	FMatrix4 view = Camera->GetView();
+
+	TMap<FString, BShader*>::iterator shdIterator;
+
+	for (shdIterator = Shaders.begin(); shdIterator != Shaders.end(); shdIterator++)
+	{
+		shdIterator->second->Active();
+		shdIterator->second->SetMatrix4("projection", projection);
+		shdIterator->second->SetMatrix4("view", view);
+		shdIterator->second->SetMatrix4("model", FMatrix4{ 1.f });
+		shdIterator->second->Deactive();
+	}
+
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilMask(0xFF);
+
 }
 
 void URendererOpenGL::EndFrame()

@@ -47,6 +47,8 @@ public:
 	virtual void Update(float deltaTime) { /* override */ };
 
 protected:
+	TEntityECS entityId;
+
 	bool bCanUpdate = false;
 
 	UWindow* GetWindow();
@@ -59,6 +61,7 @@ protected:
 	UGameModeBase* GetGameMode();
 	UPhysicsSystem* GetPhysicsSystem();
 	UPhysicsSystemPhysX* GetPhysicsSystemPhysX();
+	TRegistryECS* GetECS();
 
 	template<typename R>
 	R* GetRenderer()

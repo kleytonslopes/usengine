@@ -12,6 +12,7 @@ include_dir["ASSIMP"]       = "%{wks.location}/ThirdParty/ASSIMP/include"
 include_dir["ASSIMP_BUILD"] = "%{wks.location}/ThirdParty/ASSIMP/build/include"
 include_dir["STB"]          = "%{wks.location}/ThirdParty/STB"
 include_dir["MINI"]         = "%{wks.location}/ThirdParty/MINI/src"
+include_dir["ENTT"]         = "%{wks.location}/ThirdParty/ENTT/src"
 
 
 extern_lib_dir = {}
@@ -20,6 +21,9 @@ extern_lib_dir["BULLET"] = "F:/Dependencies/bullet3/build/lib/Debug"
 extern_lib_dir["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/debug"
 extern_lib_dir["ASSIMP"] = "%{wks.location}/ThirdParty/ASSIMP/build/lib/Debug"
 extern_lib_dir["FBXSDK"] = "C:/Program Files/Autodesk/FBX/FBX SDK/2020.3.4/lib/vs2022/x64/release"
+
+extern_lib_dir_release = {}
+extern_lib_dir_release["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/release"
 
 
 workspace "UsEngine"

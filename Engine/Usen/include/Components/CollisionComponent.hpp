@@ -50,6 +50,7 @@ public:
 	virtual FVector GetComponentLocation();
 	virtual FVector GetComponentRotation();
 	virtual FVector GetWorldPosition();
+	FVector GetRotation();
 	
 	void SetBoundBox(const FVector& boundBox);
 	void SetLocation(FVector location);

@@ -1631,5 +1631,28 @@
       "ClassGenDefinition": "hpp_FRotator",
       "ClassGenDefinitionVersion": "hpp_FRotator_def"
     }
+  },
+  {
+    "ClassName": "UUpdateComponent",
+    "Data": {
+      "CanInherit": false,
+      "HasGen": true,
+      "HasCpp": true,
+      "ClassName": "UUpdateComponent",
+      "ClassDefinition": "US_UPDATE_COMPONENT_HPP",
+      "HppFileName": "UpdateComponent.hpp",
+      "CppFileName": "UpdateComponent.cpp",
+      "GenFileName": "UpdateComponent-generated.hpp",
+      "FolderHpp": "include/Components",
+      "FolderCpp": "src/Components",
+      "FolderGen": "generated",
+      "DateCreation": "September 2023",
+      "BaseClassName": "AComponent",
+      "BaseClassPathHpp": "Components/Component.hpp",
+      "BaseClassTemplate": " : public AComponent",
+      "BaseClassInclude": "\n#include \"Components/Component.hpp\"",
+      "ClassGenDefinition": "hpp_UUpdateComponent_AComponent",
+      "ClassGenDefinitionVersion": "hpp_UUpdateComponent_AComponent_def"
+    }
   }
 ]

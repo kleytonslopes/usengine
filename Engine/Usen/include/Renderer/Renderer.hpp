@@ -33,6 +33,7 @@ public:
 	void Draw(AEntity* entity, float deltaTime);
 
 	virtual void StartFrame() { /* override */ };
+	virtual void StartFrame(int xPos, int yPos, int width, int height, bool clear = true) { /* override */ };
 	virtual void EndFrame() { /* override */ };
 	virtual void OnWindowResize(uint32 width, uint32 height) { /* override */ };
 	virtual void OnViewportResize(uint32 width, uint32 height) { /* override */ };

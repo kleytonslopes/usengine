@@ -37,7 +37,7 @@ class UApplication : public IWeakClass
 	DEFAULT_BODY_GENERATED()
 
 public:
-	FOnUpdateSignature OnUpdateEvent;
+	//FOnUpdateSignature OnUpdateEvent;
 	FOnDrawSignature OnDrawEvent;
 
 	void Run();
@@ -69,6 +69,8 @@ protected:
 	UInputManagement* InputManagement       = nullptr;
 	UPhysicsSystem* PhysicsSystem           = nullptr;
 	UPhysicsSystemPhysX* PhysicsSystemPhysX = nullptr;
+
+	TRegistryECS ECS;
 
 	UController* Controller           = nullptr;
 

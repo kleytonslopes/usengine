@@ -20,10 +20,14 @@
 #include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 
+#include "Components/UpdateComponent.hpp"
+
 
 BClass::BClass() 
 {
 	Application = us::env::Environment::Applicaiton;
+
+	
 }
 
 BClass::~BClass()
@@ -32,6 +36,8 @@ BClass::~BClass()
 
 void BClass::Construct()
 {
+	entityId = GetECS()->create();
+
 	Super::Construct();
 
 	bCanUpdate = false;
@@ -43,8 +49,21 @@ void BClass::PostConstruct()
 {
 	Super::PostConstruct();
 
-	if(bCanUpdate)
-		Application->OnUpdateEvent.Add(this, &This::Update);
+	//if(bCanUpdate)
+	//	Application->OnUpdateEvent.Add(this, &This::Update);
+
+	if (bCanUpdate)
+	{
+		TRegistryECS* ecs = GetECS();
+		if (ecs)
+		{
+			UUpdateComponent* component = &ecs->emplace<UUpdateComponent>(entityId);
+			if (component)
+			{
+				component->OnUpdateCalledEvent.Add(this, &This::Update);
+			}
+		}
+	}
 }
 
 
@@ -91,6 +110,11 @@ UPhysicsSystem* BClass::GetPhysicsSystem()
 UPhysicsSystemPhysX* BClass::GetPhysicsSystemPhysX()
 {
 	return Application->PhysicsSystemPhysX;
+}
+
+TRegistryECS* BClass::GetECS()
+{
+	return &Application->ECS;
 }
 
 BRenderer* BClass::GetRenderer()

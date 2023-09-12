@@ -72,6 +72,35 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 	}
 }
 
+void UMovementComponent::StartJump()
+{
+	APawn* aParant = Cast<APawn*>(Parent);
+	if (aParant)
+	{
+		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
+		if (CollisionComponent && CollisionComponent->CanHandleJump())
+		{
+			FVector currentLocation = CollisionComponent->GetWorldPosition();
+			FVector targetLocation = currentLocation;
+			targetLocation.y += JumpScale;
+			CollisionComponent->HandleJump(currentLocation, targetLocation);
+		}
+	}
+}
+
+void UMovementComponent::EndJump()
+{
+	APawn* aParant = Cast<APawn*>(Parent);
+	if (aParant)
+	{
+		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
+		if (CollisionComponent && CollisionComponent->IsJumping())
+		{
+			CollisionComponent->StopJump();
+		}
+	}
+}
+
 void UMovementComponent::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
@@ -82,11 +111,31 @@ void UMovementComponent::Update(float deltaTime)
 		if (aParant)
 		{
 			UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
-			if (CollisionComponent)
+			if (CollisionComponent && !CollisionComponent->IsJumping())
 			{
-				CollisionComponent->AddMovement(deltaTime, GetPhysicsSystemPhysX()->GravityScale, EAxis::Y);
+				CollisionComponent->AddMovement(deltaTime, GetPhysicsSystemPhysX()->GravityScale* 2, EAxis::Y);
 				FVector newLocation = CollisionComponent->GetWorldPosition();
 				aParant->SetLocation(newLocation);
+			}
+			else if (CollisionComponent && CollisionComponent->IsJumping())
+			{
+				const FVector currentLocation = CollisionComponent->GetWorldPosition();
+				FVector nextLocation = currentLocation;
+				nextLocation.y += JumpScale * deltaTime * 0.0001f;
+				bool reached;
+
+				CollisionComponent->CalculeJump(nextLocation, reached);
+
+				if (!reached)
+				{
+					CollisionComponent->AddMovement(deltaTime, -GetPhysicsSystemPhysX()->GravityScale * JumpScale, EAxis::Y);
+					FVector newLocation = CollisionComponent->GetWorldPosition();
+					aParant->SetLocation(newLocation);
+				}
+				else
+				{
+					CollisionComponent->StopJump();
+				}
 			}
 		}
 	}

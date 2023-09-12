@@ -25,7 +25,7 @@ public:
 	void Construct() override;
 	void Initialize() override;
 
-	//void SetLocation(FVector& vector) override;
+	void SetLocation(FVector& vector) override;
 
 	FMatrix4 GetView();
 

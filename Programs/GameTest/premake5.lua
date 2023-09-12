@@ -34,6 +34,7 @@ project "GameTest"
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.FBXSDK}",
+        "%{include_dir.ENTT}",
     }
 
     libdirs
@@ -41,7 +42,6 @@ project "GameTest"
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
         "%{extern_lib_dir.BULLET}",
-        "%{extern_lib_dir.PHYSX}",
         "%{extern_lib_dir.FBXSDK}",
     }
 
@@ -107,6 +107,10 @@ project "GameTest"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
+            libdirs
+            {
+                "%{extern_lib_dir.PHYSX}",
+            }
             buildoptions "/MTd"
             symbols "on"
 
@@ -124,6 +128,10 @@ project "GameTest"
                 "LOG_TRACE",
                 "LOG_DEFAULT",
                 "APP_EDITOR_MODE"
+            }
+            libdirs
+            {
+                "%{extern_lib_dir.PHYSX}",
             }
             buildoptions "/MTd"
             symbols "on"
@@ -143,6 +151,10 @@ project "GameTest"
                 "LOG_DEFAULT",
                 "APP_GAME_MODE"
             }
+            libdirs
+            {
+                "%{extern_lib_dir.PHYSX}",
+            }
             buildoptions "/MTd"
             symbols "on"
 
@@ -150,6 +162,11 @@ project "GameTest"
             defines 
             {
                 "RELEASE",
+                "NDEBUG",
             }
-            buildoptions "/MD"
+            libdirs
+            {
+                "%{extern_lib_dir_release.PHYSX}",
+            }
+            buildoptions "/MT"
             optimize "on"

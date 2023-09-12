@@ -69,6 +69,7 @@ protected:
 	UCollisionComponent* CollisionComponent = nullptr;
 
 	bool bDrawDebug = true;
+	bool bControlParentRotation = false;
 
 	void Serialize(SeriFile& otherOut) override;
 

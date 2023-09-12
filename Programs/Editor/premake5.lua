@@ -34,6 +34,7 @@ project "Editor"
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.FBXSDK}",
+        "%{include_dir.ENTT}",
     }
 
     libdirs

@@ -17,12 +17,13 @@
 #include "Component-generated.hpp"
 
 struct AFTransform;
+class AActor;
 
 class AComponent : public AEntity
 {
 	DEFAULT_BODY_GENERATED()
 public:
-	void SetParent(AEntity* parent);
+	void SetParent(AActor* parent);
 
 	FVector GetParentLocation();
 	AFTransform GetParentTransform();
@@ -33,7 +34,7 @@ public:
 	FVector GetRightVector();
 
 protected:
-	AEntity* Parent = nullptr;
+	AActor* Parent = nullptr;
 	AFTransform TrasnformComponent;
 
 

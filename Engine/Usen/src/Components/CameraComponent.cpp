@@ -71,14 +71,14 @@ void UCameraComponent::SetFieldOfView(float fov)
 void UCameraComponent::SetLocation(const FVector& location)
 {
 	CameraTrasnsform.SetLocation(location);
-	if (Parent)
-	{
-		AActor* aParent = Cast<AActor*>(Parent);
-		if(aParent)
-		{
-			aParent->SetLocation(CameraTrasnsform.GetLocation());
-		}
-	}
+	//if (Parent)
+	//{
+	//	AActor* aParent = Cast<AActor*>(Parent);
+	//	if(aParent)
+	//	{
+	//		aParent->SetLocation(CameraTrasnsform.GetLocation());
+	//	}
+	//}
 }
 
 void UCameraComponent::SetRotation(const FQuaternion& quaternion)

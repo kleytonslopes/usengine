@@ -13,3 +13,6 @@
 [submodule "ThirdParty/MINI"]
 	path = ThirdParty/MINI
 	url = https://github.com/pulzed/mINI.git
+[submodule "ThirdParty/ENTT"]
+	path = ThirdParty/ENTT
+	url = https://github.com/skypjack/entt.git

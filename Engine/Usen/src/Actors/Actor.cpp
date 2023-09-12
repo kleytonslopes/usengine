@@ -121,6 +121,8 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	actorParent->OnLocationChangedEvent.Add(this, &This::SetLocationFromParent);
 
 	actorParent->Attachments->Attatch(this);
+	
+	bControlParentRotation = attachmentSettings.bControlParentRotation;
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
@@ -216,7 +218,11 @@ FVector AActor::GetWorldLocation()
 }
 FVector AActor::GetRotation()
 {
-	return TransformComponent->GetRotation();
+	if (CollisionComponent)
+		return CollisionComponent->GetRotation();
+	else
+		return TransformComponent->GetRotation();
+	//return TransformComponent->GetRotation();
 }
 FVector AActor::GetScale()
 {

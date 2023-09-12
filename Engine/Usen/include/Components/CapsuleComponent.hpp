@@ -30,10 +30,15 @@ public:
 	void AddForwardMovement(float scaleMovement);
 	void AddRightMovement(float scaleMovement);
 	void AddMovement(float scaleMovement, float speed, EAxis axis);
-	void HandleJump(float jumpZ);
+	void HandleJump(const FVector& startLocation, const FVector& targetLocation);
+	void StopJump();
+	void CalculeJump(FVector& nextLocation, bool& reached);
 	virtual FVector GetWorldPosition() override;
 
 	btRigidBody* CreateRigidBody() override;
+	bool IsJumping() const { return bIsJumping; }
+	bool IsInAir() const { return bIsInAir; }
+	bool CanHandleJump() const;
 
 protected:
 	btCapsuleShape* CreateCapsuleShape();
@@ -44,6 +49,13 @@ private:
 	float Radius = 1.f;
 	float Height = 1.f;
 
+	//float JumpHeight = 3.f;
+	bool bIsJumping = false;
+	bool bIsInAir = false;
+	struct {
+		FVector startPoint;
+		FVector endPoint;
+	} JumpEventParameters;
 
 	physx::PxController* CapsuleController = NULL;
 	

@@ -45,6 +45,7 @@ void UCapsuleComponent::PostConstruct()
 	desc.material = GetPhysicsSystemPhysX()->Material;
 
 	CapsuleController = GetPhysicsSystemPhysX()->ControllerManager->createController(desc);
+
 }
 
 void UCapsuleComponent::Initialize()
@@ -60,6 +61,22 @@ void UCapsuleComponent::Destroy()
 void UCapsuleComponent::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
+
+	if (Parent)
+	{
+		FVector rvec = Parent->GetRotation();
+
+		rvec.y += deltaTime * 2.f;
+
+		Parent->SetRotation(rvec);
+	}
+
+	//if (bIsJumping)
+	//{
+	//	physx::PxControllerFilters filters;
+	//	FVector location = CollisionComponent->Getw();
+	//	CapsuleController->move(physx::PxVec3{0.f, JumpHeight, 0.f}, 0.f, GetApplication()->GetDeltaTime(), filters);
+	//}
 }
 
 void UCapsuleComponent::CalculeLocalInertia()
@@ -131,13 +148,33 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, EAxis axis
 	}
 }
 
-void UCapsuleComponent::HandleJump(float jumpZ)
+void UCapsuleComponent::HandleJump(const FVector& startLocation, const FVector& targetLocation)
 {
 	//physx::PxControllerState controlState;
 	//CapsuleController->getState(controlState);
-	
-	physx::PxControllerFilters filters;
-	CapsuleController->move(physx::PxVec3{0.f, jumpZ, 0.f}, 0.f, GetApplication()->GetDeltaTime(), filters);
+	bIsJumping = true;
+	bIsInAir = true;
+	JumpEventParameters.startPoint = startLocation;
+	JumpEventParameters.endPoint = targetLocation;
+}
+
+void UCapsuleComponent::StopJump()
+{
+	bIsJumping = false;
+
+	JumpEventParameters.startPoint = FVector{ 0 };
+	JumpEventParameters.endPoint = FVector{ 0 };
+}
+
+void UCapsuleComponent::CalculeJump(FVector& nextLocation, bool& reached)
+{
+	if (nextLocation.y >= JumpEventParameters.endPoint.z)
+	{
+		reached = true;
+		nextLocation.y = JumpEventParameters.endPoint.z;
+	}
+	else
+		reached = false;
 }
 
 FVector UCapsuleComponent::GetWorldPosition()
@@ -157,6 +194,11 @@ btRigidBody* UCapsuleComponent::CreateRigidBody()
 		return nullptr;
 
 	return nullptr;
+}
+
+bool UCapsuleComponent::CanHandleJump() const
+{
+	return !bIsJumping;// && !bIsInAir;
 }
 
 btCapsuleShape* UCapsuleComponent::CreateCapsuleShape()

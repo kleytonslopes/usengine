@@ -29,6 +29,7 @@ enum class EAttachMode
 struct FAttachmentSettings
 {
 	EAttachMode AttachMode = EAttachMode::EAM_SnapToTarget;
+	bool bControlParentRotation = false;
 };
 
 class AEntity : public BSerializer

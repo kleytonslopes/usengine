@@ -8,11 +8,15 @@
  * Copyright (c) 2023 Kyrnness. All rights reserved.
  *********************************************************************/
 
+//#define _ITERATOR_DEBUG_LEVEL 1
+
 #include "Environment/Environment.hpp"
 #include "Runtime/ApplicationGame.hpp"
 #include "Pawns/Pawn.hpp"
 
 #include "Core/Vectors/Vector3.hpp"
+
+
 
  //operator glm::vec3& (const Vector3& vc) { return glm::vec3{}; }
 

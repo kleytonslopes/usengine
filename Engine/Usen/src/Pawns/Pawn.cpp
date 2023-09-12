@@ -83,7 +83,8 @@ void APawn::MoveRight(float scale)
 void APawn::Jump()
 {
 	const float jumpZ = MovementComponent->JumpScale;
-	CapsuleComponent->HandleJump(jumpZ);
+	//CapsuleComponent->HandleJump(jumpZ);
+	MovementComponent->StartJump();
 }
 
 FVector APawn::GetCapsuleLocation()

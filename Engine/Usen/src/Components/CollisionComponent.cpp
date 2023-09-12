@@ -69,7 +69,7 @@ void UCollisionComponent::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	//UpdateParentTransform();
+    //UpdateParentTransform();
 }
 
 void UCollisionComponent::SetBoundBox(const FVector& boundBox)
@@ -152,6 +152,27 @@ FVector UCollisionComponent::GetWorldPosition()
 		}
 
 		return FVector(transform.p.x, transform.p.y, transform.p.z);
+	}
+	else
+		return FVector(0.f, 0.f, 0.f);
+}
+
+FVector UCollisionComponent::GetRotation()
+{
+	if (BodyStatic || BodyDynamic)
+	{
+		physx::PxTransform transform;
+		switch (BodyType)
+		{
+		case EBodyType::EBT_Static:
+			transform = BodyStatic->getGlobalPose();
+			break;
+		case EBodyType::EBT_Dynamic:
+			transform = BodyDynamic->getGlobalPose();
+			break;
+		}
+
+		return FVector(transform.q.x, transform.q.y, transform.q.z);
 	}
 	else
 		return FVector(0.f, 0.f, 0.f);
