@@ -17,7 +17,6 @@
 #include "Renderer/Renderer.hpp"
 #include "Renderer/OpenGL/RendererOpenGL.hpp"
 #include "Framework/GameModeBase.hpp"
-#include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 
 #include "Components/UpdateComponent.hpp"
@@ -100,11 +99,6 @@ UApplication* BClass::GetApplication()
 UGameModeBase* BClass::GetGameMode()
 {
 	return GetScene()->GameMode;
-}
-
-UPhysicsSystem* BClass::GetPhysicsSystem()
-{
-	return Application->PhysicsSystem;
 }
 
 UPhysicsSystemPhysX* BClass::GetPhysicsSystemPhysX()

@@ -36,17 +36,11 @@ public:
 	void CalculeJump(FVector& nextLocation, bool& reached);
 	virtual FVector GetWorldPosition() override;
 
-	btRigidBody* CreateRigidBody() override;
 	bool IsJumping() const { return bIsJumping; }
 	bool IsInAir() const { return bIsInAir; }
 	bool CanHandleJump() const;
 
-protected:
-	btCapsuleShape* CreateCapsuleShape();
-
 private:
-
-	btCapsuleShape* Shape = nullptr;
 	float Radius = 1.f;
 	float Height = 1.f;
 

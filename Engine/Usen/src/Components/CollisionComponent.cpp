@@ -31,7 +31,6 @@ void UCollisionComponent::PostConstruct()
 
 	AFTransform trasnform = GetParentTransform();
 
-	Transform.setIdentity();
 	SetTransform(trasnform);
 
 	switch (BodyType)

@@ -30,7 +30,6 @@ project "Editor"
         "%{include_dir.ASSIMP_BUILD}",
         "%{include_dir.STB}",
         "%{include_dir.MINI}",
-        "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.FBXSDK}",
@@ -41,7 +40,6 @@ project "Editor"
     {
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
-        --"%{extern_lib_dir.BULLET}",
         "%{extern_lib_dir.PHYSX}",
         "%{extern_lib_dir.FBXSDK}",
     }
@@ -56,12 +54,6 @@ project "Editor"
         "SDL2.lib",
         "SDL2main.lib",
         "assimp-vc143-mtd.lib",
-        "Bullet3Common_Debug.lib",
-        "Bullet3Dynamics_Debug.lib",
-        "Bullet3Collision_Debug.lib",
-        "BulletCollision_Debug.lib",
-        "BulletDynamics_Debug.lib",
-        "LinearMath_Debug.lib",
         "LowLevel_static_64.lib",
         "LowLevelAABB_static_64.lib",
         "LowLevelDynamics_static_64.lib",

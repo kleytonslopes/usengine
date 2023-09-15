@@ -26,7 +26,6 @@ class UGameInstance;
 class UScene;
 class UController;
 class UInputManagement;
-class UPhysicsSystem;
 class UPhysicsSystemPhysX;
 
 DECLARE_FUNCTION_OneParam(FOnUpdateSignature, float, deltaTime)
@@ -67,7 +66,6 @@ protected:
 	BRenderer* Renderer                     = nullptr;
 	UScene* Scene                           = nullptr;
 	UInputManagement* InputManagement       = nullptr;
-	UPhysicsSystem* PhysicsSystem           = nullptr;
 	UPhysicsSystemPhysX* PhysicsSystemPhysX = nullptr;
 
 	TRegistryECS ECS;

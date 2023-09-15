@@ -34,9 +34,6 @@ public:
 
 	virtual void CalculeLocalInertia() { /* override */ };
 	
-	virtual btRigidBody* CreateRigidBody() { return nullptr; }
-	virtual btCollisionObject* CreateCollisionObject() { return nullptr; }
-	
 	void Construct() override;
 	void PostConstruct() override;
 	void Initialize() override;
@@ -78,18 +75,10 @@ protected:
 
 	ECollisionGroup CollisionGroup = ECG_WorldStatic;
 	ECollisionMask CollisionMask = ECM_WorldStatic;
-	ECollisionObject CollisionObjectType = ECO_Static;
 
 	FVector BoundBox{ 1.f, 1.f, 1.f };
 	FVector Inertia{ 0.f, 0.f, 0.f };
 	FVector Position{ 0.f, 0.f, 0.f };
-
-	/* Bullet */
-	btVector3 LocalInertia{ 0.f, 0.f, 0.f };
-	btTransform Transform;
-	btRigidBody* Body = nullptr;
-	btCollisionObject* CollisionObject = nullptr;
-	/* Bullet */
 
 	/* PhysX */
 	physx::PxRigidStatic* BodyStatic = nullptr;

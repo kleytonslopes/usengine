@@ -10,7 +10,6 @@
 #include "upch.hpp"
 #include "Components/CapsuleComponent.hpp"
 #include "Components/MovementComponent.hpp"
-#include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 #include "Mesh/Mesh.hpp"
 #include "Runtime/Application.hpp"
@@ -22,7 +21,6 @@ void UCapsuleComponent::Construct()
 	Super::Construct();
 
 	BodyType = EBodyType::EBT_Dynamic;
-	CollisionObjectType = ECO_Character;
 	bIsDynamic = true;
 	bCanUpdate = true;
 	Mass = 70.f;
@@ -31,8 +29,6 @@ void UCapsuleComponent::Construct()
 void UCapsuleComponent::PostConstruct()
 {
 	Super::PostConstruct();
-
-	//GetPhysicsSystem()->RegisterComponent(this);
 
 	physx::PxCapsuleControllerDesc desc;
 	desc.height = 1.f;
@@ -205,23 +201,7 @@ FVector UCapsuleComponent::GetWorldPosition()
 	return FVector(0.f, 0.f, 0.f);
 }
 
-btRigidBody* UCapsuleComponent::CreateRigidBody()
-{
-	if (!bCanCollider)
-		return nullptr;
-
-	return nullptr;
-}
-
 bool UCapsuleComponent::CanHandleJump() const
 {
 	return !bIsJumping;// && !bIsInAir;
-}
-
-btCapsuleShape* UCapsuleComponent::CreateCapsuleShape()
-{
-	if (!bCanCollider)
-		return nullptr;
-
-	return nullptr;
 }

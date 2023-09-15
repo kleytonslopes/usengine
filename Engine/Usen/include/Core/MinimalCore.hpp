@@ -12,7 +12,6 @@
 #ifndef US_MINIMAL_CORE_HPP
 #define	US_MINIMAL_CORE_HPP
 
-#include <btBulletDynamicsCommon.h>
 #include "PxPhysics.h"
 #include "PxPhysicsAPI.h"
 //#include "characterkinematic/PxControllerManager.h"

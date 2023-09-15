@@ -30,7 +30,6 @@ project "Usen"
         "%{include_dir.ASSIMP_BUILD}",
         "%{include_dir.STB}",
         "%{include_dir.MINI}",
-        "%{include_dir.BULLET}",
         "%{include_dir.IMGUI}",
         "%{include_dir.PHYSX}",
         "%{include_dir.FBXSDK}",

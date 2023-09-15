@@ -15,7 +15,6 @@
 #include "Environment/Environment.hpp"
 #include "Controllers/Controller.hpp"
 #include "Input/InputManagement.hpp"
-#include "Physics/PhysicsSystem.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
 
 #include "Components/UpdateComponent.hpp"
@@ -32,7 +31,6 @@ void UApplication::PostConstruct()
 	Renderer = FConstructorHelper::CreateObject<URendererOpenGL>();
 	Renderer->Initialize();
 	InputManagement = FConstructorHelper::CreateObject<UInputManagement>();
-	PhysicsSystem = FConstructorHelper::CreateObject<UPhysicsSystem>();
 	PhysicsSystemPhysX = FConstructorHelper::CreateObject<UPhysicsSystemPhysX>();
 	Scene = FConstructorHelper::CreateObject<UScene>();
 }
@@ -44,7 +42,6 @@ void UApplication::Initialize()
 	/*Renderer->Initialize();*/
 	InputManagement->Initialize();
 	Scene->Initialize();
-	PhysicsSystem->Initialize();
 	PhysicsSystemPhysX->Initialize();
 
 	Super::Initialize();
@@ -53,7 +50,6 @@ void UApplication::Initialize()
 void UApplication::Destroy()
 {
 	delete PhysicsSystemPhysX; PhysicsSystemPhysX = nullptr;
-	delete PhysicsSystem;	   PhysicsSystem = nullptr;
 	delete Scene;              Scene = nullptr;
 	delete InputManagement;    InputManagement = nullptr;
 	delete GameInstance;       GameInstance = nullptr;
@@ -71,22 +67,17 @@ void UApplication::Draw(float deltaTime)
 #if defined (APP_EDITOR_MODE)
 	DrawScreenQuad();
 #endif
-		OnDrawEvent.Broadcast(deltaTime);
-		//PhysicsSystem->Update(deltaTime);
-		/*PhysicsSystemPhysX->Update(deltaTime);*/
-	//Renderer->EndFrame();
+	OnDrawEvent.Broadcast(deltaTime);
 
 	Renderer->StartFrame(Window->GetWidth() / 2, 0, Window->GetWidth() / 2, Window->GetHeight() / 2, false);
 #if defined (APP_EDITOR_MODE)
 	DrawScreenQuad();
 #endif
 	OnDrawEvent.Broadcast(deltaTime);
-	//PhysicsSystem->Update(deltaTime);
-	//PhysicsSystemPhysX->Update(deltaTime);
 	Renderer->EndFrame();
 
 
-	
+
 }
 
 void UApplication::DrawScene(float deltaTime)
@@ -121,14 +112,13 @@ void UApplication::Loop()
 
 		auto view = ECS.view<UUpdateComponent>();
 
-		for (auto entity : view) 
+		for (auto entity : view)
 		{
 			auto& vel = view.get<UUpdateComponent>(entity);
 			vel.OnUpdateCalledEvent.Broadcast(deltaTime);
 		}
 
 		//OnUpdateEvent.Broadcast(deltaTime);
-		/*PhysicsSystem->Update(deltaTime);*/
 
 		Draw(deltaTime);
 

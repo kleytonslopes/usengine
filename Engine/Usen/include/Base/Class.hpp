@@ -25,7 +25,6 @@ class UController;
 class UInputManagement;
 class URendererOpenGL;
 class UGameModeBase;
-class UPhysicsSystem;
 class UPhysicsSystemPhysX;
 
 class BClass : public IWeakClass
@@ -59,7 +58,6 @@ protected:
 	UApplication* GetApplication();
 	BRenderer* GetRenderer();
 	UGameModeBase* GetGameMode();
-	UPhysicsSystem* GetPhysicsSystem();
 	UPhysicsSystemPhysX* GetPhysicsSystemPhysX();
 	TRegistryECS* GetECS();
 
