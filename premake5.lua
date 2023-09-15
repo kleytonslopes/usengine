@@ -16,14 +16,16 @@ include_dir["ENTT"]         = "%{wks.location}/ThirdParty/ENTT/src"
 
 
 extern_lib_dir = {}
-extern_lib_dir["SDL2"] = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"
+extern_lib_dir["SDL2"]   = "F:/Dependencies/SDL2/SDL2-2.26.5/lib/x64"
 extern_lib_dir["BULLET"] = "F:/Dependencies/bullet3/build/lib/Debug"
-extern_lib_dir["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/debug"
+extern_lib_dir["PHYSX"]  = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/debug"
 extern_lib_dir["ASSIMP"] = "%{wks.location}/ThirdParty/ASSIMP/build/lib/Debug"
 extern_lib_dir["FBXSDK"] = "C:/Program Files/Autodesk/FBX/FBX SDK/2020.3.4/lib/vs2022/x64/release"
 
 extern_lib_dir_release = {}
+extern_lib_dir_release["ASSIMP"] = "%{wks.location}/ThirdParty/ASSIMP/build/lib/Release"
 extern_lib_dir_release["PHYSX"] = "F:/Dependencies/PhysX/physx/bin/win.x86_64.vc143.mt/release"
+extern_lib_dir_release["BULLET"] = "F:/Dependencies/bullet3/build/lib/Release"
 
 
 workspace "UsEngine"

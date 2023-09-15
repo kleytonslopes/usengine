@@ -97,7 +97,7 @@ void AActor::Update(float deltaTime)
 		FVector locationY = location; locationY.y += 10.f;
 		FVector locationX = location; locationX.x += 10.f;
 		FVector locationZ = location; locationZ.z += 10.f;
-		
+
 		GetRenderer()->DebugDrawLine(location, locationX, FColor::Red);
 		GetRenderer()->DebugDrawLine(location, locationY, FColor::Green);
 		GetRenderer()->DebugDrawLine(location, locationZ, FColor::Blue);
@@ -121,7 +121,7 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 	actorParent->OnLocationChangedEvent.Add(this, &This::SetLocationFromParent);
 
 	actorParent->Attachments->Attatch(this);
-	
+
 	bControlParentRotation = attachmentSettings.bControlParentRotation;
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
@@ -173,10 +173,10 @@ void AActor::SetLocation(FVector& vector)
 }
 void AActor::SetRotation(FVector& vector)
 {
-	if (CollisionComponent)
-		CollisionComponent->SetRotation(vector);
-	else
-		TransformComponent->SetRotation(vector);
+	//if (CollisionComponent)
+	//	CollisionComponent->SetRotation(vector);
+	//else
+	TransformComponent->SetRotation(vector);
 }
 void AActor::SetScale(FVector& vector)
 {
@@ -197,7 +197,7 @@ void AActor::SetUpVector(FVector& vector)
 	//if (CollisionComponent)
 	//	CollisionComponent->SetUpVector(vector);
 	//else
-		TransformComponent->SetUpVector(vector);
+	TransformComponent->SetUpVector(vector);
 }
 
 FVector AActor::GetOrigin()
@@ -248,11 +248,17 @@ AFTransform& AActor::GetTransform()
 }
 FVector AActor::GetForwardVector()
 {
-	return TransformComponent->GetForwardVector();
+	if (CollisionComponent)
+		return CollisionComponent->GetForwardVector();
+	else
+		return TransformComponent->GetForwardVector();
 }
 FVector AActor::GetRightVector()
 {
-	return TransformComponent->GetRightVector();
+	if (CollisionComponent)
+		return CollisionComponent->GetRightVector();
+	else
+		return TransformComponent->GetRightVector();
 }
 
 FVector AActor::GetUpVector()

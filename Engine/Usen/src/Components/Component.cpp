@@ -80,31 +80,31 @@ FVector AComponent::GetUpVector()
 
 FVector AComponent::GetForwardVector()
 {
-	if (Parent)
-	{
-		//AActor* aParent = Cast<AActor*>(Parent);
-		//if (aParent)
-		//{
-		//	return aParent->GetForwardVector();
-		//}
+	//if (Parent)
+	//{
+	//	//AActor* aParent = Cast<AActor*>(Parent);
+	//	//if (aParent)
+	//	//{
+	//	//	return aParent->GetForwardVector();
+	//	//}
 
-		return Parent->GetForwardVector();
-	}
+	//	return Parent->GetForwardVector();
+	//}
 	return TrasnformComponent.GetForwardVector();
 }
 
 FVector AComponent::GetRightVector()
 {
-	if (Parent)
-	{
-		//AActor* aParent = Cast<AActor*>(Parent);
-		//if (aParent)
-		//{
-		//	return aParent->GetRightVector();
-		//}
+	//if (Parent)
+	//{
+	//	//AActor* aParent = Cast<AActor*>(Parent);
+	//	//if (aParent)
+	//	//{
+	//	//	return aParent->GetRightVector();
+	//	//}
 
-		return Parent->GetRightVector();
-	}
+	//	return Parent->GetRightVector();
+	//}
 	return TrasnformComponent.GetRightVector();
 }
 

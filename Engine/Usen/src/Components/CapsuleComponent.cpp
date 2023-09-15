@@ -114,7 +114,7 @@ void UCapsuleComponent::AddRightMovement(float scaleMovement)
 		physx::PxVec3 disp = physx::PxVec3(0.f, 0.f, scaleMovement);
 		physx::PxF32 dispMin = 0.001f;
 		CapsuleController->move(disp, dispMin, scaleMovement, filters);
-		
+
 	}
 }
 
@@ -142,6 +142,23 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, EAxis axis
 			//disp = physx::PxVec3(scaleMovement * speed, 0.f, 0.f);
 			break;
 		}
+
+		physx::PxF32 dispMin = 0.001f;
+		CapsuleController->move(disp, dispMin, scaleMovement, filters);
+	}
+}
+
+void UCapsuleComponent::AddMovement(float scaleMovement, float speed, FVector axis)
+{
+	AActor* aParent = Cast<AActor*>(Parent);
+	if (aParent)
+	{
+		physx::PxControllerFilters filters;
+		FVector location = aParent->GetLocation();
+
+		physx::PxVec3 disp;
+
+		disp = physx::PxVec3(axis.x * speed * scaleMovement, axis.y * speed * scaleMovement, axis.z * speed * -scaleMovement);
 
 		physx::PxF32 dispMin = 0.001f;
 		CapsuleController->move(disp, dispMin, scaleMovement, filters);

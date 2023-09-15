@@ -71,11 +71,19 @@ namespace ShaderDefault
 
 namespace Content
 {
+#if DEBUG
 	const UCharPtr ModelFilePath{ "../../Content/Models/%s" };
 	const UCharPtr ModelPath{ "../../Content/Models/%s" };
 	const UCharPtr SceneFilePath{ "../../Content/Scene/%s.usscn" };
 	const UCharPtr ConfigsPath{ "../../Content/Configs/%s.ini" };
 	const UCharPtr FontPath{ "../../Content/Fonts/%s/%s.ttf" };
+#else
+	const UCharPtr ModelFilePath{ "Content/Models/%s" };
+	const UCharPtr ModelPath{ "Content/Models/%s" };
+	const UCharPtr SceneFilePath{ "Content/Scene/%s.usscn" };
+	const UCharPtr ConfigsPath{ "Content/Configs/%s.ini" };
+	const UCharPtr FontPath{ "Content/Fonts/%s/%s.ttf" };
+#endif
 }
 
 namespace TextureSlot

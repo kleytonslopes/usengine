@@ -49,7 +49,7 @@ AFTransform UTransformComponent::GetTransform()
 
 FVector UTransformComponent::GetRightVector()
 {
-	return glm::normalize(glm::cross(Transform.GetUpVector(), GetDirection()));
+	return Transform.GetRightVector();//glm::normalize(glm::cross(Transform.GetUpVector(), GetDirection()));
 }
 
 FVector UTransformComponent::GetDirection()

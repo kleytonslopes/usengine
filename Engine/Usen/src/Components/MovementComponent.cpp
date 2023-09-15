@@ -14,6 +14,8 @@
 #include "Actors/Actor.hpp"
 #include "Pawns/Pawn.hpp"
 #include "Physics/PhysicsSystemPhysX.hpp"
+#include "Framework/Scene.hpp"
+#include "Camera/Camera.hpp"
 
 DEFAULT_BODY(UMovementComponent)
 
@@ -35,7 +37,9 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::X);
+			FVector forwardVector = GetScene()->GetCamera()->GetForwardVector();
+			forwardVector.y = 0.f;
+			CollisionComponent->AddMovement(-scaleMovement, Speed, forwardVector);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
 		}
@@ -59,7 +63,10 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::Z);
+			FVector rightVector = GetScene()->GetCamera()->GetRightVector();
+			rightVector.y = 0.f;
+			CollisionComponent->AddMovement(-scaleMovement, Speed, rightVector);
+			//CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::Z);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
 		}

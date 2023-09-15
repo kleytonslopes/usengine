@@ -41,7 +41,7 @@ project "Editor"
     {
         "%{extern_lib_dir.SDL2}",
         "%{extern_lib_dir.ASSIMP}",
-        "%{extern_lib_dir.BULLET}",
+        --"%{extern_lib_dir.BULLET}",
         "%{extern_lib_dir.PHYSX}",
         "%{extern_lib_dir.FBXSDK}",
     }
