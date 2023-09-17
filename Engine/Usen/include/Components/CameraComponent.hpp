@@ -68,7 +68,7 @@ private:
 	float Sensitivity{ 2.f };
 
 	float Pitch{ 0.f };
-	float Yaw{ 0.0f };
+	float Yaw{ 90.0f };
 	float Roll{ 0.f };
 
 	float AngleH;

@@ -31,6 +31,7 @@ public:
 	void AddRightMovement(float scaleMovement);
 	void AddMovement(float scaleMovement, float speed, EAxis axis);
 	void AddMovement(float scaleMovement, float speed, FVector axis);
+	void AddMovement(FVector direction);
 	void HandleJump(const FVector& startLocation, const FVector& targetLocation);
 	void StopJump();
 	void CalculeJump(FVector& nextLocation, bool& reached);

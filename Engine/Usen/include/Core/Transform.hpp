@@ -28,7 +28,7 @@ public:
 	FVector& GetForwardVector() { return ForwardVector; }
 	FVector GetRightVector()
 	{
-		return glm::normalize(glm::cross(UpVector, GetDirection()));
+		return glm::normalize(glm::cross(UpVector, ForwardVector));
 	}
 	FVector GetDirection()
 	{

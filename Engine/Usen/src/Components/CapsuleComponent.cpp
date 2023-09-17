@@ -161,6 +161,23 @@ void UCapsuleComponent::AddMovement(float scaleMovement, float speed, FVector ax
 	}
 }
 
+void UCapsuleComponent::AddMovement(FVector direction)
+{
+	AActor* aParent = Cast<AActor*>(Parent);
+	if (aParent)
+	{
+		physx::PxControllerFilters filters;
+		FVector location = aParent->GetLocation();
+
+		physx::PxVec3 disp;
+
+		disp = physx::PxVec3(direction.x, direction.y, direction.z);
+
+		physx::PxF32 dispMin = 0.001f;
+		CapsuleController->move(disp, dispMin, 1.f, filters);
+	}
+}
+
 void UCapsuleComponent::HandleJump(const FVector& startLocation, const FVector& targetLocation)
 {
 	//physx::PxControllerState controlState;
@@ -196,7 +213,7 @@ FVector UCapsuleComponent::GetWorldPosition()
 	{
 
 		physx::PxExtendedVec3 newLocation = CapsuleController->getPosition();
-		return FVector(-newLocation.x, newLocation.y, newLocation.z);
+		return FVector(newLocation.x, newLocation.y, newLocation.z);
 	}
 	return FVector(0.f, 0.f, 0.f);
 }

@@ -137,10 +137,11 @@ void UScene::Initialize()
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
 			AFTransform trasform;
-			trasform.SetLocation({0.f,-10.f,0.f});
+			trasform.SetLocation({ 0.f,-10.f,0.f });
 			trasform.SetRotation({ 0.f,0.f,0.f });
+			trasform.SetScale({ 4.f,4.f,4.f });
 			Floor = CreateEntity<UStaticMesh>();
-			Floor->SetBoundBox(FVector{ 10.f, 10.5f, 0.01f });
+			Floor->SetBoundBox(FVector{ 40.f, 40.0f, 0.01f });
 			Floor->SetCollisionGroup(ECG_None);
 			Floor->SetCollisionMask(ECM_None);
 			Floor->SetTransform(trasform);
@@ -226,6 +227,23 @@ void UScene::Initialize()
 			pawnMesh->RemoveCollisionComponent();
 			pawnMesh->Initialize();
 			Camera->AttatchTo(Pawn, pawnCameraAttachmentSettings);
+
+			FAttachmentSettings pawnFwdArrowAttachmentSettings{};
+			pawnFwdArrowAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
+			pawnFwdArrowAttachmentSettings.bControlParentRotation = true;
+			AFTransform trasform;
+			trasform.SetLocation({ 0.f,2.f,0.f });
+			trasform.SetRotation({ 90.f,0.f,90.f });
+			FMeshParameters gizmomeshparameters{};
+			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "arrowFwd.obj");
+			AMesh* gizmomesh = CreateEntity<AMesh>();
+			gizmomesh->SetBoundBox(FVector{ 0.2f, 0.2f, 0.2f });
+			gizmomesh->SetIsDynamic(false);
+			gizmomesh->SetTransform(trasform);
+			gizmomesh->SetMeshParameters(gizmomeshparameters);
+			gizmomesh->RemoveCollisionComponent();
+			gizmomesh->Initialize();
+			gizmomesh->AttatchTo(Pawn, pawnFwdArrowAttachmentSettings);
 		}
 
 		{ // arrowDirection
@@ -257,20 +275,68 @@ void UScene::Initialize()
 			//boxMesh->Initialize();
 		}
 
-		{ // wall
+		{ // walls
 
-			AFTransform transformBox;
-			transformBox.SetLocation({ -10.f,-10.f,-5.f });
-			transformBox.SetOrigin({ 0.f,0.f,0.f });
-			transformBox.SetRotation({ 00.f,0.f,90.f });
-			FMeshParameters boxMeshParameters{};
-			boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
-			AMesh* boxMesh = CreateEntity<AMesh>();
-			boxMesh->SetBoundBox(FVector{ 3.f, 0.2f, 3.f });
-			boxMesh->SetMeshParameters(boxMeshParameters);
-			boxMesh->SetIsDynamic(false);
-			boxMesh->SetTransform(transformBox);
-			boxMesh->Initialize();
+			{ // wall
+
+				AFTransform transformBox;
+				transformBox.SetLocation({ -40.f,-8.f,0.f });
+				transformBox.SetOrigin({ 0.f,0.f,0.f });
+				transformBox.SetRotation({ 0.f,0.f,90.f });
+				FMeshParameters boxMeshParameters{};
+				boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+				AMesh* boxMesh = CreateEntity<AMesh>();
+				boxMesh->SetBoundBox(FVector{ 40.f, 0.2f, 3.f });
+				boxMesh->SetMeshParameters(boxMeshParameters);
+				boxMesh->SetIsDynamic(false);
+				boxMesh->SetTransform(transformBox);
+				boxMesh->Initialize();
+			}
+			{ // wall
+
+				AFTransform transformBox;
+				transformBox.SetLocation({ 40.f,-8.f,0.f });
+				transformBox.SetOrigin({ 0.f,0.f,0.f });
+				transformBox.SetRotation({ 0.f,0.f,90.f });
+				FMeshParameters boxMeshParameters{};
+				boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+				AMesh* boxMesh = CreateEntity<AMesh>();
+				boxMesh->SetBoundBox(FVector{ 40.f, 0.2f, 3.f });
+				boxMesh->SetMeshParameters(boxMeshParameters);
+				boxMesh->SetIsDynamic(false);
+				boxMesh->SetTransform(transformBox);
+				boxMesh->Initialize();
+			}
+			{ // wall
+
+				AFTransform transformBox;
+				transformBox.SetLocation({ 0.f,-8.f,40.f });
+				transformBox.SetOrigin({ 0.f,0.f,0.f });
+				transformBox.SetRotation({ 0.f,0.f,0.f });
+				FMeshParameters boxMeshParameters{};
+				boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+				AMesh* boxMesh = CreateEntity<AMesh>();
+				boxMesh->SetBoundBox(FVector{ 0.3f, 40.f, 3.0f });
+				boxMesh->SetMeshParameters(boxMeshParameters);
+				boxMesh->SetIsDynamic(false);
+				boxMesh->SetTransform(transformBox);
+				boxMesh->Initialize();
+			}
+			{ // wall
+
+				AFTransform transformBox;
+				transformBox.SetLocation({ 0.f,-8.f,-40.f });
+				transformBox.SetOrigin({ 0.f,0.f,0.f });
+				transformBox.SetRotation({ 0.f,0.f,0.f });
+				FMeshParameters boxMeshParameters{};
+				boxMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "wall.obj");
+				AMesh* boxMesh = CreateEntity<AMesh>();
+				boxMesh->SetBoundBox(FVector{ 0.3f, 40.f, 3.0f });
+				boxMesh->SetMeshParameters(boxMeshParameters);
+				boxMesh->SetIsDynamic(false);
+				boxMesh->SetTransform(transformBox);
+				boxMesh->Initialize();
+			}
 		}
 	}
 
@@ -360,8 +426,8 @@ void UScene::CreateDefaultController()
 void UScene::CreateDebugCamera()
 {
 	AFTransform trasformCamera;
-	trasformCamera.SetLocation({ 0.f,1.f,30.f });
-	trasformCamera.SetOrigin({ 0.f,1.f,0.f });
+	trasformCamera.SetLocation({ 0.f,0.f,0.f });
+	trasformCamera.SetOrigin({ 0.f,0.f,0.f });
 	trasformCamera.SetRotation({ 0.f,0.f,0.f });
 	DebugCamera = CreateEntity<ACamera>();
 	DebugCamera->SetTransform(trasformCamera);
@@ -371,7 +437,7 @@ void UScene::CreateDebugCamera()
 void UScene::CreateDefaultCamera()
 {
 	AFTransform trasformCamera;
-	trasformCamera.SetLocation({0.f,0.f,0.f});
+	trasformCamera.SetLocation({ 0.f,0.f,0.f });
 	trasformCamera.SetOrigin({ 0.f,1.f,0.f });
 	trasformCamera.SetRotation({ 0.f,0.f,0.f });
 	Camera = CreateEntity<ACamera>();

@@ -39,7 +39,7 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 		{
 			FVector forwardVector = GetScene()->GetCamera()->GetForwardVector();
 			forwardVector.y = 0.f;
-			CollisionComponent->AddMovement(-scaleMovement, Speed, forwardVector);
+			CollisionComponent->AddMovement(scaleMovement, Speed, -forwardVector);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
 		}
@@ -63,12 +63,26 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 		UCapsuleComponent* CollisionComponent = aParant->GetCapsuleComponent();
 		if (CollisionComponent)
 		{
-			FVector rightVector = GetScene()->GetCamera()->GetRightVector();
-			rightVector.y = 0.f;
-			CollisionComponent->AddMovement(-scaleMovement, Speed, rightVector);
-			//CollisionComponent->AddMovement(-scaleMovement, Speed, EAxis::Z);
+			FVector forwardVector = GetScene()->GetCamera()->GetRightVector();
+			forwardVector.y = 0.f;
+			CollisionComponent->AddMovement(scaleMovement, Speed, -forwardVector);
 			FVector newLocation = CollisionComponent->GetWorldPosition();
 			aParant->SetLocation(newLocation);
+
+			////FVector location = GetScene()->GetCamera()->GetLocation();
+			////FVector fwd = GetScene()->GetCamera()->GetForwardVector();
+			////FVector up = GetScene()->GetCamera()->GetUpVector();
+			////
+			////location -= glm::normalize(glm::cross(fwd, up));// *scaleMovement * 0.0001f;
+			////CollisionComponent->AddMovement(location);
+			///*
+			//*/
+			//FVector rightVector = GetScene()->GetCamera()->GetRightVector();
+			//rightVector = glm::normalize(rightVector);
+			//location.y = 0.f;
+			//CollisionComponent->AddMovement(-scaleMovement, Speed, location);
+			////FVector newLocation = CollisionComponent->GetWorldPosition();
+			////aParant->SetLocation(newLocation);
 		}
 		else
 		{
