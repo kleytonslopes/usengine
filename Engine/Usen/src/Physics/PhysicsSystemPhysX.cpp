@@ -151,14 +151,14 @@ void UPhysicsSystemPhysX::Update(float deltaTime)
 	Scene->fetchResults(true);
 }
 
-physx::PxRigidDynamic* UPhysicsSystemPhysX::CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, AFTransform transform)
+physx::PxRigidDynamic* UPhysicsSystemPhysX::CreateRigidDynamic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform)
 {
 	physx::PxTransform local(physx::PxVec3(physx::PxReal(transform.GetLocation().x), physx::PxReal(transform.GetLocation().y), transform.GetLocation().z));
 	physx::PxTransform zeroTransform(physx::PxVec3(0));
 	return Physics->createRigidDynamic(zeroTransform.transform(local));
 }
 
-physx::PxRigidStatic* UPhysicsSystemPhysX::CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, AFTransform transform)
+physx::PxRigidStatic* UPhysicsSystemPhysX::CreateRigidStatic(const FPhysicsShapeInitialize& physicsShapeInitialize, FTransform transform)
 {
 	physx::PxShape* shape = CreateShapeStatic(physicsShapeInitialize);
 

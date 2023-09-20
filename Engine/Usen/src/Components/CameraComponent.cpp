@@ -32,7 +32,7 @@ void UCameraComponent::PostConstruct()
 	Super::PostConstruct();
 
 	/* Initialize camera View */
-	SetForwardVector(AFTransform::WorldForwardVector);
+	SetForwardVector(FTransform::WorldForwardVector);
 	CameraDirection = glm::normalize(CameraTrasnsform.GetLocation() - CameraTrasnsform.GetForwardVector());
 
 	SetUpVector(glm::cross(CameraDirection, CameraTrasnsform.GetRightVector()));
@@ -177,7 +177,7 @@ void UCameraComponent::AddMouseMovement(float deltaTime, int xrel, int yrel)
 	front.z = -cos(yRadians) * cos(pRadians);
 	SetForwardVector(glm::normalize(front));
 	
-	FVector right = glm::normalize(glm::cross(CameraTrasnsform.GetForwardVector(), AFTransform::WorldUpVector));
+	FVector right = glm::normalize(glm::cross(CameraTrasnsform.GetForwardVector(), FTransform::WorldUpVector));
 	CameraTrasnsform.SetUpVector(glm::normalize(glm::cross(right, CameraTrasnsform.GetForwardVector())));
 
 	//ViewPoint.x = targ.x;

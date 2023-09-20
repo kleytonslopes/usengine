@@ -18,7 +18,7 @@
 #include "Physics/PhysicsShapeInitialize.hpp"
 #include "CollisionComponent-generated.hpp"
 
-DECLARE_FUNCTION_OneParam(FOnTransformUpdatedSignature, AFTransform, newTransform);
+DECLARE_FUNCTION_OneParam(FOnTransformUpdatedSignature, FTransform, newTransform);
 
 enum class EBodyType : uint8
 {
@@ -53,7 +53,7 @@ public:
 	void SetLocation(FVector location);
 	void SetRotation(FVector vector);
 	//void SetUpVector(FVector vector);
-	void SetTransform(AFTransform& transform);
+	void SetTransform(FTransform& transform);
 	void SetBodyType(EBodyType bodyType);
 	void SetPhysicsShapeInitialize(const FPhysicsShapeInitialize& physicsShapeInitialize);
 	

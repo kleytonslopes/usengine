@@ -12,10 +12,10 @@
 #include "Core/Math.hpp"
 
 
-FVector AFTransform::ZeroVector{0.f, 0.f, 0.f };
-FVector AFTransform::WorldUpVector{0.f, 1.f, 0.f };
-FVector AFTransform::WorldForwardVector{0.f, 0.f, -1.f };
-FVector AFTransform::WorldRightVector{glm::normalize(glm::cross(AFTransform::WorldUpVector, glm::normalize(AFTransform::ZeroVector - AFTransform::WorldForwardVector)))};
+FVector FTransform::ZeroVector{0.f, 0.f, 0.f };
+FVector FTransform::WorldUpVector{0.f, 1.f, 0.f };
+FVector FTransform::WorldForwardVector{0.f, 0.f, -1.f };
+FVector FTransform::WorldRightVector{glm::normalize(glm::cross(FTransform::WorldUpVector, glm::normalize(FTransform::ZeroVector - FTransform::WorldForwardVector)))};
 
 //FQuaternion AFTransform::LookAt(FVector direction, FVector upVector)
 //{

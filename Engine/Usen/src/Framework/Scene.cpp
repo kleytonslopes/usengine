@@ -136,7 +136,7 @@ void UScene::Initialize()
 		{ // Floor
 			FMeshParameters floorMeshParameters{};
 			floorMeshParameters.MeshPath = FText::Format(Content::ModelFilePath, "sm_floor.obj");
-			AFTransform trasform;
+			FTransform trasform;
 			trasform.SetLocation({ 0.f,-10.f,0.f });
 			trasform.SetRotation({ 0.f,0.f,0.f });
 			trasform.SetScale({ 4.f,4.f,4.f });
@@ -151,7 +151,7 @@ void UScene::Initialize()
 		}
 
 		{ // Gizmo
-			AFTransform trasform;
+			FTransform trasform;
 			trasform.SetLocation({ 0.f,0.f,0.f });
 			trasform.SetRotation({ 0.f,0.f,0.f });
 			FMeshParameters gizmomeshparameters{};
@@ -166,7 +166,7 @@ void UScene::Initialize()
 		}
 
 		{ // forward vector
-			AFTransform trasform;
+			FTransform trasform;
 			trasform.SetLocation({ 0.f,0.f,-10.f });
 			trasform.SetRotation({ 90.f,0.f,0.f });
 			FMeshParameters gizmomeshparameters{};
@@ -179,8 +179,8 @@ void UScene::Initialize()
 			gizmomesh->Initialize();
 		}
 		{ // up vector
-			AFTransform trasform;
-			trasform.SetLocation(AFTransform::WorldUpVector * 10.f);
+			FTransform trasform;
+			trasform.SetLocation(FTransform::WorldUpVector * 10.f);
 			trasform.SetRotation({ 180.f,0.f,0.f });
 			FMeshParameters gizmomeshparameters{};
 			gizmomeshparameters.MeshPath = FText::Format(Content::ModelFilePath, "arrowUp.obj");
@@ -192,7 +192,7 @@ void UScene::Initialize()
 			gizmomesh->Initialize();
 		}
 		{ // right vector
-			AFTransform trasform;
+			FTransform trasform;
 			trasform.SetLocation({ 10.f,0.f,0.f });
 			trasform.SetRotation({ 0.f,0.f,90.f });
 			FMeshParameters gizmomeshparameters{};
@@ -231,7 +231,7 @@ void UScene::Initialize()
 			FAttachmentSettings pawnFwdArrowAttachmentSettings{};
 			pawnFwdArrowAttachmentSettings.AttachMode = EAttachMode::EAM_KeepTrasform;
 			pawnFwdArrowAttachmentSettings.bControlParentRotation = true;
-			AFTransform trasform;
+			FTransform trasform;
 			trasform.SetLocation({ 0.f,2.f,0.f });
 			trasform.SetRotation({ 90.f,0.f,90.f });
 			FMeshParameters gizmomeshparameters{};
@@ -279,7 +279,7 @@ void UScene::Initialize()
 
 			{ // wall
 
-				AFTransform transformBox;
+				FTransform transformBox;
 				transformBox.SetLocation({ -40.f,-8.f,0.f });
 				transformBox.SetOrigin({ 0.f,0.f,0.f });
 				transformBox.SetRotation({ 0.f,0.f,90.f });
@@ -294,7 +294,7 @@ void UScene::Initialize()
 			}
 			{ // wall
 
-				AFTransform transformBox;
+				FTransform transformBox;
 				transformBox.SetLocation({ 40.f,-8.f,0.f });
 				transformBox.SetOrigin({ 0.f,0.f,0.f });
 				transformBox.SetRotation({ 0.f,0.f,90.f });
@@ -309,7 +309,7 @@ void UScene::Initialize()
 			}
 			{ // wall
 
-				AFTransform transformBox;
+				FTransform transformBox;
 				transformBox.SetLocation({ 0.f,-8.f,40.f });
 				transformBox.SetOrigin({ 0.f,0.f,0.f });
 				transformBox.SetRotation({ 0.f,0.f,0.f });
@@ -324,7 +324,7 @@ void UScene::Initialize()
 			}
 			{ // wall
 
-				AFTransform transformBox;
+				FTransform transformBox;
 				transformBox.SetLocation({ 0.f,-8.f,-40.f });
 				transformBox.SetOrigin({ 0.f,0.f,0.f });
 				transformBox.SetRotation({ 0.f,0.f,0.f });
@@ -425,7 +425,7 @@ void UScene::CreateDefaultController()
 
 void UScene::CreateDebugCamera()
 {
-	AFTransform trasformCamera;
+	FTransform trasformCamera;
 	trasformCamera.SetLocation({ 0.f,0.f,0.f });
 	trasformCamera.SetOrigin({ 0.f,0.f,0.f });
 	trasformCamera.SetRotation({ 0.f,0.f,0.f });
@@ -436,7 +436,7 @@ void UScene::CreateDebugCamera()
 
 void UScene::CreateDefaultCamera()
 {
-	AFTransform trasformCamera;
+	FTransform trasformCamera;
 	trasformCamera.SetLocation({ 0.f,0.f,0.f });
 	trasformCamera.SetOrigin({ 0.f,1.f,0.f });
 	trasformCamera.SetRotation({ 0.f,0.f,0.f });

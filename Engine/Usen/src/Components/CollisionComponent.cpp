@@ -29,7 +29,7 @@ void UCollisionComponent::PostConstruct()
 	if (!bIsDynamic)
 		Mass = 0.f;
 
-	AFTransform trasnform = GetParentTransform();
+	FTransform trasnform = GetParentTransform();
 
 	SetTransform(trasnform);
 
@@ -246,7 +246,7 @@ void UCollisionComponent::SetRotation(FVector vector)
 //{
 //}
 
-void UCollisionComponent::SetTransform(AFTransform& transform)
+void UCollisionComponent::SetTransform(FTransform& transform)
 {
 
 }

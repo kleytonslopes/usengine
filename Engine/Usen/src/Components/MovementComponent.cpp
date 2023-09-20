@@ -45,7 +45,7 @@ void UMovementComponent::AddForwardMovement(float scaleMovement)
 		}
 		else
 		{
-			AFTransform transform = aParant->GetTransform();
+			FTransform transform = aParant->GetTransform();
 			transform.GetLocation().x += -scaleMovement * Speed;
 			aParant->SetTransform(transform);
 		}
@@ -86,7 +86,7 @@ void UMovementComponent::AddRightMovement(float scaleMovement)
 		}
 		else
 		{
-			AFTransform transform = aParant->GetTransform();
+			FTransform transform = aParant->GetTransform();
 			transform.GetLocation().z += -scaleMovement * Speed;
 			aParant->SetTransform(transform);
 		}

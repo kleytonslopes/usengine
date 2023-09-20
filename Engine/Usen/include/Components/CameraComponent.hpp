@@ -22,7 +22,7 @@ class UCameraComponent : public AComponent
 	DEFAULT_BODY_GENERATED()
 
 public:
-	AFTransform CameraTrasnsform{};
+	FTransform CameraTrasnsform{};
 
 	void Construct() override;
 	void PostConstruct() override;

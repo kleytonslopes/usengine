@@ -126,16 +126,16 @@ void AActor::AttatchTo(AEntity* parent, FAttachmentSettings& attachmentSettings)
 
 	if (attachmentSettings.AttachMode == EAttachMode::EAM_SnapToTarget)
 	{
-		AFTransform newTransform = actorParent->GetTransform();
+		FTransform newTransform = actorParent->GetTransform();
 		FVector location = newTransform.GetLocation();
 		newTransform.SetLocation(location + GetOrigin());
 		SetTransform(newTransform);
 	}
 	else if (attachmentSettings.AttachMode == EAttachMode::EAM_KeepTrasform)
 	{
-		AFTransform parentTransform = actorParent->GetTransform();
+		FTransform parentTransform = actorParent->GetTransform();
 		FVector location = parentTransform.GetLocation();
-		AFTransform myTransform = GetTransform();
+		FTransform myTransform = GetTransform();
 		myTransform.SetLocation(location + myTransform.GetOrigin());
 		//myTransform.Location = location + myTransform.Origin;
 		SetTransform(myTransform);
@@ -182,7 +182,7 @@ void AActor::SetScale(FVector& vector)
 {
 	TransformComponent->SetScale(vector);
 }
-void AActor::SetTransform(AFTransform& transform)
+void AActor::SetTransform(FTransform& transform)
 {
 	TransformComponent->SetTransform(transform);
 }
@@ -242,7 +242,7 @@ FVector AActor::GetSceneLocation()
 	}
 	return location;
 }
-AFTransform& AActor::GetTransform()
+FTransform& AActor::GetTransform()
 {
 	return TransformComponent->GetTransform();
 }

@@ -42,7 +42,7 @@ FVector UTransformComponent::GetForwardVector()
 	return Transform.GetForwardVector();
 }
 
-AFTransform UTransformComponent::GetTransform()
+FTransform UTransformComponent::GetTransform()
 {
 	return Transform;
 }
@@ -57,7 +57,7 @@ FVector UTransformComponent::GetDirection()
 	return glm::normalize(Transform.GetLocation() - Transform.GetForwardVector());
 }
 
-void UTransformComponent::SetTransform(AFTransform transform)
+void UTransformComponent::SetTransform(FTransform transform)
 {
 	SetLocation(transform.GetLocation());
 	SetOrigin(transform.GetOrigin());

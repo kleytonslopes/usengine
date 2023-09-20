@@ -44,7 +44,7 @@ public:
 	virtual void SetLocation(FVector& vector);
 	virtual void SetRotation(FVector& vector);
 	void SetScale(FVector& vector);
-	void SetTransform(AFTransform& transform);
+	void SetTransform(FTransform& transform);
 	void SetForwardVector(FVector& vector);
 	void SetUpVector(FVector& vector);
 
@@ -54,7 +54,7 @@ public:
 	FVector GetRotation();
 	FVector GetScale();
 	FVector GetSceneLocation();
-	AFTransform& GetTransform();
+	FTransform& GetTransform();
 	FVector GetForwardVector();
 	FVector GetRightVector();
 	FVector GetUpVector();

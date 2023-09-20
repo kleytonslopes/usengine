@@ -16,7 +16,7 @@
 #include "Core/Vector.hpp"
 #include "Core/Axis.hpp"
 
-class AFTransform
+class FTransform
 {
 public:
 	FVector& GetLocation() { return Location; }
@@ -65,21 +65,13 @@ public:
 	static FVector WorldForwardVector;
 	static FVector WorldRightVector;
 
-	//static FQuaternion LookAt(FVector direction, FVector upVector);
-	//static FQuaternion Rotate(FVector from, FVector to);
-	//static FQuaternion Rotate(FVector from, FVector to, EAxis axis);
-
 private:
 	FVector Location{ 0.f, 0.f, 0.f };
 	FVector Origin{ 0.f, 0.f, 0.f };
 	FVector Rotation{ 0.f, 0.f, 0.f };
 	FVector Scale{ 1.f, 1.f, 1.f };
-	FVector UpVector = AFTransform::WorldUpVector;//{ 0.f, 0.f, 1.f };       /// Y+
-	FVector ForwardVector = AFTransform::WorldForwardVector;//{ 1.f, 0.f, 0.f }; /// Z-
-
-	FVector AxisX{ 1.f, 0.f, 0.f };
-	FVector AxisY{ 0.f, 1.f, 0.f };
-	FVector AxisZ{ 0.f, 0.f, 1.f };
+	FVector UpVector = FTransform::WorldUpVector;//{ 0.f, 0.f, 1.f };       /// Y+
+	FVector ForwardVector = FTransform::WorldForwardVector;//{ 1.f, 0.f, 0.f }; /// Z-
 };
 
 #endif // !US_TRANSFORM_HPP

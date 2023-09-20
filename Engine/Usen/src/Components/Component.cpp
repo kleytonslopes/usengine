@@ -33,7 +33,7 @@ FVector AComponent::GetParentLocation()
 	return FVector{0};
 }
 
-AFTransform AComponent::GetParentTransform()
+FTransform AComponent::GetParentTransform()
 {
 	if (Parent)
 	{
